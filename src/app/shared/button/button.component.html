@@ -1,0 +1,10 @@
+<button
+  [ngClass]="{
+    'login-button': styleContext === 'login-button',
+    'register-button': styleContext === 'register-button',
+    'after-register-button': styleContext === 'after-register-button',
+    'reset-button': styleContext === 'reset-button'
+  }"
+>
+  {{ context }}
+</button>
