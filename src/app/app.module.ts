@@ -10,6 +10,7 @@ import { ButtonComponent } from './shared/button/button.component';
 import { InputComponent } from './shared/input/input.component';
 import { AfterRegisterPageComponent } from './auth-page/after-register-page/after-register-page.component';
 import { ResetPasswordPageComponent } from './auth-page/reset-password-page/reset-password-page.component';
+import {ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -20,11 +21,9 @@ import { ResetPasswordPageComponent } from './auth-page/reset-password-page/rese
     ButtonComponent,
     LoginPageComponent,
     RegisterPageComponent,
-    ButtonComponent,
-    InputComponent,
     ResetPasswordPageComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule],
+  imports: [BrowserModule, AppRoutingModule, ReactiveFormsModule],
   providers: [],
   bootstrap: [AppComponent],
 })

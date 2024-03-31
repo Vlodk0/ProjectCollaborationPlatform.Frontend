@@ -3,7 +3,7 @@
     <span class="left-side-text"><span>Welcome to Collabro</span></span>
     <div class="secondary-container-1">
       <span class="secondary-container-content"
-        ><span>project owner</span></span
+      ><span>project owner</span></span
       >
     </div>
     <div class="secondary-container-2">
@@ -17,7 +17,7 @@
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <circle cx="151" cy="151" r="151" fill="url(#paint0_linear_1_8)" />
+        <circle cx="151" cy="151" r="151" fill="url(#paint0_linear_1_8)"/>
         <defs>
           <linearGradient
             id="paint0_linear_1_8"
@@ -27,8 +27,8 @@
             y2="302"
             gradientUnits="userSpaceOnUse"
           >
-            <stop stop-color="#190061" />
-            <stop offset="1" stop-color="#0A1B30" />
+            <stop stop-color="#190061"/>
+            <stop offset="1" stop-color="#0A1B30"/>
           </linearGradient>
         </defs>
       </svg>
@@ -57,8 +57,8 @@
             y2="220.157"
             gradientUnits="userSpaceOnUse"
           >
-            <stop stop-color="#000F61" />
-            <stop offset="1" stop-color="#0A1730" />
+            <stop stop-color="#000F61"/>
+            <stop offset="1" stop-color="#0A1730"/>
           </linearGradient>
         </defs>
       </svg>
@@ -74,33 +74,65 @@
             </span>
           </div>
           <div class="container-credentials">
-            <form>
-              <app-input
-                [inputStyleContext]="'username-input'"
-                [inputTypeContext]="'text'"
-                [inputPlaceholderContext]="'Username'"
-              ></app-input>
-              <app-input
-                [inputStyleContext]="'email-input'"
-                [inputTypeContext]="'email'"
-                [inputPlaceholderContext]="'Email'"
-              ></app-input>
+            <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+<!--              <app-input-->
+<!--                [inputStyleContext]="'username-input'"-->
+<!--                [inputTypeContext]="'text'"-->
+<!--                [inputPlaceholderContext]="'Username'"-->
+<!--              ></app-input>-->
+
+              <input class="username-input" type="text" placeholder="Username" formControlName="username">
+              <div *ngIf="registerForm.get('username')?.invalid && registerForm.get('username')?.touched">
+                <div *ngIf="registerForm.get('username')?.errors?.['required']" class="validate-content">Username is
+                  required.
+                </div>
+              </div>
+              <!--              <app-input-->
+              <!--                [inputStyleContext]="'email-input'"-->
+              <!--                [inputTypeContext]="'email'"-->
+              <!--                [inputPlaceholderContext]="'Email'"-->
+              <!--              ></app-input>-->
+              <input class="email-input" type="email" placeholder="Email" formControlName="email">
+              <div *ngIf="registerForm.get('email')?.touched && registerForm.get('email')?.invalid">
+                <div *ngIf="registerForm.get('email')?.errors?.['required']" class="validate-content">Email is
+                  required.
+                </div>
+                <div *ngIf="registerForm.get('email')?.errors?.['email']" class="validate-content">Invalid email
+                  format.
+                </div>
+              </div>
               <div class="container-password-rem">
-                <app-input
-                  [inputStyleContext]="'password-input'"
-                  [inputTypeContext]="'password'"
-                  [inputPlaceholderContext]="'Password'"
-                ></app-input>
-                <app-input
-                  [inputStyleContext]="'confirm-password-input'"
-                  [inputTypeContext]="'password'"
-                  [inputPlaceholderContext]="'Confirm password'"
-                ></app-input>
+                <!--                <app-input-->
+                <!--                  [inputStyleContext]="'password-input'"-->
+                <!--                  [inputTypeContext]="'password'"-->
+                <!--                  [inputPlaceholderContext]="'Password'"-->
+                <!--                ></app-input>-->
+                <input class="password-input" type="password" placeholder="Password" formControlName="password">
+                <div *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
+                  <div *ngIf="registerForm.get('password')?.errors?.['required']" class="validate-content">Password is
+                    required.
+                  </div>
+                </div>
+
+                <!--                <app-input-->
+                <!--                  [inputStyleContext]="'confirm-password-input'"-->
+                <!--                  [inputTypeContext]="'password'"-->
+                <!--                  [inputPlaceholderContext]="'Confirm password'"-->
+                <!--                ></app-input>-->
+
+                <input class="password-input" type="password" placeholder="Confirm password" formControlName="password">
+                <div *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
+                  <div *ngIf="registerForm.get('password')?.errors?.['required']" class="validate-content">Password is
+                    required.
+                  </div>
+                </div>
               </div>
               <div class="register-button-container">
                 <app-button
-                  [context]="context"
-                  [styleContext]="styleContext"
+                  [styleContext]="'register-button'"
+                  [context]="'Sign up'"
+                  type="submit"
+                  [disabled]="registerForm.invalid"
                 ></app-button>
               </div>
             </form>
