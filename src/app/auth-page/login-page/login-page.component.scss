@@ -186,6 +186,25 @@
               }
             }
 
+            .email-input,
+            .password-input {
+              background-color: rgba(0, 0, 0, 0.081);
+              color: azure;
+              width: 400px;
+              display: flex;
+              padding: 14px 16px;
+              font-size: 20px;
+              text-align: left;
+              align-items: center;
+              font-family: "Noto Sans";
+              font-weight: 400;
+              border-color: azure;
+              border-style: solid;
+              border-width: 1px;
+              border-radius: 12px;
+              margin-top: 20px;
+            }
+
             .container-login-button {
               gap: 12px;
               display: flex;
@@ -197,7 +216,7 @@
                 color: azure;
                 height: auto;
                 font-size: 16px;
-                font-style: Medium;
+                font-style: 'Medium';
                 text-align: left;
                 font-family: "Noto Sans";
                 font-weight: 500;
@@ -258,4 +277,3 @@
     }
   }
 }
-

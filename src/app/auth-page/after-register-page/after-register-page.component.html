@@ -12,7 +12,7 @@
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <circle cx="151" cy="151" r="151" fill="url(#paint0_linear_2169_6)" />
+        <circle cx="151" cy="151" r="151" fill="url(#paint0_linear_2169_6)"/>
         <defs>
           <linearGradient
             id="paint0_linear_2169_6"
@@ -22,8 +22,8 @@
             y2="302"
             gradientUnits="userSpaceOnUse"
           >
-            <stop stop-color="#1A64BC" stop-opacity="0.57" />
-            <stop offset="1" stop-color="#EE98EA" />
+            <stop stop-color="#1A64BC" stop-opacity="0.57"/>
+            <stop offset="1" stop-color="#EE98EA"/>
           </linearGradient>
         </defs>
       </svg>
@@ -52,8 +52,8 @@
             y2="220.157"
             gradientUnits="userSpaceOnUse"
           >
-            <stop stop-color="#1A64BC" stop-opacity="0.7" />
-            <stop offset="1" stop-color="#EE98EA" />
+            <stop stop-color="#1A64BC" stop-opacity="0.7"/>
+            <stop offset="1" stop-color="#EE98EA"/>
           </linearGradient>
         </defs>
       </svg>
@@ -68,20 +68,32 @@
             </span>
           </div>
           <div class="container-credentials">
-            <form>
-              <app-input
-                [inputStyleContext]="'fname-input'"
-                [inputTypeContext]="'text'"
-                [inputPlaceholderContext]="'First Name'"
-              ></app-input>
-              <app-input
-                [inputStyleContext]="'lname-input'"
-                [inputTypeContext]="'text'"
-                [inputPlaceholderContext]="'Last Name'"
-              ></app-input>
+            <form [formGroup]="afterRegisterForm" (ngSubmit)="onSubmit()">
+<!--              <app-input-->
+<!--                [inputStyleContext]="'fname-input'"-->
+<!--                [inputTypeContext]="'text'"-->
+<!--                [inputPlaceholderContext]="'First Name'"-->
+<!--                formControlName="firstName"-->
+<!--              ></app-input>-->
+              <input class="fname-input" type="text" placeholder="First Name" formControlName="firstName">
+              <div *ngIf="afterRegisterForm.get('firstName')?.invalid && afterRegisterForm.get('firstName')?.touched">
+                <div *ngIf="afterRegisterForm.get('firstName')?.errors?.['required']" class="validate-content">Field is required.</div>
+              </div>
+<!--              <app-input-->
+<!--                [inputStyleContext]="'lname-input'"-->
+<!--                [inputTypeContext]="'text'"-->
+<!--                [inputPlaceholderContext]="'Last Name'"-->
+<!--                formControlName="lastName"-->
+<!--              ></app-input>-->
+              <input class="lname-input" type="text" placeholder="First Name" formControlName="lastName">
+              <div *ngIf="afterRegisterForm.get('lastName')?.invalid && afterRegisterForm.get('lastName')?.touched">
+                <div *ngIf="afterRegisterForm.get('lastName')?.errors?.['required']" class="validate-content">Field is required.</div>
+              </div>
               <div class="register-button-container">
-                <app-button [context]="context" [styleContext]="styleContext"
-                  >Sign up</app-button
+                <app-button [context]="context" [styleContext]="styleContext" type="submit"
+                            [disabled]="afterRegisterForm.invalid"
+                >
+                </app-button
                 >
               </div>
             </form>

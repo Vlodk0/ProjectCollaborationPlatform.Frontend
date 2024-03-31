@@ -162,3 +162,39 @@
     }
   }
 }
+.fname-input {
+  gap: 10px;
+  color: azure;
+  background-color: rgba(73, 48, 48, 0.081);
+  width: 400px;
+  display: flex;
+  padding: 14px 16px;
+  font-size: 20px;
+  text-align: left;
+  align-items: center;
+  font-family: "Noto Sans";
+  font-weight: 400;
+  border-color: azure;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 12px;
+}
+
+.lname-input {
+  gap: 10px;
+  color: azure;
+  background-color: rgba(73, 48, 48, 0.081);
+  width: 400px;
+  display: flex;
+  padding: 14px 16px;
+  font-size: 20px;
+  text-align: left;
+  align-items: center;
+  font-family: "Noto Sans";
+  font-weight: 400;
+  border-color: azure;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 12px;
+  margin-top: 20px;
+}

@@ -21,8 +21,6 @@
 .email-input,
 .password-input,
 .confirm-password-input,
-.password-input,
-.confirm-password-input,
 .lname-input {
   background-color: rgba(0, 0, 0, 0.081);
   color: azure;
@@ -39,4 +37,8 @@
   border-width: 1px;
   border-radius: 12px;
   margin-top: 20px;
+}
+
+.validate-content {
+  color: red;
 }

@@ -70,18 +70,29 @@
             </span>
           </div>
           <div class="form-credentials">
-            <form>
-              <app-input
-                [inputStyleContext]="'email-input'"
-                [inputTypeContext]="'email'"
-                [inputPlaceholderContext]="'Email'"
-              ></app-input>
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+<!--              <app-input-->
+<!--                [inputStyleContext]="'email-input'"-->
+<!--                [inputTypeContext]="'email'"-->
+<!--                [inputPlaceholderContext]="'Email'"-->
+<!--                [formControlName]="'email'"-->
+<!--              ></app-input>-->
+              <input class="email-input" type="email" placeholder="Email" formControlName="email">
+              <div *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.invalid">
+                <div *ngIf="loginForm.get('email')?.errors?.['required']" class="validate-content">Email is required.</div>
+                <div *ngIf="loginForm.get('email')?.errors?.['email']" class="validate-content">Invalid email format.</div>
+              </div>
               <div class="container-password-rem">
-                <app-input
-                  [inputStyleContext]="'password-input'"
-                  [inputTypeContext]="'password'"
-                  [inputPlaceholderContext]="'Password'"
-                ></app-input>
+<!--                <app-input-->
+<!--                  [inputStyleContext]="'password-input'"-->
+<!--                  [inputTypeContext]="'password'"-->
+<!--                  [inputPlaceholderContext]="'Password'"-->
+<!--                  [formControlName]="'password'"-->
+<!--                ></app-input>-->
+                <input class="password-input" type="password" placeholder="Password" formControlName="password">
+                <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+                  <div *ngIf="loginForm.get('password')?.errors?.['required']" class="validate-content">Password is required.</div>
+                </div>
 
                 <div class="container-rem">
                   <input type="checkbox" class="checkbox-button" />
@@ -94,6 +105,8 @@
                 <app-button
                   [styleContext]="'login-button'"
                   [context]="'Login'"
+                  type="submit"
+                  [disabled]="loginForm.invalid"
                 ></app-button>
                 <span class="forgot-password-text">
                   <span>Forgot password?</span>

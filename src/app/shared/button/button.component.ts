@@ -8,4 +8,5 @@ import { Component, Input } from '@angular/core';
 export class ButtonComponent {
   @Input() context: String | undefined;
   @Input() styleContext: String | undefined;
+  @Input() disabled!: boolean | undefined;
 }
