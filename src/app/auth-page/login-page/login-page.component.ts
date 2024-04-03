@@ -9,12 +9,12 @@ import {CustomValidators} from "../../Helpers/Validators/CustomValidators";
 })
 export class LoginPageComponent implements OnInit{
 
-  loginForm!: FormGroup;
+  loginForm: FormGroup;
   ngOnInit() {
     this.loginForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
-      // password: new FormControl('', [Validators.required, CustomValidators.passwordValidator]),
-      password: new FormControl('', Validators.required)
+      password: new FormControl('', [Validators.required, CustomValidators.passwordValidator]),
+      // password: new FormControl('', Validators.required)
     });
   }
   onSubmit() {
