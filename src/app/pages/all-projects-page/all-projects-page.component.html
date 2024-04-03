@@ -1,0 +1,47 @@
+<app-header></app-header>
+
+<app-sidebar></app-sidebar>
+
+<div class="all-projects-container">
+
+  <div class="projects">
+    <p-table
+      [value]="projects"
+      [lazy]="true"
+      (onLazyLoad)="loadProjects($event)"
+      [globalFilterFields]="['Payment']"
+      [totalRecords]="totalRecords"
+      [paginator]="true"
+      [rows]="paginationFilter.pageSize"
+      [first]="paginationFilter.pageNumber"
+      [showCurrentPageReport]="true"
+      [tableStyle]="{ 'min-width': '50rem' }"
+      dataKey="id"
+      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+      [rowsPerPageOptions]="[15, 20, 50]"
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          <th style="width:33%">Title</th>
+          <th style="width:33%" pSortableColumn="Payment">Payment <p-sortIcon field="Payment"></p-sortIcon></th>
+          <th style="width:33%">Description</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-project>
+        <tr>
+          <td>{{ project.title }}</td>
+          <td>{{ project.payment | currency: 'USD' }}</td>
+          <td>{{ project.description }}</td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="paginatorleft">
+        <p-button type="button" icon="pi pi-plus" styleClass="p-button-text"></p-button>
+      </ng-template>
+      <ng-template pTemplate="paginatorright">
+        <p-button type="button" icon="pi pi-cloud" styleClass="p-button-text"></p-button>
+      </ng-template>
+    </p-table>
+  </div>
+</div>
+
+<div class="secondary-container"></div>

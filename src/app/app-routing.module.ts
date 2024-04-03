@@ -39,6 +39,10 @@ const routes: Routes = [
   {
     path: 'my-profile',
     loadChildren: () => import('./pages/profile-page/profile-page-routing.module').then(r => r.ProfilePageRoutingModule)
+  },
+  {
+    path: 'all-projects',
+    loadChildren: () => import('./pages/all-projects-page/all-projects-page-routing.module').then(r => r.AllProjectsPageRoutingModule)
   }
 ];
 

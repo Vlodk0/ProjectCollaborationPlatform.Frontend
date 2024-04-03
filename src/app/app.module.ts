@@ -16,6 +16,11 @@ import { HeaderComponent } from './core/header/header.component';
 import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
 import {InputSwitchModule} from "primeng/inputswitch";
 import {AvatarModule} from "primeng/avatar";
+import { AllProjectsPageComponent } from './pages/all-projects-page/all-projects-page.component';
+import {TableModule} from "primeng/table";
+import {ButtonModule} from "primeng/button";
+import {HttpClient, HttpClientModule} from "@angular/common/http";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 @NgModule({
   declarations: [
@@ -30,8 +35,10 @@ import {AvatarModule} from "primeng/avatar";
     SidebarComponent,
     HeaderComponent,
     ProfilePageComponent,
+    AllProjectsPageComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, ReactiveFormsModule, InputSwitchModule, AvatarModule],
+  imports: [BrowserModule, AppRoutingModule, ReactiveFormsModule,
+    InputSwitchModule, AvatarModule, TableModule, ButtonModule, HttpClientModule, BrowserAnimationsModule],
   providers: [],
   bootstrap: [AppComponent],
 })
