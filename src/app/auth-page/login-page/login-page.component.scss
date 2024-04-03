@@ -205,6 +205,11 @@
               margin-top: 20px;
             }
 
+            input.ng-invalid.ng-touched {
+              border: red 2px solid;
+            }
+
+
             .container-login-button {
               gap: 12px;
               display: flex;

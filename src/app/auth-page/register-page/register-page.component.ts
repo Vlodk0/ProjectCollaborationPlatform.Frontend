@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {CustomValidators} from "../../Helpers/Validators/CustomValidators";
 
 @Component({
   selector: 'app-register-page',
@@ -9,13 +10,14 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 export class RegisterPageComponent implements OnInit{
 
   registerForm!: FormGroup
+  checked: boolean;
 
   ngOnInit() {
     this.registerForm = new FormGroup({
       username: new FormControl('', Validators.required),
       email: new FormControl('', [Validators.required, Validators.email]),
-      // password: new FormControl('', [Validators.required, CustomValidators.passwordValidator]),
-      password: new FormControl('', Validators.required)
+      password: new FormControl('', [Validators.required, CustomValidators.passwordValidator]),
+      // password: new FormControl('', Validators.required)
     });
   }
 
