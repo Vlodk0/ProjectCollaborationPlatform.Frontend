@@ -1,0 +1,108 @@
+.header-container {
+  width: 1592px;
+  height: 308px;
+  top: 24px;
+  left: 296px;
+  gap: 0px;
+  background-size: cover;
+  position: absolute;
+  background-image: url('../../../assets/header-background.png');
+  border-radius: 5px;
+
+  .navbar-container {
+    //width: 100%;
+    //display: flex;
+    //overflow: auto;
+    //align-items: center;
+    //flex-direction: column;
+
+    .navbar {
+      width: 1557px;
+      height: 45px;
+      display: flex;
+      overflow: hidden;
+      position: relative;
+      align-items: flex-start;
+      flex-shrink: 0;
+
+      .navbar-text {
+        top: 15px;
+        color: azure;
+        width: 50px;
+        height: auto;
+        position: absolute;
+        font-size: 14px;
+        font-style: Regular;
+        text-align: left;
+        font-family: 'Aldrich';
+        font-weight: 400;
+      }
+
+      .navbar-text-2 {
+        top: 15px;
+        left: 1364.8128662109375px;
+        color: azure;
+        width: 48px;
+        height: auto;
+        position: absolute;
+        font-size: 14px;
+        font-style: Regular;
+        text-align: left;
+        font-family: 'Aldrich';
+        font-weight: 400;
+      }
+
+      .user-circle {
+        top: 15px;
+        left: 1346px;
+        width: 14px;
+        height: 14px;
+        display: flex;
+        position: absolute;
+        align-items: flex-start;
+        flex-shrink: 1;
+
+        .user-circle-content {
+          top: 0px;
+          left: 0px;
+          width: 14px;
+          height: 14px;
+          position: absolute;
+        }
+      }
+
+      .navbar-text-3 {
+        top: 15px;
+        left: 1464.8128662109375px;
+        color: azure;
+        width: 48px;
+        height: auto;
+        position: absolute;
+        font-size: 14px;
+        font-style: Regular;
+        text-align: left;
+        font-family: 'Aldrich';
+        font-weight: 400;
+      }
+
+      .user-settings {
+        top: 15px;
+        left: 1442px;
+        width: 14px;
+        height: 13.999996185302734px;
+        display: flex;
+        position: absolute;
+        align-items: flex-start;
+        flex-shrink: 1;
+
+        .user-settings-content {
+          top: 0px;
+          left: 0px;
+          width: 14px;
+          height: 14px;
+          position: absolute;
+        }
+      }
+    }
+  }
+}
