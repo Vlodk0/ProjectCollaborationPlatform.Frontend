@@ -181,6 +181,10 @@
               flex-direction: column;
               justify-content: center;
             }
+
+            .message {
+              z-index: 10;
+            }
           }
         }
 
