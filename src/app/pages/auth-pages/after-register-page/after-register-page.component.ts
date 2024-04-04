@@ -11,7 +11,6 @@ export class AfterRegisterPageComponent implements OnInit{
   styleContext: String = 'after-register-button';
 
   afterRegisterForm!: FormGroup;
-
   ngOnInit() {
     this.afterRegisterForm = new FormGroup({
       firstName: new FormControl('', [Validators.required]),
