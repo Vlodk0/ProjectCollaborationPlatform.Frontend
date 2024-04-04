@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {CustomValidators} from "../../Helpers/Validators/CustomValidators";
+import {CustomValidators} from "../../../shared/helpers/validators/customValidators";
 
 @Component({
   selector: 'app-login-page',
@@ -14,7 +14,7 @@ export class LoginPageComponent implements OnInit{
     this.loginForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required, CustomValidators.passwordValidator]),
-      // password: new FormControl('', Validators.required)
+      // password: new FormControl('', validators.required)
     });
   }
   onSubmit() {

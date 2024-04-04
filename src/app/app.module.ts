@@ -3,13 +3,8 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AuthPageComponent } from './auth-page/auth-page.component';
-import { LoginPageComponent } from './auth-page/login-page/login-page.component';
-import { RegisterPageComponent } from './auth-page/register-page/register-page.component';
-import { ButtonComponent } from './shared/button/button.component';
-import { InputComponent } from './shared/input/input.component';
-import { AfterRegisterPageComponent } from './auth-page/after-register-page/after-register-page.component';
-import { ResetPasswordPageComponent } from './auth-page/reset-password-page/reset-password-page.component';
+import { ButtonComponent } from './shared/components/button/button.component';
+import { InputComponent } from './shared/components/input/input.component';
 import {ReactiveFormsModule} from "@angular/forms";
 import { SidebarComponent } from './core/sidebar/sidebar.component';
 import { HeaderComponent } from './core/header/header.component';
@@ -21,6 +16,11 @@ import {TableModule} from "primeng/table";
 import {ButtonModule} from "primeng/button";
 import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {AuthPageComponent} from "./pages/auth-pages/auth-page.component";
+import {AfterRegisterPageComponent} from "./pages/auth-pages/after-register-page/after-register-page.component";
+import {LoginPageComponent} from "./pages/auth-pages/login-page/login-page.component";
+import {RegisterPageComponent} from "./pages/auth-pages/register-page/register-page.component";
+import {ResetPasswordPageComponent} from "./pages/auth-pages/reset-password-page/reset-password-page.component";
 
 @NgModule({
   declarations: [

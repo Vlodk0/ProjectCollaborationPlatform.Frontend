@@ -12,20 +12,20 @@ const routes: Routes = [
     path: 'reset-password',
     loadChildren: () =>
       import(
-        './auth-page/reset-password-page/reset-password-page-routing.module'
+        './pages/auth-pages/reset-password-page/reset-password-page-routing.module'
         ).then((r) => r.ResetPasswordPageRoutingModule),
   },
   {
     path: 'signin',
     loadChildren: () =>
-      import('./auth-page/login-page/login-page-routing.module').then(
+      import('./pages/auth-pages/login-page/login-page-routing.module').then(
         (r) => r.LoginPageRoutingModule
       ),
   },
   {
     path: 'signup',
     loadChildren: () =>
-      import('./auth-page/register-page/register-page-routing.module').then(
+      import('./pages/auth-pages/register-page/register-page-routing.module').then(
         (r) => r.RegisterPageRoutingModule
       ),
   },
@@ -33,7 +33,7 @@ const routes: Routes = [
     path: 'signup/credentials',
     loadChildren: () =>
       import(
-        './auth-page/after-register-page/after-register-page-routing.module'
+        './pages/auth-pages/after-register-page/after-register-page-routing.module'
         ).then((r) => r.AfterRegisterPageRoutingModule),
   },
   {

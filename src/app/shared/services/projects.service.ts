@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpParams} from "@angular/common/http";
-import {PaginationFilter} from "../Interfaces/pagination-filter";
+import {PaginationFilter} from "../interfaces/pagination-filter";
 import {Observable} from "rxjs";
-import {PaginationResponse} from "../Interfaces/pagination-response";
-import {ProjectPagination} from "../Interfaces/project-pagination";
+import {PaginationResponse} from "../interfaces/pagination-response";
+import {ProjectPagination} from "../interfaces/project-pagination";
 import {environment} from "../../environment";
 
 @Injectable({

@@ -1,8 +1,8 @@
 import {Component, OnDestroy} from '@angular/core';
 import {TableLazyLoadEvent} from "primeng/table";
-import {PaginationFilter} from "../../core/Interfaces/pagination-filter";
-import {ProjectsService} from "../../core/services/projects.service";
-import {ProjectPagination} from "../../core/Interfaces/project-pagination";
+import {PaginationFilter} from "../../shared/interfaces/pagination-filter";
+import {ProjectsService} from "../../shared/services/projects.service";
+import {ProjectPagination} from "../../shared/interfaces/project-pagination";
 import {Subject, takeUntil} from "rxjs";
 
 @Component({
