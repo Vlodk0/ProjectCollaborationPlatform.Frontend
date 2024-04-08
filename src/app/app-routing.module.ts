@@ -43,6 +43,14 @@ const routes: Routes = [
   {
     path: 'all-projects',
     loadChildren: () => import('./pages/all-projects-page/all-projects-page-routing.module').then(r => r.AllProjectsPageRoutingModule)
+  },
+  {
+    path: 'email-failed',
+    loadChildren: () => import('./static-pages/email-failed-page/email-failed-page-routing.module').then(r => r.EmailFailedPageRoutingModule)
+  },
+  {
+    path: 'email-success',
+    loadChildren: () => import('./static-pages/email-success-page/email-success-page-routing.module').then(r => r.EmailSuccessPageRoutingModule)
   }
 ];
 

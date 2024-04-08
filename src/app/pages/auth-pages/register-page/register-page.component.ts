@@ -14,7 +14,7 @@ import {MessageService} from "primeng/api";
 export class RegisterPageComponent implements OnInit {
 
   registerForm!: FormGroup
-  checked: boolean;
+  // checked: boolean = false;
   private isRegistered: boolean;
 
   addSuccessMessage() {
@@ -30,9 +30,11 @@ export class RegisterPageComponent implements OnInit {
 
   ngOnInit() {
     this.registerForm = new FormGroup({
-      username: new FormControl('', Validators.required),
+      firstName: new FormControl('', Validators.required),
+      lastName: new FormControl('', Validators.required),
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required, CustomValidators.passwordValidator]),
+      checked: new FormControl(false),
       // password: new FormControl('', validators.required)
     });
   }
@@ -47,8 +49,15 @@ export class RegisterPageComponent implements OnInit {
       name: this.registerForm.value.email,
       email: this.registerForm.value.email,
       password: this.registerForm.value.password,
-      roleName: this.checked === false ? "ProjectOwner" : "Dev"
+      roleName: this.registerForm.value.checked === false ? "ProjectOwner" : "Dev"
     }
+
+    const checkedValue = this.registerForm.value.checked.toString();
+    console.log(checkedValue)
+    localStorage.setItem("roleChecked", checkedValue)
+
+    localStorage.setItem("firstName", this.registerForm.value.firstName)
+    localStorage.setItem("lastName", this.registerForm.value.lastName)
 
     this.authService.register(registerObj);
     this.authService.result.subscribe((res: boolean) => {

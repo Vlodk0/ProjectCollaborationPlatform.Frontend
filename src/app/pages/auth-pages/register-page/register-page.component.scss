@@ -188,35 +188,6 @@
           }
         }
 
-        .other-logins {
-          gap: 12px;
-          display: flex;
-          align-items: center;
-          flex-direction: column;
-
-          .container-or {
-            gap: 20px;
-            top: 100px;
-            display: flex;
-            align-items: center;
-
-            .container-line1,
-            .container-line2 {
-              width: 170px;
-              height: 1px;
-            }
-
-            .text-or {
-              color: azure;
-              height: auto;
-              font-size: 16px;
-              padding-top: 20px;
-              text-align: left;
-              font-family: "Noto Sans";
-              font-weight: 500;
-            }
-          }
-        }
       }
 
       .already-register-text {
@@ -248,7 +219,9 @@
 .email-input,
 .username-input,
 .password-input,
-.confirm-password-input {
+.confirm-password-input,
+.lname-input,
+.fname-input {
   background-color: rgba(0, 0, 0, 0.081);
   color: azure;
   width: 400px;

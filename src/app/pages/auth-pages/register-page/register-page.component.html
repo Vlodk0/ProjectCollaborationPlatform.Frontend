@@ -76,17 +76,14 @@
           </div>
           <div class="container-credentials">
             <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-<!--              <app-input-->
-<!--                [inputStyleContext]="'username-input'"-->
-<!--                [inputTypeContext]="'text'"-->
-<!--                [inputPlaceholderContext]="'Username'"-->
-<!--              ></app-input>-->
-
-              <!--              <app-input-->
-              <!--                [inputStyleContext]="'email-input'"-->
-              <!--                [inputTypeContext]="'email'"-->
-              <!--                [inputPlaceholderContext]="'Email'"-->
-              <!--              ></app-input>-->
+              <input class="fname-input" type="text" placeholder="First Name" formControlName="firstName">
+              <div *ngIf="registerForm.get('firstName')?.invalid && registerForm.get('firstName')?.touched">
+                <div *ngIf="registerForm.get('firstName')?.errors?.['required']" class="validate-content">Field is required.</div>
+              </div>
+              <input class="lname-input" type="text" placeholder="Last Name" formControlName="lastName">
+              <div *ngIf="registerForm.get('lastName')?.invalid && registerForm.get('lastName')?.touched">
+                <div *ngIf="registerForm.get('lastName')?.errors?.['required']" class="validate-content">Field is required.</div>
+              </div>
               <input class="email-input" type="email" placeholder="Email" formControlName="email">
               <div *ngIf="registerForm.get('email')?.touched && registerForm.get('email')?.invalid">
                 <div *ngIf="registerForm.get('email')?.errors?.['required']" class="validate-content">Email is
@@ -131,49 +128,6 @@
                 ></app-button>
               </div>
             </form>
-          </div>
-        </div>
-        <div class="other-logins">
-          <div class="container-or">
-            <div class="container-line1">
-              <svg
-                width="170"
-                height="2"
-                viewBox="0 0 170 2"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <line
-                  x1="1"
-                  y1="1"
-                  x2="169"
-                  y2="1"
-                  stroke="#4D4D4D"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                />
-              </svg>
-            </div>
-            <span class="text-or">Or</span>
-            <div class="container-line2">
-              <svg
-                width="170"
-                height="2"
-                viewBox="0 0 170 2"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <line
-                  x1="1"
-                  y1="1"
-                  x2="169"
-                  y2="1"
-                  stroke="#4D4D4D"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                />
-              </svg>
-            </div>
           </div>
         </div>
       </div>
