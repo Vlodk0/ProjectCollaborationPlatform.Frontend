@@ -24,6 +24,8 @@ import {ResetPasswordPageComponent} from "./pages/auth-pages/reset-password-page
 import {HttpRequestInterceptor} from "./core/interceptors/auth.interceptor";
 import {MessagesModule} from "primeng/messages";
 import {ToastModule} from "primeng/toast";
+import { EmailSuccessPageComponent } from './static-pages/email-success-page/email-success-page.component';
+import { EmailFailedPageComponent } from './static-pages/email-failed-page/email-failed-page.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +41,8 @@ import {ToastModule} from "primeng/toast";
     HeaderComponent,
     ProfilePageComponent,
     AllProjectsPageComponent,
+    EmailSuccessPageComponent,
+    EmailFailedPageComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, ReactiveFormsModule,
     InputSwitchModule, AvatarModule, TableModule, ButtonModule, HttpClientModule, BrowserAnimationsModule, MessagesModule, ToastModule],

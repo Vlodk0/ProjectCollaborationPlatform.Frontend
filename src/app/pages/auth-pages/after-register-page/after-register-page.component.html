@@ -79,12 +79,6 @@
               <div *ngIf="afterRegisterForm.get('firstName')?.invalid && afterRegisterForm.get('firstName')?.touched">
                 <div *ngIf="afterRegisterForm.get('firstName')?.errors?.['required']" class="validate-content">Field is required.</div>
               </div>
-<!--              <app-input-->
-<!--                [inputStyleContext]="'lname-input'"-->
-<!--                [inputTypeContext]="'text'"-->
-<!--                [inputPlaceholderContext]="'Last Name'"-->
-<!--                formControlName="lastName"-->
-<!--              ></app-input>-->
               <input class="lname-input" type="text" placeholder="First Name" formControlName="lastName">
               <div *ngIf="afterRegisterForm.get('lastName')?.invalid && afterRegisterForm.get('lastName')?.touched">
                 <div *ngIf="afterRegisterForm.get('lastName')?.errors?.['required']" class="validate-content">Field is required.</div>

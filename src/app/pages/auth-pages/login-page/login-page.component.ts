@@ -3,6 +3,9 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {CustomValidators} from "../../../shared/helpers/validators/customValidators";
 import {AuthService} from "../../../shared/services/auth.service";
 import {Login} from "../../../shared/interfaces/login";
+import {CreateProjectOwner} from "../../../shared/interfaces/create-project-owner";
+import {Router} from "@angular/router";
+import {CreateDeveloper} from "../../../shared/interfaces/create-developer";
 
 @Component({
   selector: 'app-login-page',
@@ -13,8 +16,9 @@ import {Login} from "../../../shared/interfaces/login";
 export class LoginPageComponent implements OnInit {
 
   loginForm: FormGroup;
+  private isCreated: boolean;
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, private router: Router) {
   }
 
   ngOnInit() {
@@ -34,6 +38,38 @@ export class LoginPageComponent implements OnInit {
       email: this.loginForm.value.email!,
       password: this.loginForm.value.password!,
     }
+
     this.authService.login(loginObj);
+
+    if(localStorage.getItem('roleChecked') === 'true') {
+      this.authService.isDevAdded();
+      this.authService.isCreated.subscribe((res: boolean) => {
+          this.isCreated = res;
+          this.isCreated ? this.router.navigateByUrl('my-profile') : this.addDeveloper()
+        }
+      )
+    } else {
+      this.authService.isProjectOwnerAdded();
+      this.authService.isCreated.subscribe((res: boolean) => {
+          this.isCreated = res;
+          this.isCreated ? this.router.navigateByUrl('my-profile') : this.addProjectOwner()
+        }
+      )
+    }
+  }
+  private addProjectOwner() {
+    let userObj: CreateProjectOwner = {
+      firstName: localStorage.getItem("firstName"),
+      lastName: localStorage.getItem("lastName"),
+    }
+    this.authService.createProjectOwner(userObj)
+  }
+
+  private addDeveloper() {
+    let userObj: CreateDeveloper = {
+      firstName: localStorage.getItem("firstName"),
+      lastName: localStorage.getItem("lastName"),
+    }
+    this.authService.createDev(userObj)
   }
 }
