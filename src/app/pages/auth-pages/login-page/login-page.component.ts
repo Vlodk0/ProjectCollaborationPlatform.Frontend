@@ -6,6 +6,8 @@ import {Login} from "../../../shared/interfaces/login";
 import {CreateProjectOwner} from "../../../shared/interfaces/create-project-owner";
 import {Router} from "@angular/router";
 import {CreateDeveloper} from "../../../shared/interfaces/create-developer";
+import {catchError, of, switchMap} from "rxjs";
+import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
   selector: 'app-login-page',
@@ -25,7 +27,6 @@ export class LoginPageComponent implements OnInit {
     this.loginForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required, CustomValidators.passwordValidator]),
-      // password: new FormControl('', Validators.required)
     });
   }
 
@@ -39,24 +40,37 @@ export class LoginPageComponent implements OnInit {
       password: this.loginForm.value.password!,
     }
 
-    this.authService.login(loginObj);
-
-    if(localStorage.getItem('roleChecked') === 'true') {
-      this.authService.isDevAdded();
-      this.authService.isCreated.subscribe((res: boolean) => {
-          this.isCreated = res;
-          this.isCreated ? this.router.navigateByUrl('my-profile') : this.addDeveloper()
+    this.authService.login(loginObj)
+      .pipe(
+        switchMap((res: any) => {
+          localStorage.setItem('access_token', res.accessToken);
+          localStorage.setItem('refresh_token', res.refreshToken);
+          return this.authService.isProjectOwnerAdded()
+            .pipe(
+              catchError(err => {
+                if (err instanceof HttpErrorResponse) {
+                  if (err.status === 404) {
+                    this.addProjectOwner()
+                  } else if (err.status === 401) {
+                    console.log("User unauthorized")
+                  } else if (err.status === 500) {
+                    console.log("Internal server error")
+                  } else {
+                    console.log("error", err.status)
+                  }
+                }
+                return of(err);
+              })
+            )
+        })
+      )
+      .subscribe(
+        () => {
+          this.router.navigateByUrl('my-profile')
         }
       )
-    } else {
-      this.authService.isProjectOwnerAdded();
-      this.authService.isCreated.subscribe((res: boolean) => {
-          this.isCreated = res;
-          this.isCreated ? this.router.navigateByUrl('my-profile') : this.addProjectOwner()
-        }
-      )
-    }
   }
+
   private addProjectOwner() {
     let userObj: CreateProjectOwner = {
       firstName: localStorage.getItem("firstName"),

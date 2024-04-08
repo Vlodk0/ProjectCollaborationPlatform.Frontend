@@ -78,11 +78,15 @@
             <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
               <input class="fname-input" type="text" placeholder="First Name" formControlName="firstName">
               <div *ngIf="registerForm.get('firstName')?.invalid && registerForm.get('firstName')?.touched">
-                <div *ngIf="registerForm.get('firstName')?.errors?.['required']" class="validate-content">Field is required.</div>
+                <div *ngIf="registerForm.get('firstName')?.errors?.['required']" class="validate-content">Field is
+                  required.
+                </div>
               </div>
               <input class="lname-input" type="text" placeholder="Last Name" formControlName="lastName">
               <div *ngIf="registerForm.get('lastName')?.invalid && registerForm.get('lastName')?.touched">
-                <div *ngIf="registerForm.get('lastName')?.errors?.['required']" class="validate-content">Field is required.</div>
+                <div *ngIf="registerForm.get('lastName')?.errors?.['required']" class="validate-content">Field is
+                  required.
+                </div>
               </div>
               <input class="email-input" type="email" placeholder="Email" formControlName="email">
               <div *ngIf="registerForm.get('email')?.touched && registerForm.get('email')?.invalid">
@@ -94,24 +98,12 @@
                 </div>
               </div>
               <div class="container-password-rem">
-                <!--                <app-input-->
-                <!--                  [inputStyleContext]="'password-input'"-->
-                <!--                  [inputTypeContext]="'password'"-->
-                <!--                  [inputPlaceholderContext]="'Password'"-->
-                <!--                ></app-input>-->
                 <input class="password-input" type="password" placeholder="Password" formControlName="password">
                 <div *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
                   <div *ngIf="registerForm.get('password')?.errors?.['required']" class="validate-content">Password is
                     required.
                   </div>
                 </div>
-
-                <!--                <app-input-->
-                <!--                  [inputStyleContext]="'confirm-password-input'"-->
-                <!--                  [inputTypeContext]="'password'"-->
-                <!--                  [inputPlaceholderContext]="'Confirm password'"-->
-                <!--                ></app-input>-->
-
                 <input class="password-input" type="password" placeholder="Confirm password" formControlName="password">
                 <div *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
                   <div *ngIf="registerForm.get('password')?.errors?.['required']" class="validate-content">Password is
@@ -135,8 +127,10 @@
         <span>Already registered? Login</span>
       </span>
     </div>
-    <div class="button-switch">
-      <p-inputSwitch formControlName="checked"></p-inputSwitch>
-    </div>
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <div class="button-switch">
+        <p-inputSwitch formControlName="checked"></p-inputSwitch>
+      </div>
+    </form>
   </div>
 </div>

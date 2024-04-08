@@ -4,6 +4,7 @@ import {CustomValidators} from "../../../shared/helpers/validators/customValidat
 import {AuthService} from "../../../shared/services/auth.service";
 import {Register} from "../../../shared/interfaces/register";
 import {MessageService} from "primeng/api";
+import {catchError, of} from "rxjs";
 
 @Component({
   selector: 'app-register-page',
@@ -14,7 +15,6 @@ import {MessageService} from "primeng/api";
 export class RegisterPageComponent implements OnInit {
 
   registerForm!: FormGroup
-  // checked: boolean = false;
   private isRegistered: boolean;
 
   addSuccessMessage() {
@@ -35,7 +35,6 @@ export class RegisterPageComponent implements OnInit {
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required, CustomValidators.passwordValidator]),
       checked: new FormControl(false),
-      // password: new FormControl('', validators.required)
     });
   }
 
@@ -52,17 +51,23 @@ export class RegisterPageComponent implements OnInit {
       roleName: this.registerForm.value.checked === false ? "ProjectOwner" : "Dev"
     }
 
-    const checkedValue = this.registerForm.value.checked.toString();
-    console.log(checkedValue)
-    localStorage.setItem("roleChecked", checkedValue)
-
     localStorage.setItem("firstName", this.registerForm.value.firstName)
     localStorage.setItem("lastName", this.registerForm.value.lastName)
 
-    this.authService.register(registerObj);
-    this.authService.result.subscribe((res: boolean) => {
-      this.isRegistered = res;
-      this.isRegistered ? this.addSuccessMessage() : this.addFailedMessage();
-    })
+    this.authService.register(registerObj)
+      .pipe(
+        catchError(err => {
+          if (err.status === 500) {
+            console.log("Internal server error")
+          } else {
+            console.log("error", err.status)
+          }
+          return of(err);
+        })
+      )
+      .subscribe((res:any) => {
+        this.isRegistered = res;
+        this.isRegistered ? this.addSuccessMessage() : this.addFailedMessage();
+      })
   }
 }

@@ -7,6 +7,7 @@ import {Register} from "../interfaces/register";
 import {catchError, Observable, of, Subject} from 'rxjs';
 import {CreateProjectOwner} from "../interfaces/create-project-owner";
 import {CreateDeveloper} from "../interfaces/create-developer";
+import {TokenResponse} from "../interfaces/token-response";
 
 @Injectable({
   providedIn: 'root'
@@ -15,61 +16,25 @@ export class AuthService {
   private apiUrlSecurity: string = `${environment.securityNgRockUrl}/User`;
   private apiUrl: string = `${environment.apiUrl}/ProjectOwner`;
   private apiUrlDev: string = `${environment.apiUrl}/Developer`;
-  result: Subject<boolean> = new Subject<boolean>();
   isCreated: Subject<boolean> = new Subject<boolean>();
 
   constructor(private httpClient: HttpClient, private router: Router) {
   }
 
-  login(loginObj: Login) {
-    this.httpClient.post(this.apiUrlSecurity + '/SignIn', loginObj)
-      .subscribe(
-        (res: any) => {
-          console.log(res)
-          localStorage.setItem('access_token', res.accessToken)
-          this.router.navigateByUrl('my-profile')
-        }
-      )
+  login(loginObj: Login): Observable<TokenResponse> {
+    return this.httpClient.post<TokenResponse>(this.apiUrlSecurity + '/SignIn', loginObj)
   }
 
   register(registerObj: Register) {
-    return this.httpClient.post(this.apiUrlSecurity + '/SignUp', registerObj)
-      .pipe(
-        catchError(err => {
-          this.result.next(false)
-          return of(err)
-        })
-      )
-      .subscribe((res: any) => {
-        this.result.next(res.message === "Email has been sent");
-        localStorage.setItem('email', registerObj.email)
-      })
+    return this.httpClient.post(this.apiUrlSecurity + '/SignUp', registerObj);
   }
 
   isProjectOwnerAdded() {
-    this.httpClient.get(this.apiUrl, {})
-      .pipe(
-        catchError(err => {
-          this.isCreated.next(true)
-          return of(err);
-        })
-      )
-      .subscribe((res: any) => {
-        this.isCreated.next(res.message === "User exists");
-      })
+    return this.httpClient.get(this.apiUrl, {})
   }
 
   isDevAdded() {
-    this.httpClient.get(this.apiUrlDev, {})
-      .pipe(
-        catchError(err => {
-          this.isCreated.next(true)
-          return of(err);
-        })
-      )
-      .subscribe((res: any) => {
-        this.isCreated.next(res.message === "User exists");
-      })
+    return this.httpClient.get(this.apiUrlDev, {})
   }
 
   createProjectOwner(projectOwner: CreateProjectOwner) {
