@@ -2,7 +2,7 @@
   <div class="navbar-container">
     <div class="navbar">
       <span class="navbar-text">Pages/Profile</span>
-      <span class="navbar-text-2">Logout</span>
+      <app-button [styleContext]="'logout-button'" [context]="'Logout'"></app-button>
       <div class="user-circle">
         <div class="user-circle-content">
           <svg width='14' height='14' viewBox='0 0 14 14' fill='none' xmlns='http://www.w3.org/2000/svg'>
@@ -13,7 +13,7 @@
         </div>
       </div>
 
-      <span class="navbar-text-3">Settings</span>
+      <app-button [styleContext]="'settings-button'" [context]="'Settings'"></app-button>
       <div class="user-settings">
         <div class="user-settings-content">
           <svg width='14' height='14' viewBox='0 0 14 14' fill='none' xmlns='http://www.w3.org/2000/svg'>

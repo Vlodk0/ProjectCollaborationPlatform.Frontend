@@ -33,7 +33,8 @@
       </svg>
     </div>
     <div class="my-projects-container">
-      <span class="my-projects-content">My projects</span>
+<!--      <span class="my-projects-content">My projects</span>-->
+      <app-button [styleContext]="'my-projects-button'" [context]="'My projects'"></app-button>
       <div class="my-projects-icon">
         <div class="icon-content">
           <div class="roof">
@@ -58,7 +59,7 @@
       </div>
     </div>
     <div class="all-projects-container">
-      <span class="all-projects-content">All projects</span>
+      <app-button [styleContext]="'all-projects-button'" [context]="'All projects'"></app-button>
       <div class="all-projects-icon">
         <div class="all-projects-icon-content">
           <div class="shape">
@@ -79,7 +80,7 @@
       </div>
     </div>
     <div class="developers-container">
-      <span class="developers-content">Developers</span>
+      <app-button [styleContext]="'all-projects-button'" [context]="'Developers'"></app-button>
       <div class="developers-icon">
         <div class="code">
           <svg width='188' height='56' viewBox='0 0 188 56' fill='none' xmlns='http://www.w3.org/2000/svg'>
@@ -93,7 +94,7 @@
     </div>
     <span class="account-pages-text">ACCOUNT PAGES</span>
     <div class="profile-container">
-      <span class="profile-content">Profile</span>
+      <app-button [styleContext]="'profile-button'" [context]="'Profile'"></app-button>
       <div class="profile-icon">
         <div class="message">
           <svg width='8' height='8' viewBox='0 0 8 8' fill='none' xmlns='http://www.w3.org/2000/svg'>
@@ -116,12 +117,11 @@
               d='M3 7C4.662 7 6 4.87239 6 3.11111C6 1.39572 4.65413 0 3 0C1.34588 0 0 1.39572 0 3.11111C0 4.87239 1.338 7 3 7Z'
               fill='white'/>
           </svg>
-
         </div>
       </div>
     </div>
     <div class="logout-container">
-      <span class="logout-content">Log out</span>
+      <app-button [styleContext]="'sidebar-logout-button'" [context]="'Logout'"></app-button>
       <div class="logout-icon">
         <div class="logout">
           <svg width='209' height='54' viewBox='0 0 209 54' fill='none' xmlns='http://www.w3.org/2000/svg'>

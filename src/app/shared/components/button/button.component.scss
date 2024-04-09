@@ -4,10 +4,10 @@
   display: flex;
   padding: 14px 10px;
   background: linear-gradient(
-    142deg,
-    rgba(97, 141, 255, 1) 0%,
-    rgba(134, 64, 205, 1) 53%,
-    rgba(87, 3, 116, 1) 100%
+      142deg,
+      rgba(97, 141, 255, 1) 0%,
+      rgba(134, 64, 205, 1) 53%,
+      rgba(87, 3, 116, 1) 100%
   );
   align-items: center;
   flex-shrink: 0;
@@ -22,16 +22,17 @@
   font-family: "Noto Sans";
   font-weight: 600;
 }
+
 .register-button {
   gap: 10px;
   width: 400px;
   display: flex;
   padding: 14px 10px;
   background: linear-gradient(
-    142deg,
-    rgba(45, 76, 238, 1) 0%,
-    rgba(33, 30, 191, 1) 53%,
-    rgba(3, 15, 116, 1) 100%
+      142deg,
+      rgba(45, 76, 238, 1) 0%,
+      rgba(33, 30, 191, 1) 53%,
+      rgba(3, 15, 116, 1) 100%
   );
   align-items: center;
   flex-shrink: 0;
@@ -54,10 +55,10 @@
   display: flex;
   padding: 14px 10px;
   background: linear-gradient(
-    142deg,
-    rgba(97, 141, 255, 1) 0%,
-    rgba(134, 64, 205, 1) 53%,
-    rgba(87, 3, 116, 1) 100%
+      142deg,
+      rgba(97, 141, 255, 1) 0%,
+      rgba(134, 64, 205, 1) 53%,
+      rgba(87, 3, 116, 1) 100%
   );
   align-items: center;
   flex-shrink: 0;
@@ -79,10 +80,10 @@
   display: flex;
   padding: 14px 10px;
   background: linear-gradient(
-    142deg,
-    rgba(232, 71, 197, 1) 0%,
-    rgba(205, 64, 123, 1) 53%,
-    rgba(116, 3, 44, 1) 100%
+      142deg,
+      rgba(232, 71, 197, 1) 0%,
+      rgba(205, 64, 123, 1) 53%,
+      rgba(116, 3, 44, 1) 100%
   );
   align-items: center;
   flex-shrink: 0;
@@ -98,4 +99,142 @@
   font-weight: 500;
   margin-top: 20px;
   cursor: pointer;
+}
+
+.settings-button {
+  cursor: pointer;
+  top: 15px;
+  left: 1464.8128662109375px;
+  color: azure;
+  background: transparent;
+  width: 75px;
+  height: auto;
+  position: absolute;
+  font-size: 14px;
+  font-style: Regular;
+  text-align: left;
+  font-family: 'Aldrich';
+  font-weight: 400;
+  border: none;
+  transition: all 0.4s ease 0s;
+  border-radius: 5px;
+}
+
+.logout-button {
+  cursor: pointer;
+  top: 15px;
+  left: 1364.8128662109375px;
+  color: azure;
+  background: transparent;
+  width: 60px;
+  height: auto;
+  position: absolute;
+  font-size: 14px;
+  font-style: Regular;
+  text-align: left;
+  font-family: 'Aldrich';
+  font-weight: 400;
+  border: none;
+  transition: all 0.4s ease 0s;
+  border-radius: 5px;
+
+}
+
+.logout-button:hover,
+.settings-button:hover{
+  background-color: white;
+  color: black;
+}
+
+.my-projects-button {
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  transition: all 0.4s ease 0s;
+  height: 150px;
+  border-radius: 5px;
+  z-index: 10;
+
+
+  top: 18px;
+  left: 54px;
+  color: azure;
+  height: auto;
+  position: absolute;
+  font-size: 14px;
+  font-style: Regular;
+  text-align: left;
+  font-family: 'Aldrich';
+  font-weight: 400;
+}
+
+.all-projects-button,
+.developers-button {
+  cursor: pointer ;
+  background: transparent;
+  border: none;
+  transition: all 0.4s ease 0s;
+  height: 150px;
+  border-radius: 5px;
+  z-index: 10;
+
+  top: 20px;
+  left: 54px;
+  color: azure;
+  height: auto;
+  position: absolute;
+  font-size: 14px;
+  font-style: Regular;
+  text-align: left;
+  font-family: 'Aldrich';
+  font-weight: 400;
+}
+
+.profile-button {
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  transition-duration: 0.4s;
+  height: 150px;
+  border-radius: 5px;
+
+  top: 17px;
+  left: 50px;
+  color: azure;
+  height: auto;
+  position: absolute;
+  font-size: 14px;
+  font-style: Regular;
+  text-align: left;
+  font-family: 'Aldrich';
+  font-weight: 400;
+}
+
+.sidebar-logout-button {
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  z-index: 10;
+  transition: all 0.4s ease 0s;
+  border-radius: 5px;
+
+  top: 20px;
+  left: 60px;
+  color: azure;
+  height: auto;
+  position: absolute;
+  font-size: 14px;
+  font-style: Regular;
+  text-align: left;
+  font-family: 'Aldrich';
+  font-weight: 400;
+}
+
+.sidebar-logout-button:hover,
+.all-projects-button:hover,
+.developers-button:hover,
+.profile-button:hover,
+.my-projects-button:hover{
+  cursor: pointer;
+  background-color: purple;
 }
