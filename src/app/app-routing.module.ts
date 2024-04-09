@@ -51,6 +51,10 @@ const routes: Routes = [
   {
     path: 'email-success',
     loadChildren: () => import('./static-pages/email-success-page/email-success-page-routing.module').then(r => r.EmailSuccessPageRoutingModule)
+  },
+  {
+    path: 'my-settings',
+    loadChildren: () => import('./pages/settings-page/settings-page-routing.module').then(r => r.SettingsPageRoutingModule)
   }
 ];
 

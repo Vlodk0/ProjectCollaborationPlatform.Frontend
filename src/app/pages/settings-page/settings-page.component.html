@@ -11,7 +11,9 @@
   <div class="credentials-container">
     <div class="avatar-container">
       <div class="avatar-content">
-        <button class="avatar-button"><p-avatar label="P" size="xlarge"></p-avatar></button>
+        <button class="avatar-button">
+          <p-avatar label="P" size="xlarge"></p-avatar>
+        </button>
       </div>
     </div>
     <div class="username-header">
@@ -30,12 +32,36 @@
       <span class="last-name-content">Last Name</span>
       <input type="text" class="last-name-input" placeholder="something">
     </div>
-    <app-button [styleContext]="'update-user-button'" [context]="'Save'"></app-button>
     <div class="line">
       <svg width="1001" height="1" viewBox="0 0 1001 1" fill="none" xmlns="http://www.w3.org/2000/svg">
         <rect width="1001" height="1" fill="black" fill-opacity="0.1"/>
       </svg>
     </div>
-    <span class="tech-header">Technologies</span>
+    <span class="tech-header">Technologies
+        <div class="multi-select-container">
+           <p-table [value]="technologies" [(selection)]="selectedTechnologies" dataKey="name" [paginator]="true" [rows]="4"
+                    [selectionPageOnly]="true" [tableStyle]="{'min-width': '50rem'}">
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width: 4rem">
+                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                </th>
+                <th style="min-width:200px">Name</th>
+                <th style="min-width:200px">Framework</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-technologies>
+            <tr>
+                <td>
+                    <p-tableCheckbox [value]="technologies"></p-tableCheckbox>
+                </td>
+                <td>{{ technologies.name }}</td>
+                <td>{{ technologies.framework }}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+        </div>
+    <app-button [styleContext]="'update-user-button'" [context]="'Save'"></app-button>
+    </span>
   </div>
 </div>

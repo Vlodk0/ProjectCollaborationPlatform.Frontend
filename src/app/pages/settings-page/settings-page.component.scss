@@ -125,7 +125,7 @@
     }
 
     .line {
-      top: 489px;
+      top: 439px;
       left: 25px;
       width: 1001px;
       height: 1px;
@@ -133,7 +133,7 @@
     }
 
     .tech-header {
-      top: 517px;
+      top: 467px;
       left: 25px;
       color: rgba(136, 152, 170, 1);
       height: auto;
@@ -143,6 +143,14 @@
       text-align: left;
       font-family: 'Open Sans';
       font-weight: 700;
+
+      .multi-select-container {
+        margin-top: 10px;
+        margin-left: 25px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
     }
   }
 }
