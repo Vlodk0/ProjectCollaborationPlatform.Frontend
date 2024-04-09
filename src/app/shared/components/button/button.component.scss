@@ -262,3 +262,37 @@
   font-family: 'Open Sans';
   font-weight: 400;
 }
+
+.sign-up-text-button {
+  cursor: pointer;
+  background: transparent;
+  border: none;
+
+  top: 735px;
+  left: 121px;
+  color: azure;
+  height: auto;
+  position: absolute;
+  font-size: 16px;
+  font-style: Medium;
+  text-align: left;
+  font-family: "Noto Sans";
+  font-weight: 500;
+}
+
+.already-register-text-button {
+  cursor: pointer;
+  background: transparent;
+  border: none;
+
+  top: 721px;
+  left: 140px;
+  color: azure;
+  height: auto;
+  position: absolute;
+  font-size: 16px;
+  text-align: left;
+  font-family: "Noto Sans";
+  font-weight: 500;
+  margin-top: 40px;
+}

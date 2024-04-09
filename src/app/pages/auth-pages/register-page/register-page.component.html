@@ -123,9 +123,7 @@
           </div>
         </div>
       </div>
-      <span class="already-register-text">
-        <span>Already registered? Login</span>
-      </span>
+      <app-button [styleContext]="'already-register-text-button'" [context]="'Already registered? Login'" [routerLink]="'../signin'"></app-button>
     </div>
     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
       <div class="button-switch">
