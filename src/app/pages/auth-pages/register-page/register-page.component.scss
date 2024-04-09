@@ -32,8 +32,9 @@
       display: flex;
       padding: 14px 24px;
       position: absolute;
+      justify-content: center;
       box-sizing: content-box;
-      align-items: flex-start;
+      align-items: center;
       border-color: rgba(255, 255, 255, 1);
       border-style: solid;
       border-width: 4px;
@@ -58,6 +59,7 @@
       padding: 14px 24px;
       position: absolute;
       box-sizing: content-box;
+      justify-content: center;
       align-items: center;
       border-color: rgba(255, 255, 255, 1);
       border-style: solid;

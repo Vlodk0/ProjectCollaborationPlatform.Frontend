@@ -1,69 +1,3 @@
-.background-container {
-  width: 1547px;
-  height: 114px;
-  top: 272px;
-  left: 320px;
-  gap: 0px;
-  opacity: 0.7;
-  background-size: cover;
-  position: absolute;
-  border-radius: 5px;
-
-  background: rgba(0, 0, 0, 1);
-
-  box-shadow: 0px 20px 27px 0px rgba(0, 0, 0, 0.05);
-
-  .avatar-container {
-    width: 100%;
-    display: flex;
-    overflow: auto;
-    flex-direction: row;
-
-    .avatar-content {
-      width: 81px;
-      height: 81px;
-      display: flex;
-      overflow: hidden;
-      position: relative;
-      align-items: flex-start;
-      flex-shrink: 1;
-      border-radius: 5px;
-      margin: 15px 15px 15px 20px;
-
-    }
-  }
-
-  .name-container {
-    margin-top: 15px;
-    width: 100%;
-    display: flex;
-    overflow: auto;
-    flex-direction: column;
-
-    .name-content {
-      color: azure;
-      width: 100%;
-      height: auto;
-      font-size: 24px;
-      font-style: Regular;
-      text-align: left;
-      font-family: 'Aldrich';
-      font-weight: 400;
-    }
-
-    .role-content {
-      color: rgba(140, 140, 140, 1);
-      width: 100%;
-      height: auto;
-      font-size: 20px;
-      font-style: Regular;
-      text-align: left;
-      font-family: 'Aldrich';
-      font-weight: 400;
-    }
-  }
-}
-
 .profile-info-container {
   top: 400px;
   left: 320px;
@@ -113,7 +47,7 @@
     height: auto;
     position: absolute;
     font-size: 13px;
-    font-style: Bold;
+    font-style: 'Bold';
     text-align: left;
     font-family: 'Open Sans';
     font-weight: 700;
@@ -126,8 +60,28 @@
     overflow: auto;
     flex-direction: column;
 
-    .username-header {
+    .avatar-content {
       top: 146px;
+      left: 28px;
+      width: 81px;
+      height: 81px;
+      display: flex;
+      overflow: hidden;
+      position: absolute;
+      align-items: flex-start;
+      flex-shrink: 1;
+      border-radius: 5px;
+      margin: 15px 15px 15px 20px;
+
+      .avatar-button {
+        cursor: pointer;
+        background: transparent;
+        border: none;
+      }
+    }
+
+    .username-header {
+      top: 246px;
       left: 48px;
       width: 476px;
       height: 74px;
@@ -138,7 +92,7 @@
     }
 
     .email-header {
-      top: 146px;
+      top: 246px;
       left: 552px;
       width: 476px;
       height: 74px;
@@ -149,7 +103,7 @@
     }
 
     .first-name-header {
-      top: 247px;
+      top: 347px;
       left: 48px;
       width: 476px;
       height: 74px;
@@ -160,7 +114,7 @@
     }
 
     .last-name-header {
-      top: 247px;
+      top: 347px;
       left: 552px;
       width: 476px;
       height: 74px;
@@ -171,15 +125,15 @@
     }
 
     .line {
-      top: 369px;
+      top: 489px;
       left: 25px;
       width: 1001px;
       height: 1px;
       position: absolute;
     }
 
-    .feedbacks-header {
-      top: 397px;
+    .tech-header {
+      top: 517px;
       left: 25px;
       color: rgba(136, 152, 170, 1);
       height: auto;
@@ -221,31 +175,4 @@
   text-align: left;
   font-family: 'Open Sans';
   font-weight: 700;
-}
-
-.secondary-container {
-  width: 356px;
-  height: 428px;
-  top: 400px;
-  left: 1464px;
-  gap: 0;
-  display: flex;
-  position: absolute;
-
-
-  background-color: rgba(255, 255, 255, 1);
-  border-radius: 5px;
-
-  .secondary-container-content {
-    top: 16.6666259765625px;
-    left: 21px;
-    color: rgba(37, 47, 64, 1);
-    height: auto;
-    position: absolute;
-    font-size: 16px;
-    font-style: SemiBold;
-    text-align: left;
-    font-family: 'Open Sans';
-    font-weight: 600;
-  }
 }
