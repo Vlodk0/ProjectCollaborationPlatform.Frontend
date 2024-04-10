@@ -8,19 +8,20 @@ import {Router} from "@angular/router";
 import {CreateDeveloper} from "../../../shared/interfaces/create-developer";
 import {catchError, of, switchMap} from "rxjs";
 import {HttpErrorResponse} from "@angular/common/http";
+import {MessageService} from "primeng/api";
 
 @Component({
   selector: 'app-login-page',
   templateUrl: './login-page.component.html',
   styleUrl: './login-page.component.scss',
-  providers: [AuthService]
+  providers: [AuthService, MessageService]
 })
 export class LoginPageComponent implements OnInit {
 
   loginForm: FormGroup;
   private isCreated: boolean;
 
-  constructor(private authService: AuthService, private router: Router) {
+  constructor(private authService: AuthService, private router: Router, private messageService: MessageService) {
   }
 
   ngOnInit() {
@@ -52,9 +53,9 @@ export class LoginPageComponent implements OnInit {
                   if (err.status === 404) {
                     this.addProjectOwner()
                   } else if (err.status === 401) {
-                    console.log("User unauthorized")
+                    this.messageService.add({severity:'error', summary:'Missing or Incorrect Authentication Credentials!'})
                   } else if (err.status === 500) {
-                    console.log("Internal server error")
+                    this.messageService.add({severity:'error', summary:'Server error "-505"'})
                   } else {
                     console.log("error", err.status)
                   }

@@ -8,6 +8,7 @@ import {catchError, Observable, of, Subject} from 'rxjs';
 import {CreateProjectOwner} from "../interfaces/create-project-owner";
 import {CreateDeveloper} from "../interfaces/create-developer";
 import {TokenResponse} from "../interfaces/token-response";
+import {RefreshToken} from "../interfaces/refresh-token";
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +20,10 @@ export class AuthService {
   isCreated: Subject<boolean> = new Subject<boolean>();
 
   constructor(private httpClient: HttpClient, private router: Router) {
+  }
+
+  refreshToken(refreshTokenObj: RefreshToken) {
+    return this.httpClient.post(this.apiUrlSecurity + '/RefreshToken', refreshTokenObj)
   }
 
   login(loginObj: Login): Observable<TokenResponse> {

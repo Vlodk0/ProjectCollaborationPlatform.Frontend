@@ -25,6 +25,10 @@ export class RegisterPageComponent implements OnInit {
     this.messageService.add({severity:'error', summary:'Email has not sent!'});
   }
 
+  add505ErrorMessage() {
+    this.messageService.add({severity:'error', summary:'Server error "-505"'});
+  }
+
   constructor(private authService: AuthService, private messageService: MessageService) {
   }
 
@@ -58,7 +62,7 @@ export class RegisterPageComponent implements OnInit {
       .pipe(
         catchError(err => {
           if (err.status === 500) {
-            console.log("Internal server error")
+            this.add505ErrorMessage()
           } else {
             console.log("error", err.status)
           }
