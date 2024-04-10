@@ -77,39 +77,11 @@
           <div class="container-credentials">
             <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
               <input class="fname-input" type="text" placeholder="First Name" formControlName="firstName">
-              <div *ngIf="registerForm.get('firstName')?.invalid && registerForm.get('firstName')?.touched">
-                <div *ngIf="registerForm.get('firstName')?.errors?.['required']" class="validate-content">Field is
-                  required.
-                </div>
-              </div>
               <input class="lname-input" type="text" placeholder="Last Name" formControlName="lastName">
-              <div *ngIf="registerForm.get('lastName')?.invalid && registerForm.get('lastName')?.touched">
-                <div *ngIf="registerForm.get('lastName')?.errors?.['required']" class="validate-content">Field is
-                  required.
-                </div>
-              </div>
               <input class="email-input" type="email" placeholder="Email" formControlName="email">
-              <div *ngIf="registerForm.get('email')?.touched && registerForm.get('email')?.invalid">
-                <div *ngIf="registerForm.get('email')?.errors?.['required']" class="validate-content">Email is
-                  required.
-                </div>
-                <div *ngIf="registerForm.get('email')?.errors?.['email']" class="validate-content">Invalid email
-                  format.
-                </div>
-              </div>
               <div class="container-password-rem">
                 <input class="password-input" type="password" placeholder="Password" formControlName="password">
-                <div *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
-                  <div *ngIf="registerForm.get('password')?.errors?.['required']" class="validate-content">Password is
-                    required.
-                  </div>
-                </div>
                 <input class="password-input" type="password" placeholder="Confirm password" formControlName="password">
-                <div *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
-                  <div *ngIf="registerForm.get('password')?.errors?.['required']" class="validate-content">Password is
-                    required.
-                  </div>
-                </div>
               </div>
               <div class="register-button-container">
                 <app-button
