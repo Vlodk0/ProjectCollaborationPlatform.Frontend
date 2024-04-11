@@ -2,7 +2,9 @@
   <div class="navbar-container">
     <div class="navbar">
       <span class="navbar-text">Pages/Profile</span>
-      <app-button [styleContext]="'logout-button'" [context]="'Logout'"></app-button>
+      <p-toast></p-toast>
+      <p-confirmDialog key="positionDialog" [position]="position"></p-confirmDialog>
+      <app-button [styleContext]="'logout-button'" [context]="'Logout'" (click)="logout('top-right')"></app-button>
       <div class="user-circle">
         <div class="user-circle-content">
           <svg width='14' height='14' viewBox='0 0 14 14' fill='none' xmlns='http://www.w3.org/2000/svg'>

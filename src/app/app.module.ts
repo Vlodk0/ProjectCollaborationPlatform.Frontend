@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ButtonComponent } from './shared/components/button/button.component';
 import { InputComponent } from './shared/components/input/input.component';
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { SidebarComponent } from './core/sidebar/sidebar.component';
 import { HeaderComponent } from './core/header/header.component';
 import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
@@ -14,7 +14,7 @@ import {AvatarModule} from "primeng/avatar";
 import { AllProjectsPageComponent } from './pages/all-projects-page/all-projects-page.component';
 import {TableModule} from "primeng/table";
 import {ButtonModule} from "primeng/button";
-import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {AuthPageComponent} from "./pages/auth-pages/auth-page.component";
 import {AfterRegisterPageComponent} from "./pages/auth-pages/after-register-page/after-register-page.component";
@@ -26,6 +26,11 @@ import {MessagesModule} from "primeng/messages";
 import {ToastModule} from "primeng/toast";
 import { EmailSuccessPageComponent } from './static-pages/email-success-page/email-success-page.component';
 import { EmailFailedPageComponent } from './static-pages/email-failed-page/email-failed-page.component';
+import {AllProjectsPageModule} from "./pages/all-projects-page/all-projects-page.module";
+import { SettingsPageComponent } from './pages/settings-page/settings-page.component';
+import {MultiSelectModule} from "primeng/multiselect";
+import {SharedModule} from "./shared/shared.module";
+import {ConfirmDialogModule} from "primeng/confirmdialog";
 
 @NgModule({
   declarations: [
@@ -43,9 +48,10 @@ import { EmailFailedPageComponent } from './static-pages/email-failed-page/email
     AllProjectsPageComponent,
     EmailSuccessPageComponent,
     EmailFailedPageComponent,
+    SettingsPageComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, ReactiveFormsModule,
-    InputSwitchModule, AvatarModule, TableModule, ButtonModule, HttpClientModule, BrowserAnimationsModule, MessagesModule, ToastModule],
+    imports: [BrowserModule, AppRoutingModule, ReactiveFormsModule,
+        InputSwitchModule, AvatarModule, TableModule, ButtonModule, HttpClientModule, BrowserAnimationsModule, MessagesModule, ToastModule, AllProjectsPageModule, MultiSelectModule, FormsModule, SharedModule, ConfirmDialogModule],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,

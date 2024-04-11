@@ -121,7 +121,9 @@
       </div>
     </div>
     <div class="logout-container">
-      <app-button [styleContext]="'sidebar-logout-button'" [context]="'Logout'"></app-button>
+      <p-toast></p-toast>
+      <p-confirmDialog key="positionDialog" [position]="position"></p-confirmDialog>
+      <app-button [styleContext]="'sidebar-logout-button'" [context]="'Logout'" (click)="logout('bottom-left')"></app-button>
       <div class="logout-icon">
         <div class="logout">
           <svg width='209' height='54' viewBox='0 0 209 54' fill='none' xmlns='http://www.w3.org/2000/svg'>
