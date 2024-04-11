@@ -18,7 +18,7 @@ export class AuthService {
   private apiUrl: string = `${environment.apiUrl}/ProjectOwner`;
   private apiUrlDev: string = `${environment.apiUrl}/Developer`;
   isCreated: Subject<boolean> = new Subject<boolean>();
-
+  isDev: boolean;
   constructor(private httpClient: HttpClient, private router: Router) {
   }
 

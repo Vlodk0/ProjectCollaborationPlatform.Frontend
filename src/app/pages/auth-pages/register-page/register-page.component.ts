@@ -54,10 +54,11 @@ export class RegisterPageComponent implements OnInit {
       password: this.registerForm.value.password,
       roleName: this.registerForm.value.checked === false ? "ProjectOwner" : "Dev"
     }
+    this.authService.isDev = this.registerForm.value.checked;
+
 
     localStorage.setItem("firstName", this.registerForm.value.firstName)
     localStorage.setItem("lastName", this.registerForm.value.lastName)
-
     this.authService.register(registerObj)
       .pipe(
         catchError(err => {

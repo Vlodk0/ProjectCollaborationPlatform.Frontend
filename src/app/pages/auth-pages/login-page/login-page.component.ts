@@ -9,6 +9,7 @@ import {CreateDeveloper} from "../../../shared/interfaces/create-developer";
 import {catchError, of, switchMap} from "rxjs";
 import {HttpErrorResponse} from "@angular/common/http";
 import {MessageService} from "primeng/api";
+import {Register} from "../../../shared/interfaces/register";
 
 @Component({
   selector: 'app-login-page',
@@ -41,35 +42,73 @@ export class LoginPageComponent implements OnInit {
       password: this.loginForm.value.password!,
     }
 
-    this.authService.login(loginObj)
-      .pipe(
-        switchMap((res: any) => {
-          localStorage.setItem('access_token', res.accessToken);
-          localStorage.setItem('refresh_token', res.refreshToken);
-          return this.authService.isProjectOwnerAdded()
-            .pipe(
-              catchError(err => {
-                if (err instanceof HttpErrorResponse) {
-                  if (err.status === 404) {
-                    this.addProjectOwner()
-                  } else if (err.status === 401) {
-                    this.messageService.add({severity:'error', summary:'Missing or Incorrect Authentication Credentials!'})
-                  } else if (err.status === 500) {
-                    this.messageService.add({severity:'error', summary:'Server error "-505"'})
-                  } else {
-                    console.log("error", err.status)
+    if (this.authService.isDev) {
+      this.authService.login(loginObj)
+        .pipe(
+          switchMap((res: any) => {
+            localStorage.setItem('access_token', res.accessToken);
+            localStorage.setItem('refresh_token', res.refreshToken);
+            return this.authService.isProjectOwnerAdded()
+              .pipe(
+                catchError(err => {
+                  if (err instanceof HttpErrorResponse) {
+                    if (err.status === 404) {
+                      this.addProjectOwner()
+                    } else if (err.status === 401) {
+                      this.messageService.add({
+                        severity: 'error',
+                        summary: 'Missing or Incorrect Authentication Credentials!'
+                      })
+                    } else if (err.status === 500) {
+                      this.messageService.add({severity: 'error', summary: 'Server error "-505"'})
+                    } else {
+                      console.log("error", err.status)
+                    }
                   }
-                }
-                return of(err);
-              })
-            )
-        })
-      )
-      .subscribe(
-        () => {
-          this.router.navigateByUrl('my-profile')
-        }
-      )
+                  return of(err);
+                })
+              )
+          })
+        )
+        .subscribe(
+          () => {
+            this.router.navigateByUrl('my-profile')
+          }
+        )
+    } else {
+      this.authService.login(loginObj)
+        .pipe(
+          switchMap((res: any) => {
+            localStorage.setItem('access_token', res.accessToken);
+            localStorage.setItem('refresh_token', res.refreshToken);
+            return this.authService.isDevAdded()
+              .pipe(
+                catchError(err => {
+                  if (err instanceof HttpErrorResponse) {
+                    if (err.status === 404) {
+                      this.addDeveloper()
+                    } else if (err.status === 401) {
+                      this.messageService.add({
+                        severity: 'error',
+                        summary: 'Missing or Incorrect Authentication Credentials!'
+                      })
+                    } else if (err.status === 500) {
+                      this.messageService.add({severity: 'error', summary: 'Server error "-505"'})
+                    } else {
+                      console.log("error", err.status)
+                    }
+                  }
+                  return of(err);
+                })
+              )
+          })
+        )
+        .subscribe(
+          () => {
+            this.router.navigateByUrl('my-profile')
+          }
+        )
+    }
   }
 
   private addProjectOwner() {
