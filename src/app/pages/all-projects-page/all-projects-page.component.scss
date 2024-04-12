@@ -12,7 +12,7 @@
 
   .projects {
     width: 100%;
-    margin-top: 10px;
+    //margin-top: 10px;
   }
 }
 
@@ -27,4 +27,19 @@
 
   background-color: rgba(255, 255, 255, 1);
   border-radius: 5px;
+
+  .secondary-container-content {
+    top: 16.6666259765625px;
+    left: 21px;
+    color: rgba(37, 47, 64, 1);
+    height: auto;
+    position: absolute;
+    font-size: 16px;
+    font-style: SemiBold;
+    text-align: left;
+    font-family: 'Open Sans';
+    font-weight: 600;
+  }
 }
+
+
