@@ -296,3 +296,54 @@
   font-weight: 500;
   margin-top: 40px;
 }
+
+.show-techs-button {
+  cursor: pointer;
+  width: 150px;
+  height: auto;
+  background-color: mediumpurple;
+  color: darkslategrey;
+  font-size: 25px;
+  border-radius: 5px;
+  font-family: "Noto Sans";
+  border: none;
+}
+
+.create-board-button {
+  margin: 20px 0 20px 20px;
+  cursor: pointer;
+  width: 150px;
+  height: auto;
+  background-color: mediumpurple;
+  color: darkslategrey;
+  font-size: 20px;
+  border-radius: 5px;
+  font-family: "Noto Sans";
+  border: none;
+}
+
+.show-board-button {
+  margin: 20px 0 20px 20px;
+  cursor: pointer;
+  width: 150px;
+  height: auto;
+  background-color: mediumpurple;
+  color: darkslategrey;
+  font-size: 20px;
+  border-radius: 5px;
+  font-family: "Noto Sans";
+  border: none;
+}
+
+.add-board-button {
+  margin: 40px 0 0 180px;
+  cursor: pointer;
+  width: 150px;
+  height: auto;
+  background-color: white;
+  color: darkslategrey;
+  font-size: 20px;
+  border-radius: 5px;
+  font-family: "Noto Sans";
+  border: none;
+}

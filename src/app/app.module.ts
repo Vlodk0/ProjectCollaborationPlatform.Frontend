@@ -31,6 +31,9 @@ import { SettingsPageComponent } from './pages/settings-page/settings-page.compo
 import {MultiSelectModule} from "primeng/multiselect";
 import {SharedModule} from "./shared/shared.module";
 import {ConfirmDialogModule} from "primeng/confirmdialog";
+import { ProjectPageComponent } from './pages/project-page/project-page.component';
+import { PageNotFoundComponent } from './static-pages/page-not-found/page-not-found.component';
+import {DialogModule} from "primeng/dialog";
 
 @NgModule({
   declarations: [
@@ -49,9 +52,11 @@ import {ConfirmDialogModule} from "primeng/confirmdialog";
     EmailSuccessPageComponent,
     EmailFailedPageComponent,
     SettingsPageComponent,
+    ProjectPageComponent,
+    PageNotFoundComponent,
   ],
     imports: [BrowserModule, AppRoutingModule, ReactiveFormsModule,
-        InputSwitchModule, AvatarModule, TableModule, ButtonModule, HttpClientModule, BrowserAnimationsModule, MessagesModule, ToastModule, AllProjectsPageModule, MultiSelectModule, FormsModule, SharedModule, ConfirmDialogModule],
+        InputSwitchModule, AvatarModule, TableModule, ButtonModule, HttpClientModule, BrowserAnimationsModule, MessagesModule, ToastModule, AllProjectsPageModule, MultiSelectModule, FormsModule, SharedModule, ConfirmDialogModule, DialogModule],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,

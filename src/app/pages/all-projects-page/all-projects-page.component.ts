@@ -4,6 +4,7 @@ import {PaginationFilter} from "../../shared/interfaces/pagination-filter";
 import {ProjectsService} from "../../shared/services/projects.service";
 import {ProjectPagination} from "../../shared/interfaces/project-pagination";
 import {Subject, takeUntil} from "rxjs";
+import {DeveloperTechnology} from "../../shared/interfaces/developer-technology";
 
 @Component({
   selector: 'app-all-projects-page',
@@ -13,8 +14,10 @@ import {Subject, takeUntil} from "rxjs";
 })
 
 export class AllProjectsPageComponent implements OnDestroy {
+  visible: boolean = false;
   projects: ProjectPagination[];
   totalRecords: number = 1;
+  technologies: DeveloperTechnology[];
 
   isSubscribe: Subject<void> = new Subject<void>()
 
@@ -28,6 +31,12 @@ export class AllProjectsPageComponent implements OnDestroy {
 
   constructor(private projectService: ProjectsService) {
   }
+
+  showDialog(technologies: DeveloperTechnology[]) {
+    this.technologies = technologies
+    this.visible = true
+  }
+
   loadProjects($event: TableLazyLoadEvent) {
     console.log($event);
 

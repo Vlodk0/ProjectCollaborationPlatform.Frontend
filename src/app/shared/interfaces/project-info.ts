@@ -1,9 +1,9 @@
 import {DeveloperTechnology} from "./developer-technology";
 
-export interface ProjectPagination {
+export interface ProjectInfo {
   id: string,
-  title: string;
-  payment: number;
-  description: string;
+  title: string,
+  payment: number,
+  description: string,
   technologies: DeveloperTechnology[]
 }

@@ -5,6 +5,7 @@ import {Observable} from "rxjs";
 import {PaginationResponse} from "../interfaces/pagination-response";
 import {ProjectPagination} from "../interfaces/project-pagination";
 import {environment} from "../../environment";
+import {ProjectInfo} from "../interfaces/project-info";
 
 @Injectable({
   providedIn: 'root'
@@ -23,5 +24,9 @@ export class ProjectsService {
       .set('sortDirection', (filter.sortDirection === 1) ? 'asc' : 'desc');
 
     return this.httpClient.get<PaginationResponse<ProjectPagination[]>>(this.apiUrl, {params});
+  }
+
+  public getProjectById(projectId: string): Observable<ProjectInfo> {
+    return this.httpClient.get<ProjectInfo>(this.apiUrl + `/${projectId}`)
   }
 }
