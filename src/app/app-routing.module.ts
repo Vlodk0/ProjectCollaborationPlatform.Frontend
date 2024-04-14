@@ -55,7 +55,19 @@ const routes: Routes = [
   {
     path: 'my-settings',
     loadChildren: () => import('./pages/settings-page/settings-page-routing.module').then(r => r.SettingsPageRoutingModule)
-  }
+  },
+  {
+    path: 'project/:id',
+    loadChildren: () => import('./pages/project-page/project-page-routing.module').then(r => r.ProjectPageRoutingModule)
+  },
+  {
+    path: '404',
+    loadChildren: () => import('./static-pages/page-not-found/page-not-found-routing.module').then(r => r.PageNotFoundRoutingModule)
+  },
+  {
+    path: '**',
+    redirectTo: '404'
+  },
 ];
 
 @NgModule({
