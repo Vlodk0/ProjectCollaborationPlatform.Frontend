@@ -2,19 +2,75 @@
 <app-sidebar></app-sidebar>
 
 <div class="project-container">
-  <app-button [styleContext]="'create-board-button'" [context]="'Create Board'" (click)="showBoardCreationDialog()" [disabled]="isDisabled"></app-button>
-  <app-button [styleContext]="'show-board-button'" [context]="'Show Board'"></app-button>
+  <app-button [styleContext]="'create-board-button'" [context]="'Create Board'" (click)="showBoardCreationDialog()"
+              [disabled]="isDisabled"></app-button>
+  <app-button [styleContext]="'show-board-button'" [context]="'Show Board'" (click)="toggleBoard()"></app-button>
+  <app-button [styleContext]="'create-task-button'" [context]="'Add Task'" (click)="showTaskCreationDialog()"></app-button>
+
+  <div class="board-wrapper" *ngIf="showBoard">
+
+    <div class="board-columns" pDroppable (onDrop)="drop('todo')">
+      <div class="board-column">
+        <div class="column-title">
+          Todo
+          <div class="tasks-container">
+            <ng-container *ngIf="(tasks$ | async) as functionalityBlocks">
+              <div class="task" *ngFor="let task of functionalityBlocks" pDraggable (onDrag)="dragStart(task)" (onDragEnd)="dragEnd()" (click)="getTaskIdClick(task)">
+               <button class="btn" (click)="showTaskUpdatingDialog()">{{ task.task }}</button>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+      <div class="board-column" pDroppable (onDrop)="drop('inProcess')">
+        <div class="column-title">
+          In process
+          <div class="tasks-container">
+            <div class="task" *ngFor="let task of selectedTasks" pDraggable (onDrag)="dragStart(task)" (onDragEnd)="dragEnd()">
+              {{ task.task }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="board-column" pDroppable (onDrop)="drop('done')">
+        <div class="column-title">
+          Done
+          <div class="tasks-container">
+            <div class="task" *ngFor="let task of doneTasks" pDraggable (onDrag)="dragStart(task)" (onDragEnd)="dragEnd()">
+              {{ task.task }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <form [formGroup]="creationForm" (ngSubmit)="onSubmit()">
-<p-dialog header="Board" [(visible)]="visible" [style]="{width: '20vw'}">
-    <input type="text" class="board-name-input" formControlName="name">
+  <p-dialog header="Board" [(visible)]="visible" [style]="{width: '20vw'}">
+    <input type="text" class="board-name-input" formControlName="name" placeholder="Board name">
     <app-button [styleContext]="'add-board-button'" [context]="'Create'" type="submit"></app-button>
-</p-dialog>
+  </p-dialog>
+</form>
+
+<form [formGroup]="creationTaskForm">
+  <p-dialog header="Task" [(visible)]="taskVisible" [style]="{width: '20vw'}">
+    <input type="text" class="board-name-input" formControlName="task" placeholder="Task">
+    <app-button [styleContext]="'add-board-button'" [context]="'Create'" (click)="createTask()"></app-button>
+  </p-dialog>
+</form>
+
+<form [formGroup]="updatingTaskForm">
+  <p-dialog header="Task" [(visible)]="updateTaskVisible" [style]="{width: '20vw'}">
+    <input type="text" class="board-name-input" formControlName="task" placeholder="Task">
+    <app-button [styleContext]="'update-task-button'" [context]="'Update'" (click)="updateTask()"></app-button>
+    <app-button [styleContext]="'delete-task-button'" [context]="'Delete'" (click)="deleteTask()"></app-button>
+  </p-dialog>
 </form>
 
 <div class="project-info-container">
-  <ng-container *ngIf="projects | async as projectInfo">
+  <ng-container *ngIf="projects$ | async as projectInfo">
     <span class="proj-title-content">{{ projectInfo.title }}</span>
     <span class="proj-info-content">{{ projectInfo.description }}
       <div class="line-svg">
@@ -23,14 +79,15 @@
       </svg>
     </div>
     </span>
-    <span class="proj-payment-content"><span class="payment-header">Payment: </span>{{ projectInfo.payment | currency: 'USD' }}</span>
+    <span class="proj-payment-content"><span
+      class="payment-header">Payment: </span>{{ projectInfo.payment | currency: 'USD' }}</span>
     <span class="tech-header">Technology stack: </span>
     <span class="lang-header">Language</span>
     <span class="framework-header">Framework</span>
     <ul>
       <li *ngFor="let tech of projectInfo.technologies">
-        <span class="tech-content">{{tech.technology}}</span>
-        <span class="frame-content">{{tech.framework}}</span>
+        <span class="tech-content">{{ tech.technology }}</span>
+        <span class="frame-content">{{ tech.framework }}</span>
       </li>
     </ul>
   </ng-container>

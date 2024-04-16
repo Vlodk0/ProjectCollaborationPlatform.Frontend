@@ -6,4 +6,5 @@ export interface ProjectInfo {
   payment: number,
   description: string,
   technologies: DeveloperTechnology[]
+  boardId: string
 }

@@ -34,6 +34,7 @@ import {ConfirmDialogModule} from "primeng/confirmdialog";
 import { ProjectPageComponent } from './pages/project-page/project-page.component';
 import { PageNotFoundComponent } from './static-pages/page-not-found/page-not-found.component';
 import {DialogModule} from "primeng/dialog";
+import {DragDropModule} from "primeng/dragdrop";
 
 @NgModule({
   declarations: [
@@ -55,8 +56,8 @@ import {DialogModule} from "primeng/dialog";
     ProjectPageComponent,
     PageNotFoundComponent,
   ],
-    imports: [BrowserModule, AppRoutingModule, ReactiveFormsModule,
-        InputSwitchModule, AvatarModule, TableModule, ButtonModule, HttpClientModule, BrowserAnimationsModule, MessagesModule, ToastModule, AllProjectsPageModule, MultiSelectModule, FormsModule, SharedModule, ConfirmDialogModule, DialogModule],
+  imports: [BrowserModule, AppRoutingModule, ReactiveFormsModule,
+    InputSwitchModule, AvatarModule, TableModule, ButtonModule, HttpClientModule, BrowserAnimationsModule, MessagesModule, ToastModule, AllProjectsPageModule, MultiSelectModule, FormsModule, SharedModule, ConfirmDialogModule, DialogModule, DragDropModule],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
@@ -65,5 +66,8 @@ import {DialogModule} from "primeng/dialog";
     }
   ],
   bootstrap: [AppComponent],
+  exports: [
+    ButtonComponent
+  ]
 })
 export class AppModule {}
