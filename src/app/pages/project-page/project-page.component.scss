@@ -195,34 +195,23 @@
         text-transform: uppercase;
         margin-bottom: 20px;
 
-        .tasks-container {
-          flex-grow: 1;
+      }
+      .tasks-container {
+        flex-grow: 1;
 
-          .task {
-            display: flex;
-            padding: 15px 12px;
-            background: white;
-            border-bottom: solid 1px #ddd;
-            font-size: 14px;
-            font-weight: 600;
+        .task {
+          display: flex;
+          padding: 15px 12px;
+          background: white;
+          border-bottom: solid 1px #ddd;
+          font-size: 14px;
+          font-weight: 600;
 
-            cursor: move;
+          cursor: move;
 
-            margin: 15px 0;
-          }
+          margin: 15px 0;
         }
       }
     }
   }
-}
-
-.btn {
-  cursor: pointer;
-  background: transparent;
-  border: none;
-  height: auto;
-  width: auto;
-
-  font-size: 16px;
-  font-weight: 600;
 }

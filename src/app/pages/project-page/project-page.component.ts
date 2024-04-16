@@ -1,18 +1,20 @@
-import { Component, OnInit } from '@angular/core';
-import { ProjectsService } from "../../shared/services/projects.service";
-import { ActivatedRoute } from "@angular/router";
-import { Observable } from "rxjs";
-import { ProjectInfo } from "../../shared/interfaces/project-info";
-import { FormControl, FormGroup } from "@angular/forms";
-import { BoardService } from "../../shared/services/board.service";
-import { Board } from "../../shared/interfaces/board";
+import {Component, OnInit} from '@angular/core';
+import {ProjectsService} from "../../shared/services/projects.service";
+import {ActivatedRoute} from "@angular/router";
+import {catchError, Observable, of} from "rxjs";
+import {ProjectInfo} from "../../shared/interfaces/project-info";
+import {FormControl, FormGroup} from "@angular/forms";
+import {BoardService} from "../../shared/services/board.service";
+import {Board} from "../../shared/interfaces/board";
 import {FunctionalityBlock} from "../../shared/interfaces/functionality-block";
 import {FunctionalityBlockService} from "../../shared/services/functionality-block.service";
+import {CreateTask} from "../../shared/interfaces/create-task";
 
 @Component({
   selector: 'app-project-page',
   templateUrl: './project-page.component.html',
-  styleUrls: ['./project-page.component.scss']
+  styleUrls: ['./project-page.component.scss'],
+  providers: [FunctionalityBlockService]
 })
 export class ProjectPageComponent implements OnInit {
 
@@ -35,7 +37,8 @@ export class ProjectPageComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private boardService: BoardService,
     private functionalityBlockService: FunctionalityBlockService
-  ) {}
+  ) {
+  }
 
   availableTasks: FunctionalityBlock[] = [];
 
@@ -53,9 +56,8 @@ export class ProjectPageComponent implements OnInit {
 
     this.projects$.subscribe(project => {
       this.boardId = project.boardId;
-      this.tasks$ = this.functionalityBlockService.getTasksByBoardId(this.boardId);
+      this.loadTasksByBoardId(this.boardId);
     });
-
 
 
     this.creationForm = new FormGroup({
@@ -71,40 +73,77 @@ export class ProjectPageComponent implements OnInit {
     })
   }
 
+  loadTasksByBoardId(boardId: string) {
+    this.functionalityBlockService.getTasksByBoardId(boardId)
+      .subscribe(tasks => {
+        this.tasks$ = this.functionalityBlockService.getTasksByBoardId(boardId);
+        this.availableTasks = tasks.filter(task => task.status === 1);
+        this.selectedTasks = tasks.filter(task => task.status === 2);
+        this.doneTasks = tasks.filter(task => task.status === 3);
+      });
+  }
+
   toggleBoard() {
     this.showBoard = !this.showBoard;
   }
 
-  dragStart(task: FunctionalityBlock) {
-    this.draggedTask = task;
-  }
-
   drop(targetColumn: string) {
     if (this.draggedTask) {
-      if (targetColumn === 'todo') {
-        if (this.selectedTasks.includes(this.draggedTask)) {
-          this.selectedTasks = this.selectedTasks.filter(t => t !== this.draggedTask);
-        } else if (this.doneTasks.includes(this.draggedTask)) {
-          this.doneTasks = this.doneTasks.filter(t   => t !== this.draggedTask);
-        }
-        this.availableTasks.push(this.draggedTask);
-      } else if (targetColumn === 'inProcess') {
-        if (this.availableTasks.includes(this.draggedTask)) {
-          this.availableTasks = this.availableTasks.filter(t => t !== this.draggedTask);
-        } else if (this.doneTasks.includes(this.draggedTask)) {
-          this.doneTasks = this.doneTasks.filter(t => t !== this.draggedTask);
-        }
-        this.selectedTasks.push(this.draggedTask);
-      } else if (targetColumn === 'done') {
-        if (this.availableTasks.includes(this.draggedTask)) {
-          this.availableTasks = this.availableTasks.filter(t => t !== this.draggedTask);
-        } else if (this.selectedTasks.includes(this.draggedTask)) {
-          this.selectedTasks = this.selectedTasks.filter(t => t !== this.draggedTask);
-        }
-        this.doneTasks.push(this.draggedTask);
+      const funcBlockId = this.draggedTask.id;
+      let newStatus: number;
+
+      switch (targetColumn) {
+        case 'todo':
+          newStatus = 1;
+          break;
+        case 'inProcess':
+          newStatus = 2;
+          break;
+        case 'done':
+          newStatus = 3;
+          break;
+        default:
+          return;
       }
-      this.draggedTask = null;
+
+      this.functionalityBlockService.updateTaskStatus(funcBlockId, newStatus)
+        .pipe(
+          catchError((error) => {
+            console.error('Error updating task status:', error);
+            return of(null);
+          })
+        )
+        .subscribe(
+          (response) => {
+            if (response) {
+              console.log(`Task status updated to '${targetColumn}' successfully:`, response);
+
+              this.availableTasks = this.availableTasks.filter(t => t.id !== funcBlockId);
+              this.selectedTasks = this.selectedTasks.filter(t => t.id !== funcBlockId);
+              this.doneTasks = this.doneTasks.filter(t => t.id !== funcBlockId);
+
+              if (targetColumn === 'todo') {
+                this.availableTasks.push(this.draggedTask);
+
+              } else if (targetColumn === 'inProcess') {
+                this.selectedTasks.push(this.draggedTask);
+
+              } else if (targetColumn === 'done') {
+                this.doneTasks.push(this.draggedTask);
+
+              }
+
+              this.draggedTask = null;
+            } else {
+              console.log('Task status update failed');
+            }
+          }
+        );
     }
+  }
+
+  dragStart(task: FunctionalityBlock) {
+    this.draggedTask = task;
   }
 
   dragEnd() {
@@ -144,25 +183,27 @@ export class ProjectPageComponent implements OnInit {
 
   createTask() {
     if (this.creationTaskForm.valid) {
-      const taskObj: FunctionalityBlock = {
-        id: '',
+      const taskObj: CreateTask = {
+        status: 1,
         task: this.creationTaskForm.value.task
       };
 
       console.log(this.boardId)
-      this.tasks$ = this.functionalityBlockService.getTasksByBoardId(this.boardId);
+      this.loadTasksByBoardId(this.boardId);
 
       this.functionalityBlockService.createFunctionalityBlock(taskObj, this.boardId)
         .subscribe(
           (response) => {
             console.log('Task created successfully:', response);
             this.taskVisible = false;
+            // Refresh tasks after creation if needed
+            this.loadTasksByBoardId(this.boardId);
           },
           (error) => {
-            console.error('Error creating board:', error);
+            console.error('Error creating task:', error);
           }
-        )
-      setTimeout(function(){
+        );
+      setTimeout(function () {
         window.location.reload();
       }, 2000);
     }
@@ -179,6 +220,7 @@ export class ProjectPageComponent implements OnInit {
     if (this.updatingTaskForm.valid) {
       const taskObj: FunctionalityBlock = {
         id: this.funcBlockId,
+        status: 1,
         task: this.updatingTaskForm.value.task
       };
 
@@ -189,6 +231,7 @@ export class ProjectPageComponent implements OnInit {
           (response) => {
             console.log('Task updated successfully:', response);
             this.updateTaskVisible = false;
+            this.loadTasksByBoardId(this.boardId);
           },
           (error) => {
             console.error('Error updating task:', error);
@@ -202,10 +245,6 @@ export class ProjectPageComponent implements OnInit {
 
   deleteTask() {
     if (this.updatingTaskForm.valid) {
-      const taskObj: FunctionalityBlock = {
-        id: this.funcBlockId,
-        task: this.updatingTaskForm.value.task
-      };
 
       console.log(this.funcBlockId)
 
@@ -214,6 +253,7 @@ export class ProjectPageComponent implements OnInit {
           (response) => {
             console.log('Task deleted successfully:', response);
             this.updateTaskVisible = false;
+            this.loadTasksByBoardId(this.boardId);
           },
           (error) => {
             console.error('Error deleting task:', error);

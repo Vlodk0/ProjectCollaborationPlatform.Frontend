@@ -5,45 +5,43 @@
   <app-button [styleContext]="'create-board-button'" [context]="'Create Board'" (click)="showBoardCreationDialog()"
               [disabled]="isDisabled"></app-button>
   <app-button [styleContext]="'show-board-button'" [context]="'Show Board'" (click)="toggleBoard()"></app-button>
-  <app-button [styleContext]="'create-task-button'" [context]="'Add Task'" (click)="showTaskCreationDialog()"></app-button>
+  <app-button [styleContext]="'create-task-button'" [context]="'Add Task'"
+              (click)="showTaskCreationDialog()"></app-button>
 
   <div class="board-wrapper" *ngIf="showBoard">
 
-    <div class="board-columns" pDroppable (onDrop)="drop('todo')">
-      <div class="board-column">
-        <div class="column-title">
-          Todo
-          <div class="tasks-container">
-            <ng-container *ngIf="(tasks$ | async) as functionalityBlocks">
-              <div class="task" *ngFor="let task of functionalityBlocks" pDraggable (onDrag)="dragStart(task)" (onDragEnd)="dragEnd()" (click)="getTaskIdClick(task)">
-               <button class="btn" (click)="showTaskUpdatingDialog()">{{ task.task }}</button>
-              </div>
-            </ng-container>
+    <div class="board-columns">
+      <div class="board-column" pDroppable (onDrop)="drop('todo')">
+        <div class="column-title">Todo</div>
+        <div class="tasks-container">
+          <div class="task" *ngFor="let task of availableTasks" pDraggable
+               (onDragStart)="dragStart(task)" (onDragEnd)="dragEnd()" (click)="getTaskIdClick(task)">
+            <app-button [styleContext]="'show-dialog-update-button'" [context]="task.task" (click)="showTaskUpdatingDialog()"></app-button>
           </div>
         </div>
       </div>
+
       <div class="board-column" pDroppable (onDrop)="drop('inProcess')">
-        <div class="column-title">
-          In process
-          <div class="tasks-container">
-            <div class="task" *ngFor="let task of selectedTasks" pDraggable (onDrag)="dragStart(task)" (onDragEnd)="dragEnd()">
-              {{ task.task }}
-            </div>
+        <div class="column-title">In Process</div>
+        <div class="tasks-container">
+          <div class="task" *ngFor="let task of selectedTasks" pDraggable
+               (onDragStart)="dragStart(task)" (onDragEnd)="dragEnd()" (click)="getTaskIdClick(task)">
+            <app-button [styleContext]="'show-dialog-update-button'" [context]="task.task" (click)="showTaskUpdatingDialog()"></app-button>
           </div>
         </div>
       </div>
 
       <div class="board-column" pDroppable (onDrop)="drop('done')">
-        <div class="column-title">
-          Done
-          <div class="tasks-container">
-            <div class="task" *ngFor="let task of doneTasks" pDraggable (onDrag)="dragStart(task)" (onDragEnd)="dragEnd()">
-              {{ task.task }}
-            </div>
+        <div class="column-title">Done</div>
+        <div class="tasks-container">
+          <div class="task" *ngFor="let task of doneTasks" pDraggable
+               (onDragStart)="dragStart(task)" (onDragEnd)="dragEnd()" (click)="getTaskIdClick(task)">
+            <app-button [styleContext]="'show-dialog-update-button'" [context]="task.task" (click)="showTaskUpdatingDialog()"></app-button>
           </div>
         </div>
       </div>
     </div>
+
   </div>
 </div>
 

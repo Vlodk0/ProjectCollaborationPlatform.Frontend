@@ -4,6 +4,7 @@ import {HttpClient} from "@angular/common/http";
 import {FunctionalityBlock} from "../interfaces/functionality-block";
 import {Observable} from "rxjs";
 import {ProjectInfo} from "../interfaces/project-info";
+import {CreateTask} from "../interfaces/create-task";
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class FunctionalityBlockService {
 
   constructor(private httpClient: HttpClient) { }
 
-  public createFunctionalityBlock(funcBlockObj: FunctionalityBlock, boardId: string): Observable<FunctionalityBlock> {
+  public createFunctionalityBlock(funcBlockObj: CreateTask, boardId: string): Observable<FunctionalityBlock> {
     return this.httpClient.post<FunctionalityBlock>(this.apiUrl + `/${boardId}`, funcBlockObj)
   }
 
@@ -28,5 +29,9 @@ export class FunctionalityBlockService {
 
   public deleteTask(funcBlockId: string): Observable<FunctionalityBlock> {
     return this.httpClient.delete<FunctionalityBlock>(this.apiUrl + `/${funcBlockId}`)
+  }
+
+  public updateTaskStatus(funcBlockId: string, status: number): Observable<FunctionalityBlock> {
+    return this.httpClient.patch<FunctionalityBlock>(this.apiUrl + `/${funcBlockId}`, status);
   }
 }
