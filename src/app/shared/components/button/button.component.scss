@@ -322,7 +322,8 @@
   border: none;
 }
 
-.show-board-button {
+.show-board-button,
+.create-task-button {
   margin: 20px 0 20px 20px;
   cursor: pointer;
   width: 150px;
@@ -335,7 +336,9 @@
   border: none;
 }
 
-.add-board-button {
+.add-board-button,
+.update-task-button,
+.delete-task-button{
   margin: 40px 0 0 180px;
   cursor: pointer;
   width: 150px;
