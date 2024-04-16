@@ -35,6 +35,7 @@ import { ProjectPageComponent } from './pages/project-page/project-page.componen
 import { PageNotFoundComponent } from './static-pages/page-not-found/page-not-found.component';
 import {DialogModule} from "primeng/dialog";
 import {DragDropModule} from "primeng/dragdrop";
+import { AllDevelopersPageComponent } from './pages/all-developers-page/all-developers-page.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import {DragDropModule} from "primeng/dragdrop";
     SettingsPageComponent,
     ProjectPageComponent,
     PageNotFoundComponent,
+    AllDevelopersPageComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, ReactiveFormsModule,
     InputSwitchModule, AvatarModule, TableModule, ButtonModule, HttpClientModule, BrowserAnimationsModule, MessagesModule, ToastModule, AllProjectsPageModule, MultiSelectModule, FormsModule, SharedModule, ConfirmDialogModule, DialogModule, DragDropModule],
