@@ -1,4 +1,4 @@
-import {Component, OnDestroy} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {PaginationDeveloper} from "../../shared/interfaces/pagination-developer";
 import {DeveloperTechnology} from "../../shared/interfaces/developer-technology";
 import {Subject, takeUntil} from "rxjs";
@@ -13,6 +13,7 @@ import {TableLazyLoadEvent} from "primeng/table";
 })
 export class AllDevelopersPageComponent implements OnDestroy {
   visible: boolean = false;
+  addDevVisible: boolean = false;
   developers: PaginationDeveloper[];
   totalRecords: number = 1;
   technologies: DeveloperTechnology[];
@@ -30,6 +31,10 @@ export class AllDevelopersPageComponent implements OnDestroy {
   showDialog(technologies: DeveloperTechnology[]) {
     this.technologies = technologies
     this.visible = true
+  }
+
+  showAddingDevDialog() {
+    this.addDevVisible = true
   }
 
   loadDevelopers($event: TableLazyLoadEvent) {
