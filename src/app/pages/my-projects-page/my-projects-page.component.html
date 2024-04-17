@@ -1,0 +1,69 @@
+<app-header></app-header>
+
+<app-sidebar></app-sidebar>
+
+<div class="all-projects-container">
+
+  <div class="projects">
+    <p-table
+      [value]="projects"
+      [lazy]="true"
+      (onLazyLoad)="loadProjects($event)"
+      [globalFilterFields]="['Payment']"
+      [totalRecords]="totalRecords"
+      [paginator]="true"
+      [rows]="paginationFilter.pageSize"
+      [first]="paginationFilter.pageNumber"
+      [showCurrentPageReport]="true"
+      [tableStyle]="{ 'min-width': '50rem' }"
+      dataKey="id"
+      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+      [rowsPerPageOptions]="[15, 20, 50]"
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          <th style="width:25%">Title</th>
+          <th style="width:25%" pSortableColumn="Payment">Payment
+            <p-sortIcon field="Payment"></p-sortIcon>
+          </th>
+          <th style="width:25%">Description</th>
+          <th style="width:25%">Technologies</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-project>
+        <tr>
+          <td routerLink="/project/{{project.id}}" style="cursor: pointer">{{ project.title }}</td>
+          <td>{{ project.payment | currency: 'USD' }}</td>
+          <td>{{ project.description }}</td>
+          <td>
+            <app-button [styleContext]="'show-techs-button'" [context]="'...'"
+                        (click)="showDialog(project.technologies)"></app-button>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="paginatorleft">
+        <p-button type="button" icon="pi pi-plus" styleClass="p-button-text"></p-button>
+      </ng-template>
+      <ng-template pTemplate="paginatorright">
+        <p-button type="button" icon="pi pi-cloud" styleClass="p-button-text"></p-button>
+      </ng-template>
+    </p-table>
+  </div>
+</div>
+
+<p-dialog header="Technologies" [(visible)]="visible" [style]="{width: '20vw'}">
+  <p-table [value]="technologies" [tableStyle]="{ 'min-width': '20rem' }">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Technology</th>
+        <th>Framework</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-tech>
+      <tr>
+        <td>{{ tech.technology }}</td>
+        <td>{{ tech.framework }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</p-dialog>

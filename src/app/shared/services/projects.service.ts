@@ -29,4 +29,14 @@ export class ProjectsService {
   public getProjectById(projectId: string): Observable<ProjectInfo> {
     return this.httpClient.get<ProjectInfo>(this.apiUrl + `/${projectId}`)
   }
+
+  public getAllProjectsByProjectOwner(filter: PaginationFilter): Observable<PaginationResponse<ProjectPagination[]>> {
+    let params = new HttpParams()
+      .set('pageNumber', filter.pageNumber.toString())
+      .set('pageSize', filter.pageSize.toString())
+      .set('sortColumn', filter.sortColumn.toString())
+      .set('sortDirection', (filter.sortDirection === 1) ? 'asc' : 'desc');
+
+    return this.httpClient.get<PaginationResponse<ProjectPagination[]>>(this.apiUrl + `/my-projects`, {params});
+  }
 }
