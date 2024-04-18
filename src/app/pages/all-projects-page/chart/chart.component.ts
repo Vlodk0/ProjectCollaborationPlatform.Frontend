@@ -26,6 +26,7 @@ export class ChartComponent implements OnInit{
       series: [
         {
           name: 'Access From',
+          color: ['#8C92AC', '#49416D', '#DFD9E2', '#736B92', '#7D5C65'],
           type: 'pie',
           radius: ['40%', '70%'],
           avoidLabelOverlap: false,

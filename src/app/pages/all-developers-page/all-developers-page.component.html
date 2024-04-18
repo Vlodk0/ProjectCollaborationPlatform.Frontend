@@ -29,7 +29,7 @@
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-developer>
-        <tr>
+        <tr (click)="onDeveloperClick(developer)">
           <td class="cursor-style" (click)="showAddingDevDialog()">{{ developer.firstName }}</td>
           <td class="cursor-style" (click)="showAddingDevDialog()">{{ developer.lastName }}</td>
           <td>
@@ -65,8 +65,35 @@
   </p-table>
 </p-dialog>
 
-<p-dialog header="Want to add on the project?" [(visible)]="addDevVisible" [style]="{width: '20vw'}">
-  <app-button [styleContext]="'add-dev-button'" [context]="'Add'"></app-button>
+<p-dialog header="Want to add on the project?" [(visible)]="addDevVisible" [style]="{width: '25vw', height: '23vw'}">
+
+  <div class="card flex justify-content-center">
+    <p-dropdown
+      [options]="projectDropDownItems"
+      [(ngModel)]="selectedProjects"
+      optionLabel="title"
+      [filter]="true"
+      filterBy="title"
+      [showClear]="true"
+      placeholder="Select a Project"
+      (onChange)="onProjectClick($event.value)"
+    >
+      <ng-template let-selectedOption pTemplate="selectedProjects">
+        <div class="flex align-items-center gap-2">
+          <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + selectedOption.title.toLowerCase()" style="width: 18px"/>
+          <div>{{ selectedOption.title }}</div>
+        </div>
+      </ng-template>
+      <ng-template let-project pTemplate="item">
+        <div class="flex align-items-center gap-2">
+          <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + project.title.toLowerCase()" style="width: 18px"/>
+          <div>{{ project.title }}</div>
+        </div>
+      </ng-template>
+    </p-dropdown>
+  </div>
+
+  <app-button [styleContext]="'add-dev-button'" [context]="'Add'" (click)="addDev()"></app-button>
 </p-dialog>
 
 <div class="secondary-container">
