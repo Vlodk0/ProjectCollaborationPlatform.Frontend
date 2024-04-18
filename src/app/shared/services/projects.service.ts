@@ -39,4 +39,12 @@ export class ProjectsService {
 
     return this.httpClient.get<PaginationResponse<ProjectPagination[]>>(this.apiUrl + `/my-projects`, {params});
   }
+
+  public getProjectOwnerProjects(): Observable<ProjectInfo[]> {
+    return this.httpClient.get<ProjectInfo[]>(this.apiUrl + '/projectOwner/projects');
+  }
+
+  public addDevelopersOnProject(projectId: string, devId: string[]) {
+    return this.httpClient.post(this.apiUrl + `/developers/${projectId}`, devId)
+  }
 }

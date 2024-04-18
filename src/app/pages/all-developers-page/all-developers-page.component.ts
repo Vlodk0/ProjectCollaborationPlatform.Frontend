@@ -5,27 +5,64 @@ import {Subject, takeUntil} from "rxjs";
 import {PaginationFilterDevs} from "../../shared/interfaces/pagination-filter-devs";
 import {DeveloperService} from "../../shared/services/developer.service";
 import {TableLazyLoadEvent} from "primeng/table";
+import {ProjectInfo} from "../../shared/interfaces/project-info";
+import {ProjectsService} from "../../shared/services/projects.service";
+import {ProjectDev} from "../../shared/interfaces/project-dev";
 
 @Component({
   selector: 'app-all-developers-page',
   templateUrl: './all-developers-page.component.html',
   styleUrl: './all-developers-page.component.scss'
 })
-export class AllDevelopersPageComponent implements OnDestroy {
+export class AllDevelopersPageComponent implements OnDestroy, OnInit {
   visible: boolean = false;
   addDevVisible: boolean = false;
   developers: PaginationDeveloper[];
   totalRecords: number = 1;
   technologies: DeveloperTechnology[];
-
+  projectDropDownItems: ProjectInfo[]
   isSubscribe: Subject<void> = new Subject<void>()
+  selectedProjects: ProjectInfo;
+  selectedDeveloper: PaginationDeveloper
 
   paginationFilter: PaginationFilterDevs = {
     pageNumber: 0,
     pageSize: 15,
   }
 
-  constructor(private developerService: DeveloperService) {
+  constructor(private developerService: DeveloperService, private projectService: ProjectsService) {
+  }
+
+  ngOnInit() {
+    this.projectService.getProjectOwnerProjects()
+      .pipe(
+        takeUntil(this.isSubscribe)
+      )
+      .subscribe({
+        next: value => this.projectDropDownItems = value
+      })
+  }
+
+  onProjectClick(selectedProject: ProjectInfo): void {
+    this.selectedProjects = selectedProject;
+  }
+
+  onDeveloperClick(selectedDev: PaginationDeveloper): void {
+    this.selectedDeveloper = selectedDev;
+  }
+
+  addDev() {
+    console.log(this.selectedProjects.id)
+    console.log(this.selectedDeveloper.id)
+    this.projectService.addDevelopersOnProject(this.selectedProjects.id, [this.selectedDeveloper.id])
+      .subscribe(
+        () => {
+          console.log('Developers added to the project successfully.');
+        },
+        (error) => {
+          console.error('Error adding developers to the project:', error);
+        }
+      );
   }
 
   showDialog(technologies: DeveloperTechnology[]) {

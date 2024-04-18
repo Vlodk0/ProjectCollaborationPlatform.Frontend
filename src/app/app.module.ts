@@ -37,6 +37,7 @@ import {DialogModule} from "primeng/dialog";
 import {DragDropModule} from "primeng/dragdrop";
 import { AllDevelopersPageComponent } from './pages/all-developers-page/all-developers-page.component';
 import { MyProjectsPageComponent } from './pages/my-projects-page/my-projects-page.component';
+import {DropdownModule} from "primeng/dropdown";
 
 @NgModule({
   declarations: [
@@ -61,7 +62,7 @@ import { MyProjectsPageComponent } from './pages/my-projects-page/my-projects-pa
     MyProjectsPageComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, ReactiveFormsModule,
-    InputSwitchModule, AvatarModule, TableModule, ButtonModule, HttpClientModule, BrowserAnimationsModule, MessagesModule, ToastModule, AllProjectsPageModule, MultiSelectModule, FormsModule, SharedModule, ConfirmDialogModule, DialogModule, DragDropModule],
+    InputSwitchModule, AvatarModule, TableModule, ButtonModule, HttpClientModule, BrowserAnimationsModule, MessagesModule, ToastModule, AllProjectsPageModule, MultiSelectModule, FormsModule, SharedModule, ConfirmDialogModule, DialogModule, DragDropModule, DropdownModule],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
