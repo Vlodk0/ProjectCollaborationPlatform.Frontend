@@ -16,7 +16,8 @@
         <div class="tasks-container">
           <div class="task" *ngFor="let task of availableTasks" pDraggable
                (onDragStart)="dragStart(task)" (onDragEnd)="dragEnd()" (click)="getTaskIdClick(task)">
-            <app-button [styleContext]="'show-dialog-update-button'" [context]="task.task" (click)="showTaskUpdatingDialog()"></app-button>
+            <app-button [styleContext]="'show-dialog-update-button'" [context]="task.task"
+                        (click)="showTaskUpdatingDialog()"></app-button>
           </div>
         </div>
       </div>
@@ -26,7 +27,8 @@
         <div class="tasks-container">
           <div class="task" *ngFor="let task of selectedTasks" pDraggable
                (onDragStart)="dragStart(task)" (onDragEnd)="dragEnd()" (click)="getTaskIdClick(task)">
-            <app-button [styleContext]="'show-dialog-update-button'" [context]="task.task" (click)="showTaskUpdatingDialog()"></app-button>
+            <app-button [styleContext]="'show-dialog-update-button'" [context]="task.task"
+                        (click)="showTaskUpdatingDialog()"></app-button>
           </div>
         </div>
       </div>
@@ -36,7 +38,8 @@
         <div class="tasks-container">
           <div class="task" *ngFor="let task of doneTasks" pDraggable
                (onDragStart)="dragStart(task)" (onDragEnd)="dragEnd()" (click)="getTaskIdClick(task)">
-            <app-button [styleContext]="'show-dialog-update-button'" [context]="task.task" (click)="showTaskUpdatingDialog()"></app-button>
+            <app-button [styleContext]="'show-dialog-update-button'" [context]="task.task"
+                        (click)="showTaskUpdatingDialog()"></app-button>
           </div>
         </div>
       </div>
@@ -69,24 +72,40 @@
 
 <div class="project-info-container">
   <ng-container *ngIf="projects$ | async as projectInfo">
-    <span class="proj-title-content">{{ projectInfo.title }}</span>
-    <span class="proj-info-content">{{ projectInfo.description }}
-      <div class="line-svg">
-      <svg width="324" height="2" viewBox="0 0 324 2" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect y="0.666626" width="324" height="1" fill="#F0F0F0"/>
-      </svg>
+    <div class="title-container">{{ projectInfo.title }}
+      <div class="description-container">{{ projectInfo.description }}
+        <div class="line-svg">
+          <svg width="324" height="2" viewBox="0 0 324 2" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect y="0.666626" width="324" height="1" fill="#F0F0F0"/>
+          </svg>
+        </div>
+      </div>
     </div>
-    </span>
-    <span class="proj-payment-content"><span
-      class="payment-header">Payment: </span>{{ projectInfo.payment | currency: 'USD' }}</span>
-    <span class="tech-header">Technology stack: </span>
-    <span class="lang-header">Language</span>
-    <span class="framework-header">Framework</span>
-    <ul>
-      <li *ngFor="let tech of projectInfo.technologies">
-        <span class="tech-content">{{ tech.technology }}</span>
-        <span class="frame-content">{{ tech.framework }}</span>
-      </li>
-    </ul>
+    <div class="info-container">
+      <span>Payment: <span class="payment-content ">{{ projectInfo.payment | currency: 'USD' }}</span></span>
+      <span>Technology stack</span>
+      <div class="tech-stack-container">
+        <div class="tech-header">
+          <span>Language</span>
+          <span>Framework</span>
+        </div>
+        <div class="tech-container">
+          <ul>
+            <li *ngFor="let tech of projectInfo.technologies" class="tech-content">
+              <span>{{ tech.technology }}</span>
+              <span>{{ tech.framework }}</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="member-container">
+      <div>Members</div>
+      <ul>
+        <li *ngFor="let dev of projectInfo.developers" class="member-content">
+          <span>{{ dev.firstName }} {{ dev.lastName }}</span>
+        </li>
+      </ul>
+    </div>
   </ng-container>
 </div>

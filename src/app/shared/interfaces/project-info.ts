@@ -1,4 +1,5 @@
 import {DeveloperTechnology} from "./developer-technology";
+import {CreateDeveloper} from "./create-developer";
 
 export interface ProjectInfo {
   id: string,
@@ -6,5 +7,6 @@ export interface ProjectInfo {
   payment: number,
   description: string,
   technologies: DeveloperTechnology[]
-  boardId: string
+  boardId: string,
+  developers: CreateDeveloper[],
 }

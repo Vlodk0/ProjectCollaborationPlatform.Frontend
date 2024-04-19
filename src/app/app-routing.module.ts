@@ -57,7 +57,7 @@ const routes: Routes = [
     loadChildren: () => import('./pages/settings-page/settings-page-routing.module').then(r => r.SettingsPageRoutingModule)
   },
   {
-    path: 'project/:id',
+    path: 'my-project/:id',
     loadChildren: () => import('./pages/project-page/project-page-routing.module').then(r => r.ProjectPageRoutingModule)
   },
   {
