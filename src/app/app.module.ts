@@ -38,6 +38,7 @@ import {DragDropModule} from "primeng/dragdrop";
 import { AllDevelopersPageComponent } from './pages/all-developers-page/all-developers-page.component';
 import { MyProjectsPageComponent } from './pages/my-projects-page/my-projects-page.component';
 import {DropdownModule} from "primeng/dropdown";
+import { ProjectInfoPageComponent } from './pages/project-info-page/project-info-page.component';
 
 @NgModule({
   declarations: [
@@ -60,6 +61,7 @@ import {DropdownModule} from "primeng/dropdown";
     PageNotFoundComponent,
     AllDevelopersPageComponent,
     MyProjectsPageComponent,
+    ProjectInfoPageComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, ReactiveFormsModule,
     InputSwitchModule, AvatarModule, TableModule, ButtonModule, HttpClientModule, BrowserAnimationsModule, MessagesModule, ToastModule, AllProjectsPageModule, MultiSelectModule, FormsModule, SharedModule, ConfirmDialogModule, DialogModule, DragDropModule, DropdownModule],
