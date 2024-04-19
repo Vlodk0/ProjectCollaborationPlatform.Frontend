@@ -1,0 +1,31 @@
+<app-header></app-header>
+
+<app-sidebar></app-sidebar>
+
+
+<div class="project-container">
+  <ng-container *ngIf="projects$ | async as projectInfo">
+    <div class="title">{{ projectInfo.title }}</div>
+    <div class="about">About</div>
+    <div class="short-info"> {{ projectInfo.description }}
+    </div>
+    <div class="about">Technologies</div>
+    <div class="tech-info-container">
+      <ul>
+        <li *ngFor="let tech of projectInfo.technologies" class="tech-content">
+          <span class="tech-content-style">{{ tech.technology }}</span>
+          <span class="frame-content-style">{{ tech.framework }}</span>
+        </li>
+      </ul>
+    </div>
+    <div class="line-svg">
+      <svg width="958" height="2" viewBox="-100 0 958 2" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0.5 0.75H957.5" stroke="white" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="price-container">
+      <div class="price">Price:</div>
+      <div class="value">{{ projectInfo.payment | currency: 'USD' }}</div>
+    </div>
+  </ng-container>
+</div>

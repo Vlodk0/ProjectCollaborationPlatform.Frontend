@@ -32,7 +32,7 @@
       </ng-template>
       <ng-template pTemplate="body" let-project>
         <tr>
-          <td routerLink="/my-project/{{project.id}}" style="cursor: pointer">{{ project.title }}</td>
+          <td routerLink="/project-info/{{project.id}}" style="cursor: pointer">{{ project.title }}</td>
           <td>{{ project.payment | currency: 'USD' }}</td>
           <td>{{ project.description }}</td>
           <td>
