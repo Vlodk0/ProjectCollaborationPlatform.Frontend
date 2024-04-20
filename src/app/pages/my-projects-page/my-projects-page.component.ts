@@ -1,22 +1,27 @@
-import {Component, OnDestroy} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ProjectPagination} from "../../shared/interfaces/project-pagination";
 import {DeveloperTechnology} from "../../shared/interfaces/developer-technology";
 import {Subject, takeUntil} from "rxjs";
 import {PaginationFilter} from "../../shared/interfaces/pagination-filter";
 import {ProjectsService} from "../../shared/services/projects.service";
 import {TableLazyLoadEvent} from "primeng/table";
+import {FormControl, FormGroup} from "@angular/forms";
+import {CreateProject} from "../../shared/interfaces/create-project";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-my-projects-page',
   templateUrl: './my-projects-page.component.html',
   styleUrl: './my-projects-page.component.scss'
 })
-export class MyProjectsPageComponent implements OnDestroy {
+export class MyProjectsPageComponent implements OnDestroy, OnInit {
 
   visible: boolean = false;
+  creationVisible: boolean = false;
   projects: ProjectPagination[];
   totalRecords: number = 1;
   technologies: DeveloperTechnology[];
+  creationProjectForm: FormGroup;
 
   isSubscribe: Subject<void> = new Subject<void>()
 
@@ -27,12 +32,16 @@ export class MyProjectsPageComponent implements OnDestroy {
     sortDirection: 1
   }
 
-  constructor(private projectService: ProjectsService) {
+  constructor(private projectService: ProjectsService, private router: Router) {
   }
 
   showDialog(technologies: DeveloperTechnology[]) {
     this.technologies = technologies
     this.visible = true
+  }
+
+  showProjectCreationDialog() {
+    this.creationVisible = true
   }
 
   loadProjects($event: TableLazyLoadEvent) {
@@ -49,6 +58,36 @@ export class MyProjectsPageComponent implements OnDestroy {
         this.projects = response.data;
         this.totalRecords = response.totalRecords;
       })
+  }
+
+  ngOnInit() {
+    this.creationProjectForm = new FormGroup({
+      title: new FormControl(''),
+      shortInfo: new FormControl(''),
+      payment: new FormControl(0),
+      description: new FormControl('')
+    })
+  }
+
+  onSubmit() {
+    if (this.creationProjectForm.valid) {
+      const projectObj: CreateProject = {
+        title: this.creationProjectForm.value.title,
+        shortInfo: this.creationProjectForm.value.shortInfo,
+        payment: this.creationProjectForm.value.payment,
+        description: this.creationProjectForm.value.description,
+        boardName: `${this.creationProjectForm.value.title}'s board`
+      }
+
+      this.projectService.createProject(projectObj)
+        .subscribe((response) => {
+            this.creationVisible = false;
+            this.router.navigateByUrl('my-project/:id')
+          },
+          (error) => {
+            console.error('Error creating Project:', error);
+          })
+    }
   }
 
   ngOnDestroy() {

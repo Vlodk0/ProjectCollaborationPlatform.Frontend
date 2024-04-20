@@ -12,6 +12,62 @@
 
   .projects {
     width: 100%;
-    //margin-top: 10px;
   }
+}
+
+.secondary-container {
+  width: 406px;
+  height: auto;
+  top: 400px;
+  left: 1464px;
+  gap: 0;
+  justify-content: space-between;
+  display: flex;
+  position: absolute;
+  flex-direction: column;
+
+  background-color: rgba(255, 255, 255, 1);
+  border-radius: 5px;
+
+  .title-content {
+    margin: 35px 20px 20px 20px;
+    color: rgba(37, 47, 64, 1);
+    font-size: 35px;
+    font-style: SemiBold;
+    text-align: left;
+    font-family: 'Open Sans';
+    font-weight: 600;
+  }
+}
+
+.project-creation-container {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+
+  .creation-inputs {
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: row;
+  }
+}
+
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.input-style {
+  height: auto;
+  width: auto;
+  border-radius: 5px;
+  padding: 14px 16px;
+  margin: 10px;
+  font-size: 20px;
+  font-family: "Noto Sans";
+  font-weight: 400;
+  border-color: azure;
+  border-style: solid;
+  border-width: 1px;
 }
