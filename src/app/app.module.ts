@@ -63,8 +63,8 @@ import { ProjectInfoPageComponent } from './pages/project-info-page/project-info
     MyProjectsPageComponent,
     ProjectInfoPageComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, ReactiveFormsModule,
-    InputSwitchModule, AvatarModule, TableModule, ButtonModule, HttpClientModule, BrowserAnimationsModule, MessagesModule, ToastModule, AllProjectsPageModule, MultiSelectModule, FormsModule, SharedModule, ConfirmDialogModule, DialogModule, DragDropModule, DropdownModule],
+    imports: [BrowserModule, AppRoutingModule, ReactiveFormsModule,
+        InputSwitchModule, AvatarModule, TableModule, ButtonModule, HttpClientModule, BrowserAnimationsModule, MessagesModule, ToastModule, AllProjectsPageModule, MultiSelectModule, FormsModule, SharedModule, ConfirmDialogModule, DialogModule, DragDropModule, DropdownModule],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,

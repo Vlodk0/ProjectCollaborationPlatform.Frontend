@@ -141,7 +141,7 @@
 }
 
 .logout-button:hover,
-.settings-button:hover{
+.settings-button:hover {
   background-color: white;
   color: black;
 }
@@ -170,7 +170,7 @@
 
 .all-projects-button,
 .developers-button {
-  cursor: pointer ;
+  cursor: pointer;
   background: transparent;
   border: none;
   transition: all 0.4s ease 0s;
@@ -234,7 +234,7 @@
 .all-projects-button:hover,
 .developers-button:hover,
 .profile-button:hover,
-.my-projects-button:hover{
+.my-projects-button:hover {
   cursor: pointer;
   background-color: purple;
 }
@@ -309,21 +309,9 @@
   border: none;
 }
 
-.create-board-button {
-  margin: 20px 0 20px 20px;
-  cursor: pointer;
-  width: 150px;
-  height: auto;
-  background-color: mediumpurple;
-  color: darkslategrey;
-  font-size: 20px;
-  border-radius: 5px;
-  font-family: "Noto Sans";
-  border: none;
-}
-
 .show-board-button,
-.create-task-button {
+.create-task-button,
+.add-techs-button {
   margin: 20px 0 20px 20px;
   cursor: pointer;
   width: 150px;
@@ -361,4 +349,19 @@
 
   font-size: 16px;
   font-weight: 600;
+}
+
+.add-project-button,
+.create-project-button {
+  width: 150px;
+  margin: 35px 20px 20px 20px;
+  height: auto;
+  cursor: pointer;
+  background-color: mediumpurple;
+  color: darkslategrey;
+  font-size: 25px;
+  border-radius: 5px;
+  font-family: "Noto Sans";
+  border: none;
+  transition-duration: 0.4s;
 }

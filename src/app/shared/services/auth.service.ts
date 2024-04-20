@@ -43,6 +43,8 @@ export class AuthService {
   }
 
   createProjectOwner(projectOwner: CreateProjectOwner) {
+    localStorage.removeItem('firstName');
+    localStorage.removeItem('lastName');
     return this.httpClient.post(this.apiUrl, projectOwner)
       .subscribe(
         (res: any) => {

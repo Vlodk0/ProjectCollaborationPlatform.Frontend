@@ -2,11 +2,10 @@
 <app-sidebar></app-sidebar>
 
 <div class="project-container">
-  <app-button [styleContext]="'create-board-button'" [context]="'Create Board'" (click)="showBoardCreationDialog()"
-              [disabled]="isDisabled"></app-button>
   <app-button [styleContext]="'show-board-button'" [context]="'Show Board'" (click)="toggleBoard()"></app-button>
   <app-button [styleContext]="'create-task-button'" [context]="'Add Task'"
               (click)="showTaskCreationDialog()"></app-button>
+  <app-button [styleContext]="'create-task-button'" [context]="'Add Techs'"></app-button>
 
   <div class="board-wrapper" *ngIf="showBoard">
 
@@ -47,13 +46,6 @@
 
   </div>
 </div>
-
-<form [formGroup]="creationForm" (ngSubmit)="onSubmit()">
-  <p-dialog header="Board" [(visible)]="visible" [style]="{width: '20vw'}">
-    <input type="text" class="board-name-input" formControlName="name" placeholder="Board name">
-    <app-button [styleContext]="'add-board-button'" [context]="'Create'" type="submit"></app-button>
-  </p-dialog>
-</form>
 
 <form [formGroup]="creationTaskForm">
   <p-dialog header="Task" [(visible)]="taskVisible" [style]="{width: '20vw'}">

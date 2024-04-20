@@ -34,7 +34,7 @@
         <tr>
           <td routerLink="/my-project/{{project.id}}" style="cursor: pointer">{{ project.title }}</td>
           <td>{{ project.payment | currency: 'USD' }}</td>
-          <td>{{ project.description }}</td>
+          <td>{{ project.shortInfo }}</td>
           <td>
             <app-button [styleContext]="'show-techs-button'" [context]="'...'"
                         (click)="showDialog(project.technologies)"></app-button>
@@ -67,3 +67,26 @@
     </ng-template>
   </p-table>
 </p-dialog>
+
+
+<div class="secondary-container">
+  <div class="title-content">New Project</div>
+  <app-button [styleContext]="'add-project-button'" [context]="'Create'"
+              (click)="showProjectCreationDialog()"></app-button>
+</div>
+
+<form [formGroup]="creationProjectForm" (ngSubmit)="onSubmit()">
+  <p-dialog header="Project" [(visible)]="creationVisible" [style]="{width: 'auto'}">
+    <div class="project-creation-container">
+      <div class="creation-inputs">
+        <input type="text" placeholder="Project title" class="input-style" formControlName="title">
+        <input type="text" placeholder="Short description" class="input-style" formControlName="shortInfo">
+        <input type="number" placeholder="Project payment" class="input-style" formControlName="payment">
+      </div>
+      <textarea class="input-style" placeholder="Your requirements" formControlName="description"></textarea>
+    </div>
+    <div class="button-container">
+      <app-button [styleContext]="'add-project-button'" [context]="'Create'"></app-button>
+    </div>
+  </p-dialog>
+</form>

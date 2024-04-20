@@ -6,6 +6,7 @@ import {PaginationResponse} from "../interfaces/pagination-response";
 import {ProjectPagination} from "../interfaces/project-pagination";
 import {environment} from "../../environment";
 import {ProjectInfo} from "../interfaces/project-info";
+import {CreateProject} from "../interfaces/create-project";
 
 @Injectable({
   providedIn: 'root'
@@ -46,5 +47,9 @@ export class ProjectsService {
 
   public addDevelopersOnProject(projectId: string, devId: string[]) {
     return this.httpClient.post(this.apiUrl + `/developers/${projectId}`, devId)
+  }
+
+  public createProject(projectObj: CreateProject): Observable<CreateProject> {
+    return this.httpClient.post<CreateProject>(this.apiUrl, projectObj)
   }
 }

@@ -20,16 +20,13 @@ export class ProjectPageComponent implements OnInit {
 
   projects$: Observable<ProjectInfo>;
   tasks$: Observable<FunctionalityBlock[]>
-  visible: boolean = false;
   taskVisible: boolean = false;
   updateTaskVisible: boolean = false;
-  creationForm: FormGroup;
   creationTaskForm: FormGroup;
   updatingTaskForm: FormGroup;
   projectId: string;
   boardId: string;
   funcBlockId: string;
-  isDisabled: boolean = false;
   showBoard = false;
 
   constructor(
@@ -59,10 +56,6 @@ export class ProjectPageComponent implements OnInit {
       this.loadTasksByBoardId(this.boardId);
     });
 
-
-    this.creationForm = new FormGroup({
-      name: new FormControl('')
-    });
 
     this.creationTaskForm = new FormGroup({
       task: new FormControl('')
@@ -150,35 +143,12 @@ export class ProjectPageComponent implements OnInit {
     this.draggedTask = null;
   }
 
-  showBoardCreationDialog() {
-    this.visible = true;
-  }
-
   showTaskCreationDialog() {
     this.taskVisible = true;
   }
 
   showTaskUpdatingDialog() {
     this.updateTaskVisible = true;
-  }
-
-  onSubmit() {
-    if (this.creationForm.valid) {
-      const boardObj: Board = {
-        name: this.creationForm.value.name
-      };
-
-      this.boardService.createBoard(boardObj, this.projectId).subscribe(
-        (response) => {
-          console.log('Board created successfully:', response);
-          this.visible = false;
-          this.isDisabled = true;
-        },
-        (error) => {
-          console.error('Error creating board:', error);
-        }
-      );
-    }
   }
 
   createTask() {
@@ -203,9 +173,6 @@ export class ProjectPageComponent implements OnInit {
             console.error('Error creating task:', error);
           }
         );
-      setTimeout(function () {
-        window.location.reload();
-      }, 2000);
     }
   }
 
