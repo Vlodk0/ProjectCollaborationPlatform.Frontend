@@ -2,10 +2,23 @@
 <app-sidebar></app-sidebar>
 
 <div class="project-container">
-  <app-button [styleContext]="'show-board-button'" [context]="'Show Board'" (click)="toggleBoard()"></app-button>
-  <app-button [styleContext]="'create-task-button'" [context]="'Add Task'"
-              (click)="showTaskCreationDialog()"></app-button>
-  <app-button [styleContext]="'create-task-button'" [context]="'Add Techs'"></app-button>
+  <div class="manage-container">
+    <div>
+      <app-button [styleContext]="'show-board-button'" [context]="'Show Board'" (click)="toggleBoard()"></app-button>
+      <app-button [styleContext]="'create-task-button'" [context]="'Add Task'"
+                  (click)="showTaskCreationDialog()"></app-button>
+      <app-button [styleContext]="'add-techs-button'" [context]="'Add technologies'"
+                  (click)="showAddingTechDialog()"></app-button>
+      <app-button [styleContext]="'remove-techs-button'" [context]="'Remove technologies'"
+                  (click)="showRemovingTechDialog()"></app-button>
+      <app-button [styleContext]="'update-project-button'" [context]="'Update'"
+                  (click)="showProjectUpdatingDialog()"></app-button>
+    </div>
+    <div>
+      <app-button [styleContext]="'update-project-button'" [context]="'Details'"
+                  (click)="showProjectDetailUpdatingDialog()"></app-button>
+    </div>
+  </div>
 
   <div class="board-wrapper" *ngIf="showBoard">
 
@@ -59,6 +72,98 @@
     <input type="text" class="board-name-input" formControlName="task" placeholder="Task">
     <app-button [styleContext]="'update-task-button'" [context]="'Update'" (click)="updateTask()"></app-button>
     <app-button [styleContext]="'delete-task-button'" [context]="'Delete'" (click)="deleteTask()"></app-button>
+  </p-dialog>
+</form>
+
+<p-dialog header="Want to add on the project?" [(visible)]="addTechVisible" [style]="{width: 'auto', height: 'auto'}">
+  <div class="multi-select-container">
+    <p-table [value]="technologiesDropDownItems" [(selection)]="selectedTechnologies" dataKey="id" [paginator]="true"
+             [rows]="4"
+             [selectionPageOnly]="true" [tableStyle]="{'min-width': '50rem'}">
+      <ng-template pTemplate="header">
+        <tr>
+          <th style="width: 4rem">
+            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+          </th>
+          <th style="width:200px">Tech</th>
+          <th style="width:200px">Framework</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-tech>
+        <tr>
+          <td>
+            <p-tableCheckbox [value]="tech"></p-tableCheckbox>
+          </td>
+          <td>{{ tech.technology }}</td>
+          <td>{{ tech.framework }}</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+  <div class="button-container">
+    <app-button [styleContext]="'add-selected-techs-button'" [context]="'Add'"
+                (click)="addSelectedTechnology()"></app-button>
+  </div>
+</p-dialog>
+
+<p-dialog header="Want to delete from project?" [(visible)]="removeTechVisible"
+          [style]="{width: 'auto', height: 'auto'}">
+  <div class="multi-select-container">
+    <p-table [value]="projectTechnologiesDropDownItems" [(selection)]="selectedTechnologies" dataKey="id"
+             [paginator]="true"
+             [rows]="4"
+             [selectionPageOnly]="true" [tableStyle]="{'min-width': '50rem'}">
+      <ng-template pTemplate="header">
+        <tr>
+          <th style="width: 4rem">
+            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+          </th>
+          <th style="width:200px">Tech</th>
+          <th style="width:200px">Framework</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-tech>
+        <tr>
+          <td>
+            <p-tableCheckbox [value]="tech"></p-tableCheckbox>
+          </td>
+          <td>{{ tech.technology }}</td>
+          <td>{{ tech.framework }}</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+  <div class="button-container">
+    <app-button [styleContext]="'add-selected-techs-button'" [context]="'Delete'"
+                (click)="removeSelectedTechnology()"></app-button>
+  </div>
+</p-dialog>
+
+<form [formGroup]="updatingProjectForm">
+  <p-dialog header="Project" [(visible)]="updateProjVisible" [style]="{width: 'auto'}">
+    <div class="project-creation-container">
+      <div class="creation-inputs">
+        <input type="text" placeholder="Project title" class="input-style" formControlName="title">
+        <input type="text" placeholder="Short description" class="input-style" formControlName="shortInfo">
+        <input type="number" placeholder="Project payment" class="input-style" formControlName="payment">
+      </div>
+    </div>
+    <div class="button-container">
+      <app-button [styleContext]="'update-project-content-button'" [context]="'Update'"
+                  (click)="updateProject()"></app-button>
+    </div>
+  </p-dialog>
+</form>
+
+<form [formGroup]="updatingProjectDetailForm">
+  <p-dialog header="Project detail" [(visible)]="updateProjDetailVisible" [style]="{width: 'auto'}">
+    <div class="project-creation-container">
+      <textarea class="input-style" placeholder="Your requirements" formControlName="description"></textarea>
+    </div>
+    <div class="button-container">
+      <app-button [styleContext]="'update-project-content-button'" [context]="'Update'"
+                  (click)="updateProjectDetail()"></app-button>
+    </div>
   </p-dialog>
 </form>
 
