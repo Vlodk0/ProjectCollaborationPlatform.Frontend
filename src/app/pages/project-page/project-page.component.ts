@@ -1,14 +1,16 @@
 import {Component, OnInit} from '@angular/core';
 import {ProjectsService} from "../../shared/services/projects.service";
 import {ActivatedRoute, Router} from "@angular/router";
-import {catchError, Observable, of} from "rxjs";
+import {catchError, Observable, of, Subject, takeUntil} from "rxjs";
 import {ProjectInfo} from "../../shared/interfaces/project-info";
 import {FormControl, FormGroup} from "@angular/forms";
-import {BoardService} from "../../shared/services/board.service";
-import {Board} from "../../shared/interfaces/board";
 import {FunctionalityBlock} from "../../shared/interfaces/functionality-block";
 import {FunctionalityBlockService} from "../../shared/services/functionality-block.service";
 import {CreateTask} from "../../shared/interfaces/create-task";
+import {Technology} from "../../shared/interfaces/technology";
+import {TechnologyService} from "../../shared/services/technology.service";
+import {UpdateProject} from "../../shared/interfaces/update-project";
+import {ProjectDetail} from "../../shared/interfaces/project-detail";
 
 @Component({
   selector: 'app-project-page',
@@ -22,18 +24,28 @@ export class ProjectPageComponent implements OnInit {
   tasks$: Observable<FunctionalityBlock[]>
   taskVisible: boolean = false;
   updateTaskVisible: boolean = false;
+  addTechVisible: boolean = false;
+  removeTechVisible: boolean = false;
+  updateProjVisible: boolean = false;
+  updateProjDetailVisible: boolean = false;
   creationTaskForm: FormGroup;
   updatingTaskForm: FormGroup;
+  updatingProjectForm: FormGroup;
+  updatingProjectDetailForm: FormGroup;
   projectId: string;
   boardId: string;
   funcBlockId: string;
   showBoard = false;
+  isSubscribe: Subject<void> = new Subject<void>()
+  technologiesDropDownItems: Technology[]
+  projectTechnologiesDropDownItems: Technology[]
+  selectedTechnologies: Technology[]
 
   constructor(
     private projectService: ProjectsService,
     private activatedRoute: ActivatedRoute,
-    private boardService: BoardService,
-    private functionalityBlockService: FunctionalityBlockService
+    private functionalityBlockService: FunctionalityBlockService,
+    private technologyService: TechnologyService
   ) {
   }
 
@@ -64,6 +76,95 @@ export class ProjectPageComponent implements OnInit {
     this.updatingTaskForm = new FormGroup({
       task: new FormControl('')
     })
+
+    this.updatingProjectForm = new FormGroup({
+      title: new FormControl(''),
+      shortInfo: new FormControl(''),
+      payment: new FormControl(0),
+      description: new FormControl('')
+    })
+
+    this.updatingProjectDetailForm = new FormGroup({
+      description: new FormControl('')
+    })
+
+    this.technologyService.getAllTechnologies()
+      .pipe(
+        takeUntil(this.isSubscribe)
+      )
+      .subscribe({
+        next: value => this.technologiesDropDownItems = value
+      })
+
+    this.technologyService.getAllProjectTechnologies(this.projectId)
+      .pipe(
+        takeUntil(this.isSubscribe)
+      )
+      .subscribe({
+        next: value => this.projectTechnologiesDropDownItems = value
+      })
+  }
+
+
+  addSelectedTechnology() {
+    const selectedTechnologyId = this.selectedTechnologies.map(t => t.id)
+
+    this.projectService.addTechnologiesForProject(this.projectId, selectedTechnologyId)
+      .subscribe((res => {
+        this.addTechVisible = false;
+      }))
+  }
+
+  removeSelectedTechnology() {
+    const selectedTechnologyId = this.selectedTechnologies.map(t => t.id)
+
+    this.projectService.removeTechnologyFromProject(this.projectId, selectedTechnologyId)
+      .subscribe((res => {
+        this.removeTechVisible = false;
+      }))
+  }
+
+  updateProject() {
+    if (this.updatingProjectForm.valid) {
+      const projectObj: UpdateProject = {
+        title: this.updatingProjectForm.value.title,
+        shortInfo: this.updatingProjectForm.value.shortInfo,
+        payment: this.updatingProjectForm.value.payment,
+      }
+
+      this.projectService.updateProject(this.projectId, projectObj)
+        .subscribe((res => {
+          this.updateProjVisible = false;
+        }))
+    }
+  }
+
+  updateProjectDetail() {
+    if (this.updatingProjectDetailForm.valid) {
+      const projectDetailObj: ProjectDetail = {
+        description: this.updatingProjectDetailForm.value.description
+      }
+      this.projectService.updateProjectDetails(this.projectId, projectDetailObj)
+        .subscribe((res => {
+          this.updateProjDetailVisible = false;
+        }))
+    }
+  }
+
+  showAddingTechDialog() {
+    this.addTechVisible = true
+  }
+
+  showRemovingTechDialog() {
+    this.removeTechVisible = true
+  }
+
+  showProjectUpdatingDialog() {
+    this.updateProjVisible = true
+  }
+
+  showProjectDetailUpdatingDialog() {
+    this.updateProjDetailVisible = true
   }
 
   loadTasksByBoardId(boardId: string) {
