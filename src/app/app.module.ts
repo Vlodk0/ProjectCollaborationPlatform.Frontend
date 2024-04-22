@@ -41,6 +41,7 @@ import {DropdownModule} from "primeng/dropdown";
 import { ProjectInfoPageComponent } from './pages/project-info-page/project-info-page.component';
 import { DevPageComponent } from './pages/dev-page/dev-page.component';
 import {PaginatorModule} from "primeng/paginator";
+import { AdminPanelComponent } from './pages/admin-panel/admin-panel.component';
 
 @NgModule({
   declarations: [
@@ -65,6 +66,7 @@ import {PaginatorModule} from "primeng/paginator";
     MyProjectsPageComponent,
     ProjectInfoPageComponent,
     DevPageComponent,
+    AdminPanelComponent,
   ],
     imports: [BrowserModule, AppRoutingModule, ReactiveFormsModule,
         InputSwitchModule, AvatarModule, TableModule, ButtonModule, HttpClientModule, BrowserAnimationsModule, MessagesModule, ToastModule, AllProjectsPageModule, MultiSelectModule, FormsModule, SharedModule, ConfirmDialogModule, DialogModule, DragDropModule, DropdownModule, PaginatorModule],

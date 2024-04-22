@@ -42,7 +42,7 @@ export class LoginPageComponent implements OnInit {
       password: this.loginForm.value.password!,
     }
 
-    if (this.authService.isDev) {
+    if (!this.authService.isDev) {
       this.authService.login(loginObj)
         .pipe(
           switchMap((res: any) => {
