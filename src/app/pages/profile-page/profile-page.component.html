@@ -43,6 +43,21 @@
       </svg>
     </div>
     <span class="feedbacks-header">FEEDBACKS</span>
+    <div class="feedback-container">
+      <ng-container *ngIf="feedbacks$ | async as feedbacks">
+        <div *ngFor="let feedback of feedbacks.data" class="feedbacks-content">
+          {{ feedback.content }}
+        </div>
+      </ng-container>
+      <div class="card flex justify-content-center">
+        <p-paginator
+          (onPageChange)="onPageChange($event)"
+          [first]="paginationFilter.pageNumber * paginationFilter.pageSize"
+          [rows]="paginationFilter.pageSize"
+          [totalRecords]="(feedbacks$ | async)?.totalRecords || 0"
+        ></p-paginator>
+      </div>
+    </div>
   </div>
 </div>
 

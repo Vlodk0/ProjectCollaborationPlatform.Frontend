@@ -23,7 +23,7 @@ export class AllDevelopersPageComponent implements OnDestroy, OnInit {
   projectDropDownItems: ProjectInfo[]
   isSubscribe: Subject<void> = new Subject<void>()
   selectedProjects: ProjectInfo;
-  selectedDeveloper: PaginationDeveloper
+  selectedDeveloper: PaginationDeveloper | undefined
 
   paginationFilter: PaginationFilterDevs = {
     pageNumber: 0,

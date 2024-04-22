@@ -73,6 +73,10 @@ const routes: Routes = [
     loadChildren: () => import('./pages/project-info-page/project-info-page-routing.module').then(r => r.ProjectInfoPageRoutingModule)
   },
   {
+    path: 'developer/:id',
+    loadChildren: () => import('./pages/dev-page/dev-page-routing.module').then(r => r.DevPageRoutingModule)
+  },
+  {
     path: '404',
     loadChildren: () => import('./static-pages/page-not-found/page-not-found-routing.module').then(r => r.PageNotFoundRoutingModule)
   },

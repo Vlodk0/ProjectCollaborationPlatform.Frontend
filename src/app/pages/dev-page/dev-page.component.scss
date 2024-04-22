@@ -1,0 +1,218 @@
+.background-container {
+  width: 1547px;
+  height: 114px;
+  top: 272px;
+  left: 320px;
+  gap: 0px;
+  opacity: 0.7;
+  background-size: cover;
+  position: absolute;
+  border-radius: 5px;
+
+  background: rgba(0, 0, 0, 1);
+
+  box-shadow: 0px 20px 27px 0px rgba(0, 0, 0, 0.05);
+
+  .avatar-container {
+    width: 100%;
+    display: flex;
+    overflow: auto;
+    flex-direction: row;
+
+    .avatar-content {
+      width: 81px;
+      height: 81px;
+      display: flex;
+      overflow: hidden;
+      position: relative;
+      align-items: flex-start;
+      flex-shrink: 1;
+      border-radius: 5px;
+      margin: 15px 15px 15px 20px;
+
+    }
+  }
+
+  .name-container {
+    margin-top: 15px;
+    width: 100%;
+    display: flex;
+    overflow: auto;
+    flex-direction: column;
+
+    .name-content {
+      color: azure;
+      width: 100%;
+      height: auto;
+      font-size: 24px;
+      font-style: Regular;
+      text-align: left;
+      font-family: 'Aldrich';
+      font-weight: 400;
+    }
+
+    .role-content {
+      color: rgba(140, 140, 140, 1);
+      width: 100%;
+      height: auto;
+      font-size: 20px;
+      font-style: Regular;
+      text-align: left;
+      font-family: 'Aldrich';
+      font-weight: 400;
+    }
+  }
+}
+.feedback-container {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  position: absolute;
+
+  background: rgba(255, 255, 255, 1);
+
+  top: 400px;
+  left: 320px;
+  width: auto;
+  max-width: 1051px;
+  height: auto;
+  padding: 20px;
+
+  .item {
+    margin: 50px 150px 50px 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+
+    .input-style {
+      height: auto;
+      width: auto;
+      border-radius: 5px;
+      padding: 14px 16px;
+      margin: 10px;
+      font-size: 20px;
+      font-family: "Noto Sans";
+      font-weight: 400;
+      border-color: black;
+      border-style: solid;
+      border-width: 1px;
+    }
+  }
+
+  .feedbacks-content {
+    margin: 10px 50px 10px 60px;
+    padding: 14px 16px;
+
+    height: auto;
+    width: 500px;
+
+    background-color: white;
+    font-family: "Noto Sans";
+    font-weight: 400;
+    border-color: mediumpurple;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 30px;
+  }
+}
+
+.project-info-container {
+  width: 406px;
+  height: auto;
+  top: 400px;
+  left: 1464px;
+  gap: 0;
+  justify-content: space-between;
+  display: flex;
+  position: absolute;
+  flex-direction: column;
+
+
+  background-color: rgba(255, 255, 255, 1);
+  border-radius: 5px;
+
+  .title-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 35px 20px 0 20px;
+    color: rgba(37, 47, 64, 1);
+    font-size: 16px;
+    font-style: SemiBold;
+    text-align: left;
+    font-family: 'Open Sans';
+    font-weight: 600;
+
+      .line-svg {
+        margin-top: 10px;
+        margin-left: 10px;
+        position: relative;
+      }
+
+  }
+  .info-container {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 0 20px;
+    color: rgba(37, 47, 64, 1);
+    font-size: 16px;
+    font-style: SemiBold;
+    text-align: left;
+    font-family: 'Open Sans';
+    font-weight: 600;
+    row-gap: 10px;
+
+    .tech-stack-container {
+      display: flex;
+      width: 100%;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: flex-start;
+      color: rgba(37, 47, 64, 1);
+      font-size: 16px;
+      font-style: SemiBold;
+      text-align: left;
+      font-family: 'Open Sans';
+      font-weight: 600;
+
+      .tech-header {
+        display: flex;
+        width: 100%;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-start;
+        color: rgba(37, 47, 64, 1);
+        font-size: 16px;
+        font-style: SemiBold;
+        text-align: left;
+        font-family: 'Open Sans';
+        font-weight: 600;
+      }
+
+      .tech-container {
+        width: 100%;
+
+        ul {
+          padding: 0;
+          margin: 8px 0;
+        }
+
+        .tech-content {
+          display: flex;
+          justify-content: space-between;
+          padding: 0 30px;
+          color: rgba(103, 116, 142, 1);
+          font-size: 14px;
+          font-style: SemiBold;
+          text-align: left;
+          font-family: 'Open Sans';
+          font-weight: 600;
+        }
+      }
+    }
+  }
+}
