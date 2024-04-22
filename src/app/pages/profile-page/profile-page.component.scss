@@ -68,7 +68,7 @@
   top: 400px;
   left: 320px;
   width: 1051px;
-  height: 929px;
+  height: 1200px;
   display: flex;
   position: absolute;
   align-items: flex-start;
@@ -189,6 +189,28 @@
       text-align: left;
       font-family: 'Open Sans';
       font-weight: 700;
+    }
+
+    .feedback-container {
+      top: 500px;
+      position: absolute;
+
+
+      .feedbacks-content {
+        margin: 10px 50px 10px 60px;
+        padding: 14px 16px;
+
+        height: auto;
+        width: 500px;
+
+        background-color: white;
+        font-family: "Noto Sans";
+        font-weight: 400;
+        border-color: mediumpurple;
+        border-style: solid;
+        border-width: 1px;
+        border-radius: 30px;
+      }
     }
   }
 }

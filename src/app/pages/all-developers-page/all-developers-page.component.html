@@ -80,13 +80,15 @@
     >
       <ng-template let-selectedOption pTemplate="selectedProjects">
         <div class="flex align-items-center gap-2">
-          <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + selectedOption.title.toLowerCase()" style="width: 18px"/>
+          <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
+               [class]="'flag flag-' + selectedOption.title.toLowerCase()" style="width: 18px"/>
           <div>{{ selectedOption.title }}</div>
         </div>
       </ng-template>
       <ng-template let-project pTemplate="item">
         <div class="flex align-items-center gap-2">
-          <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + project.title.toLowerCase()" style="width: 18px"/>
+          <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
+               [class]="'flag flag-' + project.title.toLowerCase()" style="width: 18px"/>
           <div>{{ project.title }}</div>
         </div>
       </ng-template>
@@ -94,6 +96,9 @@
   </div>
 
   <app-button [styleContext]="'add-dev-button'" [context]="'Add'" (click)="addDev()"></app-button>
+  <app-button [styleContext]="'get-dev-button'" [context]="'Profile'"
+              [routerLink]="'/developer/' + selectedDeveloper?.id"></app-button>
+
 </p-dialog>
 
 <div class="secondary-container">

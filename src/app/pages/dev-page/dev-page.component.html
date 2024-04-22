@@ -1,0 +1,69 @@
+<app-header></app-header>
+
+<app-sidebar></app-sidebar>
+
+<div class="background-container">
+  <div class="avatar-container">
+    <div class="avatar-content">
+      <p-avatar label="P" size="xlarge"></p-avatar>
+    </div>
+    <div class="name-container">
+      <span class="name-content"
+            *ngIf="developers$ | async as developer">{{ developer.firstName }} {{ developer.lastName }}</span>
+      <span class="role-content">Developer</span>
+    </div>
+  </div>
+</div>
+
+<div class="feedback-container">
+  <form [formGroup]="addingFeedbackForm" (ngSubmit)="addFeedback()">
+    <div class="item">
+      <textarea type="text" class="input-style" formControlName="content"></textarea>
+      <app-button [styleContext]="'add-feedback-button'" [context]="'Add'" type="submit"></app-button>
+    </div>
+  </form>
+  <ng-container *ngIf="feedbacks$ | async as feedbacks">
+    <div *ngFor="let feedback of feedbacks.data" class="feedbacks-content">
+      {{ feedback.content }}
+    </div>
+  </ng-container>
+  <div class="card flex justify-content-center">
+    <p-paginator
+      (onPageChange)="onPageChange($event)"
+      [first]="paginationFilter.pageNumber * paginationFilter.pageSize"
+      [rows]="paginationFilter.pageSize"
+      [totalRecords]="(feedbacks$ | async)?.totalRecords || 0"
+    ></p-paginator>
+  </div>
+</div>
+
+
+
+
+<div class="project-info-container">
+  <ng-container *ngIf="developers$ | async as developer">
+    <div class="title-container">Technology Stack
+      <div class="line-svg">
+        <svg width="324" height="2" viewBox="0 0 324 2" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect y="0.666626" width="324" height="1" fill="#F0F0F0"/>
+        </svg>
+      </div>
+    </div>
+    <div class="info-container">
+      <div class="tech-stack-container">
+        <div class="tech-header">
+          <span>Language</span>
+          <span>Framework</span>
+        </div>
+        <div class="tech-container">
+          <ul>
+            <li *ngFor="let tech of developer.technologies" class="tech-content">
+              <span>{{ tech.technology }}</span>
+              <span>{{ tech.framework }}</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</div>

@@ -327,7 +327,9 @@
 
 .add-board-button,
 .update-task-button,
-.delete-task-button {
+.delete-task-button,
+.add-dev-button,
+.get-dev-button{
   margin: 40px 0 0 180px;
   cursor: pointer;
   width: 150px;
@@ -353,12 +355,12 @@
 
 .add-project-button,
 .create-project-button,
-.update-project-content-button{
+.update-project-content-button {
   width: 150px;
   margin: 35px 20px 20px 20px;
   height: auto;
   cursor: pointer;
-  background-color: white;
+  background-color: mediumpurple;
   color: darkslategrey;
   font-size: 25px;
   border-radius: 5px;
@@ -390,6 +392,19 @@
   background-color: mediumpurple;
   color: darkslategrey;
   font-size: 20px;
+  border-radius: 5px;
+  font-family: "Noto Sans";
+  border: none;
+}
+
+.add-feedback-button {
+  margin-right: 10px;
+  cursor: pointer;
+  width: 150px;
+  height: auto;
+  background-color: mediumpurple;
+  color: darkslategrey;
+  font-size: 25px;
   border-radius: 5px;
   font-family: "Noto Sans";
   border: none;

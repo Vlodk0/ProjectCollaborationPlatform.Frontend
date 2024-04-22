@@ -11,7 +11,7 @@ import {PaginationFilterDevs} from "../interfaces/pagination-filter-devs";
 })
 export class DeveloperService {
 
-  private apiUrl: string = `${environment.apiUrl}/Developer/developers`
+  private apiUrl: string = `${environment.apiUrl}/Developer`
 
   constructor(private readonly httpClient: HttpClient) { }
 
@@ -20,6 +20,10 @@ export class DeveloperService {
       .set('pageNumber', filter.pageNumber.toString())
       .set('pageSize', filter.pageSize.toString());
 
-    return this.httpClient.get<PaginationResponse<PaginationDeveloper[]>>(this.apiUrl, {params})
+    return this.httpClient.get<PaginationResponse<PaginationDeveloper[]>>(this.apiUrl + '/developers', {params})
+  }
+
+  public getDeveloperById(id: string): Observable<PaginationDeveloper> {
+    return this.httpClient.get<PaginationDeveloper>(this.apiUrl + `/${id}`)
   }
 }
