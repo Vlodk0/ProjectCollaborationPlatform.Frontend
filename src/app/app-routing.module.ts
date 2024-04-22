@@ -77,6 +77,10 @@ const routes: Routes = [
     loadChildren: () => import('./pages/dev-page/dev-page-routing.module').then(r => r.DevPageRoutingModule)
   },
   {
+    path: 'admin-panel',
+    loadChildren: () => import('./pages/admin-panel/admin-panel-routing.module').then(r => r.AdminPanelRoutingModule)
+  },
+  {
     path: '404',
     loadChildren: () => import('./static-pages/page-not-found/page-not-found-routing.module').then(r => r.PageNotFoundRoutingModule)
   },

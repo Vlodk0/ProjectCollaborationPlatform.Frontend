@@ -74,4 +74,8 @@ export class ProjectsService {
   public updateProjectDetails(projId: string, description: ProjectDetail) {
     return this.httpClient.put(this.apiUrl + `/ProjectDetails/${projId}`, description)
   }
+
+  public deleteProject(id: string) {
+    return this.httpClient.delete(this.apiUrl + `/${id}`)
+  }
 }

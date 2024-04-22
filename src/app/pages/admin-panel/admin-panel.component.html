@@ -1,1 +1,205 @@
-<p>admin-panel works!</p>
+<app-header></app-header>
+
+<app-sidebar></app-sidebar>
+
+<div class="admin-panel-container">
+  <app-button [styleContext]="'show-board-button'" [context]="'Show projects table'"
+              (click)="showProjectDialog()"></app-button>
+  <app-button [styleContext]="'show-board-button'" [context]="'Show developers'" (click)="showDevDialog()"></app-button>
+  <app-button [styleContext]="'show-board-button'" [context]="'Show Project owners'" (click)="showProjOwnerDialog()"></app-button>
+  <app-button [styleContext]="'show-board-button'" [context]="'Show feedbacks'" (click)="showFeedbackDialog()"></app-button>
+</div>
+
+<p-dialog header="Projects" [(visible)]="deletingProjectsVisible" [style]="{width: 'auto'}">
+  <p-table
+    [value]="projects"
+    [lazy]="true"
+    (onLazyLoad)="loadProjects($event)"
+    [globalFilterFields]="['Payment']"
+    [totalRecords]="totalRecords"
+    [paginator]="true"
+    [rows]="paginationFilter.pageSize"
+    [first]="paginationFilter.pageNumber"
+    [showCurrentPageReport]="true"
+    [tableStyle]="{ 'min-width': '50rem' }"
+    dataKey="id"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [rowsPerPageOptions]="[15]"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="width:20%">Title</th>
+        <th style="width:20%" pSortableColumn="Payment">Payment
+          <p-sortIcon field="Payment"></p-sortIcon>
+        </th>
+        <th style="width:20%">Description</th>
+        <th style="width:20%">Technologies</th>
+        <th style="width:20%">Delete</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-project>
+      <tr>
+        <td routerLink="/project-info/{{project.id}}" style="cursor: pointer">{{ project.title }}</td>
+        <td>{{ project.payment | currency: 'USD' }}</td>
+        <td>{{ project.shortInfo }}</td>
+        <td>
+          <app-button [styleContext]="'show-techs-button'" [context]="'...'"
+                      (click)="showDialog(project.technologies)"></app-button>
+        </td>
+        <td>
+          <app-button [styleContext]="'show-techs-button'" [context]="'Delete'"
+          (click)="deleteProject(project)"></app-button>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="paginatorleft">
+      <p-button type="button" icon="pi pi-plus" styleClass="p-button-text"></p-button>
+    </ng-template>
+    <ng-template pTemplate="paginatorright">
+      <p-button type="button" icon="pi pi-cloud" styleClass="p-button-text"></p-button>
+    </ng-template>
+  </p-table>
+</p-dialog>
+
+<p-dialog header="Technologies" [(visible)]="visible" [style]="{width: 'auto', height: 'auto'}">
+  <p-table [value]="technologies" [tableStyle]="{ 'min-width': '20rem' }">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Technology</th>
+        <th>Framework</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-tech>
+      <tr>
+        <td>{{ tech.technology }}</td>
+        <td>{{ tech.framework }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</p-dialog>
+
+<p-dialog header="Developers" [(visible)]="deletingDevsVisible" [style]="{width: 'auto', height: 'auto'}">
+  <p-table
+    [value]="developers"
+    [lazy]="true"
+    (onLazyLoad)="loadDevelopers($event)"
+    [globalFilterFields]="['Payment']"
+    [totalRecords]="totalRecords"
+    [paginator]="true"
+    [rows]="paginationFilter.pageSize"
+    [first]="paginationFilter.pageNumber"
+    [showCurrentPageReport]="true"
+    [tableStyle]="{ 'min-width': '50rem' }"
+    dataKey="id"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [rowsPerPageOptions]="[10]"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="width:33%">First Name</th>
+        <th style="width:33%">Last Name
+        </th>
+        <th style="width:33%">Delete</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-developer>
+      <tr>
+        <td>{{ developer.firstName }}</td>
+        <td>{{ developer.lastName }}</td>
+        <td>
+          <app-button [styleContext]="'show-techs-button'" [context]="'Delete'" (click)="deleteDeveloper(developer)"
+          ></app-button>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="paginatorleft">
+      <p-button type="button" icon="pi pi-plus" styleClass="p-button-text"></p-button>
+    </ng-template>
+    <ng-template pTemplate="paginatorright">
+      <p-button type="button" icon="pi pi-cloud" styleClass="p-button-text"></p-button>
+    </ng-template>
+  </p-table>
+</p-dialog>
+
+<p-dialog header="Project Owners" [(visible)]="deletingProjOwnersVisible" [style]="{width: 'auto', height: 'auto'}">
+  <p-table
+    [value]="projectOwners"
+    [lazy]="true"
+    (onLazyLoad)="loadProjectOwners($event)"
+    [globalFilterFields]="['Payment']"
+    [totalRecords]="totalRecords"
+    [paginator]="true"
+    [rows]="paginationFilter.pageSize"
+    [first]="paginationFilter.pageNumber"
+    [showCurrentPageReport]="true"
+    [tableStyle]="{ 'min-width': '50rem' }"
+    dataKey="id"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [rowsPerPageOptions]="[10]"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="width:33%">First Name</th>
+        <th style="width:33%">Last Name
+        </th>
+        <th style="width:33%">Delete</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-projOwner>
+      <tr>
+        <td>{{ projOwner.firstName }}</td>
+        <td>{{ projOwner.lastName }}</td>
+        <td>
+          <app-button [styleContext]="'show-techs-button'" [context]="'Delete'" (click)="deleteProjectOwner(projOwner)"
+          ></app-button>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="paginatorleft">
+      <p-button type="button" icon="pi pi-plus" styleClass="p-button-text"></p-button>
+    </ng-template>
+    <ng-template pTemplate="paginatorright">
+      <p-button type="button" icon="pi pi-cloud" styleClass="p-button-text"></p-button>
+    </ng-template>
+  </p-table>
+</p-dialog>
+
+<p-dialog header="Feedbacks" [(visible)]="deletingFeedbacksVisible" [style]="{width: 'auto', height: 'auto'}">
+  <p-table
+    [value]="feedbacks"
+    [lazy]="true"
+    (onLazyLoad)="loadFeedbacks($event)"
+    [globalFilterFields]="['Payment']"
+    [totalRecords]="totalRecords"
+    [paginator]="true"
+    [rows]="paginationFilter.pageSize"
+    [first]="paginationFilter.pageNumber"
+    [showCurrentPageReport]="true"
+    [tableStyle]="{ 'min-width': '50rem' }"
+    dataKey="id"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [rowsPerPageOptions]="[5]"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="width:50%">Content</th>
+        <th style="width:50%">Delete</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-feedback>
+      <tr>
+        <td>{{ feedback.content }}</td>
+        <td>
+          <app-button [styleContext]="'show-techs-button'" [context]="'Delete'" (click)="deleteFeedback(feedback)"
+          ></app-button>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="paginatorleft">
+      <p-button type="button" icon="pi pi-plus" styleClass="p-button-text"></p-button>
+    </ng-template>
+    <ng-template pTemplate="paginatorright">
+      <p-button type="button" icon="pi pi-cloud" styleClass="p-button-text"></p-button>
+    </ng-template>
+  </p-table>
+</p-dialog>
