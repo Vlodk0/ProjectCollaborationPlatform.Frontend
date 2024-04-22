@@ -26,4 +26,8 @@ export class DeveloperService {
   public getDeveloperById(id: string): Observable<PaginationDeveloper> {
     return this.httpClient.get<PaginationDeveloper>(this.apiUrl + `/${id}`)
   }
+
+  public deleteDeveloper(id: string) {
+    return this.httpClient.delete(this.apiUrl + `/${id}`)
+  }
 }
