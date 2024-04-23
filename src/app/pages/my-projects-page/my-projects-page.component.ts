@@ -76,7 +76,7 @@ export class MyProjectsPageComponent implements OnDestroy, OnInit {
     this.paginationFilter.sortColumn = $event.sortField?.toString() || "Payment";
     this.paginationFilter.sortDirection = $event.sortOrder || 1;
 
-    this.projectService.getAllProjectsByProjectOwner(this.paginationFilter)
+    this.userService.getAllProjects(this.paginationFilter)
       .pipe(takeUntil(this.isSubscribe))
       .subscribe(response => {
         this.projects = response.data;
