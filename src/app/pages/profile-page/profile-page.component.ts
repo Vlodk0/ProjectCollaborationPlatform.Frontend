@@ -5,6 +5,8 @@ import {GetFeedback} from "../../shared/interfaces/get-feedback";
 import {FeedbackService} from "../../shared/services/feedback.service";
 import {PaginationFilterDevs} from "../../shared/interfaces/pagination-filter-devs";
 import {PaginatorState} from "primeng/paginator";
+import {UserService} from "../../shared/services/user.service";
+import {GetUser} from "../../shared/interfaces/get-user";
 
 @Component({
   selector: 'app-profile-page',
@@ -13,16 +15,20 @@ import {PaginatorState} from "primeng/paginator";
 })
 export class ProfilePageComponent implements OnInit {
   feedbacks$: Observable<PaginationResponse<GetFeedback[]>>
+  user$: Observable<GetUser>;
   paginationFilter: PaginationFilterDevs = {
     pageNumber: 0,
     pageSize: 10
   };
 
-  constructor(private feedbackService: FeedbackService) {
+  constructor(private feedbackService: FeedbackService,
+              private userService: UserService) {
   }
 
   ngOnInit() {
     this.loadFeedbacks();
+
+    this.user$ =  this.userService.getUser();
   }
 
   loadFeedbacks(): void {

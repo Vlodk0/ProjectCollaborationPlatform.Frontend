@@ -2,63 +2,67 @@
 
 <app-sidebar></app-sidebar>
 
-
 <div class="background-container">
   <div class="avatar-container">
     <div class="avatar-content">
       <p-avatar label="P" size="xlarge"></p-avatar>
     </div>
     <div class="name-container">
-      <span class="name-content">Name Surname</span>
-      <span class="role-content">RoleName</span>
+      <ng-container *ngIf="user$ | async as user">
+        <span class="name-content">{{ user.firstName }} {{ user.lastName }}</span>
+        <span class="role-content">{{ user.roleName }}</span>
+      </ng-container>
     </div>
   </div>
 </div>
 
 <div class="profile-info-container">
-  <div class="my-account-header">
-    <span class="my-account-header-content">My account</span>
-  </div>
-  <span class="user-info-header">USER INFORMATION</span>
-  <div class="credentials-container">
-    <div class="username-header">
-      <span class="username-content">Username</span>
-      <input type="text" class="username-input" placeholder="something">
+  <ng-container *ngIf="user$ | async as user">
+    <div class="my-account-header">
+      <span class="my-account-header-content">My account</span>
     </div>
-    <div class="email-header">
-      <span class="email-content">Email</span>
-      <input type="text" class="email-input" placeholder="something@mail.com">
-    </div>
-    <div class="first-name-header">
-      <span class="first-name-content">First Name</span>
-      <input type="text" class="first-name-input" placeholder="something">
-    </div>
-    <div class="last-name-header">
-      <span class="last-name-content">Last Name</span>
-      <input type="text" class="last-name-input" placeholder="something">
-    </div>
-    <div class="line">
-      <svg width="1001" height="1" viewBox="0 0 1001 1" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect width="1001" height="1" fill="black" fill-opacity="0.1"/>
-      </svg>
-    </div>
-    <span class="feedbacks-header">FEEDBACKS</span>
-    <div class="feedback-container">
-      <ng-container *ngIf="feedbacks$ | async as feedbacks">
-        <div *ngFor="let feedback of feedbacks.data" class="feedbacks-content">
-          {{ feedback.content }}
+    <span class="user-info-header">USER INFORMATION</span>
+    <div class="credentials-container">
+      <div class="username-header">
+        <span class="username-content">Username</span>
+        <input disabled type="text" class="username-input"
+               placeholder="{{user.email.substring(0 , user.email.indexOf('@'))}}">
+      </div>
+      <div class="email-header">
+        <span class="email-content">Email</span>
+        <input disabled type="text" class="email-input" placeholder="{{user.email}}">
+      </div>
+      <div class="first-name-header">
+        <span class="first-name-content">First Name</span>
+        <input disabled type="text" class="first-name-input" placeholder="{{user.firstName}}">
+      </div>
+      <div class="last-name-header">
+        <span class="last-name-content">Last Name</span>
+        <input disabled type="text" class="last-name-input" placeholder="{{user.lastName}}">
+      </div>
+      <div class="line">
+        <svg width="1001" height="1" viewBox="0 0 1001 1" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="1001" height="1" fill="black" fill-opacity="0.1"/>
+        </svg>
+      </div>
+      <span class="feedbacks-header">FEEDBACKS</span>
+      <div class="feedback-container">
+        <ng-container *ngIf="feedbacks$ | async as feedbacks">
+          <div *ngFor="let feedback of feedbacks.data" class="feedbacks-content">
+            {{ feedback.content }}
+          </div>
+        </ng-container>
+        <div class="card flex justify-content-center">
+          <p-paginator
+            (onPageChange)="onPageChange($event)"
+            [first]="paginationFilter.pageNumber * paginationFilter.pageSize"
+            [rows]="paginationFilter.pageSize"
+            [totalRecords]="(feedbacks$ | async)?.totalRecords || 0"
+          ></p-paginator>
         </div>
-      </ng-container>
-      <div class="card flex justify-content-center">
-        <p-paginator
-          (onPageChange)="onPageChange($event)"
-          [first]="paginationFilter.pageNumber * paginationFilter.pageSize"
-          [rows]="paginationFilter.pageSize"
-          [totalRecords]="(feedbacks$ | async)?.totalRecords || 0"
-        ></p-paginator>
       </div>
     </div>
-  </div>
+  </ng-container>
 </div>
 
 <div class="secondary-container">

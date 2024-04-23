@@ -80,30 +80,8 @@
       }
     }
 
-    .username-header {
-      top: 246px;
-      left: 48px;
-      width: 476px;
-      height: 74px;
-      display: flex;
-      position: absolute;
-      align-items: flex-start;
-      flex-shrink: 0;
-    }
-
-    .email-header {
-      top: 246px;
-      left: 552px;
-      width: 476px;
-      height: 74px;
-      display: flex;
-      position: absolute;
-      align-items: flex-start;
-      flex-shrink: 0;
-    }
-
     .first-name-header {
-      top: 347px;
+      top: 247px;
       left: 48px;
       width: 476px;
       height: 74px;
@@ -114,7 +92,7 @@
     }
 
     .last-name-header {
-      top: 347px;
+      top: 247px;
       left: 552px;
       width: 476px;
       height: 74px;
@@ -156,9 +134,8 @@
 }
 
 .last-name-input,
-.first-name-input,
-.email-input,
-.username-input {
+.first-name-input {
+  padding: 10px;
   top: 28px;
   left: 0;
   width: 376px;
@@ -171,9 +148,7 @@
 }
 
 .first-name-content,
-.last-name-content,
-.email-content,
-.username-content {
+.last-name-content {
   left: 1px;
   color: rgba(82, 95, 127, 1);
   height: auto;

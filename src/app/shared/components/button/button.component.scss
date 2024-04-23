@@ -239,9 +239,33 @@
   background-color: purple;
 }
 
-.update-user-button {
+.technologies-user-button {
   margin-top: 20px;
   margin-left: 25px;
+  width: 86px;
+  height: 36px;
+  display: flex;
+  position: absolute;
+  justify-content: space-around;
+  align-items: center;
+  flex-shrink: 0;
+  border-radius: 5px;
+  cursor: pointer;
+
+  background-color: mediumpurple;
+
+  color: azure;
+  position: absolute;
+  font-size: 14px;
+  font-style: Regular;
+  text-align: left;
+  font-family: 'Open Sans';
+  font-weight: 400;
+}
+
+.update-user-button {
+  top: 347px;
+  left: 48px;
   width: 86px;
   height: 36px;
   display: flex;

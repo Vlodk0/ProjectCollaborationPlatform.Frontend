@@ -16,22 +16,17 @@
         </button>
       </div>
     </div>
-    <div class="username-header">
-      <span class="username-content">Username</span>
-      <input type="text" class="username-input" placeholder="something">
-    </div>
-    <div class="email-header">
-      <span class="email-content">Email</span>
-      <input type="text" class="email-input" placeholder="something@mail.com">
-    </div>
+    <form [formGroup]="updatingUserForm">
     <div class="first-name-header">
       <span class="first-name-content">First Name</span>
-      <input type="text" class="first-name-input" placeholder="something">
+      <input type="text" class="first-name-input" placeholder="something" formControlName="firstName">
     </div>
     <div class="last-name-header">
       <span class="last-name-content">Last Name</span>
-      <input type="text" class="last-name-input" placeholder="something">
+      <input type="text" class="last-name-input" placeholder="something" formControlName="lastName">
     </div>
+    </form>
+    <app-button [styleContext]="'update-user-button'" [context]="'Update'" (click)="updateUser()"></app-button>
     <div class="line">
       <svg width="1001" height="1" viewBox="0 0 1001 1" fill="none" xmlns="http://www.w3.org/2000/svg">
         <rect width="1001" height="1" fill="black" fill-opacity="0.1"/>
@@ -39,7 +34,7 @@
     </div>
     <span class="tech-header">Technologies
         <div class="multi-select-container">
-           <p-table [value]="technologies" [(selection)]="selectedTechnologies" dataKey="name" [paginator]="true" [rows]="4"
+           <p-table [value]="technologies" [(selection)]="selectedTechnologies" dataKey="id" [paginator]="true" [rows]="4"
                     [selectionPageOnly]="true" [tableStyle]="{'min-width': '50rem'}">
         <ng-template pTemplate="header">
             <tr>
@@ -55,13 +50,13 @@
                 <td>
                     <p-tableCheckbox [value]="technologies"></p-tableCheckbox>
                 </td>
-                <td>{{ technologies.name }}</td>
+                <td>{{ technologies.technology }}</td>
                 <td>{{ technologies.framework }}</td>
             </tr>
         </ng-template>
     </p-table>
         </div>
-    <app-button [styleContext]="'update-user-button'" [context]="'Save'"></app-button>
+    <app-button [styleContext]="'technologies-user-button'" [context]="'Add'" (click)="addTechForDev()"></app-button>
     </span>
   </div>
 </div>
