@@ -6,6 +6,7 @@ import {Subject, takeUntil} from "rxjs";
 import {TechnologyService} from "../../shared/services/technology.service";
 import {Technology} from "../../shared/interfaces/technology";
 import {DeveloperService} from "../../shared/services/developer.service";
+import {GetUser} from "../../shared/interfaces/get-user";
 
 @Component({
   selector: 'app-settings-page',
@@ -25,6 +26,15 @@ export class SettingsPageComponent implements OnInit {
               private developerService: DeveloperService) {
   }
 
+  user: GetUser = {
+    id: '',
+    lastName: '',
+    firstName: '',
+    email: '',
+    roleName: '',
+    isDeleted: false
+  }
+
   ngOnInit() {
     this.technologyService.getAllTechnologies()
       .pipe(
@@ -38,6 +48,8 @@ export class SettingsPageComponent implements OnInit {
       firstName: new FormControl(''),
       lastName: new FormControl('')
     })
+
+    this.getUser();
   };
 
   updateUser() {
@@ -74,5 +86,16 @@ export class SettingsPageComponent implements OnInit {
           console.error('Error adding techs:', error);
         }
       );
+  }
+
+  getUser() {
+    this.userService.getUser()
+      .subscribe((result: any) => {
+        this.user = result;
+        console.log('success')
+      },
+        (error) => {
+        console.log('Error', error)
+        })
   }
 }

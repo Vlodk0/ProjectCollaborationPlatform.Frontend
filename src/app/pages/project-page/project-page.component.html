@@ -2,26 +2,32 @@
 <app-sidebar></app-sidebar>
 
 <div class="project-container">
+  <div *ngIf="user.roleName === 'ProjectOwner'" class="header-content">
+    <div>Technologies</div>
+    <div>Project</div>
+  </div>
   <div class="manage-container">
-    <div>
-      <app-button [styleContext]="'show-board-button'" [context]="'Show Board'" (click)="toggleBoard()"></app-button>
-      <app-button [styleContext]="'create-task-button'" [context]="'Add Task'"
-                  (click)="showTaskCreationDialog()"></app-button>
-      <app-button [styleContext]="'add-techs-button'" [context]="'Add technologies'"
-                  (click)="showAddingTechDialog()"></app-button>
-      <app-button [styleContext]="'remove-techs-button'" [context]="'Remove technologies'"
+    <div *ngIf="user.roleName === 'ProjectOwner'" class="container-style" class="board-container">
+      <app-button [styleContext]="'remove-techs-button'" [context]="'Remove'"
                   (click)="showRemovingTechDialog()"></app-button>
+      <app-button [styleContext]="'add-techs-button'" [context]="'Add'"
+                  (click)="showAddingTechDialog()"></app-button>
+    </div>
+    <div class="container-style">
+      <div class="technologies-container">
+        <app-button [styleContext]="'create-task-button'" [context]="'Add Task'"
+                    (click)="showTaskCreationDialog()"></app-button>
+        <app-button [styleContext]="'show-board-button'" [context]="'Show Board'" (click)="toggleBoard()"></app-button>
+      </div>
+    </div>
+    <div class="project-manage-container" *ngIf="user.roleName === 'ProjectOwner'">
+      <app-button [styleContext]="'update-project-button'" [context]="'Details'"
+                  (click)="showProjectDetailUpdatingDialog()"></app-button>
       <app-button [styleContext]="'update-project-button'" [context]="'Update'"
                   (click)="showProjectUpdatingDialog()"></app-button>
     </div>
-    <div>
-      <app-button [styleContext]="'update-project-button'" [context]="'Details'"
-                  (click)="showProjectDetailUpdatingDialog()"></app-button>
-    </div>
   </div>
-
   <div class="board-wrapper" *ngIf="showBoard">
-
     <div class="board-columns">
       <div class="board-column" pDroppable (onDrop)="drop('todo')">
         <div class="column-title">Todo</div>
@@ -59,6 +65,7 @@
 
   </div>
 </div>
+
 
 <form [formGroup]="creationTaskForm">
   <p-dialog header="Task" [(visible)]="taskVisible" [style]="{width: '20vw'}">

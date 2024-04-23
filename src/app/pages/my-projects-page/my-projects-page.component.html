@@ -68,13 +68,14 @@
   </p-table>
 </p-dialog>
 
+<div *ngIf="user.roleName == 'ProjectOwner'">
+  <div class="secondary-container">
+    <div class="title-content">New Project</div>
+    <app-button [styleContext]="'add-project-button'" [context]="'Create'"
+                (click)="showProjectCreationDialog()"></app-button>
+  </div>
 
-<div class="secondary-container">
-  <div class="title-content">New Project</div>
-  <app-button [styleContext]="'add-project-button'" [context]="'Create'"
-              (click)="showProjectCreationDialog()"></app-button>
 </div>
-
 <form [formGroup]="creationProjectForm" (ngSubmit)="onSubmit()">
   <p-dialog header="Project" [(visible)]="creationVisible" [style]="{width: 'auto'}">
     <div class="project-creation-container">

@@ -8,6 +8,8 @@ import {TableLazyLoadEvent} from "primeng/table";
 import {ProjectInfo} from "../../shared/interfaces/project-info";
 import {ProjectsService} from "../../shared/services/projects.service";
 import {ProjectDev} from "../../shared/interfaces/project-dev";
+import {GetUser} from "../../shared/interfaces/get-user";
+import {UserService} from "../../shared/services/user.service";
 
 @Component({
   selector: 'app-all-developers-page',
@@ -30,7 +32,17 @@ export class AllDevelopersPageComponent implements OnDestroy, OnInit {
     pageSize: 15,
   }
 
-  constructor(private developerService: DeveloperService, private projectService: ProjectsService) {
+  user: GetUser = {
+    id: '',
+    lastName: '',
+    firstName: '',
+    email: '',
+    roleName: '',
+    isDeleted: false
+  }
+
+  constructor(private developerService: DeveloperService, private projectService: ProjectsService,
+              private userService: UserService) {
   }
 
   ngOnInit() {
@@ -41,6 +53,19 @@ export class AllDevelopersPageComponent implements OnDestroy, OnInit {
       .subscribe({
         next: value => this.projectDropDownItems = value
       })
+
+    this.getUser();
+  }
+
+  getUser() {
+    this.userService.getUser()
+      .subscribe((result: any) => {
+          this.user = result;
+          console.log('success')
+        },
+        (error) => {
+          console.log('Error', error)
+        })
   }
 
   onProjectClick(selectedProject: ProjectInfo): void {

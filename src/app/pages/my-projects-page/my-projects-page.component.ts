@@ -8,6 +8,8 @@ import {TableLazyLoadEvent} from "primeng/table";
 import {FormControl, FormGroup} from "@angular/forms";
 import {CreateProject} from "../../shared/interfaces/create-project";
 import {Router} from "@angular/router";
+import {GetUser} from "../../shared/interfaces/get-user";
+import {UserService} from "../../shared/services/user.service";
 
 @Component({
   selector: 'app-my-projects-page',
@@ -32,12 +34,34 @@ export class MyProjectsPageComponent implements OnDestroy, OnInit {
     sortDirection: 1
   }
 
-  constructor(private projectService: ProjectsService, private router: Router) {
+  user: GetUser = {
+    id: '',
+    lastName: '',
+    firstName: '',
+    email: '',
+    roleName: '',
+    isDeleted: false
+  }
+
+
+  constructor(private projectService: ProjectsService, private router: Router,
+              private userService: UserService) {
   }
 
   showDialog(technologies: DeveloperTechnology[]) {
     this.technologies = technologies
     this.visible = true
+  }
+
+  getUser() {
+    this.userService.getUser()
+      .subscribe((result: any) => {
+          this.user = result;
+          console.log('success')
+        },
+        (error) => {
+          console.log('Error', error)
+        })
   }
 
   showProjectCreationDialog() {
@@ -67,6 +91,8 @@ export class MyProjectsPageComponent implements OnDestroy, OnInit {
       payment: new FormControl(0),
       description: new FormControl('')
     })
+
+    this.getUser()
   }
 
   onSubmit() {
