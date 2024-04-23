@@ -1,18 +1,60 @@
 .project-container {
   top: 400px;
   left: 320px;
-  width: auto;
+  width: 50%;
   height: 929px;
-  display: flex;
+  //display: flex;
   position: absolute;
+  //justify-content: space-around;
   align-items: flex-start;
   flex-shrink: 0;
   border-radius: 5px;
   background: rgba(255, 255, 255, 1);
 
+
+  .header-content {
+    display: flex;
+    flex-direction: row;
+    width: 53%;
+    justify-content: space-between;
+    position: relative;
+    padding: 20px 10px 0 60px;
+
+    color: rgba(37, 47, 64, 1);
+    font-size: 20px;
+    font-style: SemiBold;
+    text-align: left;
+    font-family: 'Open Sans';
+    font-weight: 600;
+    row-gap: 10px;
+  }
+
   .manage-container {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    margin-left: 20px;
+    position: absolute;
+
+    .board-container {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .container-style {
+      display: flex;
+      flex-direction: row;
+      width: 40%;
+
+      .technologies-container {
+        display: flex;
+        flex-direction: column;
+      }
+    }
+    .project-manage-container {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+    }
   }
 }
 
@@ -217,12 +259,12 @@ li {
   display: flex;
   flex-grow: 1;
   overflow-x: auto;
-  position: absolute;
-  margin-top: 50px;
+  //position: absolute;
 
   .board-columns {
     display: flex;
     flex-grow: 1;
+    margin-top: 70px;
 
     .board-column {
       display: flex;

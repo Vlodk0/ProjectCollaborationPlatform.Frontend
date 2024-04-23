@@ -17,14 +17,14 @@
       </div>
     </div>
     <form [formGroup]="updatingUserForm">
-    <div class="first-name-header">
-      <span class="first-name-content">First Name</span>
-      <input type="text" class="first-name-input" placeholder="something" formControlName="firstName">
-    </div>
-    <div class="last-name-header">
-      <span class="last-name-content">Last Name</span>
-      <input type="text" class="last-name-input" placeholder="something" formControlName="lastName">
-    </div>
+      <div class="first-name-header">
+        <span class="first-name-content">First Name</span>
+        <input type="text" class="first-name-input" placeholder="something" formControlName="firstName">
+      </div>
+      <div class="last-name-header">
+        <span class="last-name-content">Last Name</span>
+        <input type="text" class="last-name-input" placeholder="something" formControlName="lastName">
+      </div>
     </form>
     <app-button [styleContext]="'update-user-button'" [context]="'Update'" (click)="updateUser()"></app-button>
     <div class="line">
@@ -32,9 +32,11 @@
         <rect width="1001" height="1" fill="black" fill-opacity="0.1"/>
       </svg>
     </div>
-    <span class="tech-header">Technologies
+    <div *ngIf="user.roleName == 'Dev'">
+      <span class="tech-header">Technologies
         <div class="multi-select-container">
-           <p-table [value]="technologies" [(selection)]="selectedTechnologies" dataKey="id" [paginator]="true" [rows]="4"
+           <p-table [value]="technologies" [(selection)]="selectedTechnologies" dataKey="id" [paginator]="true"
+                    [rows]="4"
                     [selectionPageOnly]="true" [tableStyle]="{'min-width': '50rem'}">
         <ng-template pTemplate="header">
             <tr>
@@ -58,5 +60,6 @@
         </div>
     <app-button [styleContext]="'technologies-user-button'" [context]="'Add'" (click)="addTechForDev()"></app-button>
     </span>
+    </div>
   </div>
 </div>

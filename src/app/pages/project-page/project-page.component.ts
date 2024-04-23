@@ -11,6 +11,8 @@ import {Technology} from "../../shared/interfaces/technology";
 import {TechnologyService} from "../../shared/services/technology.service";
 import {UpdateProject} from "../../shared/interfaces/update-project";
 import {ProjectDetail} from "../../shared/interfaces/project-detail";
+import {GetUser} from "../../shared/interfaces/get-user";
+import {UserService} from "../../shared/services/user.service";
 
 @Component({
   selector: 'app-project-page',
@@ -45,8 +47,18 @@ export class ProjectPageComponent implements OnInit {
     private projectService: ProjectsService,
     private activatedRoute: ActivatedRoute,
     private functionalityBlockService: FunctionalityBlockService,
-    private technologyService: TechnologyService
+    private technologyService: TechnologyService,
+    private userService: UserService,
   ) {
+  }
+
+  user: GetUser = {
+    id: '',
+    lastName: '',
+    firstName: '',
+    email: '',
+    roleName: '',
+    isDeleted: false
   }
 
   availableTasks: FunctionalityBlock[] = [];
@@ -103,6 +115,19 @@ export class ProjectPageComponent implements OnInit {
       .subscribe({
         next: value => this.projectTechnologiesDropDownItems = value
       })
+
+    this.getUser();
+  }
+
+  getUser() {
+    this.userService.getUser()
+      .subscribe((result: any) => {
+          this.user = result;
+          console.log('success')
+        },
+        (error) => {
+          console.log('Error', error)
+        })
   }
 
 

@@ -64,7 +64,6 @@
 
     .tech-content {
       display: flex;
-      //justify-content: space-between;
       margin: 10px 100px 20px;
       color: azure;
       font-size: 14px;
@@ -74,6 +73,7 @@
       font-weight: 400;
 
       .tech-content-style {
+        padding: 2px;
         width: auto;
         height: auto;
         background: blue;
@@ -81,9 +81,10 @@
       }
 
       .frame-content-style {
+        padding: 2px;
         width: auto;
         height: auto;
-        background: limegreen;
+        background: darkseagreen;
         border-radius: 5px;
         margin-left: 5px
       }
@@ -107,7 +108,7 @@
       text-align: left;
       font-family: 'Open Sans';
       font-weight: 600;
-      margin: 20px 5px 5px 100px;
+      margin: 20px 5px 15px 100px;
     }
 
     .value {
