@@ -46,14 +46,6 @@ export class AllDevelopersPageComponent implements OnDestroy, OnInit {
   }
 
   ngOnInit() {
-    this.projectService.getProjectOwnerProjects()
-      .pipe(
-        takeUntil(this.isSubscribe)
-      )
-      .subscribe({
-        next: value => this.projectDropDownItems = value
-      })
-
     this.getUser();
   }
 
@@ -97,6 +89,13 @@ export class AllDevelopersPageComponent implements OnDestroy, OnInit {
 
   showAddingDevDialog() {
     this.addDevVisible = true
+    this.projectService.getProjectOwnerProjects()
+      .pipe(
+        takeUntil(this.isSubscribe)
+      )
+      .subscribe({
+        next: value => this.projectDropDownItems = value
+      })
   }
 
   loadDevelopers($event: TableLazyLoadEvent) {

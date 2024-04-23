@@ -24,7 +24,7 @@ export class FunctionalityBlockService {
   }
 
   public updateTask(funcBlock: FunctionalityBlock, funcBlockId: string): Observable<FunctionalityBlock> {
-    return this.httpClient.put<FunctionalityBlock>(this.apiUrl + `/${funcBlockId}`, funcBlock)
+    return this.httpClient.patch<FunctionalityBlock>(this.apiUrl + `/${funcBlockId}`, funcBlock)
   }
 
   public deleteTask(funcBlockId: string): Observable<FunctionalityBlock> {
@@ -32,6 +32,6 @@ export class FunctionalityBlockService {
   }
 
   public updateTaskStatus(funcBlockId: string, status: number): Observable<FunctionalityBlock> {
-    return this.httpClient.patch<FunctionalityBlock>(this.apiUrl + `/${funcBlockId}`, status);
+    return this.httpClient.patch<FunctionalityBlock>(this.apiUrl + `/task/${funcBlockId}`, status);
   }
 }
