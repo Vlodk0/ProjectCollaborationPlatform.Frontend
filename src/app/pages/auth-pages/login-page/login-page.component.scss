@@ -269,3 +269,19 @@
     }
   }
 }
+
+:host ::ng-deep   .p-toast .p-toast-message.p-toast-message-success {
+  background: white;
+  z-index: 10;
+  border: solid #1ea97c;
+  border-width: 0 0 0 6px;
+  color: #1ea97c;
+}
+
+:host ::ng-deep   .p-toast .p-toast-message.p-toast-message-error {
+  background: white;
+  z-index: 10;
+  border: solid #ff5757;
+  border-width: 0 0 0 6px;
+  color: #ff5757;
+}

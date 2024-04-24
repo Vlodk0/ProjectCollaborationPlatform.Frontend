@@ -6,10 +6,9 @@ import {Login} from "../../../shared/interfaces/login";
 import {CreateProjectOwner} from "../../../shared/interfaces/create-project-owner";
 import {Router} from "@angular/router";
 import {CreateDeveloper} from "../../../shared/interfaces/create-developer";
-import {catchError, of, switchMap} from "rxjs";
+import {catchError, of, switchMap, throwError} from "rxjs";
 import {HttpErrorResponse} from "@angular/common/http";
 import {MessageService} from "primeng/api";
-import {Register} from "../../../shared/interfaces/register";
 
 @Component({
   selector: 'app-login-page',
@@ -59,6 +58,8 @@ export class LoginPageComponent implements OnInit {
                         severity: 'error',
                         summary: 'Missing or Incorrect Authentication Credentials!'
                       })
+                    } else if (err.status === 403) {
+                      return throwError('Forbidden')
                     } else if (err.status === 500) {
                       this.messageService.add({severity: 'error', summary: 'Server error "-505"'})
                     } else {
@@ -70,10 +71,19 @@ export class LoginPageComponent implements OnInit {
               )
           })
         )
-        .subscribe(
-          () => {
-            this.router.navigateByUrl('my-profile')
-          }
+        .subscribe({
+            next: () => {
+              this.router.navigateByUrl('my-profile')
+            },
+            error: (error) => {
+              if (error === 'Forbidden') {
+                this.messageService.add({
+                  severity: 'error',
+                  summary: 'You are blocked on our service'
+                })
+              }
+            }
+          },
         )
     } else {
       this.authService.login(loginObj)
@@ -91,6 +101,11 @@ export class LoginPageComponent implements OnInit {
                       this.messageService.add({
                         severity: 'error',
                         summary: 'Missing or Incorrect Authentication Credentials!'
+                      })
+                    } else if (err.status === 403) {
+                      this.messageService.add({
+                        severity: 'error',
+                        summary: 'You are blocked on our service'
                       })
                     } else if (err.status === 500) {
                       this.messageService.add({severity: 'error', summary: 'Server error "-505"'})
