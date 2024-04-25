@@ -10,11 +10,13 @@ import {ProjectsService} from "../../shared/services/projects.service";
 import {ProjectDev} from "../../shared/interfaces/project-dev";
 import {GetUser} from "../../shared/interfaces/get-user";
 import {UserService} from "../../shared/services/user.service";
+import {MessageService} from "primeng/api";
 
 @Component({
   selector: 'app-all-developers-page',
   templateUrl: './all-developers-page.component.html',
-  styleUrl: './all-developers-page.component.scss'
+  styleUrl: './all-developers-page.component.scss',
+  providers: [MessageService]
 })
 export class AllDevelopersPageComponent implements OnDestroy, OnInit {
   visible: boolean = false;
@@ -42,7 +44,7 @@ export class AllDevelopersPageComponent implements OnDestroy, OnInit {
   }
 
   constructor(private developerService: DeveloperService, private projectService: ProjectsService,
-              private userService: UserService) {
+              private userService: UserService, private messageService: MessageService) {
   }
 
   ngOnInit() {
@@ -51,13 +53,15 @@ export class AllDevelopersPageComponent implements OnDestroy, OnInit {
 
   getUser() {
     this.userService.getUser()
-      .subscribe((result: any) => {
-          this.user = result;
-          console.log('success')
+      .pipe(takeUntil(this.isSubscribe))
+      .subscribe({
+        next: value => {
+          this.user = value;
         },
-        (error) => {
-          console.log('Error', error)
-        })
+        error: err => {
+          console.log(err)
+        }
+      })
   }
 
   onProjectClick(selectedProject: ProjectInfo): void {
@@ -72,14 +76,15 @@ export class AllDevelopersPageComponent implements OnDestroy, OnInit {
     console.log(this.selectedProjects.id)
     console.log(this.selectedDeveloper.id)
     this.projectService.addDevelopersOnProject(this.selectedProjects.id, [this.selectedDeveloper.id])
-      .subscribe(
-        () => {
-          console.log('Developers added to the project successfully.');
+      .pipe(takeUntil(this.isSubscribe))
+      .subscribe({
+        next: () => {
+          this.messageService.add({severity:'success', summary:'Developer added'});
         },
-        (error) => {
-          console.error('Error adding developers to the project:', error);
+        error: () => {
+          this.messageService.add({severity:'error', summary:'Error adding'});
         }
-      );
+      })
   }
 
   showDialog(technologies: DeveloperTechnology[]) {

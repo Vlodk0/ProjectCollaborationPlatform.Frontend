@@ -10,11 +10,13 @@ import {CreateProject} from "../../shared/interfaces/create-project";
 import {Router} from "@angular/router";
 import {GetUser} from "../../shared/interfaces/get-user";
 import {UserService} from "../../shared/services/user.service";
+import {MessageService} from "primeng/api";
 
 @Component({
   selector: 'app-my-projects-page',
   templateUrl: './my-projects-page.component.html',
-  styleUrl: './my-projects-page.component.scss'
+  styleUrl: './my-projects-page.component.scss',
+  providers: [MessageService]
 })
 export class MyProjectsPageComponent implements OnDestroy, OnInit {
 
@@ -44,8 +46,8 @@ export class MyProjectsPageComponent implements OnDestroy, OnInit {
   }
 
 
-  constructor(private projectService: ProjectsService, private router: Router,
-              private userService: UserService) {
+  constructor(private projectService: ProjectsService,
+              private userService: UserService, private messageService: MessageService) {
   }
 
   showDialog(technologies: DeveloperTechnology[]) {
@@ -55,13 +57,15 @@ export class MyProjectsPageComponent implements OnDestroy, OnInit {
 
   getUser() {
     this.userService.getUser()
-      .subscribe((result: any) => {
-          this.user = result;
-          console.log('success')
+      .pipe(takeUntil(this.isSubscribe))
+      .subscribe({
+        next: value => {
+          this.user = value;
         },
-        (error) => {
-          console.log('Error', error)
-        })
+        error: err => {
+          console.log(err)
+        }
+      })
   }
 
   showProjectCreationDialog() {
@@ -95,7 +99,7 @@ export class MyProjectsPageComponent implements OnDestroy, OnInit {
     this.getUser()
   }
 
-  onSubmit() {
+  onSubmit(): void {
     if (this.creationProjectForm.valid) {
       const projectObj: CreateProject = {
         title: this.creationProjectForm.value.title,
@@ -103,16 +107,21 @@ export class MyProjectsPageComponent implements OnDestroy, OnInit {
         payment: this.creationProjectForm.value.payment,
         description: this.creationProjectForm.value.description,
         boardName: `${this.creationProjectForm.value.title}'s board`
-      }
+      };
 
       this.projectService.createProject(projectObj)
-        .subscribe((response) => {
+        .pipe(takeUntil(this.isSubscribe))
+        .subscribe({
+          next: () => {
             this.creationVisible = false;
-            this.router.navigateByUrl('my-project/:id')
+            this.messageService.add({ severity: 'success', summary: 'Project created' });
+
+            window.location.reload();
           },
-          (error) => {
-            console.error('Error creating Project:', error);
-          })
+          error: () => {
+            this.messageService.add({ severity: 'error', summary: 'Error creating' });
+          }
+        });
     }
   }
 

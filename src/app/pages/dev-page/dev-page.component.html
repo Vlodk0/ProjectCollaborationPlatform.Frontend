@@ -2,6 +2,9 @@
 
 <app-sidebar></app-sidebar>
 
+<p-toast></p-toast>
+
+
 <div class="background-container">
   <div class="avatar-container">
     <div class="avatar-content">
@@ -41,7 +44,7 @@
 
 
 <div class="project-info-container">
-  <ng-container *ngIf="developers$ | async as developer">
+  <ng-container *ngIf="technologies$ | async as techs">
     <div class="title-container">Technology Stack
       <div class="line-svg">
         <svg width="324" height="2" viewBox="0 0 324 2" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -57,7 +60,7 @@
         </div>
         <div class="tech-container">
           <ul>
-            <li *ngFor="let tech of developer.technologies" class="tech-content">
+            <li *ngFor="let tech of techs" class="tech-content">
               <span>{{ tech.technology }}</span>
               <span>{{ tech.framework }}</span>
             </li>
