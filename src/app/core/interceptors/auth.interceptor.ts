@@ -2,7 +2,7 @@ import {
   HTTP_INTERCEPTORS, HttpErrorResponse,
   HttpEvent,
   HttpHandler,
-  HttpInterceptor,
+  HttpInterceptor, HttpInterceptorFn,
   HttpRequest
 } from '@angular/common/http';
 import {Injectable} from "@angular/core";
@@ -19,58 +19,55 @@ export class HttpRequestInterceptor implements HttpInterceptor {
   constructor(private authService: AuthService) {
   }
 
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const token = localStorage.getItem('access_token');
-
-    let authRequest = req;
-
-    if (token != null) {
-      authRequest = this.addTokenHeader(authRequest, token);
-    }
-
-    return next.handle(authRequest).pipe(catchError((error: HttpErrorResponse) => {
-      if (error.status === 401) {
-        return this.error401Handle(authRequest, next);
-      }
-
-      return throwError(error);
-    }));
-  }
-
-  private error401Handle(request: HttpRequest<any>, next: HttpHandler) {
-    this.isRefreshed = true;
-    this.tokenRefresh.next(null);
-
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<any> {
     const token = localStorage.getItem('access_token');
 
     if (token) {
+      req = this.addTokenHeader(req, token);
+    }
+
+    return next.handle(req).pipe(
+      catchError((error: any) => {
+        if (error instanceof HttpErrorResponse && error.status === 401) {
+          return this.error401Handle(req, next);
+        } else {
+          return throwError(error);
+        }
+      })
+    );
+  }
+
+  private error401Handle(request: HttpRequest<any>, next: HttpHandler): Observable<any> {
+    if (!this.isRefreshed) {
+      this.isRefreshed = true;
+      this.tokenRefresh.next(null);
+
       let tokens: TokenResponse = {
-        accessToken: localStorage.getItem('access_token'),
-        refreshToken: localStorage.getItem('refresh_token'),
+        accessToken: localStorage.getItem('access_token')!,
+        refreshToken: localStorage.getItem('refresh_token')!,
       }
       return this.authService.refreshToken(tokens).pipe(
-        switchMap((token: any) => {
+        switchMap((tokens: TokenResponse) => {
           this.isRefreshed = false;
-
-          localStorage.setItem('access_token', token.accessToken);
-          this.tokenRefresh.next(token.accessToken);
-
-          return next.handle(this.addTokenHeader(request, token));
+          this.tokenRefresh.next(tokens.accessToken);
+          localStorage.setItem('access_token', tokens.accessToken);
+          localStorage.setItem('refresh_token', tokens.refreshToken);
+          return next.handle(this.addTokenHeader(request, tokens.accessToken));
         }),
-        catchError((err) => {
+        catchError((error) => {
           this.isRefreshed = false;
-
-          localStorage.removeItem('access_token');
-          localStorage.removeItem('refresh_token');
-          return throwError(err);
+          return throwError(error);
+        })
+      );
+    } else {
+      return this.tokenRefresh.pipe(
+        filter(token => token !== null),
+        take(1),
+        switchMap((token) => {
+          return next.handle(this.addTokenHeader(request, token));
         })
       );
     }
-    return this.tokenRefresh.pipe(
-      filter(token => token !== null),
-      take(1),
-      switchMap((token) => next.handle(this.addTokenHeader(request, token)))
-    );
   }
 
   private addTokenHeader(request: any, token: string) {
@@ -82,6 +79,7 @@ export class HttpRequestInterceptor implements HttpInterceptor {
   }
 }
 
-export const httpInterceptorProviders = [
-  {provide: HTTP_INTERCEPTORS, useClass: HttpRequestInterceptor, multi: true},
-];
+export const httpInterceptor: HttpInterceptorFn = (request, next) => {
+  return next(request)
+}
+
