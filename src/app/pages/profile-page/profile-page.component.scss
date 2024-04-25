@@ -20,15 +20,13 @@
     flex-direction: row;
 
     .avatar-content {
-      width: 81px;
+      width: 10%;
       height: 81px;
       display: flex;
       overflow: hidden;
       position: relative;
-      align-items: flex-start;
-      flex-shrink: 1;
       border-radius: 5px;
-      margin: 15px 15px 15px 20px;
+      margin-left: 20px;
 
     }
   }
@@ -271,4 +269,55 @@
     font-family: 'Open Sans';
     font-weight: 600;
   }
+  .tech-stack-container {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    //justify-content: space-between;
+    align-items: flex-start;
+    color: rgba(37, 47, 64, 1);
+    font-size: 16px;
+    font-style: SemiBold;
+    text-align: left;
+    font-family: 'Open Sans';
+    font-weight: 600;
+    margin-top: 70px;
+
+    .tech-header {
+      display: flex;
+      width: 100%;
+      flex-direction: row;
+      justify-content: space-between;
+      padding: 0 30px;
+      align-items: flex-start;
+      color: rgba(37, 47, 64, 1);
+      font-size: 16px;
+      font-style: SemiBold;
+      text-align: left;
+      font-family: 'Open Sans';
+      font-weight: 600;
+    }
+
+    .tech-container {
+      width: 100%;
+
+      ul {
+        padding: 0;
+        margin: 8px 0;
+      }
+
+      .tech-content {
+        display: flex;
+        justify-content: space-between;
+        padding: 0 30px;
+        color: rgba(103, 116, 142, 1);
+        font-size: 14px;
+        font-style: SemiBold;
+        text-align: left;
+        font-family: 'Open Sans';
+        font-weight: 600;
+      }
+    }
+  }
+
 }
