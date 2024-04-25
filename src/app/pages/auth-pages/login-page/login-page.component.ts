@@ -41,91 +41,51 @@ export class LoginPageComponent implements OnInit {
       password: this.loginForm.value.password!,
     }
 
-    if (!this.authService.isDev) {
-      this.authService.login(loginObj)
-        .pipe(
-          switchMap((res: any) => {
-            localStorage.setItem('access_token', res.accessToken);
-            localStorage.setItem('refresh_token', res.refreshToken);
-            return this.authService.isProjectOwnerAdded()
-              .pipe(
-                catchError(err => {
-                  if (err instanceof HttpErrorResponse) {
-                    if (err.status === 404) {
-                      this.addProjectOwner()
-                    } else if (err.status === 401) {
-                      this.messageService.add({
-                        severity: 'error',
-                        summary: 'Missing or Incorrect Authentication Credentials!'
-                      })
-                    } else if (err.status === 403) {
-                      return throwError('Forbidden')
-                    } else if (err.status === 500) {
-                      this.messageService.add({severity: 'error', summary: 'Server error "-505"'})
-                    } else {
-                      console.log("error", err.status)
-                    }
-                  }
-                  return of(err);
-                })
-              )
-          })
-        )
-        .subscribe({
-            next: () => {
-              this.router.navigateByUrl('my-profile')
-            },
-            error: (error) => {
-              if (error === 'Forbidden') {
-                this.messageService.add({
-                  severity: 'error',
-                  summary: 'You are blocked on our service'
-                })
-              }
-            }
-          },
-        )
-    } else {
-      this.authService.login(loginObj)
-        .pipe(
-          switchMap((res: any) => {
-            localStorage.setItem('access_token', res.accessToken);
-            localStorage.setItem('refresh_token', res.refreshToken);
-            return this.authService.isDevAdded()
-              .pipe(
-                catchError(err => {
-                  if (err instanceof HttpErrorResponse) {
-                    if (err.status === 404) {
+    this.authService.login(loginObj)
+      .pipe(
+        switchMap((res: any) => {
+          localStorage.setItem('access_token', res.accessToken);
+          localStorage.setItem('refresh_token', res.refreshToken);
+          return this.authService.isUserAdded()
+            .pipe(
+              catchError(err => {
+                if (err instanceof HttpErrorResponse)
+                  if (err.status === 404) {
+                    if (err.error.title === 'Dev not found')
                       this.addDeveloper()
-                    } else if (err.status === 401) {
-                      this.messageService.add({
-                        severity: 'error',
-                        summary: 'Missing or Incorrect Authentication Credentials!'
-                      })
-                    } else if (err.status === 403) {
-                      this.messageService.add({
-                        severity: 'error',
-                        summary: 'You are blocked on our service'
-                      })
-                    } else if (err.status === 500) {
-                      this.messageService.add({severity: 'error', summary: 'Server error "-505"'})
-                    } else {
-                      console.log("error", err.status)
-                    }
+                    else if (err.error.title === 'Project Owner not found') this.addProjectOwner()
+                  } else if (err.status === 401) {
+                    this.messageService.add({
+                      severity: 'error',
+                      summary: 'Missing or Incorrect Authentication Credentials!'
+                    })
+                  } else if (err.status === 403) {
+                    return throwError('Forbidden')
+                  } else if (err.status === 500) {
+                    this.messageService.add({severity: 'error', summary: 'Server error "-505"'})
+                  } else {
+                    console.log("error", err.status)
                   }
-                  return of(err);
-                })
-              )
-          })
-        )
-        .subscribe(
-          () => {
+                return of(err)
+              })
+            )
+        })
+      )
+      .subscribe({
+          next: () => {
             this.router.navigateByUrl('my-profile')
+          },
+          error: (error) => {
+            if (error === 'Forbidden') {
+              this.messageService.add({
+                severity: 'error',
+                summary: 'You are blocked on our service'
+              })
+            }
           }
-        )
-    }
+        },
+      )
   }
-
   private addProjectOwner() {
     let userObj: CreateProjectOwner = {
       firstName: localStorage.getItem("firstName"),

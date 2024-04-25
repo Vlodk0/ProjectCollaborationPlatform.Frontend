@@ -4,7 +4,7 @@ import {HttpClient} from "@angular/common/http";
 import {Login} from "../interfaces/login";
 import {Router} from "@angular/router";
 import {Register} from "../interfaces/register";
-import {catchError, Observable, of, Subject} from 'rxjs';
+import {BehaviorSubject, catchError, Observable, of, Subject} from 'rxjs';
 import {CreateProjectOwner} from "../interfaces/create-project-owner";
 import {CreateDeveloper} from "../interfaces/create-developer";
 import {TokenResponse} from "../interfaces/token-response";
@@ -17,8 +17,10 @@ export class AuthService {
   private apiUrlSecurity: string = `${environment.securityNgRockUrl}/User`;
   private apiUrl: string = `${environment.apiUrl}/ProjectOwner`;
   private apiUrlDev: string = `${environment.apiUrl}/Developer`;
+  private apiUrlUser: string = `${environment.apiUrl}/User`;
   isCreated: Subject<boolean> = new Subject<boolean>();
-  isDev: boolean;
+  private isProjectOwnerSubject = new BehaviorSubject<string>('Default role')
+  isProjectOwner$ = this.isProjectOwnerSubject.asObservable();
   constructor(private httpClient: HttpClient, private router: Router) {
   }
 
@@ -34,8 +36,8 @@ export class AuthService {
     return this.httpClient.post(this.apiUrlSecurity + '/SignUp', registerObj);
   }
 
-  isProjectOwnerAdded() {
-    return this.httpClient.get(this.apiUrl, {})
+  isUserAdded() {
+    return this.httpClient.get(this.apiUrlUser + '/currentUser')
   }
 
   isDevAdded() {

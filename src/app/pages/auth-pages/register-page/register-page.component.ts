@@ -1,10 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {CustomValidators} from "../../../shared/helpers/validators/customValidators";
 import {AuthService} from "../../../shared/services/auth.service";
 import {Register} from "../../../shared/interfaces/register";
 import {MessageService} from "primeng/api";
-import {catchError, of} from "rxjs";
+import {catchError, of, Subscription} from "rxjs";
 
 @Component({
   selector: 'app-register-page',
@@ -38,6 +38,8 @@ export class RegisterPageComponent implements OnInit {
       lastName: new FormControl('', Validators.required),
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required, CustomValidators.passwordValidator]),
+      confirmPassword: new FormControl('', [Validators.required, CustomValidators.passwordValidator,
+        CustomValidators.passwordMatchValidator("Password", true)]),
       checked: new FormControl(false),
     });
   }
@@ -54,7 +56,6 @@ export class RegisterPageComponent implements OnInit {
       password: this.registerForm.value.password,
       roleName: this.registerForm.value.checked === false ? "ProjectOwner" : "Dev"
     }
-    this.authService.isDev = this.registerForm.value.checked;
 
 
     localStorage.setItem("firstName", this.registerForm.value.firstName)
