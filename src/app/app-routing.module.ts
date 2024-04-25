@@ -1,5 +1,6 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
+import {AdminGuardService} from "./core/guards/admin-guard.service";
 
 const routes: Routes = [
 
@@ -78,7 +79,8 @@ const routes: Routes = [
   },
   {
     path: 'admin-panel',
-    loadChildren: () => import('./pages/admin-panel/admin-panel-routing.module').then(r => r.AdminPanelRoutingModule)
+    loadChildren: () => import('./pages/admin-panel/admin-panel-routing.module').then(r => r.AdminPanelRoutingModule),
+    canActivate: [AdminGuardService]
   },
   {
     path: '404',

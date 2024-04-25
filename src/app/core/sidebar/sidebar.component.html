@@ -33,8 +33,8 @@
       </svg>
     </div>
     <div class="my-projects-container">
-<!--      <span class="my-projects-content">My projects</span>-->
-      <app-button [styleContext]="'my-projects-button'" [context]="'My projects'" [routerLink]="'../my-projects'"></app-button>
+      <app-button [styleContext]="'my-projects-button'" [context]="'My projects'" [routerLink]="'../my-projects'" *ngIf="user.roleName === 'Dev' || user.roleName === 'ProjectOwner'"></app-button>
+      <app-button [styleContext]="'my-projects-button'" [context]="'Admin panel'" [routerLink]="'../admin-panel'" *ngIf="user.roleName === 'Admin'"></app-button>
       <div class="my-projects-icon">
         <div class="icon-content">
           <div class="roof">
