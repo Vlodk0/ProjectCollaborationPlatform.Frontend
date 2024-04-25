@@ -42,6 +42,7 @@ import { ProjectInfoPageComponent } from './pages/project-info-page/project-info
 import { DevPageComponent } from './pages/dev-page/dev-page.component';
 import {PaginatorModule} from "primeng/paginator";
 import { AdminPanelComponent } from './pages/admin-panel/admin-panel.component';
+import {FileUploadModule} from "primeng/fileupload";
 
 @NgModule({
   declarations: [
@@ -69,7 +70,7 @@ import { AdminPanelComponent } from './pages/admin-panel/admin-panel.component';
     AdminPanelComponent,
   ],
     imports: [BrowserModule, AppRoutingModule, ReactiveFormsModule,
-        InputSwitchModule, AvatarModule, TableModule, ButtonModule, HttpClientModule, BrowserAnimationsModule, MessagesModule, ToastModule, AllProjectsPageModule, MultiSelectModule, FormsModule, SharedModule, ConfirmDialogModule, DialogModule, DragDropModule, DropdownModule, PaginatorModule],
+        InputSwitchModule, AvatarModule, TableModule, ButtonModule, HttpClientModule, BrowserAnimationsModule, MessagesModule, ToastModule, AllProjectsPageModule, MultiSelectModule, FormsModule, SharedModule, ConfirmDialogModule, DialogModule, DragDropModule, DropdownModule, PaginatorModule, FileUploadModule],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,

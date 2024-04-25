@@ -5,6 +5,7 @@ import {PaginationResponse} from "../interfaces/pagination-response";
 import {PaginationDeveloper} from "../interfaces/pagination-developer";
 import {environment} from "../../environment";
 import {PaginationFilterDevs} from "../interfaces/pagination-filter-devs";
+import {Technology} from "../interfaces/technology";
 
 @Injectable({
   providedIn: 'root'
@@ -33,5 +34,13 @@ export class DeveloperService {
 
   public addTechnologyForDev(techId: string[]) {
     return this.httpClient.post(this.apiUrl + '/Technologies', techId)
+  }
+
+  public getAllDeveloperTechnologies(): Observable<Technology[]> {
+    return this.httpClient.get<Technology[]>(this.apiUrl + '/Technologies')
+  }
+
+  public getAllDevTechnologies(devId: string): Observable<Technology[]> {
+    return this.httpClient.get<Technology[]>(this.apiUrl + `/Technologies/dev/${devId}`)
   }
 }

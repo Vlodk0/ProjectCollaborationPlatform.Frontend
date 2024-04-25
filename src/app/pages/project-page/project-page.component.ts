@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ProjectsService} from "../../shared/services/projects.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {catchError, Observable, of, Subject, takeUntil} from "rxjs";
@@ -13,14 +13,15 @@ import {UpdateProject} from "../../shared/interfaces/update-project";
 import {ProjectDetail} from "../../shared/interfaces/project-detail";
 import {GetUser} from "../../shared/interfaces/get-user";
 import {UserService} from "../../shared/services/user.service";
+import {MessageService} from "primeng/api";
 
 @Component({
   selector: 'app-project-page',
   templateUrl: './project-page.component.html',
   styleUrls: ['./project-page.component.scss'],
-  providers: [FunctionalityBlockService]
+  providers: [FunctionalityBlockService, MessageService]
 })
-export class ProjectPageComponent implements OnInit {
+export class ProjectPageComponent implements OnInit, OnDestroy {
 
   projects$: Observable<ProjectInfo>;
   tasks$: Observable<FunctionalityBlock[]>
@@ -49,6 +50,7 @@ export class ProjectPageComponent implements OnInit {
     private functionalityBlockService: FunctionalityBlockService,
     private technologyService: TechnologyService,
     private userService: UserService,
+    private messageService: MessageService
   ) {
   }
 
@@ -121,13 +123,15 @@ export class ProjectPageComponent implements OnInit {
 
   getUser() {
     this.userService.getUser()
-      .subscribe((result: any) => {
-          this.user = result;
-          console.log('success')
+      .pipe(takeUntil(this.isSubscribe))
+      .subscribe({
+        next: value => {
+          this.user = value;
         },
-        (error) => {
-          console.log('Error', error)
-        })
+        error: err => {
+          console.log(err)
+        }
+      })
   }
 
 
@@ -158,9 +162,16 @@ export class ProjectPageComponent implements OnInit {
       }
 
       this.projectService.updateProject(this.projectId, projectObj)
-        .subscribe((res => {
-          this.updateProjVisible = false;
-        }))
+        .pipe(takeUntil(this.isSubscribe))
+        .subscribe({
+          next: () => {
+            this.updateProjVisible = false;
+            this.messageService.add({severity:'success', summary:'Project is updated'});
+          },
+          error: () => {
+            this.messageService.add({severity:'error', summary:'Error updating'});
+          }
+        })
     }
   }
 
@@ -170,9 +181,16 @@ export class ProjectPageComponent implements OnInit {
         description: this.updatingProjectDetailForm.value.description
       }
       this.projectService.updateProjectDetails(this.projectId, projectDetailObj)
-        .subscribe((res => {
-          this.updateProjDetailVisible = false;
-        }))
+        .pipe(takeUntil(this.isSubscribe))
+        .subscribe({
+          next: () => {
+            this.updateProjDetailVisible = false;
+            this.messageService.add({severity:'success', summary:'Details are updated'});
+          },
+          error: () => {
+            this.messageService.add({severity:'error', summary:'Error updating'});
+          }
+        })
     }
   }
 
@@ -288,17 +306,17 @@ export class ProjectPageComponent implements OnInit {
       this.loadTasksByBoardId(this.boardId);
 
       this.functionalityBlockService.createFunctionalityBlock(taskObj, this.boardId)
-        .subscribe(
-          (response) => {
-            console.log('Task created successfully:', response);
-            this.taskVisible = false;
-            // Refresh tasks after creation if needed
-            this.loadTasksByBoardId(this.boardId);
+        .pipe(takeUntil(this.isSubscribe))
+        .subscribe({
+          next: value => {
+            this.taskVisible = false
+            this.loadTasksByBoardId(this.boardId)
+            this.messageService.add({severity:'success', summary:'Task added'});
           },
-          (error) => {
-            console.error('Error creating task:', error);
+          error: () => {
+            this.messageService.add({severity:'error', summary:'Error creating'});
           }
-        );
+        })
     }
   }
 
@@ -320,19 +338,17 @@ export class ProjectPageComponent implements OnInit {
       console.log(this.funcBlockId)
 
       this.functionalityBlockService.updateTask(taskObj, this.funcBlockId)
-        .subscribe(
-          (response) => {
-            console.log('Task updated successfully:', response);
-            this.updateTaskVisible = false;
-            this.loadTasksByBoardId(this.boardId);
+        .pipe(takeUntil(this.isSubscribe))
+        .subscribe({
+          next: value => {
+            this.updateTaskVisible = false
+            this.loadTasksByBoardId(this.boardId)
+            this.messageService.add({severity:'success', summary:'Task is updated'});
           },
-          (error) => {
-            console.error('Error updating task:', error);
+          error: () => {
+            this.messageService.add({severity:'error', summary:'Error updating'});
           }
-        )
-      setTimeout(function () {
-        window.location.reload();
-      }, 2000);
+        })
     }
   }
 
@@ -342,19 +358,22 @@ export class ProjectPageComponent implements OnInit {
       console.log(this.funcBlockId)
 
       this.functionalityBlockService.deleteTask(this.funcBlockId)
-        .subscribe(
-          (response) => {
-            console.log('Task deleted successfully:', response);
-            this.updateTaskVisible = false;
+        .pipe(takeUntil(this.isSubscribe))
+        .subscribe({
+          next: value => {
+            this.updateTaskVisible = false
             this.loadTasksByBoardId(this.boardId);
+            this.messageService.add({severity:'success', summary:'Task was deleted'});
           },
-          (error) => {
-            console.error('Error deleting task:', error);
+          error: () => {
+            this.messageService.add({severity:'error', summary:'Error deleting'});
           }
-        )
-      setTimeout(function () {
-        window.location.reload();
-      }, 2000);
+        })
     }
   }
+
+   ngOnDestroy() {
+    this.isSubscribe.next();
+    this.isSubscribe.complete();
+   }
 }

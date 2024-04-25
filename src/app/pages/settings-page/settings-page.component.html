@@ -2,6 +2,8 @@
 
 <app-sidebar></app-sidebar>
 
+<p-toast></p-toast>
+
 
 <div class="profile-info-container">
   <div class="my-account-header">
@@ -11,10 +13,11 @@
   <div class="credentials-container">
     <div class="avatar-container">
       <div class="avatar-content">
-        <button class="avatar-button">
-          <p-avatar label="P" size="xlarge"></p-avatar>
-        </button>
+        <img src="{{imageData}}" alt="">
       </div>
+      <p-fileUpload mode="basic" chooseLabel="Choose" name="file" url="https://localhost:7164/api/User/photo"
+                    accept="image/*" [maxFileSize]="10000000" (onUpload)="onUpload($event)">
+      </p-fileUpload>
     </div>
     <form [formGroup]="updatingUserForm">
       <div class="first-name-header">
