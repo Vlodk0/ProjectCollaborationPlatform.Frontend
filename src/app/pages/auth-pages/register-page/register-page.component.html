@@ -1,0 +1,106 @@
+<p-toast></p-toast>
+<div class="main-background">
+  <div class="container">
+    <span class="left-side-text"><span>Welcome to Collabro</span></span>
+    <div class="secondary-container-1">
+      <span class="secondary-container-content"
+      ><span>project owner</span></span
+      >
+    </div>
+    <div class="secondary-container-2">
+      <span class="secondary-container-content"><span>developer</span></span>
+    </div>
+    <div class="first-ellipse">
+      <svg
+        width="302"
+        height="302"
+        viewBox="0 0 302 302"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <circle cx="151" cy="151" r="151" fill="url(#paint0_linear_1_8)"/>
+        <defs>
+          <linearGradient
+            id="paint0_linear_1_8"
+            x1="151"
+            y1="0"
+            x2="151"
+            y2="302"
+            gradientUnits="userSpaceOnUse"
+          >
+            <stop stop-color="#190061"/>
+            <stop offset="1" stop-color="#0A1B30"/>
+          </linearGradient>
+        </defs>
+      </svg>
+    </div>
+    <div class="second-ellipse">
+      <svg
+        width="221"
+        height="221"
+        viewBox="0 0 221 221"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <circle
+          cx="110.157"
+          cy="110.157"
+          r="110"
+          transform="rotate(-28.5 110.157 110.157)"
+          fill="url(#paint0_linear_1_9)"
+        />
+        <defs>
+          <linearGradient
+            id="paint0_linear_1_9"
+            x1="110.157"
+            y1="0.157387"
+            x2="110.157"
+            y2="220.157"
+            gradientUnits="userSpaceOnUse"
+          >
+            <stop stop-color="#000F61"/>
+            <stop offset="1" stop-color="#0A1730"/>
+          </linearGradient>
+        </defs>
+      </svg>
+    </div>
+
+    <div class="form-container">
+      <div class="title-content">
+        <div class="container-upper-section">
+          <div class="container-register-text">
+            <span class="register-text"><span>Sign Up</span></span>
+            <span class="secondary-register-text">
+              <span>Just some details to get you in.!</span>
+            </span>
+          </div>
+          <div class="container-credentials">
+            <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+              <input class="fname-input" type="text" placeholder="First Name" formControlName="firstName">
+              <input class="lname-input" type="text" placeholder="Last Name" formControlName="lastName">
+              <input class="email-input" type="email" placeholder="Email" formControlName="email">
+              <div class="container-password-rem">
+                <input class="password-input" type="password" placeholder="Password" formControlName="password">
+                <input class="password-input" type="password" placeholder="Confirm password" formControlName="confirmPassword">
+              </div>
+              <div class="register-button-container">
+                <app-button
+                  [styleContext]="'register-button'"
+                  [context]="'Sign up'"
+                  type="submit"
+                  [disabled]="registerForm.invalid"
+                ></app-button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <app-button [styleContext]="'already-register-text-button'" [context]="'Already registered? Login'" [routerLink]="'../signin'"></app-button>
+    </div>
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <div class="button-switch">
+        <p-inputSwitch formControlName="checked"></p-inputSwitch>
+      </div>
+    </form>
+  </div>
+</div>

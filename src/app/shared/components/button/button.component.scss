@@ -1,0 +1,435 @@
+.login-button {
+  gap: 10px;
+  width: 400px;
+  display: flex;
+  padding: 14px 10px;
+  background: linear-gradient(
+      142deg,
+      rgba(97, 141, 255, 1) 0%,
+      rgba(134, 64, 205, 1) 53%,
+      rgba(87, 3, 116, 1) 100%
+  );
+  align-items: center;
+  flex-shrink: 0;
+  border-radius: 12px;
+  justify-content: center;
+  cursor: pointer;
+  color: azure;
+  height: auto;
+  font-size: 20px;
+  font-style: SemiBold;
+  text-align: left;
+  font-family: "Noto Sans";
+  font-weight: 600;
+}
+
+.register-button {
+  gap: 10px;
+  width: 400px;
+  display: flex;
+  padding: 14px 10px;
+  background: linear-gradient(
+      142deg,
+      rgba(45, 76, 238, 1) 0%,
+      rgba(33, 30, 191, 1) 53%,
+      rgba(3, 15, 116, 1) 100%
+  );
+  align-items: center;
+  flex-shrink: 0;
+  border-radius: 12px;
+  justify-content: center;
+  margin-top: 20px;
+  cursor: pointer;
+  color: azure;
+  height: auto;
+  font-size: 20px;
+  font-style: SemiBold;
+  text-align: left;
+  font-family: "Noto Sans";
+  font-weight: 600;
+}
+
+.after-register-button {
+  gap: 10px;
+  width: 400px;
+  display: flex;
+  padding: 14px 10px;
+  background: linear-gradient(
+      142deg,
+      rgba(97, 141, 255, 1) 0%,
+      rgba(134, 64, 205, 1) 53%,
+      rgba(87, 3, 116, 1) 100%
+  );
+  align-items: center;
+  flex-shrink: 0;
+  border-radius: 12px;
+  justify-content: center;
+
+  color: azure;
+  height: auto;
+  font-size: 20px;
+  text-align: left;
+  font-family: "Noto Sans";
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.reset-button {
+  gap: 10px;
+  width: 400px;
+  display: flex;
+  padding: 14px 10px;
+  background: linear-gradient(
+      142deg,
+      rgba(232, 71, 197, 1) 0%,
+      rgba(205, 64, 123, 1) 53%,
+      rgba(116, 3, 44, 1) 100%
+  );
+  align-items: center;
+  flex-shrink: 0;
+  border-radius: 12px;
+  justify-content: center;
+
+  color: azure;
+  height: auto;
+  font-size: 20px;
+  font-style: Medium;
+  text-align: left;
+  font-family: "Noto Sans";
+  font-weight: 500;
+  margin-top: 20px;
+  cursor: pointer;
+}
+
+.settings-button {
+  cursor: pointer;
+  top: 15px;
+  left: 1464.8128662109375px;
+  color: azure;
+  background: transparent;
+  width: 75px;
+  height: auto;
+  position: absolute;
+  font-size: 14px;
+  font-style: Regular;
+  text-align: left;
+  font-family: 'Aldrich';
+  font-weight: 400;
+  border: none;
+  transition: all 0.4s ease 0s;
+  border-radius: 5px;
+}
+
+.logout-button {
+  cursor: pointer;
+  top: 15px;
+  left: 1364.8128662109375px;
+  color: azure;
+  background: transparent;
+  width: 60px;
+  height: auto;
+  position: absolute;
+  font-size: 14px;
+  font-style: Regular;
+  text-align: left;
+  font-family: 'Aldrich';
+  font-weight: 400;
+  border: none;
+  transition: all 0.4s ease 0s;
+  border-radius: 5px;
+
+}
+
+.logout-button:hover,
+.settings-button:hover {
+  background-color: white;
+  color: black;
+}
+
+.my-projects-button {
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  transition: all 0.4s ease 0s;
+  height: 150px;
+  border-radius: 5px;
+  z-index: 10;
+
+
+  top: 18px;
+  left: 54px;
+  color: azure;
+  height: auto;
+  position: absolute;
+  font-size: 14px;
+  font-style: Regular;
+  text-align: left;
+  font-family: 'Aldrich';
+  font-weight: 400;
+}
+
+.all-projects-button,
+.developers-button {
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  transition: all 0.4s ease 0s;
+  height: 150px;
+  border-radius: 5px;
+  z-index: 10;
+
+  top: 20px;
+  left: 54px;
+  color: azure;
+  height: auto;
+  position: absolute;
+  font-size: 14px;
+  font-style: Regular;
+  text-align: left;
+  font-family: 'Aldrich';
+  font-weight: 400;
+}
+
+.profile-button {
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  transition-duration: 0.4s;
+  height: 150px;
+  border-radius: 5px;
+
+  top: 17px;
+  left: 50px;
+  color: azure;
+  height: auto;
+  position: absolute;
+  font-size: 14px;
+  font-style: Regular;
+  text-align: left;
+  font-family: 'Aldrich';
+  font-weight: 400;
+}
+
+.sidebar-logout-button {
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  z-index: 10;
+  transition: all 0.4s ease 0s;
+  border-radius: 5px;
+
+  top: 20px;
+  left: 60px;
+  color: azure;
+  height: auto;
+  position: absolute;
+  font-size: 14px;
+  font-style: Regular;
+  text-align: left;
+  font-family: 'Aldrich';
+  font-weight: 400;
+}
+
+.sidebar-logout-button:hover,
+.all-projects-button:hover,
+.developers-button:hover,
+.profile-button:hover,
+.my-projects-button:hover {
+  cursor: pointer;
+  background-color: purple;
+}
+
+.technologies-user-button {
+  margin-top: 20px;
+  margin-left: 25px;
+  width: 86px;
+  height: 36px;
+  display: flex;
+  position: absolute;
+  justify-content: space-around;
+  align-items: center;
+  flex-shrink: 0;
+  border-radius: 5px;
+  cursor: pointer;
+
+  background-color: mediumpurple;
+
+  color: azure;
+  position: absolute;
+  font-size: 14px;
+  font-style: Regular;
+  text-align: left;
+  font-family: 'Open Sans';
+  font-weight: 400;
+}
+
+.update-user-button {
+  top: 347px;
+  left: 48px;
+  width: 86px;
+  height: 36px;
+  display: flex;
+  position: absolute;
+  justify-content: space-around;
+  align-items: center;
+  flex-shrink: 0;
+  border-radius: 5px;
+  cursor: pointer;
+
+  background-color: mediumpurple;
+
+  color: azure;
+  position: absolute;
+  font-size: 14px;
+  font-style: Regular;
+  text-align: left;
+  font-family: 'Open Sans';
+  font-weight: 400;
+}
+
+.sign-up-text-button {
+  cursor: pointer;
+  background: transparent;
+  border: none;
+
+  top: 735px;
+  left: 121px;
+  color: azure;
+  height: auto;
+  position: absolute;
+  font-size: 16px;
+  font-style: Medium;
+  text-align: left;
+  font-family: "Noto Sans";
+  font-weight: 500;
+}
+
+.already-register-text-button {
+  cursor: pointer;
+  background: transparent;
+  border: none;
+
+  top: 721px;
+  left: 140px;
+  color: azure;
+  height: auto;
+  position: absolute;
+  font-size: 16px;
+  text-align: left;
+  font-family: "Noto Sans";
+  font-weight: 500;
+  margin-top: 40px;
+}
+
+.show-techs-button {
+  cursor: pointer;
+  width: 150px;
+  height: auto;
+  background-color: mediumpurple;
+  color: darkslategrey;
+  font-size: 25px;
+  border-radius: 5px;
+  font-family: "Noto Sans";
+  border: none;
+}
+
+.show-board-button,
+.create-task-button,
+.add-techs-button,
+.update-project-button {
+  margin: 20px 10px 20px 20px;
+  cursor: pointer;
+  width: 150px;
+  height: auto;
+  background-color: mediumpurple;
+  color: darkslategrey;
+  font-size: 20px;
+  border-radius: 5px;
+  font-family: "Noto Sans";
+  border: none;
+}
+
+.add-board-button,
+.update-task-button,
+.delete-task-button,
+.add-dev-button,
+.get-dev-button{
+  margin: 40px 0 0 180px;
+  cursor: pointer;
+  width: 150px;
+  height: auto;
+  background-color: white;
+  color: darkslategrey;
+  font-size: 20px;
+  border-radius: 5px;
+  font-family: "Noto Sans";
+  border: none;
+}
+
+.show-dialog-update-button {
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  height: auto;
+  width: auto;
+
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.add-project-button,
+.create-project-button,
+.update-project-content-button {
+  width: 150px;
+  margin: 35px 20px 20px 20px;
+  height: auto;
+  cursor: pointer;
+  background-color: mediumpurple;
+  color: darkslategrey;
+  font-size: 25px;
+  border-radius: 5px;
+  font-family: "Noto Sans";
+  border: none;
+  transition-duration: 0.4s;
+}
+
+.add-selected-techs-button,
+.remove-selected-techs-button {
+  margin: 40px 0 0 40px;
+  cursor: pointer;
+  width: 150px;
+  height: auto;
+  background-color: white;
+  color: darkslategrey;
+  font-size: 20px;
+  border-radius: 5px;
+  font-family: "Noto Sans";
+  border: none;
+}
+
+.add-techs-button,
+.remove-techs-button {
+  margin: 20px 10px 20px 20px;
+  cursor: pointer;
+  width: 150px;
+  height: auto;
+  background-color: mediumpurple;
+  color: darkslategrey;
+  font-size: 20px;
+  border-radius: 5px;
+  font-family: "Noto Sans";
+  border: none;
+}
+
+.add-feedback-button {
+  margin-right: 10px;
+  cursor: pointer;
+  width: 150px;
+  height: auto;
+  background-color: mediumpurple;
+  color: darkslategrey;
+  font-size: 25px;
+  border-radius: 5px;
+  font-family: "Noto Sans";
+  border: none;
+}

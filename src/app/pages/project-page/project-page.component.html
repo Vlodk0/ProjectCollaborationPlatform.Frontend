@@ -1,0 +1,216 @@
+<app-header></app-header>
+<app-sidebar></app-sidebar>
+<p-toast></p-toast>
+
+<div class="project-container">
+  <div *ngIf="user.roleName === 'ProjectOwner'" class="header-content">
+    <div>Technologies</div>
+    <div>Project</div>
+  </div>
+  <div class="manage-container">
+    <div *ngIf="user.roleName === 'ProjectOwner'" class="container-style" class="board-container">
+      <app-button [styleContext]="'remove-techs-button'" [context]="'Remove'"
+                  (click)="showRemovingTechDialog()"></app-button>
+      <app-button [styleContext]="'add-techs-button'" [context]="'Add'"
+                  (click)="showAddingTechDialog()"></app-button>
+    </div>
+    <div class="container-style">
+      <div class="technologies-container">
+        <app-button [styleContext]="'create-task-button'" [context]="'Add Task'"
+                    (click)="showTaskCreationDialog()"></app-button>
+        <app-button [styleContext]="'show-board-button'" [context]="'Show Board'" (click)="toggleBoard()"></app-button>
+      </div>
+    </div>
+    <div class="project-manage-container" *ngIf="user.roleName === 'ProjectOwner'">
+      <app-button [styleContext]="'update-project-button'" [context]="'Details'"
+                  (click)="showProjectDetailUpdatingDialog()"></app-button>
+      <app-button [styleContext]="'update-project-button'" [context]="'Update'"
+                  (click)="showProjectUpdatingDialog()"></app-button>
+    </div>
+  </div>
+  <div class="board-wrapper" *ngIf="showBoard">
+    <div class="board-columns">
+      <div class="board-column" pDroppable (onDrop)="drop('todo')">
+        <div class="column-title">Todo</div>
+        <div class="tasks-container">
+          <div class="task" *ngFor="let task of availableTasks" pDraggable
+               (onDragStart)="dragStart(task)" (onDragEnd)="dragEnd()" (click)="getTaskIdClick(task)">
+            <app-button [styleContext]="'show-dialog-update-button'" [context]="task.task"
+                        (click)="showTaskUpdatingDialog()"></app-button>
+          </div>
+        </div>
+      </div>
+
+      <div class="board-column" pDroppable (onDrop)="drop('inProcess')">
+        <div class="column-title">In Process</div>
+        <div class="tasks-container">
+          <div class="task" *ngFor="let task of selectedTasks" pDraggable
+               (onDragStart)="dragStart(task)" (onDragEnd)="dragEnd()" (click)="getTaskIdClick(task)">
+            <app-button [styleContext]="'show-dialog-update-button'" [context]="task.task"
+                        (click)="showTaskUpdatingDialog()"></app-button>
+          </div>
+        </div>
+      </div>
+
+      <div class="board-column" pDroppable (onDrop)="drop('done')">
+        <div class="column-title">Done</div>
+        <div class="tasks-container">
+          <div class="task" *ngFor="let task of doneTasks" pDraggable
+               (onDragStart)="dragStart(task)" (onDragEnd)="dragEnd()" (click)="getTaskIdClick(task)">
+            <app-button [styleContext]="'show-dialog-update-button'" [context]="task.task"
+                        (click)="showTaskUpdatingDialog()"></app-button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<form [formGroup]="creationTaskForm">
+  <p-dialog header="Task" [(visible)]="taskVisible" [style]="{width: '20vw'}">
+    <input type="text" class="board-name-input" formControlName="task" placeholder="Task">
+    <app-button [styleContext]="'add-board-button'" [context]="'Create'" (click)="createTask()"></app-button>
+  </p-dialog>
+</form>
+
+<form [formGroup]="updatingTaskForm">
+  <p-dialog header="Task" [(visible)]="updateTaskVisible" [style]="{width: '20vw'}">
+    <input type="text" class="board-name-input" formControlName="task" placeholder="Task">
+    <app-button [styleContext]="'update-task-button'" [context]="'Update'" (click)="updateTask()"></app-button>
+    <app-button [styleContext]="'delete-task-button'" [context]="'Delete'" (click)="deleteTask()"></app-button>
+  </p-dialog>
+</form>
+
+<p-dialog header="Want to add on the project?" [(visible)]="addTechVisible" [style]="{width: 'auto', height: 'auto'}">
+  <div class="multi-select-container">
+    <p-table [value]="technologiesDropDownItems" [(selection)]="selectedTechnologies" dataKey="id" [paginator]="true"
+             [rows]="4"
+             [selectionPageOnly]="true" [tableStyle]="{'min-width': '50rem'}">
+      <ng-template pTemplate="header">
+        <tr>
+          <th style="width: 4rem">
+            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+          </th>
+          <th style="width:200px">Tech</th>
+          <th style="width:200px">Framework</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-tech>
+        <tr>
+          <td>
+            <p-tableCheckbox [value]="tech"></p-tableCheckbox>
+          </td>
+          <td>{{ tech.technology }}</td>
+          <td>{{ tech.framework }}</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+  <div class="button-container">
+    <app-button [styleContext]="'add-selected-techs-button'" [context]="'Add'"
+                (click)="addSelectedTechnology()"></app-button>
+  </div>
+</p-dialog>
+
+<p-dialog header="Want to delete from project?" [(visible)]="removeTechVisible"
+          [style]="{width: 'auto', height: 'auto'}">
+  <div class="multi-select-container">
+    <p-table [value]="projectTechnologiesDropDownItems" [(selection)]="selectedTechnologies" dataKey="id"
+             [paginator]="true"
+             [rows]="4"
+             [selectionPageOnly]="true" [tableStyle]="{'min-width': '50rem'}">
+      <ng-template pTemplate="header">
+        <tr>
+          <th style="width: 4rem">
+            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+          </th>
+          <th style="width:200px">Tech</th>
+          <th style="width:200px">Framework</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-tech>
+        <tr>
+          <td>
+            <p-tableCheckbox [value]="tech"></p-tableCheckbox>
+          </td>
+          <td>{{ tech.technology }}</td>
+          <td>{{ tech.framework }}</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+  <div class="button-container">
+    <app-button [styleContext]="'add-selected-techs-button'" [context]="'Delete'"
+                (click)="removeSelectedTechnology()"></app-button>
+  </div>
+</p-dialog>
+
+<form [formGroup]="updatingProjectForm">
+  <p-dialog header="Project" [(visible)]="updateProjVisible" [style]="{width: 'auto'}">
+    <div class="project-creation-container">
+      <div class="creation-inputs">
+        <input type="text" placeholder="Project title" class="input-style" formControlName="title">
+        <input type="text" placeholder="Short description" class="input-style" formControlName="shortInfo">
+        <input type="number" placeholder="Project payment" class="input-style" formControlName="payment">
+      </div>
+    </div>
+    <div class="button-container">
+      <app-button [styleContext]="'update-project-content-button'" [context]="'Update'"
+                  (click)="updateProject()"></app-button>
+    </div>
+  </p-dialog>
+</form>
+
+<form [formGroup]="updatingProjectDetailForm">
+  <p-dialog header="Project detail" [(visible)]="updateProjDetailVisible" [style]="{width: 'auto'}">
+    <div class="project-creation-container">
+      <textarea class="input-style" placeholder="Your requirements" formControlName="description"></textarea>
+    </div>
+    <div class="button-container">
+      <app-button [styleContext]="'update-project-content-button'" [context]="'Update'"
+                  (click)="updateProjectDetail()"></app-button>
+    </div>
+  </p-dialog>
+</form>
+
+<div class="project-info-container">
+  <ng-container *ngIf="projects$ | async as projectInfo">
+    <div class="title-container">{{ projectInfo.title }}
+      <div class="description-container">{{ projectInfo.description }}
+        <div class="line-svg">
+          <svg width="324" height="2" viewBox="0 0 324 2" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect y="0.666626" width="324" height="1" fill="#F0F0F0"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+    <div class="info-container">
+      <span>Payment: <span class="payment-content ">{{ projectInfo.payment | currency: 'USD' }}</span></span>
+      <span>Technology stack</span>
+      <div class="tech-stack-container">
+        <div class="tech-header">
+          <span>Language</span>
+          <span>Framework</span>
+        </div>
+        <div class="tech-container">
+          <ul>
+            <li *ngFor="let tech of projectInfo.technologies" class="tech-content">
+              <span>{{ tech.technology }}</span>
+              <span>{{ tech.framework }}</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="member-container">
+      <div>Members</div>
+      <ul>
+        <li *ngFor="let dev of projectInfo.developers" class="member-content">
+          <span>{{ dev.firstName }} {{ dev.lastName }}</span>
+        </li>
+      </ul>
+    </div>
+  </ng-container>
+</div>

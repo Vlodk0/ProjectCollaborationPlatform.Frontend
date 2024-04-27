@@ -1,0 +1,100 @@
+.header-container {
+  width: 1592px;
+  height: 308px;
+  top: 24px;
+  left: 296px;
+  gap: 0px;
+  background-size: cover;
+  position: absolute;
+  background-image: url('../../../assets/header-background.png');
+  border-radius: 5px;
+
+  .navbar-container {
+
+    .navbar {
+      width: 1557px;
+      height: 45px;
+      display: flex;
+      overflow: hidden;
+      position: relative;
+      align-items: flex-start;
+      flex-shrink: 0;
+
+      .user-circle {
+        top: 15px;
+        left: 1346px;
+        width: 14px;
+        height: 14px;
+        display: flex;
+        position: absolute;
+        align-items: flex-start;
+        flex-shrink: 1;
+
+        .user-circle-content {
+          top: 0px;
+          left: 0px;
+          width: 14px;
+          height: 14px;
+          position: absolute;
+        }
+      }
+
+      .user-settings {
+        top: 15px;
+        left: 1447px;
+        width: 14px;
+        height: 13.999996185302734px;
+        display: flex;
+        position: absolute;
+        align-items: flex-start;
+        flex-shrink: 1;
+
+        .user-settings-content {
+          top: 0px;
+          left: 0px;
+          width: 14px;
+          height: 14px;
+          position: absolute;
+        }
+      }
+    }
+  }
+}
+
+
+:host ::ng-deep .p-button {
+  color: #ffffff;
+  background: mediumpurple;
+  border: 1px solid mediumpurple;
+  padding: 0.75rem 1.25rem;
+  font-size: 1rem;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+  border-radius: 6px;
+}
+
+:host ::ng-deep .p-button:hover {
+  background: purple;
+  border: 1px solid purple;
+}
+
+:host ::ng-deep .p-dialog .p-dialog-footer {
+  border-top: 0 none;
+  background: mediumpurple;
+  color: azure;
+  padding: 0 1.5rem 1.5rem 1.5rem;
+  text-align: right;
+  border-radius: 0 0 6px 6px;
+}
+
+:host ::ng-deep .p-dialog .p-dialog-content {
+  background: mediumpurple;
+  color: azure;
+  padding: 0 1.5rem 2rem 1.5rem;
+}
+
+:host ::ng-deep .p-dialog .p-dialog-header {
+  border-bottom: 0 none;
+  background: mediumpurple;
+  color: azure;
+  padding: 1.5rem;
+}

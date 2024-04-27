@@ -1,0 +1,46 @@
+.content-container {
+  width: 500px;
+  height: 500px;
+
+  position: absolute;
+
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+
+  box-shadow: -8px 4px 5px 0px rgba(0, 0, 0, 0.23999999463558197);
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.14), rgba(0, 0, 0, 0.14)),
+  linear-gradient(
+      321.23deg,
+      rgba(191, 191, 191, 0.062) 5.98%,
+      rgba(0, 0, 0, 0) 66.28%
+  );
+  backdrop-filter: blur(8px);
+  border-radius: 5px;
+
+  .content {
+    text-align: center;
+    color: gray;
+    font-family: "Noto Sans";
+    font-weight: 600;
+
+    .secondary-text {
+      margin-top: 20px;
+      font-size: 12px;
+    }
+  }
+}
+.first-ellipse {
+  position: absolute;
+  left: 70%;
+  top: 40%;
+}
+.second-ellipse {
+  position: absolute;
+  left: 2%;
+}

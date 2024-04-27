@@ -1,0 +1,122 @@
+.all-projects-container {
+  top: 400px;
+  left: 320px;
+  width: 1051px;
+  height: 929px;
+  display: flex;
+  position: absolute;
+  align-items: flex-start;
+  flex-shrink: 0;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 1);
+
+  .projects {
+    width: 100%;
+  }
+}
+
+.secondary-container {
+  width: 406px;
+  height: auto;
+  top: 400px;
+  left: 1464px;
+  gap: 0;
+  justify-content: space-between;
+  display: flex;
+  position: absolute;
+  flex-direction: column;
+
+  background-color: rgba(255, 255, 255, 1);
+  border-radius: 5px;
+
+  .title-content {
+    margin: 35px 20px 20px 20px;
+    color: rgba(37, 47, 64, 1);
+    font-size: 35px;
+    font-style: SemiBold;
+    text-align: left;
+    font-family: 'Open Sans';
+    font-weight: 600;
+  }
+}
+
+.project-creation-container {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+
+  .creation-inputs {
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: row;
+  }
+}
+
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.input-style {
+  height: auto;
+  width: auto;
+  border-radius: 5px;
+  padding: 14px 16px;
+  margin: 10px;
+  font-size: 20px;
+  font-family: "Noto Sans";
+  font-weight: 400;
+  border-color: azure;
+  border-style: solid;
+  border-width: 1px;
+}
+
+:host ::ng-deep .p-datatable .p-datatable-thead > tr > th {
+  text-align: center;
+  padding: 1rem 1rem;
+  border: 1px solid #e5e7eb;
+  border-width: 0 0 1px 0;
+  font-weight: 700;
+  color: #374151;
+  background: #f9fafb;
+  transition: box-shadow 0.2s;
+}
+
+:host ::ng-deep .p-datatable .p-datatable-tbody > tr > td {
+  text-align: center;
+  border: 1px solid #e5e7eb;
+  border-width: 0 0 1px 0;
+  border-radius: 0;
+  padding: 1rem 1rem;
+}
+
+:host ::ng-deep .p-dialog .p-dialog-header {
+  border-bottom: 0 none;
+  background: mediumpurple;
+  color: azure;
+  padding: 1.5rem;
+}
+
+:host ::ng-deep .p-dialog .p-dialog-content {
+  background: mediumpurple;
+  color: azure;
+  padding: 0 1.5rem 2rem 1.5rem;
+}
+
+:host ::ng-deep .p-datatable .p-datatable-thead > tr > th {
+  text-align: center;
+  padding: 1rem 1rem;
+  border: 1px solid #e5e7eb;
+  border-width: 0 0 1px 0;
+  font-weight: 700;
+  color: #374151;
+  background: #f9fafb;
+  transition: box-shadow 0.2s;
+}
+
+:host ::ng-deep .p-datatable .p-datatable-tbody > tr {
+  background: #ffffff;
+  color: #4b5563;
+  transition: box-shadow 0.2s;
+}

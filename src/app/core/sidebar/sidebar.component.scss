@@ -1,0 +1,335 @@
+.sidebar-container {
+  display: flex;
+  overflow: auto;
+  flex-direction: column;
+
+  .logo-container {
+    width: 285px;
+    height: 1409px;
+    display: flex;
+    overflow: hidden;
+    position: relative;
+    align-items: flex-start;
+    flex-shrink: 0;
+    background-size: cover;
+    background-image: url('../../../assets/sidebar-background.png');
+
+
+    .logo-svg-container {
+      top: 43px;
+      left: 43px;
+      width: 166px;
+      height: 41px;
+      display: flex;
+      overflow: hidden;
+      position: absolute;
+      align-items: flex-start;
+      flex-shrink: 0;
+
+      .sidebar-logo-container {
+        top: 10px;
+        left: 6px;
+        width: 32px;
+        height: 32px;
+        position: absolute;
+      }
+    }
+
+    .line-container {
+      top: 95px;
+      left: 33px;
+      width: 231px;
+      height: 1px;
+      position: absolute;
+    }
+
+    .my-projects-container {
+      top: 116px;
+      left: 38px;
+      width: 188px;
+      height: 50px;
+      display: flex;
+      overflow: hidden;
+      position: absolute;
+      align-items: flex-start;
+      flex-shrink: 0;
+
+      .my-projects-icon {
+        top: 9px;
+        left: 11px;
+        width: 32px;
+        height: 32px;
+        display: flex;
+        position: absolute;
+        align-items: flex-start;
+        flex-shrink: 1;
+        background-color: azure;
+        border-radius: 5px;
+
+        .icon-content {
+          top: 9px;
+          left: 9px;
+          width: 14px;
+          height: 13.983641624450684px;
+          display: flex;
+          position: absolute;
+          align-items: flex-start;
+          flex-shrink: 1;
+
+          .roof {
+            top: 0px;
+            left: 0.250155989720952px;
+            width: 14px;
+            height: 6px;
+            opacity: 0.60;
+            position: absolute;
+          }
+
+          .wall {
+            top: 6.283655643463135px;
+            left: 0.7500041723251343px;
+            width: 10px;
+            height: 8px;
+            position: absolute;
+          }
+        }
+      }
+    }
+
+    .all-projects-container {
+      top: 169px;
+      left: 38px;
+      width: 188px;
+      height: 56px;
+      display: flex;
+      overflow: hidden;
+      position: absolute;
+      align-items: flex-start;
+      flex-shrink: 0;
+
+      .all-projects-icon {
+        top: 11px;
+        left: 11px;
+        width: 32px;
+        height: 32px;
+        display: flex;
+        position: absolute;
+        align-items: flex-start;
+        flex-shrink: 1;
+        background-color: azure;
+        border-radius: 5px;
+
+        .all-projects-icon-content {
+          top: 10px;
+          left: 9px;
+          width: 14px;
+          height: 14px;
+          display: flex;
+          position: absolute;
+          align-items: flex-start;
+          flex-shrink: 1;
+
+          .office {
+            top: -0.200000095367432px;
+            left: 0px;
+            width: 14px;
+            height: 9px;
+            position: absolute;
+          }
+
+          .shape {
+            top: -8px;
+            left: 2.799999952316284px;
+            width: 8px;
+            height: 6px;
+            opacity: 0.60;
+            position: absolute;
+          }
+        }
+      }
+    }
+
+    .developers-container {
+      top: 228px;
+      left: 38px;
+      width: 188px;
+      height: 56px;
+      display: flex;
+      overflow: hidden;
+      position: absolute;
+      align-items: flex-start;
+      flex-shrink: 0;
+
+      .developers-icon {
+        top: 11px;
+        left: 11px;
+        width: 32px;
+        height: 32px;
+        display: flex;
+        position: absolute;
+        align-items: flex-start;
+        flex-shrink: 1;
+        background-color: azure;
+        border-radius: 5px;
+
+        .code {
+          top: -10px;
+          left: -10.799999952316284px;
+          width: 8px;
+          height: 6px;
+          opacity: 0.60;
+          position: absolute;
+        }
+
+      }
+    }
+
+    .account-pages-text {
+      top: 298px;
+      left: 49px;
+      color: azure;
+      height: auto;
+      position: absolute;
+      font-size: 13px;
+      font-style: 'Regular';
+      text-align: left;
+      font-family: 'Aldrich';
+      font-weight: 400;
+    }
+
+    .profile-container {
+      top: 335px;
+      left: 47px;
+      width: 193px;
+      height: 49px;
+      display: flex;
+      overflow: hidden;
+      position: absolute;
+      align-items: flex-start;
+      flex-shrink: 0;
+
+      .profile-icon {
+        top: 8px;
+        left: 3px;
+        width: 32px;
+        height: 32px;
+        display: flex;
+        position: absolute;
+        align-items: flex-start;
+        flex-shrink: 1;
+        background-color: rgba(203, 12, 159, 1);
+        border-radius: 5px;
+
+        .message {
+          top: 0px;
+          left: 20px;
+          width: 8px;
+          height: 8px;
+          opacity: 0.60;
+          position: absolute;
+        }
+
+        .profile-body {
+          top: 10px;
+          left: 11px;
+          width: 10px;
+          height: 4px;
+          position: absolute;
+        }
+
+        .profile-head {
+          top: 4px;
+          left: 13px;
+          width: 6px;
+          height: 7px;
+          position: absolute;
+        }
+      }
+    }
+
+    .logout-container {
+      top: 389px;
+      left: 38px;
+      width: 209px;
+      height: 54px;
+      display: flex;
+      overflow: hidden;
+      position: absolute;
+      align-items: flex-start;
+      flex-shrink: 0;
+
+      .logout-icon {
+        top: 11px;
+        left: 13px;
+        width: 32px;
+        height: 32px;
+        display: flex;
+        position: absolute;
+        align-items: flex-start;
+        flex-shrink: 1;
+        background-color: rgba(255, 255, 255, 1);
+        border-radius: 5px;
+
+        .logout {
+          top: -10px;
+          left: -10px;
+          width: 6px;
+          height: 7px;
+          position: absolute;
+        }
+      }
+    }
+
+    .title-container {
+      top: 20px;
+      left: 46px;
+      color: azure;
+      width: 127px;
+      height: auto;
+      position: absolute;
+      font-size: 16px;
+      font-style: Regular;
+      text-align: left;
+      font-family: 'Aldrich';
+      font-weight: 400;
+    }
+  }
+}
+
+
+:host ::ng-deep .p-button {
+  color: #ffffff;
+  background: mediumpurple;
+  border: 1px solid mediumpurple;
+  padding: 0.75rem 1.25rem;
+  font-size: 1rem;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+  border-radius: 6px;
+}
+
+:host ::ng-deep .p-button:hover {
+  background: purple;
+  border: 1px solid purple;
+}
+
+:host ::ng-deep .p-dialog .p-dialog-footer {
+  border-top: 0 none;
+  background: mediumpurple;
+  color: azure;
+  padding: 0 1.5rem 1.5rem 1.5rem;
+  text-align: right;
+  border-radius: 0 0 6px 6px;
+}
+
+:host ::ng-deep .p-dialog .p-dialog-content {
+  background: mediumpurple;
+  color: azure;
+  padding: 0 1.5rem 2rem 1.5rem;
+}
+
+:host ::ng-deep .p-dialog .p-dialog-header {
+  border-bottom: 0 none;
+  background: mediumpurple;
+  color: azure;
+  padding: 1.5rem;
+}

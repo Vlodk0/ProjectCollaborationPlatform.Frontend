@@ -1,0 +1,68 @@
+<app-header></app-header>
+
+<app-sidebar></app-sidebar>
+
+<p-toast></p-toast>
+
+
+<div class="profile-info-container">
+  <div class="my-account-header">
+    <span class="my-account-header-content">My account</span>
+  </div>
+  <span class="user-info-header">USER INFORMATION</span>
+  <div class="credentials-container">
+    <div class="avatar-container">
+      <div class="avatar-content">
+        <img src="{{imageData}}" alt="">
+      </div>
+      <p-fileUpload mode="basic" chooseLabel="Choose" name="file" url="https://localhost:7164/api/User/photo"
+                    accept="image/*" [maxFileSize]="10000000" (onUpload)="onUpload($event)">
+      </p-fileUpload>
+    </div>
+    <form [formGroup]="updatingUserForm">
+      <div class="first-name-header">
+        <span class="first-name-content">First Name</span>
+        <input type="text" class="first-name-input" placeholder="something" formControlName="firstName">
+      </div>
+      <div class="last-name-header">
+        <span class="last-name-content">Last Name</span>
+        <input type="text" class="last-name-input" placeholder="something" formControlName="lastName">
+      </div>
+    </form>
+    <app-button [styleContext]="'update-user-button'" [context]="'Update'" (click)="updateUser()"></app-button>
+    <div class="line">
+      <svg width="1001" height="1" viewBox="0 0 1001 1" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="1001" height="1" fill="black" fill-opacity="0.1"/>
+      </svg>
+    </div>
+    <div *ngIf="user.roleName == 'Dev'">
+      <span class="tech-header">Technologies
+        <div class="multi-select-container">
+           <p-table [value]="technologies" [(selection)]="selectedTechnologies" dataKey="id" [paginator]="true"
+                    [rows]="4"
+                    [selectionPageOnly]="true" [tableStyle]="{'min-width': '50rem'}">
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width: 4rem">
+                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                </th>
+                <th style="min-width:200px">Name</th>
+                <th style="min-width:200px">Framework</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-technologies>
+            <tr>
+                <td>
+                    <p-tableCheckbox [value]="technologies"></p-tableCheckbox>
+                </td>
+                <td>{{ technologies.technology }}</td>
+                <td>{{ technologies.framework }}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+        </div>
+    <app-button [styleContext]="'technologies-user-button'" [context]="'Add'" (click)="addTechForDev()"></app-button>
+    </span>
+    </div>
+  </div>
+</div>
