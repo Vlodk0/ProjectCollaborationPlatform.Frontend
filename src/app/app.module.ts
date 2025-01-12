@@ -1,20 +1,20 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { ButtonComponent } from './shared/components/button/button.component';
-import { InputComponent } from './shared/components/input/input.component';
+import {AppRoutingModule} from './app-routing.module';
+import {AppComponent} from './app.component';
+import {ButtonComponent} from './shared/components/button/button.component';
+import {InputComponent} from './shared/components/input/input.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import { SidebarComponent } from './core/sidebar/sidebar.component';
-import { HeaderComponent } from './core/header/header.component';
-import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
+import {SidebarComponent} from './core/sidebar/sidebar.component';
+import {HeaderComponent} from './core/header/header.component';
+import {ProfilePageComponent} from './pages/profile-page/profile-page.component';
 import {InputSwitchModule} from "primeng/inputswitch";
 import {AvatarModule} from "primeng/avatar";
-import { AllProjectsPageComponent } from './pages/all-projects-page/all-projects-page.component';
+import {AllProjectsPageComponent} from './pages/all-projects-page/all-projects-page.component';
 import {TableModule} from "primeng/table";
 import {ButtonModule} from "primeng/button";
-import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from "@angular/common/http";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {AuthPageComponent} from "./pages/auth-pages/auth-page.component";
 import {AfterRegisterPageComponent} from "./pages/auth-pages/after-register-page/after-register-page.component";
@@ -24,29 +24,66 @@ import {ResetPasswordPageComponent} from "./pages/auth-pages/reset-password-page
 import {HttpRequestInterceptor} from "./core/interceptors/auth.interceptor";
 import {MessagesModule} from "primeng/messages";
 import {ToastModule} from "primeng/toast";
-import { EmailSuccessPageComponent } from './static-pages/email-success-page/email-success-page.component';
-import { EmailFailedPageComponent } from './static-pages/email-failed-page/email-failed-page.component';
+import {EmailSuccessPageComponent} from './static-pages/email-success-page/email-success-page.component';
+import {EmailFailedPageComponent} from './static-pages/email-failed-page/email-failed-page.component';
 import {AllProjectsPageModule} from "./pages/all-projects-page/all-projects-page.module";
-import { SettingsPageComponent } from './pages/settings-page/settings-page.component';
+import {SettingsPageComponent} from './pages/settings-page/settings-page.component';
 import {MultiSelectModule} from "primeng/multiselect";
 import {SharedModule} from "./shared/shared.module";
 import {ConfirmDialogModule} from "primeng/confirmdialog";
-import { ProjectPageComponent } from './pages/project-page/project-page.component';
-import { PageNotFoundComponent } from './static-pages/page-not-found/page-not-found.component';
+import {ProjectPageComponent} from './pages/project-page/project-page.component';
+import {PageNotFoundComponent} from './static-pages/page-not-found/page-not-found.component';
 import {DialogModule} from "primeng/dialog";
 import {DragDropModule} from "primeng/dragdrop";
-import { AllDevelopersPageComponent } from './pages/all-developers-page/all-developers-page.component';
-import { MyProjectsPageComponent } from './pages/my-projects-page/my-projects-page.component';
+import {AllDevelopersPageComponent} from './pages/all-developers-page/all-developers-page.component';
+import {MyProjectsPageComponent} from './pages/my-projects-page/my-projects-page.component';
 import {DropdownModule} from "primeng/dropdown";
-import { ProjectInfoPageComponent } from './pages/project-info-page/project-info-page.component';
-import { DevPageComponent } from './pages/dev-page/dev-page.component';
+import {ProjectInfoPageComponent} from './pages/project-info-page/project-info-page.component';
+import {DevPageComponent} from './pages/dev-page/dev-page.component';
 import {PaginatorModule} from "primeng/paginator";
-import { AdminPanelComponent } from './pages/admin-panel/admin-panel.component';
+import {AdminPanelComponent} from './pages/admin-panel/admin-panel.component';
 import {FileUploadModule} from "primeng/fileupload";
 import {EmptyStateComponent} from "./shared/components/empty-state/empty-state.component";
 import {
   ControlValidationMessageComponent
 } from "./shared/components/control-validation-message/control-validation-message.component";
+import { TranslateHttpLoader } from "@ngx-translate/http-loader";
+import { TranslateLoader, TranslateModule } from "@ngx-translate/core";
+
+export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
+
+const MODULES = [
+  BrowserModule,
+  AppRoutingModule,
+  ReactiveFormsModule,
+  InputSwitchModule,
+  AvatarModule,
+  TableModule,
+  ButtonModule,
+  HttpClientModule,
+  BrowserAnimationsModule,
+  MessagesModule,
+  ToastModule,
+  AllProjectsPageModule,
+  MultiSelectModule,
+  FormsModule,
+  SharedModule,
+  ConfirmDialogModule,
+  DialogModule,
+  DragDropModule,
+  DropdownModule,
+  PaginatorModule,
+  FileUploadModule,
+  TranslateModule.forRoot({
+    loader: {
+      provide: TranslateLoader,
+      useFactory: createTranslateLoader,
+      deps: [HttpClient]
+    }
+  }),
+];
 
 @NgModule({
   declarations: [
@@ -75,8 +112,9 @@ import {
     EmptyStateComponent,
     ControlValidationMessageComponent
   ],
-    imports: [BrowserModule, AppRoutingModule, ReactiveFormsModule,
-        InputSwitchModule, AvatarModule, TableModule, ButtonModule, HttpClientModule, BrowserAnimationsModule, MessagesModule, ToastModule, AllProjectsPageModule, MultiSelectModule, FormsModule, SharedModule, ConfirmDialogModule, DialogModule, DragDropModule, DropdownModule, PaginatorModule, FileUploadModule],
+  imports: [
+    ...MODULES
+  ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
@@ -89,4 +127,5 @@ import {
     ButtonComponent
   ]
 })
-export class AppModule {}
+export class AppModule {
+}
