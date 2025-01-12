@@ -1,0 +1,33 @@
+{
+  "general": {
+    "saveLabel": "Save",
+    "removeLabel": "Remove"
+  },
+  "validationService": {
+    "required": "This Field is Required.",
+    "emailIncorrect": "Please enter a valid email address.",
+    "phoneIncorrect": "Please enter a valid phone.",
+    "emailAlreadyUsed": "This email is already used.",
+    "wrongPhoneNumber": "Phone number is wrong.",
+    "min": "Value should be greater.",
+    "maxlength": "Max length reached.",
+    "max": "Max value reached.",
+    "minlength": "Length have to be longer",
+    "notGreaterThan": "Value must be less than total.",
+    "underAge": "You must be over 18 years or over",
+    "swiftIncorrect": "Swift code must contain 8 or 11 symbols",
+    "wrongDate": "Enter actual time",
+    "sameTime": "Dates match. Choose another",
+    "incorrectLanguage": "Incorrect Language",
+    "validatePhoneNumber": "Phone number is wrong.",
+    "incorrectSize": "Maximum file size reached.",
+    "wrongFileType": "Wrong file type.",
+    "atLeastOneCheckboxChecked": "At least one option must be selected.",
+    "atLeastOneRequired": " At least one field must be filled.",
+    "whitespace": "Input cannot contain only whitespace",
+    "pattern": "Wrong format",
+    "matDatepickerParse": "Invalid date format.",
+    "matDatepickerMin": "The date cannot be in the past.",
+    "matDatepickerMax": "The date cannot be in the future."
+  }
+}
