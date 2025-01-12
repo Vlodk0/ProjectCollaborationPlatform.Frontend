@@ -1,0 +1,24 @@
+.empty-state-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0 2.4rem;
+
+  .empty-state-title {
+    font-size: 2.4rem;
+    font-weight: 400;
+    line-height: 3.8rem;
+    color: var(--gb900);
+    text-align: center;
+  }
+
+  .empty-state-subtitle {
+    margin-top: .4rem;
+    font-size: 1.6rem;
+    font-weight: 400;
+    line-height: 2.6rem;
+    color: var(--gb500);
+    text-align: center;
+  }
+}
