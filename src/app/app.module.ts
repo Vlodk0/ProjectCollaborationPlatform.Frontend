@@ -54,6 +54,8 @@ import {MatTooltip} from "@angular/material/tooltip";
 import {MatSidenavModule} from "@angular/material/sidenav";
 import {RootComponent} from "./shared/components/root/root.component";
 import {RootModule} from "./shared/components/root/root.module";
+import {SpinnerComponent} from "./shared/components/spinner/spinner.component";
+import {MatProgressSpinner} from "@angular/material/progress-spinner";
 
 export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -61,6 +63,7 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
 
 const MODULES = [
   BrowserModule,
+  MatProgressSpinner,
   AppRoutingModule,
   ReactiveFormsModule,
   InputSwitchModule,
@@ -99,6 +102,7 @@ const MODULES = [
 @NgModule({
   declarations: [
     AppComponent,
+    SpinnerComponent,
     RootComponent,
     AuthPageComponent,
     AfterRegisterPageComponent,
