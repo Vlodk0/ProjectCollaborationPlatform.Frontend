@@ -1,8 +1,5 @@
 <app-header></app-header>
 
-<app-sidebar></app-sidebar>
-
-
 <div class="project-container">
   <ng-container *ngIf="projects$ | async as projectInfo">
     <div class="title">{{ projectInfo.title }}</div>

@@ -29,5 +29,13 @@
     "matDatepickerParse": "Invalid date format.",
     "matDatepickerMin": "The date cannot be in the past.",
     "matDatepickerMax": "The date cannot be in the future."
+  },
+  "sideBar": {
+    "myProjectsLabel": "My Projects",
+    "adminPanelLabel": "Admin Panel",
+    "allProjectsLabel": "All Projects",
+    "developersLabel": "Developers",
+    "profileLabel": "Profile",
+    "logoutLabel": "Logout"
   }
 }

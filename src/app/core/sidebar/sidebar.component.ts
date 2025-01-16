@@ -1,9 +1,11 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {ConfirmationService, MessageService} from "primeng/api";
 import {Router} from "@angular/router";
 import {GetUser} from "../../shared/interfaces/get-user";
 import {UserService} from "../../shared/services/user.service";
 import {Subject, takeUntil} from "rxjs";
+import {MenuConfigInterface} from "../../shared/interfaces/general/menu.interface";
+import {ConfigService} from "../../shared/interfaces/general/config.service";
 
 @Component({
   selector: 'app-sidebar',
@@ -12,10 +14,22 @@ import {Subject, takeUntil} from "rxjs";
   providers: [ConfirmationService, MessageService]
 })
 export class SidebarComponent implements OnInit, OnDestroy {
+  @Input() public sidebarExpanded = true;
+
+  @Output() public toggleSidebar: EventEmitter<void> = new EventEmitter();
+  @Output() public hideSidebar: EventEmitter<void> = new EventEmitter();
+
+  public isLogoutProcessing: boolean = false;
+
+  public menuItems = [];
+
   position: string = 'center';
 
-  constructor(private confirmationService: ConfirmationService, private messageService: MessageService, private router: Router,
-              private userService: UserService) {
+  constructor(private readonly confirmationService: ConfirmationService,
+              private readonly messageService: MessageService,
+              private readonly router: Router,
+              private readonly configService: ConfigService,
+              private readonly userService: UserService) {
   }
 
   isSubscribe: Subject<void> = new Subject<void>()
@@ -31,6 +45,11 @@ export class SidebarComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     localStorage.getItem('access-token')
+
+    this.configService.getConfigMenu().subscribe({
+      next: (menu) => this.handleMenuItems(menu),
+      error: (err) => console.error('Error fetching menu config:', err)
+    });
 
     this.getUser()
   }
@@ -48,7 +67,15 @@ export class SidebarComponent implements OnInit, OnDestroy {
       })
   }
 
-  logout(position: string) {
+  public doToggleSidebar(): void {
+    this.toggleSidebar.emit();
+  }
+
+  public selectItemMenu(): void {
+    this.hideSidebar.emit();
+  }
+
+  logout(position?: string) {
     this.position = position;
 
     this.confirmationService.confirm({
@@ -59,6 +86,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
       rejectIcon: "none",
       rejectButtonStyleClass: "p-button-text",
       accept: () => {
+        this.isLogoutProcessing = true;
         this.messageService.add({severity: 'info', summary: 'Confirmed', detail: 'Request submitted'});
         localStorage.removeItem('access_token')
         localStorage.removeItem('refresh_token')
@@ -76,4 +104,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
     this.isSubscribe.complete();
   }
 
+  private handleMenuItems(result: MenuConfigInterface): void {
+      this.menuItems = result.userMenu
+  }
 }

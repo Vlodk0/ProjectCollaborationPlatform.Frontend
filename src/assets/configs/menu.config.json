@@ -1,0 +1,29 @@
+{
+  "userMenu":
+  [
+    {
+      "routerLink": "my-profile",
+      "controlName": "totalRequests",
+      "icon": "my-profile-icon",
+      "title": "sideBar.profileLabel"
+    },
+    {
+      "routerLink": "all-projects",
+      "controlName": "totalRequests",
+      "icon": "all-projects-icon",
+      "title": "sideBar.allProjectsLabel"
+    },
+    {
+      "routerLink": "my-projects",
+      "controlName": "totalRequests",
+      "icon": "my-projects-icon",
+      "title": "sideBar.myProjectsLabel"
+    },
+    {
+      "routerLink": "all-developers",
+      "controlName": "totalRequests",
+      "icon": "developers-icon",
+      "title": "sideBar.developersLabel"
+    }
+  ]
+}
