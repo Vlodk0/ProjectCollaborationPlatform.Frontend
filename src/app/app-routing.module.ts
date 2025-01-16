@@ -6,8 +6,10 @@ const routes: Routes = [
 
   {
     path: '',
-    redirectTo: 'signin',
-    pathMatch: "full"
+    loadChildren: () =>
+      import(
+        './shared/components/root/root-routing.module'
+        ).then((r) => r.RootRoutingModule),
   },
   {
     path: 'reset-password',
@@ -38,14 +40,6 @@ const routes: Routes = [
         ).then((r) => r.AfterRegisterPageRoutingModule),
   },
   {
-    path: 'my-profile',
-    loadChildren: () => import('./pages/profile-page/profile-page-routing.module').then(r => r.ProfilePageRoutingModule)
-  },
-  {
-    path: 'all-projects',
-    loadChildren: () => import('./pages/all-projects-page/all-projects-page-routing.module').then(r => r.AllProjectsPageRoutingModule)
-  },
-  {
     path: 'email-failed',
     loadChildren: () => import('./static-pages/email-failed-page/email-failed-page-routing.module').then(r => r.EmailFailedPageRoutingModule)
   },
@@ -60,14 +54,6 @@ const routes: Routes = [
   {
     path: 'my-project/:id',
     loadChildren: () => import('./pages/project-page/project-page-routing.module').then(r => r.ProjectPageRoutingModule)
-  },
-  {
-    path: 'all-developers',
-    loadChildren: () => import('./pages/all-developers-page/all-developers-page-routing.module').then(r => r.AllDevelopersPageRoutingModule)
-  },
-  {
-    path: 'my-projects',
-    loadChildren: () => import('./pages/my-projects-page/my-projects-page-routing.module').then(r => r.MyProjectsPageRoutingModule)
   },
   {
     path: 'project-info/:id',

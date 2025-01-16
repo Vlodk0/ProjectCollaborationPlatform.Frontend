@@ -1,6 +1,5 @@
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
-
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {ButtonComponent} from './shared/components/button/button.component';
@@ -49,6 +48,12 @@ import {
 } from "./shared/components/control-validation-message/control-validation-message.component";
 import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 import { TranslateLoader, TranslateModule } from "@ngx-translate/core";
+import {MatIcon} from "@angular/material/icon";
+import {MatButton, MatIconButton} from "@angular/material/button";
+import {MatTooltip} from "@angular/material/tooltip";
+import {MatSidenavModule} from "@angular/material/sidenav";
+import {RootComponent} from "./shared/components/root/root.component";
+import {RootModule} from "./shared/components/root/root.module";
 
 export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -76,6 +81,12 @@ const MODULES = [
   DropdownModule,
   PaginatorModule,
   FileUploadModule,
+  MatIcon,
+  MatIconButton,
+  MatTooltip,
+  MatButton,
+  MatSidenavModule,
+  RootModule,
   TranslateModule.forRoot({
     loader: {
       provide: TranslateLoader,
@@ -88,6 +99,7 @@ const MODULES = [
 @NgModule({
   declarations: [
     AppComponent,
+    RootComponent,
     AuthPageComponent,
     AfterRegisterPageComponent,
     InputComponent,
@@ -124,7 +136,9 @@ const MODULES = [
   ],
   bootstrap: [AppComponent],
   exports: [
-    ButtonComponent
+    ButtonComponent,
+    MatSidenavModule,
+    SidebarComponent
   ]
 })
 export class AppModule {

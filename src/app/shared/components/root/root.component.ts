@@ -1,26 +1,25 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {TranslateService} from "@ngx-translate/core";
-import {MatDrawerMode} from "@angular/material/sidenav";
-import {Subject, takeUntil} from "rxjs";
-import {BreakpointObserver} from "@angular/cdk/layout";
 import {MatIconRegistry} from "@angular/material/icon";
 import {DomSanitizer} from "@angular/platform-browser";
-import {IconRegistry} from "./shared/services/general/icon.registry.service";
+import {BreakpointObserver} from "@angular/cdk/layout";
+import {Subject, takeUntil} from "rxjs";
+import {MatDrawerMode} from "@angular/material/sidenav";
+import {IconRegistry} from "../../services/general/icon.registry.service";
+import {Router} from "@angular/router";
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  selector: 'collabro-root',
+  templateUrl: './root.component.html',
+  styleUrl: './root.component.scss'
 })
-export class AppComponent implements OnInit, OnDestroy {
-  title = 'Collabro';
+export class RootComponent implements OnInit, OnDestroy {
 
   constructor(private readonly translate: TranslateService,
+              private readonly router: Router,
               private readonly matIconRegistry: MatIconRegistry,
               private readonly domSanitizer: DomSanitizer,
               private readonly breakPointObserver: BreakpointObserver) {
-    this.translate.setDefaultLang('en');
-    this.translate.use('en');
   }
 
   public sidebarExpanded = false;
@@ -33,6 +32,7 @@ export class AppComponent implements OnInit, OnDestroy {
   public ngOnInit(): void {
     IconRegistry.register(this.matIconRegistry, this.domSanitizer);
     this.listenToDynamicSidebarModeChange();
+    //this.router.navigate(['/signin']);
   }
 
   public ngOnDestroy(): void {

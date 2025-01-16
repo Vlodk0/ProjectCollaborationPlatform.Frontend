@@ -1,0 +1,67 @@
+@import "../styles/responsive-variables";
+
+@media (max-width: $extra-large) {
+  html {
+    font-size: 9px;
+  }
+}
+
+@media (max-width: $very-large) {
+  html {
+    font-size: 7px;
+  }
+}
+
+@media (max-width: $large) {
+  .attachments-item {
+    width: 50%;
+
+    &:nth-child(n+3) {
+      border-top: none;
+    }
+  }
+}
+
+@media (max-width: $medium) {
+  .input-container-item {
+    width: calc((100% - 1.2rem) / 2);
+  }
+}
+
+@media (max-width: $small) {
+  html {
+    font-size: 6.5px;
+  }
+
+  .mat-datepicker-toggle {
+    top: 0;
+  }
+
+  .attachments-container {
+    flex-direction: column;
+
+    .attachments-item {
+      width: 100%;
+
+      &:nth-child(n+2) {
+        border-top: none;
+      }
+    }
+  }
+}
+
+@media (max-width: $very-small) {
+  .section {
+    flex-direction: column;
+
+    .section-part, .section-part {
+      width: 100%;
+      height: 50%;
+    }
+  }
+
+  .input-container-item, .attachments-item {
+    width: 100%;
+  }
+}
+

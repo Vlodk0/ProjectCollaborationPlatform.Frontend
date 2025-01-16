@@ -1,0 +1,53 @@
+@import "materials-override";
+@import "variables";
+@import "input";
+@import "button";
+
+/* You can add global styles to this file, and also import other style files */
+html {
+  font-size: 10px;
+  height: 100%;
+}
+
+body {
+  font-family: Noto Sans;
+  height: 100%;
+  background-color: var(--gb100);
+}
+
+*, *::after, *::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+* {
+  &::-webkit-scrollbar {
+    width: 7px;
+    height: 7px;
+    border-radius: 25px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: var(--gb200);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--gg400);
+    border-radius: 25px;
+    transition: 0.5s ease-in;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: var(--dg500);
+    transition: 0.5s ease-in;
+  }
+}
+
+@import url("https://fonts.googleapis.com/css?family=Noto Sans");
+@import url("https://fonts.googleapis.com/css?family=Aldrich");
+@import url("https://fonts.googleapis.com/css?family=Open Sans");
+
+.validate-content {
+  color: red;
+}

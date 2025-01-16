@@ -1,0 +1,102 @@
+button {
+  outline: none;
+  border: none;
+  background-color: inherit;
+  cursor: pointer;
+}
+
+.mdc-button.button-primary,
+.mdc-fab.button-primary {
+  background-color: #276EF1;
+  --mdc-fab-small-container-color: #276EF1;
+  --mdc-protected-button-container-color: #276EF1;
+  --mdc-text-button-label-text-color: #FFFFFF;
+  --mdc-text-button-disabled-label-text-color: #FFFFFF;
+  --mat-icon-color: #FFFFFF;
+}
+
+.mdc-button.button-white {
+  --mdc-text-button-label-text-color: #276EF1;
+  --mdc-text-button-disabled-label-text-color: #276EF1;
+  background-color: #FFFFFF;
+
+  .icon {
+    color: #276EF1;
+  }
+}
+
+.wide-button {
+  width: 100%;
+  border-radius: .8rem;
+  cursor: pointer;
+}
+
+.mdc-button.mat-unthemed.mat-mdc-button-base.big-button {
+  padding: 1.5rem 1.2rem;
+}
+
+.button-container {
+  display: flex;
+  column-gap: 1%;
+  justify-content: space-between;
+  border-top: 1px solid #DFE7F5;
+  margin-top: 1.6rem;
+  margin-bottom: 0.2rem;
+  padding-top: 1.6rem;
+}
+
+.transparent-button {
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 1px rgba(0, 0, 0, 0.14), 0px 2px 1px -1px rgba(0, 0, 0, 0.2);
+}
+
+.mdc-button.button-green {
+  background-color: #2EC361;
+  --mdc-text-button-label-text-color: #FFFFFF;
+  --mdc-text-button-disabled-label-text-color: #FFFFFF;
+}
+
+.mdc-button.button-transparent-green {
+  --mdc-text-button-label-text-color: #2EC361;
+  --mdc-text-button-disabled-label-text-color: #2EC361;
+  border: 1px solid #2EC361;
+  background-color: transparent;
+}
+
+.mat-mdc-button.button-white-green {
+  --mdc-text-button-label-text-color: #2EC361;
+  border: 1px solid #2EC361;
+  background-color: #FFFFFF;
+}
+
+.mdc-button.button-transparent-primary {
+  --mdc-text-button-label-text-color: #276EF1;
+  --mdc-text-button-disabled-label-text-color: #276EF1;
+  border: 1px solid #276EF1;
+  background-color: transparent;
+}
+
+.mdc-button.button-transparent-red {
+  --mdc-text-button-label-text-color: #C93535;
+  --mdc-text-button-disabled-label-text-color: #C93535;
+  background-color: #FFFFFF;
+}
+
+.mdc-button.button-red {
+  --mdc-protected-button-label-text-color: #FFFFFF;
+  --mdc-protected-button-disabled-label-text-color: #FFFFFF;
+  --mdc-text-button-label-text-color: #FFFFFF;
+  --mdc-protected-button-container-color: #C93535;
+  --mdc-protected-button-disabled-container-color: #C93535;
+  background-color: #C93535;
+}
+
+.icon-button.mdc-button {
+  min-width: fit-content;
+
+  mat-icon.mat-icon {
+    width: 2.2rem;
+    height: 2.2rem;
+    font-size: 2.2rem;
+    margin: 0;
+  }
+}
