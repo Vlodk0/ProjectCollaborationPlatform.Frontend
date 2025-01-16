@@ -37,5 +37,10 @@
     "developersLabel": "Developers",
     "profileLabel": "Profile",
     "logoutLabel": "Logout"
+  },
+  "notification": {
+    "successRequestLabel": "Success request.",
+    "closeLabel": "Close",
+    "errorOccurredLabel": "An error occurred."
   }
 }
