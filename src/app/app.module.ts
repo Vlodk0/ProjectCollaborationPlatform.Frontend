@@ -56,6 +56,7 @@ import {RootComponent} from "./shared/components/root/root.component";
 import {RootModule} from "./shared/components/root/root.module";
 import {SpinnerComponent} from "./shared/components/spinner/spinner.component";
 import {MatProgressSpinner} from "@angular/material/progress-spinner";
+import {PaginatorComponent} from "./shared/components/paginator/paginator.component";
 
 export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -102,6 +103,7 @@ const MODULES = [
 @NgModule({
   declarations: [
     AppComponent,
+    PaginatorComponent,
     SpinnerComponent,
     RootComponent,
     AuthPageComponent,
