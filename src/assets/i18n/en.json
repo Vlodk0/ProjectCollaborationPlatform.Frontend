@@ -42,5 +42,22 @@
     "successRequestLabel": "Success request.",
     "closeLabel": "Close",
     "errorOccurredLabel": "An error occurred."
+  },
+  "authPages": {
+    "loginPage": {
+      "longTimeNoSeeLabel": "Long time no see!",
+      "collabroLabel": "Collabro",
+      "loginLabel": "Login",
+      "gladYouAreBackLabel": "Glad you are back!",
+      "orLabel": "Or",
+      "dontHaveAccountLabel": "Don't have an account? Sign Up"
+    },
+    "registerPage": {
+      "welcomeToCollabroLabel": "Welcome to Collabro",
+      "signUpLabel": "Sign Up",
+      "justSomeDetailsLabel": "Just some details to get you in!",
+      "orLabel": "Or",
+      "alreadyRegisteredLabel": "Already registered? Login"
+    }
   }
 }
