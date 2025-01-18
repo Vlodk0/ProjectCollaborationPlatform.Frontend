@@ -1,0 +1,9 @@
+<div (scroll)="onListScroll($event)" class="paginator">
+  <ng-content></ng-content>
+
+  <div *ngIf="showMoreButton && loadDataByClick" class="show-more-wrapper">
+    <button (click)="loadData()" mat-button class="button-primary">{{'general.showMoreLabel' | translate}}
+    </button>
+  </div>
+</div>
+

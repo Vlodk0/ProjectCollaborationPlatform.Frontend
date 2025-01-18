@@ -1,0 +1,12 @@
+.paginator {
+  height: 100%;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+
+  .show-more-wrapper {
+    display: flex;
+    justify-content: center;
+    margin: 1rem 0;
+  }
+}
