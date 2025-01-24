@@ -2,6 +2,7 @@
 @import "variables";
 @import "input";
 @import "button";
+@import "helper";
 
 /* You can add global styles to this file, and also import other style files */
 html {
@@ -12,7 +13,7 @@ html {
 body {
   font-family: Noto Sans;
   height: 100%;
-  background-color: var(--gb100);
+  background-color: #26292B;
 }
 
 *, *::after, *::before {
@@ -29,17 +30,17 @@ body {
   }
 
   &::-webkit-scrollbar-track {
-    background: var(--gb200);
+    background: #DFE7F5;
   }
 
   &::-webkit-scrollbar-thumb {
-    background: var(--gg400);
+    background: #A4B1B1;
     border-radius: 25px;
     transition: 0.5s ease-in;
   }
 
   &::-webkit-scrollbar-thumb:hover {
-    background: var(--dg500);
+    background: #A2A2A4;
     transition: 0.5s ease-in;
   }
 }

@@ -48,7 +48,7 @@ import {
 } from "./shared/components/control-validation-message/control-validation-message.component";
 import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 import { TranslateLoader, TranslateModule } from "@ngx-translate/core";
-import {MatIcon} from "@angular/material/icon";
+import {MatIcon, MatIconModule} from "@angular/material/icon";
 import {MatButton, MatIconButton} from "@angular/material/button";
 import {MatTooltip} from "@angular/material/tooltip";
 import {MatSidenavModule} from "@angular/material/sidenav";
@@ -93,6 +93,7 @@ const MODULES = [
   MatButton,
   MatSidenavModule,
   RootModule,
+  MatIconModule,
   TranslateModule.forRoot({
     loader: {
       provide: TranslateLoader,
@@ -146,7 +147,8 @@ const MODULES = [
   exports: [
     ButtonComponent,
     MatSidenavModule,
-    SidebarComponent
+    SidebarComponent,
+    MatIconModule
   ]
 })
 export class AppModule {
