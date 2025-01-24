@@ -7,12 +7,12 @@ button {
 
 .mdc-button.button-primary,
 .mdc-fab.button-primary {
-  background-color: #276EF1;
-  --mdc-fab-small-container-color: #276EF1;
-  --mdc-protected-button-container-color: #276EF1;
-  --mdc-text-button-label-text-color: #FFFFFF;
-  --mdc-text-button-disabled-label-text-color: #FFFFFF;
-  --mat-icon-color: #FFFFFF;
+  background-color: #FFFFFF;
+  --mdc-fab-small-container-color: #FFFFFF;
+  --mdc-protected-button-container-color: #FFFFFF;
+  --mdc-text-button-label-text-color: #000000;
+  --mdc-text-button-disabled-label-text-color: #000000;
+  --mat-icon-color: #000000;
 }
 
 .mdc-button.button-white {

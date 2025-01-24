@@ -32,7 +32,7 @@ export class RootComponent implements OnInit, OnDestroy {
   public ngOnInit(): void {
     IconRegistry.register(this.matIconRegistry, this.domSanitizer);
     this.listenToDynamicSidebarModeChange();
-    this.router.navigate(['/signin']);
+    //this.router.navigate(['/signin']);
   }
 
   public ngOnDestroy(): void {

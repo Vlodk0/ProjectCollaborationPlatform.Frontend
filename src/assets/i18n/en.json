@@ -59,5 +59,47 @@
       "orLabel": "Or",
       "alreadyRegisteredLabel": "Already registered? Login"
     }
+  },
+  "technologies": {
+    "technologiesLabel": "Technologies",
+    "cSharpLabel": "C#",
+    "javaScriptLabel": "JavaScript",
+    "pythonLabel": "Python",
+    "javaLabel": "Java",
+    "typeScriptLabel": "TypeScript",
+    "goLabel": "Go",
+    "rubyLabel": "Ruby",
+    "swiftLabel": "Swift",
+    "kotlinLabel": "Kotlin",
+    "pHPLabel": "PHP",
+    "rustLabel": "Rust",
+    "scalaLabel": "Scala",
+    "perlLabel": "Perl",
+    "cLabel": "C",
+    "cPlusPlusLabel": "C++",
+    "rLabel": "R",
+    "assemblyLabel": "Assembly",
+    "dartLabel": "Dart"
+  },
+  "frameworks": {
+    "frameworksLabel": "Frameworks",
+    "aspNetCoreLabel": "ASP.NET Core",
+    "angularLabel": "Angular",
+    "reactLabel": "React",
+    "vueJsLabel": "Vue.js",
+    "springLabel": "Spring",
+    "djangoLabel": "Django",
+    "flaskLabel": "Flask",
+    "rubyOnRailsLabel": "Ruby on Rails",
+    "expressJsLabel": "Express.js",
+    "nestJsLabel": "NestJS",
+    "nextJsLabel": "Next.js",
+    "emberJsLabel": "Ember.js",
+    "svelteLabel": "Svelte",
+    "laravelLabel": "Laravel",
+    "symfonyLabel": "Symfony",
+    "hibernateLabel": "Hibernate",
+    "fastAPILabel": "FastAPI",
+    "flutterLabel": "Flutter"
   }
 }

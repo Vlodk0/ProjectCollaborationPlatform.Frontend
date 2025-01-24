@@ -23,5 +23,11 @@ export class IconRegistry {
     matIconRegistry.addSvgIcon(
       'log-out',
       domSanitizer.bypassSecurityTrustResourceUrl('assets/icons/log-out.svg'));
+    matIconRegistry.addSvgIcon(
+      'avatar-placeholder-icon',
+      domSanitizer.bypassSecurityTrustResourceUrl('assets/icons/avatar-placeholder-icon.svg'));
+    matIconRegistry.addSvgIcon(
+      'edit',
+      domSanitizer.bypassSecurityTrustResourceUrl('assets/icons/edit.svg'));
   }
 }

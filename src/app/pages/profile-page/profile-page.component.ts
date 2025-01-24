@@ -6,10 +6,11 @@ import {FeedbackService} from "../../shared/services/feedback.service";
 import {PaginationFilterDevs} from "../../shared/interfaces/pagination-filter-devs";
 import {PaginatorState} from "primeng/paginator";
 import {UserService} from "../../shared/services/user.service";
-import {GetUser} from "../../shared/interfaces/get-user";
 import {UserInfoWithAvatar} from "../../shared/interfaces/user-info-with-avatar";
 import {Technology} from "../../shared/interfaces/technology";
 import {DeveloperService} from "../../shared/services/developer.service";
+import {technologiesListConstant} from "../../core/constants/technology-list.constant";
+import {frameworkListConstant} from "../../core/constants/framework-list.constant";
 
 @Component({
   selector: 'app-profile-page',
@@ -22,6 +23,21 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
     pageNumber: 0,
     pageSize: 10
   };
+
+  public technologiesListConstant = technologiesListConstant;
+  public frameworkListConstant = frameworkListConstant;
+
+  public technologyColors = {
+    ["C#"]: 'gray',
+    ["Python"]: 'pink',
+    ["Java"]: 'blue'
+  };
+  public frameworkColors = {
+    ["ASP.NET Core"]: 'gray',
+    ["Angular"]: 'pink',
+    ["React"]: 'blue'
+  };
+
 
   isSubscribe: Subject<void> = new Subject<void>()
 
@@ -59,6 +75,13 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
         error: err =>
           console.log(err)
       })
+  }
+
+  public getStyleForTechnologies(code: string): { background: string } {
+    return { background: this.technologyColors[code] || 'black' };
+  }
+  public getStyleForFrameworks(code: string): { background: string } {
+    return { background: this.frameworkColors[code] || 'black' };
   }
 
   loadUser(): void {
