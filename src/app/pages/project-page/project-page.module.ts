@@ -1,6 +1,5 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {DragDropModule} from "primeng/dragdrop";
 import {AppModule} from "../../app.module";
 
 
@@ -8,7 +7,6 @@ import {AppModule} from "../../app.module";
   declarations: [],
   imports: [
     CommonModule,
-    DragDropModule,
     AppModule
   ]
 })

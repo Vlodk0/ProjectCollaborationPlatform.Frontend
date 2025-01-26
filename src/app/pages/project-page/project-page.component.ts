@@ -13,13 +13,12 @@ import {UpdateProject} from "../../shared/interfaces/update-project";
 import {ProjectDetail} from "../../shared/interfaces/project-detail";
 import {GetUser} from "../../shared/interfaces/get-user";
 import {UserService} from "../../shared/services/user.service";
-import {MessageService} from "primeng/api";
 
 @Component({
   selector: 'app-project-page',
   templateUrl: './project-page.component.html',
   styleUrls: ['./project-page.component.scss'],
-  providers: [FunctionalityBlockService, MessageService]
+  providers: [FunctionalityBlockService]
 })
 export class ProjectPageComponent implements OnInit, OnDestroy {
 
@@ -50,7 +49,6 @@ export class ProjectPageComponent implements OnInit, OnDestroy {
     private functionalityBlockService: FunctionalityBlockService,
     private technologyService: TechnologyService,
     private userService: UserService,
-    private messageService: MessageService
   ) {
   }
 
@@ -166,10 +164,10 @@ export class ProjectPageComponent implements OnInit, OnDestroy {
         .subscribe({
           next: () => {
             this.updateProjVisible = false;
-            this.messageService.add({severity:'success', summary:'Project is updated'});
+            // //this.messageService.add({severity:'success', summary:'Project is updated'});
           },
           error: () => {
-            this.messageService.add({severity:'error', summary:'Error updating'});
+            // //this.messageService.add({severity:'error', summary:'Error updating'});
           }
         })
     }
@@ -185,10 +183,10 @@ export class ProjectPageComponent implements OnInit, OnDestroy {
         .subscribe({
           next: () => {
             this.updateProjDetailVisible = false;
-            this.messageService.add({severity:'success', summary:'Details are updated'});
+            //this.messageService.add({severity:'success', summary:'Details are updated'});
           },
           error: () => {
-            this.messageService.add({severity:'error', summary:'Error updating'});
+            //this.messageService.add({severity:'error', summary:'Error updating'});
           }
         })
     }
@@ -311,10 +309,10 @@ export class ProjectPageComponent implements OnInit, OnDestroy {
           next: value => {
             this.taskVisible = false
             this.loadTasksByBoardId(this.boardId)
-            this.messageService.add({severity:'success', summary:'Task added'});
+            //this.messageService.add({severity:'success', summary:'Task added'});
           },
           error: () => {
-            this.messageService.add({severity:'error', summary:'Error creating'});
+            //this.messageService.add({severity:'error', summary:'Error creating'});
           }
         })
     }
@@ -343,10 +341,10 @@ export class ProjectPageComponent implements OnInit, OnDestroy {
           next: value => {
             this.updateTaskVisible = false
             this.loadTasksByBoardId(this.boardId)
-            this.messageService.add({severity:'success', summary:'Task is updated'});
+            //this.messageService.add({severity:'success', summary:'Task is updated'});
           },
           error: () => {
-            this.messageService.add({severity:'error', summary:'Error updating'});
+            //this.messageService.add({severity:'error', summary:'Error updating'});
           }
         })
     }
@@ -363,10 +361,10 @@ export class ProjectPageComponent implements OnInit, OnDestroy {
           next: value => {
             this.updateTaskVisible = false
             this.loadTasksByBoardId(this.boardId);
-            this.messageService.add({severity:'success', summary:'Task was deleted'});
+            //this.messageService.add({severity:'success', summary:'Task was deleted'});
           },
           error: () => {
-            this.messageService.add({severity:'error', summary:'Error deleting'});
+            //this.messageService.add({severity:'error', summary:'Error deleting'});
           }
         })
     }

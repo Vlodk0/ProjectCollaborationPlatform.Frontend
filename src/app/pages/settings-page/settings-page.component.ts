@@ -7,14 +7,12 @@ import {TechnologyService} from "../../shared/services/technology.service";
 import {Technology} from "../../shared/interfaces/technology";
 import {DeveloperService} from "../../shared/services/developer.service";
 import {GetUser} from "../../shared/interfaces/get-user";
-import {MessageService} from "primeng/api";
 import {UserInfoWithAvatar} from "../../shared/interfaces/user-info-with-avatar";
 
 @Component({
   selector: 'app-settings-page',
   templateUrl: './settings-page.component.html',
   styleUrl: './settings-page.component.scss',
-  providers: [MessageService]
 })
 
 export class SettingsPageComponent implements OnInit, OnDestroy {
@@ -29,8 +27,7 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
 
   constructor(private userService: UserService,
               private technologyService: TechnologyService,
-              private developerService: DeveloperService,
-              private messageService: MessageService) {
+              private developerService: DeveloperService) {
   }
 
   user: UserInfoWithAvatar = {
@@ -91,10 +88,10 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
         .subscribe({
           next: value => {
             this.updatedUser = value
-            this.messageService.add({severity: 'success', summary: 'User is updated'});
+            //this.messageService.add({severity: 'success', summary: 'User is updated'});
           },
           error: () => {
-            this.messageService.add({severity: 'error', summary: 'Error updating'});
+            //this.messageService.add({severity: 'error', summary: 'Error updating'});
           }
         })
     }
@@ -107,10 +104,10 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.isSubscribe))
       .subscribe({
         next: () => {
-          this.messageService.add({severity: 'success', summary: 'Technologies added'});
+          //this.messageService.add({severity: 'success', summary: 'Technologies added'});
         },
         error: () => {
-          this.messageService.add({severity: 'error', summary: 'Error adding'});
+          //this.messageService.add({severity: 'error', summary: 'Error adding'});
         }
       })
   }

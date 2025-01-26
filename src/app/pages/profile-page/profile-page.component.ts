@@ -4,7 +4,6 @@ import {PaginationResponse} from "../../shared/interfaces/pagination-response";
 import {GetFeedback} from "../../shared/interfaces/get-feedback";
 import {FeedbackService} from "../../shared/services/feedback.service";
 import {PaginationFilterDevs} from "../../shared/interfaces/pagination-filter-devs";
-import {PaginatorState} from "primeng/paginator";
 import {UserService} from "../../shared/services/user.service";
 import {UserInfoWithAvatar} from "../../shared/interfaces/user-info-with-avatar";
 import {Technology} from "../../shared/interfaces/technology";
@@ -121,11 +120,11 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.isSubscribe))
   }
 
-  onPageChange(event: PaginatorState): void {
-    this.paginationFilter.pageNumber = event.first;
-    this.paginationFilter.pageSize = 10;
-    this.loadFeedbacks();
-  }
+  // onPageChange(event: PaginatorState): void {
+  //   this.paginationFilter.pageNumber = event.first;
+  //   this.paginationFilter.pageSize = 10;
+  //   this.loadFeedbacks();
+  // }
 
   ngOnDestroy() {
     this.isSubscribe.next();

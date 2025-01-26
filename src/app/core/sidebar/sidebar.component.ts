@@ -1,5 +1,4 @@
 import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
-import {ConfirmationService, MessageService} from "primeng/api";
 import {Router} from "@angular/router";
 import {GetUser} from "../../shared/interfaces/get-user";
 import {UserService} from "../../shared/services/user.service";
@@ -10,8 +9,7 @@ import {ConfigService} from "../../shared/interfaces/general/config.service";
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
-  styleUrl: './sidebar.component.scss',
-  providers: [ConfirmationService, MessageService]
+  styleUrl: './sidebar.component.scss'
 })
 export class SidebarComponent implements OnInit, OnDestroy {
   @Input() public sidebarExpanded = true;
@@ -25,9 +23,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
 
   position: string = 'center';
 
-  constructor(private readonly confirmationService: ConfirmationService,
-              private readonly messageService: MessageService,
-              private readonly router: Router,
+  constructor(private readonly router: Router,
               private readonly configService: ConfigService,
               private readonly userService: UserService) {
   }
@@ -78,25 +74,25 @@ export class SidebarComponent implements OnInit, OnDestroy {
   logout(position?: string) {
     this.position = position;
 
-    this.confirmationService.confirm({
-      message: 'Are you sure you want to logout?',
-      header: 'Logout',
-      icon: 'pi pi-info-circle',
-      acceptIcon: "none",
-      rejectIcon: "none",
-      rejectButtonStyleClass: "p-button-text",
-      accept: () => {
-        this.isLogoutProcessing = true;
-        this.messageService.add({severity: 'info', summary: 'Confirmed', detail: 'Request submitted'});
-        localStorage.removeItem('access_token')
-        localStorage.removeItem('refresh_token')
-        this.router.navigateByUrl('signin')
-      },
-      reject: () => {
-        this.messageService.add({severity: 'error', summary: 'Rejected', detail: 'Process incomplete', life: 3000});
-      },
-      key: 'positionDialog'
-    })
+    // this.confirmationService.confirm({
+    //   message: 'Are you sure you want to logout?',
+    //   header: 'Logout',
+    //   icon: 'pi pi-info-circle',
+    //   acceptIcon: "none",
+    //   rejectIcon: "none",
+    //   rejectButtonStyleClass: "p-button-text",
+    //   accept: () => {
+    //     this.isLogoutProcessing = true;
+    //     //this.messageService.add({severity: 'info', summary: 'Confirmed', detail: 'Request submitted'});
+    //     localStorage.removeItem('access_token')
+    //     localStorage.removeItem('refresh_token')
+    //     this.router.navigateByUrl('signin')
+    //   },
+    //   reject: () => {
+    //     //this.messageService.add({severity: 'error', summary: 'Rejected', detail: 'Process incomplete', life: 3000});
+    //   },
+    //   key: 'positionDialog'
+    // })
   }
 
   ngOnDestroy() {

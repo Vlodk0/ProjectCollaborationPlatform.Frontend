@@ -1,5 +1,4 @@
 import {Component, OnDestroy} from '@angular/core';
-import {TableLazyLoadEvent} from "primeng/table";
 import {PaginationFilter} from "../../shared/interfaces/pagination-filter";
 import {ProjectsService} from "../../shared/services/projects.service";
 import {ProjectPagination} from "../../shared/interfaces/project-pagination";
@@ -37,21 +36,21 @@ export class AllProjectsPageComponent implements OnDestroy {
     this.visible = true
   }
 
-  loadProjects($event: TableLazyLoadEvent) {
-    console.log($event);
-
-    this.paginationFilter.pageNumber = $event.first || 0;
-    this.paginationFilter.pageSize = $event.rows || 10;
-    this.paginationFilter.sortColumn = $event.sortField?.toString() || "Payment";
-    this.paginationFilter.sortDirection = $event.sortOrder || 1;
-
-    this.projectService.getAllProjects(this.paginationFilter)
-      .pipe(takeUntil(this.isSubscribe))
-      .subscribe(response => {
-        this.projects = response.data;
-        this.totalRecords = response.totalRecords;
-      })
-  }
+  // loadProjects($event: TableLazyLoadEvent) {
+  //   console.log($event);
+  //
+  //   this.paginationFilter.pageNumber = $event.first || 0;
+  //   this.paginationFilter.pageSize = $event.rows || 10;
+  //   this.paginationFilter.sortColumn = $event.sortField?.toString() || "Payment";
+  //   this.paginationFilter.sortDirection = $event.sortOrder || 1;
+  //
+  //   this.projectService.getAllProjects(this.paginationFilter)
+  //     .pipe(takeUntil(this.isSubscribe))
+  //     .subscribe(response => {
+  //       this.projects = response.data;
+  //       this.totalRecords = response.totalRecords;
+  //     })
+  // }
 
   ngOnDestroy() {
     this.isSubscribe.next();

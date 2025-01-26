@@ -6,7 +6,7 @@ input {
 }
 
 input:disabled {
-  background-color: var(--white);
+  background-color: white;
 }
 
 input:-webkit-autofill,
@@ -123,7 +123,7 @@ ngx-intl-tel-input {
   position: absolute;
   left: 1rem;
   top: -1rem;
-  background-color: var(--white);
+  background-color: white;
   padding: .2rem;
   font-size: 1.2rem;
   color: var(--dg500);
@@ -156,7 +156,7 @@ ngx-intl-tel-input {
     }
 
     input:focus {
-      border: .1rem solid var(--gb900);
+      border: .1rem solid #262C38;
     }
 
     .search-container {
@@ -207,7 +207,7 @@ ngx-intl-tel-input {
 }
 
 .iti__country-name {
-  color: var(--gb500);
+  color: #828EA4;
   font-size: 1.4rem;
   font-weight: normal;
 }
