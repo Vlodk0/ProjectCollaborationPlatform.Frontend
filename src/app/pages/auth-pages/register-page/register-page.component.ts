@@ -3,14 +3,13 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {CustomValidators} from "../../../shared/helpers/validators/customValidators";
 import {AuthService} from "../../../shared/services/auth.service";
 import {Register} from "../../../shared/interfaces/register";
-import {MessageService} from "primeng/api";
 import {catchError, of, Subscription} from "rxjs";
 
 @Component({
   selector: 'app-register-page',
   templateUrl: './register-page.component.html',
   styleUrl: './register-page.component.scss',
-  providers: [AuthService, MessageService]
+  providers: [AuthService]
 })
 export class RegisterPageComponent implements OnInit {
 
@@ -18,18 +17,18 @@ export class RegisterPageComponent implements OnInit {
   private isRegistered: boolean;
 
   addSuccessMessage() {
-    this.messageService.add({severity:'success', summary:'Email has sent!'});
+    //this.messageService.add({severity:'success', summary:'Email has sent!'});
   }
 
   addFailedMessage() {
-    this.messageService.add({severity:'error', summary:'Email has not sent!'});
+    //this.messageService.add({severity:'error', summary:'Email has not sent!'});
   }
 
   add505ErrorMessage() {
-    this.messageService.add({severity:'error', summary:'Server error "-505"'});
+    //this.messageService.add({severity:'error', summary:'Server error "-505"'});
   }
 
-  constructor(private authService: AuthService, private messageService: MessageService) {
+  constructor(private authService: AuthService) {
   }
 
   ngOnInit() {

@@ -1,0 +1,29 @@
+<div class="card-wrapper flex-col">
+  <div class="d-flex align-items-center">
+    <div class="item-container-placeholder m-r-1-6 w-100">
+      <mat-icon *ngIf="true; else avatarPhoto" class="item-container-placeholder-icon"
+                [svgIcon]="'avatar-placeholder-icon'"></mat-icon>
+
+      <ng-template #avatarPhoto>
+        <img alt="" class="avatar-photo">
+      </ng-template>
+    </div>
+
+    <div class="user-info-container align-items-center">
+      <div class="d-flex column-gap-1-6 align-items-center">
+        <div class="user-full-name"> Name Surname </div>
+        <mat-icon [svgIcon]="'menu'"></mat-icon>
+      </div>
+      <div class="user-role-name"> Leeds, United Kingdom</div>
+    </div>
+  </div>
+
+  <div class="d-flex column-gap-0-4 w-100 align-items-center m-t-2-4 justify-content-center">
+    <div class="technology-item-container w-100 d-flex justify-content-center"
+         *ngFor="let item of technologiesListConstant.slice(0, 3)"
+         [ngStyle]="getStyleForTechnologies(item.code)">
+      {{ item.name | translate }}
+    </div>
+  </div>
+
+</div>

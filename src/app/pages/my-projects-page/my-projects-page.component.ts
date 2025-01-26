@@ -4,19 +4,16 @@ import {DeveloperTechnology} from "../../shared/interfaces/developer-technology"
 import {Subject, takeUntil} from "rxjs";
 import {PaginationFilter} from "../../shared/interfaces/pagination-filter";
 import {ProjectsService} from "../../shared/services/projects.service";
-import {TableLazyLoadEvent} from "primeng/table";
 import {FormControl, FormGroup} from "@angular/forms";
 import {CreateProject} from "../../shared/interfaces/create-project";
 import {Router} from "@angular/router";
 import {GetUser} from "../../shared/interfaces/get-user";
 import {UserService} from "../../shared/services/user.service";
-import {MessageService} from "primeng/api";
 
 @Component({
   selector: 'app-my-projects-page',
   templateUrl: './my-projects-page.component.html',
   styleUrl: './my-projects-page.component.scss',
-  providers: [MessageService]
 })
 export class MyProjectsPageComponent implements OnDestroy, OnInit {
 
@@ -47,7 +44,7 @@ export class MyProjectsPageComponent implements OnDestroy, OnInit {
 
 
   constructor(private projectService: ProjectsService,
-              private userService: UserService, private messageService: MessageService) {
+              private userService: UserService) {
   }
 
   showDialog(technologies: DeveloperTechnology[]) {
@@ -71,22 +68,22 @@ export class MyProjectsPageComponent implements OnDestroy, OnInit {
   showProjectCreationDialog() {
     this.creationVisible = true
   }
-
-  loadProjects($event: TableLazyLoadEvent) {
-    console.log($event);
-
-    this.paginationFilter.pageNumber = $event.first || 0;
-    this.paginationFilter.pageSize = $event.rows || 10;
-    this.paginationFilter.sortColumn = $event.sortField?.toString() || "Payment";
-    this.paginationFilter.sortDirection = $event.sortOrder || 1;
-
-    this.userService.getAllProjects(this.paginationFilter)
-      .pipe(takeUntil(this.isSubscribe))
-      .subscribe(response => {
-        this.projects = response.data;
-        this.totalRecords = response.totalRecords;
-      })
-  }
+  //
+  // loadProjects($event: TableLazyLoadEvent) {
+  //   console.log($event);
+  //
+  //   this.paginationFilter.pageNumber = $event.first || 0;
+  //   this.paginationFilter.pageSize = $event.rows || 10;
+  //   this.paginationFilter.sortColumn = $event.sortField?.toString() || "Payment";
+  //   this.paginationFilter.sortDirection = $event.sortOrder || 1;
+  //
+  //   this.userService.getAllProjects(this.paginationFilter)
+  //     .pipe(takeUntil(this.isSubscribe))
+  //     .subscribe(response => {
+  //       this.projects = response.data;
+  //       this.totalRecords = response.totalRecords;
+  //     })
+  // }
 
   ngOnInit() {
     this.creationProjectForm = new FormGroup({
@@ -114,12 +111,12 @@ export class MyProjectsPageComponent implements OnDestroy, OnInit {
         .subscribe({
           next: () => {
             this.creationVisible = false;
-            this.messageService.add({ severity: 'success', summary: 'Project created' });
+            //this.messageService.add({ severity: 'success', summary: 'Project created' });
 
             window.location.reload();
           },
           error: () => {
-            this.messageService.add({ severity: 'error', summary: 'Error creating' });
+            //this.messageService.add({ severity: 'error', summary: 'Error creating' });
           }
         });
     }

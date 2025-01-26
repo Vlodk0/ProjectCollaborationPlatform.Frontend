@@ -9,15 +9,12 @@ import { PaginationResponse } from '../../shared/interfaces/pagination-response'
 import { GetFeedback } from '../../shared/interfaces/get-feedback';
 import { Feedback } from '../../shared/interfaces/feedback';
 import {PaginationDeveloper} from "../../shared/interfaces/pagination-developer";
-import {PaginatorState} from "primeng/paginator";
-import {MessageService} from "primeng/api";
 import {Technology} from "../../shared/interfaces/technology";
 
 @Component({
   selector: 'app-dev-page',
   templateUrl: './dev-page.component.html',
   styleUrls: ['./dev-page.component.scss'],
-  providers: [MessageService]
 })
 export class DevPageComponent implements OnInit {
   developers$: Observable<PaginationDeveloper>;
@@ -35,8 +32,7 @@ export class DevPageComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private developerService: DeveloperService,
-    private feedbackService: FeedbackService,
-    private messageService: MessageService
+    private feedbackService: FeedbackService
   ) {}
 
   ngOnInit(): void {
@@ -67,11 +63,11 @@ export class DevPageComponent implements OnInit {
     )
   }
 
-  onPageChange(event: PaginatorState): void {
-    this.paginationFilter.pageNumber = event.first;
-    this.paginationFilter.pageSize = 10;
-    this.loadFeedbacks();
-  }
+  // onPageChange(event: PaginatorState): void {
+  //   this.paginationFilter.pageNumber = event.first;
+  //   this.paginationFilter.pageSize = 10;
+  //   this.loadFeedbacks();
+  // }
 
   addFeedback(): void {
     if (this.addingFeedbackForm.valid) {
@@ -84,11 +80,11 @@ export class DevPageComponent implements OnInit {
         .subscribe({
           next: () => {
             this.addingFeedbackForm.reset()
-            this.messageService.add({severity:'success', summary:'Feedback created'});
+            //this.messageService.add({severity:'success', summary:'Feedback created'});
             this.loadFeedbacks();
           },
           error: () => {
-            this.messageService.add({severity:'error', summary:'Error adding'});
+            //this.messageService.add({severity:'error', summary:'Error adding'});
           }
         })
     }

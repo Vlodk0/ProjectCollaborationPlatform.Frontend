@@ -1,0 +1,82 @@
+.card-wrapper {
+  padding: 1rem;
+  border-radius: .8rem;
+  background-color: black;
+  height: 100%;
+  display: flex;
+  align-items: center;
+
+  .developer-item {
+    font-size: 1.6rem;
+    line-height: 2.6rem;
+    color: var(--gb900);
+  }
+
+  .developer-label {
+    text-transform: uppercase;
+  }
+
+  .item-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 2.4rem;
+    border-radius: 10px;
+    column-gap: 2rem;
+    row-gap: 2rem;
+    flex-wrap: wrap;
+    margin-bottom: 2.4rem;
+
+    &-placeholder {
+      height: 7.2rem;
+      width: 7.2rem;
+      background: #DFE7F5;
+      border: 1px dashed #BBC5D8;
+      border-radius: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      overflow: hidden;
+
+      &-icon {
+        width: 3.2rem;
+        height: 3.2rem;
+        font-size: 3.2rem;
+      }
+
+      .avatar-photo {
+        height: 100%;
+      }
+    }
+  }
+
+  .user-info-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: start;
+    height: 100%;
+
+    .user-full-name {
+      font-weight: 500;
+      font-size: 2rem;
+      line-height: 32px;
+    }
+
+    .user-role-name {
+      font-weight: 200;
+      font-size: 1.8rem;
+      line-height: 22px;
+      color: #8894A6;
+    }
+  }
+
+  .technology-item-container {
+    border-radius: 4px;
+    padding: 1.2rem;
+    color: azure;
+    font-weight: 500;
+    font-size: 1.2rem;
+  }
+}
