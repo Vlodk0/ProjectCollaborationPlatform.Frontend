@@ -29,5 +29,8 @@ export class IconRegistry {
     matIconRegistry.addSvgIcon(
       'edit',
       domSanitizer.bypassSecurityTrustResourceUrl('assets/icons/edit.svg'));
+    matIconRegistry.addSvgIcon(
+      'project-duration-icon',
+      domSanitizer.bypassSecurityTrustResourceUrl('assets/icons/project-duration-icon.svg'));
   }
 }
