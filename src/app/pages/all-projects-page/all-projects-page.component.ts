@@ -17,6 +17,7 @@ export class AllProjectsPageComponent implements OnDestroy {
   projects: ProjectPagination[];
   totalRecords: number = 1;
   technologies: DeveloperTechnology[];
+  public avatarSize: number = 48;
 
   isSubscribe: Subject<void> = new Subject<void>()
 
