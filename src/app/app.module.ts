@@ -47,6 +47,7 @@ import {PaginatorComponent} from "./shared/components/paginator/paginator.compon
 import {MatInputModule} from "@angular/material/input";
 import {MatSelectModule} from "@angular/material/select";
 import { DeveloperCardComponent } from './pages/cards/developer-card/developer-card.component';
+import { ProjectCardComponent } from './pages/cards/project-card/project-card.component';
 
 export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -109,7 +110,8 @@ const MODULES = [
     AdminPanelComponent,
     EmptyStateComponent,
     ControlValidationMessageComponent,
-    DeveloperCardComponent
+    DeveloperCardComponent,
+    ProjectCardComponent
   ],
   imports: [
     ...MODULES

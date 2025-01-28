@@ -1,0 +1,19 @@
+<div class="project-wrapper flex-col">
+  <div class="project-header">Al-Powered Chatbot</div>
+  <div class="project-subtitle">Educational Project</div>
+
+  <div class="d-flex align-items-center justify-content-space-between w-100 m-t-2-4">
+    <div class="project-start-data">January 20, 2025</div>
+    <mat-icon *ngIf="true; else avatarPhoto" class="item-container-placeholder-icon"
+              [svgIcon]="'avatar-placeholder-icon'"></mat-icon>
+
+    <ng-template #avatarPhoto>
+      <img alt="" class="avatar-photo">
+    </ng-template>
+  </div>
+  <div class="d-flex align-items-center">
+    <span class="project-price">$70.00</span>
+    <span class="project-price-time">/hour</span>
+  </div>
+</div>
+
