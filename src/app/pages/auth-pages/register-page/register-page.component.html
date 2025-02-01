@@ -17,7 +17,7 @@
   </div>
 
   <div class="right-container">
-    <div class="form">
+    <div class="form" [formGroup]="registerForm">
       <div class="form-container">
         <div class="form-text-container">
           <div class="form-title">{{ "authPages.registerPage.signUpLabel" | translate }}</div>
@@ -25,31 +25,45 @@
         </div>
 
         <div class="input-container">
-          <input class="input-element" placeholder="First Name">
-        </div>
-
-        <div class="input-container">
-          <input class="input-element" placeholder="Last Name">
-        </div>
-
-        <div class="input-container">
-          <input class="input-element" placeholder="Email">
+          <input class="input-element"
+                 matInput
+                 formControlName="firstName"
+                 placeholder="First Name" />
         </div>
 
         <div class="input-container">
           <input class="input-element"
                  matInput
+                 formControlName="lastName"
+                 placeholder="Last Name" />
+        </div>
+
+        <div class="input-container">
+          <input class="input-element"
+                 matInput
+                 formControlName="email"
+                 placeholder="Email">
+        </div>
+
+        <div class="input-container">
+          <input class="input-element"
+                 matInput
+                 type="password"
+                 formControlName="password"
                  placeholder="Password"/>
         </div>
 
         <div class="input-container">
           <input class="input-element"
                  matInput
+                 type="password"
+                 formControlName="confirmPassword"
                  placeholder="Confirm Password"/>
         </div>
 
         <div class="input-container">
-          <button class="login-button">{{ "authPages.registerPage.signUpLabel" | translate }}</button>
+          <button (click)="onSubmit()"
+                  class="login-button">{{ "authPages.registerPage.signUpLabel" | translate }}</button>
         </div>
 
         <div class="divider">

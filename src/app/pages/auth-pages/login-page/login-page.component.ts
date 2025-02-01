@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {CustomValidators} from "../../../shared/helpers/validators/customValidators";
 import {AuthService} from "../../../shared/services/auth.service";
 import {Login} from "../../../shared/interfaces/login";
 import {CreateProjectOwner} from "../../../shared/interfaces/create-project-owner";
@@ -20,14 +19,12 @@ export class LoginPageComponent implements OnInit {
   loginForm: FormGroup;
   private isCreated: boolean;
 
-  constructor(private authService: AuthService, private router: Router) {
+  constructor(private readonly authService: AuthService,
+              private readonly router: Router) {
   }
 
   ngOnInit() {
-    this.loginForm = new FormGroup({
-      email: new FormControl('', [Validators.required, Validators.email, CustomValidators.emailValidator]),
-      password: new FormControl('', [Validators.required, CustomValidators.passwordValidator]),
-    });
+    this.setForm();
   }
 
   onSubmit() {
@@ -50,9 +47,9 @@ export class LoginPageComponent implements OnInit {
               catchError(err => {
                 if (err instanceof HttpErrorResponse)
                   if (err.status === 404) {
-                    if (err.error.title === 'Dev not found')
+                    if (err.error.detail === 'Dev with such id is not found')
                       this.addDeveloper()
-                    else if (err.error.title === 'Project Owner not found') this.addProjectOwner()
+                    else if (err.error.detail === 'Project Owner with such id is not found') this.addProjectOwner()
                   } else if (err.status === 401) {
                     // //this.messageService.add({
                     //   severity: 'error',
@@ -87,8 +84,8 @@ export class LoginPageComponent implements OnInit {
   }
   private addProjectOwner() {
     let userObj: CreateProjectOwner = {
-      firstName: localStorage.getItem("firstName"),
-      lastName: localStorage.getItem("lastName"),
+      firstName: "Amanda",
+      lastName: "Rose"
     }
     this.authService.createProjectOwner(userObj)
   }
@@ -99,5 +96,12 @@ export class LoginPageComponent implements OnInit {
       lastName: localStorage.getItem("lastName"),
     }
     this.authService.createDev(userObj)
+  }
+
+  private setForm(): void {
+    this.loginForm = new FormGroup({
+      email: new FormControl('', [Validators.required, Validators.email]),
+      password: new FormControl('', [Validators.required]),
+    });
   }
 }

@@ -32,15 +32,7 @@ export class RegisterPageComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.registerForm = new FormGroup({
-      firstName: new FormControl('', Validators.required),
-      lastName: new FormControl('', Validators.required),
-      email: new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl('', [Validators.required, CustomValidators.passwordValidator]),
-      confirmPassword: new FormControl('', [Validators.required, CustomValidators.passwordValidator,
-        CustomValidators.passwordMatchValidator("Password", true)]),
-      checked: new FormControl(false),
-    });
+    this.setForm();
   }
 
 
@@ -74,5 +66,16 @@ export class RegisterPageComponent implements OnInit {
         this.isRegistered = res;
         this.isRegistered ? this.addSuccessMessage() : this.addFailedMessage();
       })
+  }
+
+  private setForm(): void {
+    this.registerForm = new FormGroup({
+      firstName: new FormControl('', Validators.required),
+      lastName: new FormControl('', Validators.required),
+      email: new FormControl('', [Validators.required, Validators.email]),
+      password: new FormControl('', [Validators.required]),
+      confirmPassword: new FormControl('', [Validators.required]),
+      checked: new FormControl(false),
+    });
   }
 }
