@@ -4,6 +4,7 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Technology} from "../interfaces/technology";
 import {CountTechnologyOnProjects} from "../interfaces/count-technology-on-projects";
+import {TechnologyInterface} from "../interfaces/project/technology.interface";
 
 @Injectable({
   providedIn: 'root'
@@ -14,8 +15,8 @@ export class TechnologyService {
 
   constructor(private readonly httpClient: HttpClient) { }
 
-  public getAllTechnologies(): Observable<Technology[]> {
-    return this.httpClient.get<Technology[]>(this.apiUrl);
+  public getAllTechnologies(): Observable<TechnologyInterface[]> {
+    return this.httpClient.get<TechnologyInterface[]>(this.apiUrl);
   }
 
   public getAllProjectTechnologies(projectId: string): Observable<Technology[]> {

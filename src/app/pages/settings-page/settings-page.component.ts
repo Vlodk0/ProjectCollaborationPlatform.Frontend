@@ -8,6 +8,7 @@ import {Technology} from "../../shared/interfaces/technology";
 import {DeveloperService} from "../../shared/services/developer.service";
 import {GetUser} from "../../shared/interfaces/get-user";
 import {UserInfoWithAvatar} from "../../shared/interfaces/user-info-with-avatar";
+import {TechnologyInterface} from "../../shared/interfaces/project/technology.interface";
 
 @Component({
   selector: 'app-settings-page',
@@ -17,7 +18,7 @@ import {UserInfoWithAvatar} from "../../shared/interfaces/user-info-with-avatar"
 
 export class SettingsPageComponent implements OnInit, OnDestroy {
 
-  technologies: Technology[];
+  technologies: TechnologyInterface[];
   updatingUserForm: FormGroup
   isSubscribe: Subject<void> = new Subject<void>()
   userAvatar: File

@@ -6,6 +6,7 @@ import {Component, Input} from '@angular/core';
   styleUrl: './empty-state.component.scss'
 })
 export class EmptyStateComponent {
+  @Input() public src: string;
   @Input() public title: string;
   @Input() public subtitle: string;
 }

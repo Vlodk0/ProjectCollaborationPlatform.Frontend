@@ -29,6 +29,10 @@ const routes: Routes = [
         path: 'all-developers',
         loadChildren: () => import('../../../pages/all-developers-page/all-developers-page-routing.module').then(r => r.AllDevelopersPageRoutingModule)
       },
+      {
+        path: 'my-projects/create-project',
+        loadChildren: () => import('../../../pages/create-project/create-project.routing.module').then(m => m.CreateProjectRoutingModule)
+      }
     ],
   },
 ];

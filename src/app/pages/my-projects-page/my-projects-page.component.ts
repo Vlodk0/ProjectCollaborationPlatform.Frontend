@@ -6,9 +6,10 @@ import {PaginationFilter} from "../../shared/interfaces/pagination-filter";
 import {ProjectsService} from "../../shared/services/projects.service";
 import {FormControl, FormGroup} from "@angular/forms";
 import {CreateProject} from "../../shared/interfaces/create-project";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {GetUser} from "../../shared/interfaces/get-user";
 import {UserService} from "../../shared/services/user.service";
+import {CreateProjectInterface} from "../../shared/interfaces/project/create-project.interface";
 
 @Component({
   selector: 'app-my-projects-page',
@@ -44,7 +45,13 @@ export class MyProjectsPageComponent implements OnDestroy, OnInit {
 
 
   constructor(private projectService: ProjectsService,
-              private userService: UserService) {
+              private userService: UserService,
+              private readonly activatedRoute: ActivatedRoute,
+              private readonly router: Router) {
+  }
+
+  public navigateToCreateProject() {
+    this.router.navigate(['create-project'], { relativeTo: this.activatedRoute }).then();
   }
 
   showDialog(technologies: DeveloperTechnology[]) {
@@ -96,31 +103,31 @@ export class MyProjectsPageComponent implements OnDestroy, OnInit {
     this.getUser()
   }
 
-  onSubmit(): void {
-    if (this.creationProjectForm.valid) {
-      const projectObj: CreateProject = {
-        title: this.creationProjectForm.value.title,
-        shortInfo: this.creationProjectForm.value.shortInfo,
-        payment: this.creationProjectForm.value.payment,
-        description: this.creationProjectForm.value.description,
-        boardName: `${this.creationProjectForm.value.title}'s board`
-      };
-
-      this.projectService.createProject(projectObj)
-        .pipe(takeUntil(this.isSubscribe))
-        .subscribe({
-          next: () => {
-            this.creationVisible = false;
-            //this.messageService.add({ severity: 'success', summary: 'Project created' });
-
-            window.location.reload();
-          },
-          error: () => {
-            //this.messageService.add({ severity: 'error', summary: 'Error creating' });
-          }
-        });
-    }
-  }
+  // onSubmit(): void {
+  //   if (this.creationProjectForm.valid) {
+  //     const projectObj: CreateProjectInterface = {
+  //       title: this.creationProjectForm.value.title,
+  //       projectDetails: this.creationProjectForm.value.shortInfo,
+  //       payment: this.creationProjectForm.value.payment,
+  //       description: this.creationProjectForm.value.description,
+  //       boardName: `${this.creationProjectForm.value.title}'s board`
+  //     };
+  //
+  //     this.projectService.createProject(projectObj)
+  //       .pipe(takeUntil(this.isSubscribe))
+  //       .subscribe({
+  //         next: () => {
+  //           this.creationVisible = false;
+  //           //this.messageService.add({ severity: 'success', summary: 'Project created' });
+  //
+  //           window.location.reload();
+  //         },
+  //         error: () => {
+  //           //this.messageService.add({ severity: 'error', summary: 'Error creating' });
+  //         }
+  //       });
+  //   }
+  // }
 
   ngOnDestroy() {
     this.isSubscribe.next();
