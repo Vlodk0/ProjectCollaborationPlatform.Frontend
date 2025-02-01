@@ -13,6 +13,7 @@ import {UpdateProject} from "../../shared/interfaces/update-project";
 import {ProjectDetail} from "../../shared/interfaces/project-detail";
 import {GetUser} from "../../shared/interfaces/get-user";
 import {UserService} from "../../shared/services/user.service";
+import {TechnologyInterface} from "../../shared/interfaces/project/technology.interface";
 
 @Component({
   selector: 'app-project-page',
@@ -39,7 +40,7 @@ export class ProjectPageComponent implements OnInit, OnDestroy {
   funcBlockId: string;
   showBoard = false;
   isSubscribe: Subject<void> = new Subject<void>()
-  technologiesDropDownItems: Technology[]
+  technologiesDropDownItems: TechnologyInterface[]
   projectTechnologiesDropDownItems: Technology[]
   selectedTechnologies: Technology[]
 

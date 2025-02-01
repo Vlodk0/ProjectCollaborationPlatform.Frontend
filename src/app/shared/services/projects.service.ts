@@ -9,6 +9,7 @@ import {ProjectInfo} from "../interfaces/project-info";
 import {CreateProject} from "../interfaces/create-project";
 import {UpdateProject} from "../interfaces/update-project";
 import {ProjectDetail} from "../interfaces/project-detail";
+import {CreateProjectInterface} from "../interfaces/project/create-project.interface";
 
 @Injectable({
   providedIn: 'root'
@@ -52,8 +53,8 @@ export class ProjectsService {
     return this.httpClient.post(this.apiUrl + `/developers/${projectId}`, devId)
   }
 
-  public createProject(projectObj: CreateProject): Observable<CreateProject> {
-    return this.httpClient.post<CreateProject>(this.apiUrl, projectObj)
+  public createProject(projectObj: CreateProjectInterface): Observable<void> {
+    return this.httpClient.post<void>(this.apiUrl, projectObj)
   }
 
   public addTechnologiesForProject(projId: string, techId: string[]) {

@@ -1,0 +1,258 @@
+<div class="request-visit-wrapper h-100 d-flex flex-col justify-content-space-between">
+  <button mat-icon-button class="close-icon" (click)="goBack()">
+    <mat-icon [svgIcon]="'close'"></mat-icon>
+  </button>
+
+  <h1 class="request-visit-title">{{ title | translate }}</h1>
+
+  <div class="custom-stepper">
+    <mat-horizontal-stepper animationDuration="0ms"
+                            linear
+                            labelPosition="bottom"
+                            (selectionChange)="selectionChange($event)"
+                            [selectedIndex]="selectedIndex"
+                            [formGroup]="projectForm"
+                            [disableRipple]="true"
+                            #stepper>
+      <ng-template matStepperIcon="edit">
+        <mat-icon class="step-icon" [svgIcon]="'check'"></mat-icon>
+      </ng-template>
+
+      <ng-container *ngIf="{state: !!this.projectForm.get('title').value && !!this.projectForm.get('type').value} as data">
+        <mat-step [completed]="data.state"
+                  [aria-labelledby]="data.state ? 'completed' : ''" [label]="createProjectStepperListEnum.TitleAndType">
+          <div class="content-container choose-title-step">
+            <ng-container>
+              <h2 class="request-visit-content-title project-title">{{ 'myProject.enterTitleLabel' | translate }}</h2>
+
+              <mat-form-field appearance="outline">
+                <mat-label>{{ 'myProject.titleLabel' | translate }}</mat-label>
+
+                <input formControlName="title" matInput class="m-b-2-4" />
+              </mat-form-field>
+
+              <collabro-control-validation-message [control]="projectForm.get('title')" />
+
+
+              <h2 class="request-visit-content-title project-title m-t-2-4">{{ 'myProject.chooseTypeOfProjectLabel' | translate }}</h2>
+              <mat-form-field appearance="outline" class="input-container-item-large">
+                <mat-label>{{ 'myProject.typeLabel' | translate }}</mat-label>
+
+                <mat-select formControlName="type">
+                  <mat-option *ngFor="let type of projectTypeListConstant"
+                              [value]="type.type">
+                    {{ type?.label | translate }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <collabro-control-validation-message [control]="projectForm.get('type')" />
+
+            </ng-container>
+          </div>
+        </mat-step>
+      </ng-container>
+
+      <ng-container *ngIf="{state: !!this.projectForm.get('projectDetails').value} as data">
+        <mat-step [completed]="data.state"
+                  [aria-labelledby]="data.state ? 'completed' : ''" [label]="createProjectStepperListEnum.ProjectDetails">
+          <div class="content-container choose-title-step">
+            <ng-container>
+
+              <h2 class="request-visit-content-title project-title m-t-2-4">{{ 'myProject.enterProjectDetailsLabel' | translate }}</h2>
+
+              <mat-form-field appearance="outline" class="textarea">
+                <mat-label>{{ 'myProject.projectDetailsLabel' | translate }}</mat-label>
+
+                <textarea formControlName="projectDetails" matInput rows="7"></textarea>
+              </mat-form-field>
+              <collabro-control-validation-message [control]="projectForm.get('projectDetails')" />
+
+            </ng-container>
+          </div>
+        </mat-step>
+      </ng-container>
+
+      <ng-container *ngIf="{state: !!this.projectForm.get('payment').value && !!this.projectForm.get('timeDuration').value} as data">
+        <mat-step [completed]="data.state"
+                  [aria-labelledby]="data.state ? 'completed' : ''" [label]="createProjectStepperListEnum.PaymentAndDuration">
+          <div class="content-container choose-title-step">
+            <ng-container>
+              <h2 class="request-visit-content-title project-title">{{ 'myProject.enterPaymentPerHourLabel' | translate }}</h2>
+
+              <mat-form-field appearance="outline">
+                <mat-label>{{ 'myProject.paymentLabel' | translate }}</mat-label>
+
+                <input formControlName="payment" type="number" matInput class="m-b-2-4" />
+              </mat-form-field>
+
+              <collabro-control-validation-message [control]="projectForm.get('payment')" />
+
+
+              <h2 class="request-visit-content-title project-title m-t-2-4">{{ 'myProject.chooseTimeDurationLabel' | translate }}</h2>
+              <mat-form-field appearance="outline" class="input-container-item-large">
+                <mat-label>{{ 'myProject.timeDurationLabel' | translate }}</mat-label>
+
+                <mat-select formControlName="timeDuration">
+                  <mat-option *ngFor="let time of timeDurationListConstant"
+                              [value]="time?.duration">
+                    {{ time?.label | translate }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <collabro-control-validation-message [control]="projectForm.get('timeDuration')" />
+
+            </ng-container>
+          </div>
+        </mat-step>
+      </ng-container>
+
+      <ng-container *ngIf="{state: !!this.projectForm.get('technologyIds').value?.length} as data">
+        <mat-step [completed]="data.state"
+                  [aria-labelledby]="data.state ? 'completed' : ''"
+                  [label]="createProjectStepperListEnum.Technologies">
+          <h2 class="request-visit-content-title project-title m-l-2-4 m-t-2-4">
+            {{ 'myProject.chooseTechnologiesYouWantToBeUsedLabel' | translate }}
+          </h2>
+
+          <div class="d-flex w-100 flex-wrap m-l-2-4">
+            <div class="checkboxes-container">
+              <div class="checkbox-container" *ngFor="let form of firstTechnologyColumn">
+                <mat-checkbox [matTooltip]="form?.technology"
+                              matTooltipClass="tooltip"
+                              [aria-label]="form?.id"
+                              [aria-labelledby]="form?.technology"
+                              [checked]="projectForm.get('technologyIds').value.includes(form.id)"
+                              (change)="onTechnologyCheckboxChange(form.id, $event.checked)"
+                              [value]="form.id"
+                              class="checkbox">
+                  {{ form?.technology | translate }}
+                </mat-checkbox>
+              </div>
+            </div>
+
+            <div class="checkboxes-container">
+              <div class="checkbox-container" *ngFor="let form of secondTechnologyColumn">
+                <mat-checkbox [matTooltip]="form?.technology"
+                              matTooltipClass="tooltip"
+                              [aria-label]="form?.id"
+                              [aria-labelledby]="form?.technology"
+                              [value]="form.id"
+                              [checked]="projectForm.get('technologyIds').value.includes(form.id)"
+                              (change)="onTechnologyCheckboxChange(form.id, $event.checked)"
+                              class="checkbox">
+                  {{ form?.technology | translate }}
+                </mat-checkbox>
+              </div>
+            </div>
+
+            <div class="checkboxes-container">
+              <div class="checkbox-container" *ngFor="let form of thirdTechnologyColumn">
+                <mat-checkbox [matTooltip]="form?.technology"
+                              matTooltipClass="tooltip"
+                              [aria-label]="form?.id"
+                              [aria-labelledby]="form?.technology"
+                              [value]="form.id"
+                              [checked]="projectForm.get('technologyIds').value.includes(form.id)"
+                              (change)="onTechnologyCheckboxChange(form.id, $event.checked)"
+                              class="checkbox">
+                  {{ form?.technology | translate }}
+                </mat-checkbox>
+              </div>
+            </div>
+          </div>
+        </mat-step>
+      </ng-container>
+
+      <ng-container *ngIf="{state: !!this.projectForm.get('frameworkIds').value?.length} as data">
+        <mat-step [completed]="data.state"
+                  [aria-labelledby]="data.state ? 'completed' : ''"
+                  [label]="createProjectStepperListEnum.Frameworks">
+          <h2 class="request-visit-content-title project-title m-l-2-4 m-t-2-4">
+            {{ 'myProject.andFrameworksLabel' | translate }}
+          </h2>
+
+          <div class="d-flex w-100 flex-wrap m-l-2-4 justify-content-center">
+            <div class="checkboxes-container">
+              <div class="checkbox-container" *ngFor="let form of firstFrameworkColumn">
+                <mat-checkbox [matTooltip]="form?.framework"
+                              matTooltipClass="tooltip"
+                              [aria-label]="form?.id"
+                              [aria-labelledby]="form?.framework"
+                              [checked]="projectForm.get('frameworkIds').value.includes(form.id)"
+                              (change)="onFrameworkCheckboxChange(form.id, $event.checked)"
+                              [value]="form.id" class="checkbox">
+                  {{ form?.framework | translate }}
+                </mat-checkbox>
+              </div>
+            </div>
+
+            <div class="checkboxes-container">
+              <div class="checkbox-container" *ngFor="let form of secondFrameworkColumn">
+                <mat-checkbox [matTooltip]="form?.framework"
+                              matTooltipClass="tooltip"
+                              [aria-label]="form?.id"
+                              [aria-labelledby]="form?.framework"
+                              [checked]="projectForm.get('frameworkIds').value.includes(form.id)"
+                              (change)="onFrameworkCheckboxChange(form.id, $event.checked)"
+                              [value]="form.id" class="checkbox">
+                  {{ form?.framework | translate }}
+                </mat-checkbox>
+              </div>
+            </div>
+
+            <div class="checkboxes-container">
+              <div class="checkbox-container" *ngFor="let form of thirdFrameworkColumn">
+                <mat-checkbox [matTooltip]="form?.framework"
+                              matTooltipClass="tooltip"
+                              [aria-label]="form?.id"
+                              [aria-labelledby]="form?.framework"
+                              [checked]="projectForm.get('frameworkIds').value.includes(form.id)"
+                              (change)="onFrameworkCheckboxChange(form.id, $event.checked)"
+                              [value]="form.id" class="checkbox">
+                  {{ form?.framework | translate }}
+                </mat-checkbox>
+              </div>
+            </div>
+          </div>
+        </mat-step>
+      </ng-container>
+
+    </mat-horizontal-stepper>
+
+    <div class="stepper-buttons m-t-8">
+      <button (click)="previousStep()" class="transparent-button basic-icon-button" mat-button>
+        <div class="d-flex justify-content-space-between align-items-center">
+          <mat-icon [svgIcon]="'arrow-left'"
+                    class="icon">
+          </mat-icon>
+          <div>
+            {{ 'general.previousLabel' | translate | uppercase }}
+          </div>
+        </div>
+      </button>
+
+      <button *ngIf="stepIndex !== createProjectStepperListEnum.Frameworks; else submitButton"
+              (click)="nextStep()"
+              [disabled]="!isValidStep"
+              class="button-purple basic-icon-button" mat-button>
+        <div class="d-flex justify-content-space-between align-items-center">
+          <div>
+            {{ 'general.nextLabel' | translate | uppercase }}
+          </div>
+          <mat-icon [svgIcon]="'arrow-right'"
+                    class="icon">
+          </mat-icon>
+        </div>
+      </button>
+
+      <ng-template #submitButton>
+        <button (click)="createProject()" mat-button class="button-purple">
+          {{ 'general.submitLabel' | translate | uppercase }}
+        </button>
+      </ng-template>
+    </div>
+
+  </div>
+</div>

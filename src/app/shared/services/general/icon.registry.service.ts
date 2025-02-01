@@ -32,5 +32,17 @@ export class IconRegistry {
     matIconRegistry.addSvgIcon(
       'project-duration-icon',
       domSanitizer.bypassSecurityTrustResourceUrl('assets/icons/project-duration-icon.svg'));
+    matIconRegistry.addSvgIcon(
+      'close',
+      domSanitizer.bypassSecurityTrustResourceUrl('assets/icons/close-icon.svg'));
+    matIconRegistry.addSvgIcon(
+      'check',
+      domSanitizer.bypassSecurityTrustResourceUrl('assets/icons/check-icon.svg'));
+    matIconRegistry.addSvgIcon(
+      'arrow-left',
+      domSanitizer.bypassSecurityTrustResourceUrl('assets/icons/arrow-left-icon.svg'));
+    matIconRegistry.addSvgIcon(
+      'arrow-right',
+      domSanitizer.bypassSecurityTrustResourceUrl('assets/icons/arrow-right-icon.svg'));
   }
 }

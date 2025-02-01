@@ -1,8 +1,13 @@
 {
   "general": {
     "saveLabel": "Save",
-    "removeLabel": "Remove"
+    "removeLabel": "Remove",
+    "goBackLabel": "Go back",
+    "submitLabel": "Submit",
+    "nextLabel": "Next",
+    "previousLabel": "Previous"
   },
+
   "validationService": {
     "required": "This Field is Required.",
     "emailIncorrect": "Please enter a valid email address.",
@@ -101,5 +106,41 @@
     "hibernateLabel": "Hibernate",
     "fastAPILabel": "FastAPI",
     "flutterLabel": "Flutter"
+  },
+  "myProject": {
+    "wouldYouLikeToCreateNewProjectLabel": "Would you like to create a new project?",
+    "ifYesClickCreateProjectLabel": "If yes, click create project",
+    "youHaveNotCreatedProjectLabel": "You have not created a project yet",
+    "createProjectLabel": "Create Project",
+    "requestVisitLabel": "Test",
+    "enterTitleLabel": "Enter title",
+    "chooseTypeOfProjectLabel": "Choose type of project",
+    "titleAndType": "Title and Project Type",
+    "projectDetailsLabel": "Project Details",
+    "enterProjectDetailsLabel": "Enter more details about project",
+    "paymentAndDurationLabel": "Payment and duration",
+    "enterPaymentPerHourLabel": "Enter payment per working hour",
+    "chooseTimeDurationLabel": "Choose time duration",
+    "frameworksLabel": "Frameworks",
+    "chooseTechnologiesYouWantToBeUsedLabel": "Which Technologies you preferred to be used?",
+    "andFrameworksLabel": "... and Frameworks",
+    "technologiesLabel": "Technologies",
+    "titleLabel": "Title",
+    "typeLabel": "Type",
+    "paymentLabel": "Payment",
+    "timeDurationLabel": "Duration"
+  },
+  "projectType": {
+    "webApplicationLabel": "Web Application",
+    "mobileApplicationLabel": "Mobile Application",
+    "desktopApplicationLabel": "Desktop Application",
+    "gameDevelopmentLabel": "Game Development",
+    "embeddedSystemLabel": "Embedded System",
+    "apiDevelopmentLabel": "API Development",
+    "eCommercePlatformLabel": "E-Commerce Platform"
+  },
+  "timeDuration": {
+    "fullTimeLabel": "Full Time",
+    "partTimeLabel": "Part Time"
   }
 }
