@@ -24,6 +24,7 @@
       <div class="item-container-header flex-wrap">
         <div class="title">Personal Information</div>
         <button class="button-primary"
+                (click)="openUpdatePersonalInfoDialog()"
                 mat-raised-button>
           <mat-icon [svgIcon]="'edit'"></mat-icon>
         </button>
@@ -59,6 +60,7 @@
       <div class="item-container-header">
         <div class="title">Address</div>
         <button class="button-primary"
+                (click)="openAddressDialog()"
                 mat-raised-button>
           <mat-icon [svgIcon]="'edit'"></mat-icon>
         </button>

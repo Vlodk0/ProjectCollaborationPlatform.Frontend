@@ -5,7 +5,20 @@
     "goBackLabel": "Go back",
     "submitLabel": "Submit",
     "nextLabel": "Next",
-    "previousLabel": "Previous"
+    "previousLabel": "Previous",
+    "cancelLabel": "Cancel",
+    "editLabel": "Edit"
+  },
+
+  "profileSettings": {
+    "firstNameLabel": "First Name",
+    "lastNameLabel": "Last Name",
+    "bioLabel": "Bio",
+    "updatePersonalInfoLabel": "Update personal info",
+    "changeYouAddressLabel": "Change your address",
+    "cityLabel": "City",
+    "countryLabel": "Country",
+    "stateLabel": "State"
   },
 
   "validationService": {

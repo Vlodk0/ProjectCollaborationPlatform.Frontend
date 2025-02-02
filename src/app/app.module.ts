@@ -51,6 +51,11 @@ import { ProjectCardComponent } from './pages/cards/project-card/project-card.co
 import { CreateProjectComponent } from './pages/create-project/create-project.component';
 import {MatStepperModule} from "@angular/material/stepper";
 import {MatCheckboxModule} from "@angular/material/checkbox";
+import {
+  UserPersonalInfoDialogComponent
+} from "./shared/components/dialogs/user-personal-info/user-personal-info-dialog.component";
+import {MatDialogClose} from "@angular/material/dialog";
+import {UserAddressDialogComponent} from "./shared/components/dialogs/user-address/user-address-dialog.component";
 
 export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -92,6 +97,8 @@ const MODULES = [
     PaginatorComponent,
     SpinnerComponent,
     RootComponent,
+    UserPersonalInfoDialogComponent,
+    UserAddressDialogComponent,
     AuthPageComponent,
     AfterRegisterPageComponent,
     InputComponent,
@@ -120,7 +127,8 @@ const MODULES = [
     CreateProjectComponent
   ],
   imports: [
-    ...MODULES
+    ...MODULES,
+    MatDialogClose
   ],
   providers: [
     {
