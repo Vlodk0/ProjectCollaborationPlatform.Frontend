@@ -1,0 +1,24 @@
+@import '../../../../../styles/responsive-variables';
+
+.modal-wrapper {
+  max-width: 50rem;
+
+  .page-title {
+    font-size: 2.4rem;
+    color: azure;
+    font-weight: bold;
+    line-height: 3.8rem;
+  }
+
+  .button-container {
+    display: flex;
+    justify-content: space-between;
+    border: none;
+  }
+}
+
+@media (max-width: $very-small) {
+  .modal-wrapper {
+    width: 10rem;
+  }
+}

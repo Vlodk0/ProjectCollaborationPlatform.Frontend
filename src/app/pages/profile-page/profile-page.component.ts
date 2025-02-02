@@ -10,6 +10,11 @@ import {Technology} from "../../shared/interfaces/technology";
 import {DeveloperService} from "../../shared/services/developer.service";
 import {technologiesListConstant} from "../../core/constants/technology-list.constant";
 import {frameworkListConstant} from "../../core/constants/framework-list.constant";
+import {MatDialog} from "@angular/material/dialog";
+import {
+  UserPersonalInfoDialogComponent
+} from "../../shared/components/dialogs/user-personal-info/user-personal-info-dialog.component";
+import {UserAddressDialogComponent} from "../../shared/components/dialogs/user-address/user-address-dialog.component";
 
 @Component({
   selector: 'app-profile-page',
@@ -57,6 +62,7 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
 
   constructor(private feedbackService: FeedbackService,
               private userService: UserService,
+              private readonly matDialog: MatDialog,
               private developerService: DeveloperService) {
   }
 
@@ -129,5 +135,22 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.isSubscribe.next();
     this.isSubscribe.complete();
+  }
+
+  public openUpdatePersonalInfoDialog(): void {
+    const dialogRef = this.matDialog.open(UserPersonalInfoDialogComponent, {
+      disableClose: false
+    });
+
+    dialogRef.afterClosed().subscribe();
+  }
+
+  public openAddressDialog(): void {
+    debugger
+    const dialogRef = this.matDialog.open(UserAddressDialogComponent, {
+      disableClose: false
+    });
+
+    dialogRef.afterClosed().subscribe();
   }
 }
