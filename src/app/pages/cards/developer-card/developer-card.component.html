@@ -1,4 +1,4 @@
-<div class="card-wrapper flex-col">
+<div (click)="openDeveloperInfoDialog()" class="card-wrapper flex-col">
   <div class="d-flex align-items-center">
     <div class="item-container-placeholder m-r-1-6 w-100">
       <mat-icon *ngIf="true; else avatarPhoto" class="item-container-placeholder-icon"
@@ -25,5 +25,6 @@
       {{ item.name | translate }}
     </div>
   </div>
+  <div class="technology-item-container">+2</div>
 
 </div>

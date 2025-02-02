@@ -1,0 +1,22 @@
+<div class="modal-wrapper">
+
+  <mat-tab-group animationDuration="0ms"
+                 mat-stretch-tabs="false"
+                 mat-align-tabs="start"
+                 class="h-100">
+    <mat-tab label="{{'developers.profileLabel' | translate}}">
+      <collabro-developer-profile />
+    </mat-tab>
+
+    <mat-tab label="{{'developers.commentsLabel' | translate}}">
+      <collabro-developer-comments />
+    </mat-tab>
+  </mat-tab-group>
+</div>
+
+<div class="button-container">
+  <button mat-dialog-close class="transparent-button" mat-button>
+    {{ 'general.cancelLabel' | translate }}
+  </button>
+</div>
+
