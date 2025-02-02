@@ -158,7 +158,7 @@
   },
   "developers": {
     "profileLabel": "Profile",
-    "commentsLabel": "Comments",
+    "feedbacksLabel": "Feedbacks",
     "bioLabel": "Bio",
     "aboutLabel": "About",
     "emailLabel": "Email"
