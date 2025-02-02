@@ -1,0 +1,15 @@
+@import "../../../../../styles/responsive-variables";
+
+.modal-wrapper {
+  width: 80rem;
+  max-height: 100vh;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: $very-small) {
+  .modal-wrapper {
+    width: 51rem;
+  }
+}

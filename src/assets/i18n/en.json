@@ -155,5 +155,12 @@
   "timeDuration": {
     "fullTimeLabel": "Full Time",
     "partTimeLabel": "Part Time"
+  },
+  "developers": {
+    "profileLabel": "Profile",
+    "commentsLabel": "Comments",
+    "bioLabel": "Bio",
+    "aboutLabel": "About",
+    "emailLabel": "Email"
   }
 }

@@ -1,0 +1,25 @@
+<div class="reviews-container h-100 w-100">
+  <ng-container *ngIf="true else emptyReview">
+    <div class="review-box">
+      <div class="patient-name-container">
+        <mat-icon class="patient-avatar" [svgIcon]="'avatar-placeholder-icon'"></mat-icon>
+
+        <span class="patient-name">Super PM</span>
+      </div>
+
+      <div class="rating-container">
+        <span class="review-date">{{date | localDate:'shortDate'}}</span>
+      </div>
+
+      <span class="review-description">The Best</span>
+    </div>
+  </ng-container>
+
+  <ng-template #emptyReview>
+    <div class="empty-reviews-container h-100">
+      <h3 class="empty-title">{{'doctorProfile.emptyReviewsTitleLabel' | translate}}</h3>
+      <img class="empty-doctors-image" src="assets/images/doctors.png" alt="doctors">
+    </div>
+  </ng-template>
+</div>
+

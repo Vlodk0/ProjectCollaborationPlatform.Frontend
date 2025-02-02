@@ -56,6 +56,12 @@ import {
 } from "./shared/components/dialogs/user-personal-info/user-personal-info-dialog.component";
 import {MatDialogClose} from "@angular/material/dialog";
 import {UserAddressDialogComponent} from "./shared/components/dialogs/user-address/user-address-dialog.component";
+import {DeveloperInfoDialogComponent} from "./shared/components/dialogs/developer-info/developer-info-dialog.component";
+import {MatTabsModule} from "@angular/material/tabs";
+import {DeveloperProfileComponent} from "./shared/components/developer-profile/developer-profile.component";
+import {MatDivider} from "@angular/material/divider";
+import {DeveloperCommentsComponent} from "./shared/components/developer-comments/developer-comments.component";
+import {LocalDatePipe} from "./shared/pipes/local-date.pipe";
 
 export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -67,6 +73,7 @@ const MODULES = [
   MatStepperModule,
   MatCheckboxModule,
   MatSelectModule,
+  MatTabsModule,
   MatProgressSpinner,
   AppRoutingModule,
   ReactiveFormsModule,
@@ -97,6 +104,9 @@ const MODULES = [
     PaginatorComponent,
     SpinnerComponent,
     RootComponent,
+    DeveloperInfoDialogComponent,
+    DeveloperCommentsComponent,
+    DeveloperProfileComponent,
     UserPersonalInfoDialogComponent,
     UserAddressDialogComponent,
     AuthPageComponent,
@@ -124,18 +134,21 @@ const MODULES = [
     ControlValidationMessageComponent,
     DeveloperCardComponent,
     ProjectCardComponent,
-    CreateProjectComponent
+    CreateProjectComponent,
+    LocalDatePipe
   ],
   imports: [
     ...MODULES,
-    MatDialogClose
+    MatDialogClose,
+    MatDivider
   ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpRequestInterceptor,
       multi: true
-    }
+    },
+    LocalDatePipe
   ],
   bootstrap: [AppComponent],
   exports: [
@@ -145,7 +158,8 @@ const MODULES = [
     MatIconModule,
     MatSelectModule,
     MatStepperModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatTabsModule
   ]
 })
 export class AppModule {

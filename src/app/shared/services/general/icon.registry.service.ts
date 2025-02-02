@@ -44,5 +44,8 @@ export class IconRegistry {
     matIconRegistry.addSvgIcon(
       'arrow-right',
       domSanitizer.bypassSecurityTrustResourceUrl('assets/icons/arrow-right-icon.svg'));
+    matIconRegistry.addSvgIcon(
+      'location',
+      domSanitizer.bypassSecurityTrustResourceUrl('assets/icons/location-icon.svg'));
   }
 }
