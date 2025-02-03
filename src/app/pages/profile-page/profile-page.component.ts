@@ -15,6 +15,8 @@ import {
   UserPersonalInfoDialogComponent
 } from "../../shared/components/dialogs/user-personal-info/user-personal-info-dialog.component";
 import {UserAddressDialogComponent} from "../../shared/components/dialogs/user-address/user-address-dialog.component";
+import {FrameworkDialogComponent} from "../../shared/components/dialogs/framework-dialog/framework-dialog.component";
+import {TechnologyDialogComponent} from "../../shared/components/dialogs/technology-dialog/technology-dialog.component";
 
 @Component({
   selector: 'app-profile-page',
@@ -146,8 +148,23 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
   }
 
   public openAddressDialog(): void {
-    debugger
     const dialogRef = this.matDialog.open(UserAddressDialogComponent, {
+      disableClose: false
+    });
+
+    dialogRef.afterClosed().subscribe();
+  }
+
+  public openFrameworkDialog(): void {
+    const dialogRef = this.matDialog.open(FrameworkDialogComponent, {
+      disableClose: false
+    });
+
+    dialogRef.afterClosed().subscribe();
+  }
+
+  public openTechnologyDialog(): void {
+    const dialogRef = this.matDialog.open(TechnologyDialogComponent, {
       disableClose: false
     });
 

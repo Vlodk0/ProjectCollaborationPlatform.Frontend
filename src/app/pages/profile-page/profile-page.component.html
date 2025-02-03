@@ -89,6 +89,7 @@
       <div class="item-container-header flex-wrap">
         <div class="title">{{'technologies.technologiesLabel' | translate}}</div>
         <button class="button-primary"
+                (click)="openTechnologyDialog()"
                 mat-raised-button>
           <mat-icon [svgIcon]="'edit'"></mat-icon>
         </button>
@@ -108,6 +109,7 @@
       <div class="item-container-header">
         <div class="title">{{ 'frameworks.frameworksLabel' | translate }}</div>
         <button class="button-primary"
+                (click)="openFrameworkDialog()"
                 mat-raised-button>
           <mat-icon [svgIcon]="'edit'"></mat-icon>
         </button>

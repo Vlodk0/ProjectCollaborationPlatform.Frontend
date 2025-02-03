@@ -62,6 +62,8 @@ import {DeveloperProfileComponent} from "./shared/components/developer-profile/d
 import {MatDivider} from "@angular/material/divider";
 import {DeveloperCommentsComponent} from "./shared/components/developer-comments/developer-comments.component";
 import {LocalDatePipe} from "./shared/pipes/local-date.pipe";
+import {FrameworkDialogComponent} from "./shared/components/dialogs/framework-dialog/framework-dialog.component";
+import {TechnologyDialogComponent} from "./shared/components/dialogs/technology-dialog/technology-dialog.component";
 
 export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -103,6 +105,8 @@ const MODULES = [
     AppComponent,
     PaginatorComponent,
     SpinnerComponent,
+    FrameworkDialogComponent,
+    TechnologyDialogComponent,
     RootComponent,
     DeveloperInfoDialogComponent,
     DeveloperCommentsComponent,
