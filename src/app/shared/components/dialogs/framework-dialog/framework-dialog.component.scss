@@ -1,0 +1,43 @@
+.request-visit-content-title {
+  color: azure;
+  font-size: 2.0rem;
+  font-weight: 700;
+  line-height: 3.2rem;
+}
+
+.project-title {
+  margin-bottom: 2.4rem;
+}
+
+
+.checkboxes-container {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 1rem;
+  justify-content: end;
+
+  .checkbox-container {
+    width: calc(33% - 1rem);
+    min-width: 30rem;
+
+    .checkbox {
+      width: 100%;
+      font-weight: 400;
+      font-size: 1.4rem;
+      line-height: 2.4rem;
+      color: var(--black);
+    }
+
+    ::ng-deep {
+      .mdc-form-field {
+        width: 100%;
+      }
+
+      .mat-mdc-checkbox label {
+        width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+  }
+}

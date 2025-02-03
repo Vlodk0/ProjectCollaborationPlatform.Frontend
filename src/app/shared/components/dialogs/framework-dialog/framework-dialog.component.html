@@ -1,0 +1,47 @@
+<h2 class="request-visit-content-title project-title m-t-2-4">
+  {{ 'frameworks.frameworksLabel' | translate }}
+</h2>
+
+<div class="d-flex w-100 flex-wrap justify-content-center">
+  <div class="checkboxes-container">
+    <div class="checkbox-container" *ngFor="let form of firstFrameworkColumn">
+      <mat-checkbox [matTooltip]="form?.framework"
+                    matTooltipClass="tooltip"
+                    [aria-label]="form?.id"
+                    [aria-labelledby]="form?.framework"
+                    [checked]="projectForm.get('frameworkIds').value.includes(form.id)"
+                    (change)="onFrameworkCheckboxChange(form.id, $event.checked)"
+                    [value]="form.id" class="checkbox">
+        {{ form?.framework | translate }}
+      </mat-checkbox>
+    </div>
+  </div>
+
+  <div class="checkboxes-container">
+    <div class="checkbox-container" *ngFor="let form of secondFrameworkColumn">
+      <mat-checkbox [matTooltip]="form?.framework"
+                    matTooltipClass="tooltip"
+                    [aria-label]="form?.id"
+                    [aria-labelledby]="form?.framework"
+                    [checked]="projectForm.get('frameworkIds').value.includes(form.id)"
+                    (change)="onFrameworkCheckboxChange(form.id, $event.checked)"
+                    [value]="form.id" class="checkbox">
+        {{ form?.framework | translate }}
+      </mat-checkbox>
+    </div>
+  </div>
+
+  <div class="checkboxes-container">
+    <div class="checkbox-container" *ngFor="let form of thirdFrameworkColumn">
+      <mat-checkbox [matTooltip]="form?.framework"
+                    matTooltipClass="tooltip"
+                    [aria-label]="form?.id"
+                    [aria-labelledby]="form?.framework"
+                    [checked]="projectForm.get('frameworkIds').value.includes(form.id)"
+                    (change)="onFrameworkCheckboxChange(form.id, $event.checked)"
+                    [value]="form.id" class="checkbox">
+        {{ form?.framework | translate }}
+      </mat-checkbox>
+    </div>
+  </div>
+</div>
