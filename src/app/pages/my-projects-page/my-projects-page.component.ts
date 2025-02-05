@@ -1,15 +1,14 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ProjectPagination} from "../../shared/interfaces/project-pagination";
 import {DeveloperTechnology} from "../../shared/interfaces/developer-technology";
-import {Subject, takeUntil} from "rxjs";
-import {PaginationFilter} from "../../shared/interfaces/pagination-filter";
+import {finalize, Subject, takeUntil} from "rxjs";
 import {ProjectsService} from "../../shared/services/projects.service";
 import {FormControl, FormGroup} from "@angular/forms";
-import {CreateProject} from "../../shared/interfaces/create-project";
 import {ActivatedRoute, Router} from "@angular/router";
 import {GetUser} from "../../shared/interfaces/get-user";
 import {UserService} from "../../shared/services/user.service";
-import {CreateProjectInterface} from "../../shared/interfaces/project/create-project.interface";
+import {SpinnerService} from "../../shared/services/spinner.service";
+import {ProjectInterface} from "../../shared/interfaces/project/project.interface";
+import {NotificationService} from "../../shared/services/notification.service";
 
 @Component({
   selector: 'app-my-projects-page',
@@ -17,22 +16,18 @@ import {CreateProjectInterface} from "../../shared/interfaces/project/create-pro
   styleUrl: './my-projects-page.component.scss',
 })
 export class MyProjectsPageComponent implements OnDestroy, OnInit {
+  public isLoadingProjects = true;
+  public projects: ProjectInterface[] = [];
+
+  private projectsCurrentPage: number = 0;
+  private totalProjects: number = 0;
 
   visible: boolean = false;
   creationVisible: boolean = false;
-  projects: ProjectPagination[];
-  totalRecords: number = 1;
   technologies: DeveloperTechnology[];
   creationProjectForm: FormGroup;
 
-  isSubscribe: Subject<void> = new Subject<void>()
-
-  paginationFilter: PaginationFilter = {
-    pageNumber: 0,
-    pageSize: 15,
-    sortColumn: "Payment",
-    sortDirection: 1
-  }
+  private unsubscribe$: Subject<void> = new Subject<void>();
 
   user: GetUser = {
     id: '',
@@ -43,11 +38,29 @@ export class MyProjectsPageComponent implements OnDestroy, OnInit {
     isDeleted: false
   }
 
-
-  constructor(private projectService: ProjectsService,
-              private userService: UserService,
+  constructor(private readonly projectService: ProjectsService,
+              private readonly userService: UserService,
               private readonly activatedRoute: ActivatedRoute,
-              private readonly router: Router) {
+              private readonly router: Router,
+              private readonly spinnerService: SpinnerService,
+              private readonly notificationService: NotificationService) {
+  }
+
+  ngOnInit() {
+    this.creationProjectForm = new FormGroup({
+      title: new FormControl(''),
+      shortInfo: new FormControl(''),
+      payment: new FormControl(0),
+      description: new FormControl('')
+    })
+
+    this.getUser();
+    this.getProjectOwnerProjects();
+  }
+
+  ngOnDestroy() {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 
   public navigateToCreateProject() {
@@ -61,7 +74,7 @@ export class MyProjectsPageComponent implements OnDestroy, OnInit {
 
   getUser() {
     this.userService.getUser()
-      .pipe(takeUntil(this.isSubscribe))
+      .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: value => {
           this.user = value;
@@ -92,45 +105,42 @@ export class MyProjectsPageComponent implements OnDestroy, OnInit {
   //     })
   // }
 
-  ngOnInit() {
-    this.creationProjectForm = new FormGroup({
-      title: new FormControl(''),
-      shortInfo: new FormControl(''),
-      payment: new FormControl(0),
-      description: new FormControl('')
-    })
-
-    this.getUser()
+  public loadingProjects(resetPage: boolean) {
+    if (resetPage) {
+      this.getProjectOwnerProjects(false);
+    } else if (this.totalProjects > this.projects.length && !this.isLoadingProjects) {
+      this.getProjectOwnerProjects(true);
+    }
   }
 
-  // onSubmit(): void {
-  //   if (this.creationProjectForm.valid) {
-  //     const projectObj: CreateProjectInterface = {
-  //       title: this.creationProjectForm.value.title,
-  //       projectDetails: this.creationProjectForm.value.shortInfo,
-  //       payment: this.creationProjectForm.value.payment,
-  //       description: this.creationProjectForm.value.description,
-  //       boardName: `${this.creationProjectForm.value.title}'s board`
-  //     };
-  //
-  //     this.projectService.createProject(projectObj)
-  //       .pipe(takeUntil(this.isSubscribe))
-  //       .subscribe({
-  //         next: () => {
-  //           this.creationVisible = false;
-  //           //this.messageService.add({ severity: 'success', summary: 'Project created' });
-  //
-  //           window.location.reload();
-  //         },
-  //         error: () => {
-  //           //this.messageService.add({ severity: 'error', summary: 'Error creating' });
-  //         }
-  //       });
-  //   }
-  // }
+  private getProjectOwnerProjects(onScroll = false): void {
+    this.spinnerService.showSpinner();
 
-  ngOnDestroy() {
-    this.isSubscribe.next();
-    this.isSubscribe.complete();
+    if (!onScroll) {
+      this.projectsCurrentPage = 0;
+    }
+
+    this.isLoadingProjects = true;
+
+    this.projectService.getProjectOwnerProjects(this.projectsCurrentPage, 20)
+      .pipe(finalize(() => {
+        this.isLoadingProjects = false;
+        this.spinnerService.hideSpinner();
+      }),
+        takeUntil(this.unsubscribe$))
+      .subscribe({
+        next: result => {
+          this.totalProjects = result.total;
+          this.projectsCurrentPage++;
+
+          if (onScroll) {
+            this.projects.push(...result.items);
+          } else {
+            this.projects = result.items;
+          }
+
+        },
+        error: (error) => this.notificationService.showErrorNotification(error?.error?.detail)
+      })
   }
 }

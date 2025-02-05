@@ -56,9 +56,6 @@ export class SidebarComponent implements OnInit, OnDestroy {
       .subscribe({
         next: value => {
           this.user = value;
-        },
-        error: err => {
-          console.log(err)
         }
       })
   }

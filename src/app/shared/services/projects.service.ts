@@ -10,6 +10,8 @@ import {CreateProject} from "../interfaces/create-project";
 import {UpdateProject} from "../interfaces/update-project";
 import {ProjectDetail} from "../interfaces/project-detail";
 import {CreateProjectInterface} from "../interfaces/project/create-project.interface";
+import {PageProjectInterface} from "../interfaces/project/page-project.interface";
+import {ProjectInterface} from "../interfaces/project/project.interface";
 
 @Injectable({
   providedIn: 'root'
@@ -31,8 +33,16 @@ export class ProjectsService {
     return this.httpClient.get<PaginationResponse<ProjectPagination[]>>(this.apiUrl, {params});
   }
 
-  public getProjectById(projectId: string): Observable<ProjectInfo> {
-    return this.httpClient.get<ProjectInfo>(this.apiUrl + `/${projectId}`)
+  public getProjectOwnerProjects(currentPage: number, pageSize: number): Observable<PageProjectInterface> {
+    let params = new HttpParams()
+      .set('currentPage', currentPage.toString())
+      .set('pageSize', pageSize.toString())
+
+    return this.httpClient.get<PageProjectInterface>(`${this.apiUrl}/myProjects`, {params});
+  }
+
+  public getProjectById(projectId: string): Observable<ProjectInterface> {
+    return this.httpClient.get<ProjectInterface>(this.apiUrl + `/${projectId}`)
   }
 
   public getAllProjectsByProjectOwner(filter: PaginationFilter): Observable<PaginationResponse<ProjectPagination[]>> {
@@ -45,9 +55,9 @@ export class ProjectsService {
     return this.httpClient.get<PaginationResponse<ProjectPagination[]>>(this.apiUrl + `/my-projects`, {params});
   }
 
-  public getProjectOwnerProjects(): Observable<ProjectInfo[]> {
-    return this.httpClient.get<ProjectInfo[]>(this.apiUrl + '/projectOwner/projects');
-  }
+  // public getProjectOwnerProjects(): Observable<ProjectInfo[]> {
+  //   return this.httpClient.get<ProjectInfo[]>(this.apiUrl + '/projectOwner/projects');
+  // }
 
   public addDevelopersOnProject(projectId: string, devId: string[]) {
     return this.httpClient.post(this.apiUrl + `/developers/${projectId}`, devId)

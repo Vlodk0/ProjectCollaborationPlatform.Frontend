@@ -23,7 +23,5 @@ export class ProjectInfoPageComponent implements OnInit{
     this.activateRoute.params.subscribe(params => {
       this.projectId = params['id'];
     });
-
-    this.projects$ = this.projectService.getProjectById(this.projectId);
   }
 }

@@ -1,4 +1,12 @@
-<div *ngIf="false; else emptyState">asd</div>
+<div *ngIf="projects.length || isLoadingProjects else emptyState">
+  <collabro-paginator class="h-100">
+    <div class="projects-wrapper"
+         *ngFor="let project of projects">
+      <collabro-project-card [routerLink]="['/my-project', project.id]"
+                             [project]="project" />
+    </div>
+  </collabro-paginator>
+</div>
 
 <ng-template #emptyState>
   <div class="d-flex h-100 overflow-auto flex-col justify-content-center align-items-center">

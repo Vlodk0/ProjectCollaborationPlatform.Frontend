@@ -64,6 +64,9 @@ import {DeveloperCommentsComponent} from "./shared/components/developer-comments
 import {LocalDatePipe} from "./shared/pipes/local-date.pipe";
 import {FrameworkDialogComponent} from "./shared/components/dialogs/framework-dialog/framework-dialog.component";
 import {TechnologyDialogComponent} from "./shared/components/dialogs/technology-dialog/technology-dialog.component";
+import { ProjectTypeLabelPipe } from './core/pipes/project-type-label.pipe';
+import { ProjectTimeDurationLabelPipe } from './core/pipes/project-time-duration-label.pipe';
+import {MatTableModule} from "@angular/material/table";
 
 export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -73,6 +76,7 @@ const MODULES = [
   BrowserModule,
   MatInputModule,
   MatStepperModule,
+  MatTableModule,
   MatCheckboxModule,
   MatSelectModule,
   MatTabsModule,
@@ -139,7 +143,9 @@ const MODULES = [
     DeveloperCardComponent,
     ProjectCardComponent,
     CreateProjectComponent,
-    LocalDatePipe
+    LocalDatePipe,
+    ProjectTypeLabelPipe,
+    ProjectTimeDurationLabelPipe
   ],
   imports: [
     ...MODULES,
@@ -163,7 +169,8 @@ const MODULES = [
     MatSelectModule,
     MatStepperModule,
     MatCheckboxModule,
-    MatTabsModule
+    MatTabsModule,
+    MatTableModule,
   ]
 })
 export class AppModule {
