@@ -32,7 +32,11 @@ const routes: Routes = [
       {
         path: 'my-projects/create-project',
         loadChildren: () => import('../../../pages/create-project/create-project.routing.module').then(m => m.CreateProjectRoutingModule)
-      }
+      },
+      {
+        path: 'my-project/:id',
+        loadChildren: () => import('../../../pages/project-page/project-page-routing.module').then(r => r.ProjectPageRoutingModule)
+      },
     ],
   },
 ];

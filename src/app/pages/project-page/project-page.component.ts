@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ProjectsService} from "../../shared/services/projects.service";
-import {ActivatedRoute, Router} from "@angular/router";
-import {catchError, Observable, of, Subject, takeUntil} from "rxjs";
+import {ActivatedRoute} from "@angular/router";
+import {catchError, finalize, Observable, of, Subject, takeUntil} from "rxjs";
 import {ProjectInfo} from "../../shared/interfaces/project-info";
 import {FormControl, FormGroup} from "@angular/forms";
 import {FunctionalityBlock} from "../../shared/interfaces/functionality-block";
@@ -14,6 +14,9 @@ import {ProjectDetail} from "../../shared/interfaces/project-detail";
 import {GetUser} from "../../shared/interfaces/get-user";
 import {UserService} from "../../shared/services/user.service";
 import {TechnologyInterface} from "../../shared/interfaces/project/technology.interface";
+import {ProjectInterface} from "../../shared/interfaces/project/project.interface";
+import {SpinnerService} from "../../shared/services/spinner.service";
+import {NotificationService} from "../../shared/services/notification.service";
 
 @Component({
   selector: 'app-project-page',
@@ -35,14 +38,31 @@ export class ProjectPageComponent implements OnInit, OnDestroy {
   updatingTaskForm: FormGroup;
   updatingProjectForm: FormGroup;
   updatingProjectDetailForm: FormGroup;
-  projectId: string;
   boardId: string;
   funcBlockId: string;
   showBoard = false;
-  isSubscribe: Subject<void> = new Subject<void>()
   technologiesDropDownItems: TechnologyInterface[]
   projectTechnologiesDropDownItems: Technology[]
   selectedTechnologies: Technology[]
+
+  public project: ProjectInterface = null;
+  public developerTableColumns = ['fullName', 'location', 'action'];
+
+  public technologyColors = {
+    ["C#"]: 'gray',
+    ["Python"]: 'pink',
+    ["Java"]: 'blue'
+  };
+  public frameworkColors = {
+    ["ASP.NET Core"]: 'gray',
+    ["Angular"]: 'pink',
+    ["React"]: 'blue'
+  };
+
+  private projectId: string;
+
+  private unsubscribe$: Subject<void> = new Subject<void>();
+
 
   constructor(
     private projectService: ProjectsService,
@@ -50,17 +70,12 @@ export class ProjectPageComponent implements OnInit, OnDestroy {
     private functionalityBlockService: FunctionalityBlockService,
     private technologyService: TechnologyService,
     private userService: UserService,
+    private readonly spinnerService: SpinnerService,
+    private readonly notificationService: NotificationService
   ) {
   }
 
-  user: GetUser = {
-    id: '',
-    lastName: '',
-    firstName: '',
-    email: '',
-    roleName: '',
-    isDeleted: false
-  }
+  public user: GetUser;
 
   availableTasks: FunctionalityBlock[] = [];
 
@@ -74,7 +89,10 @@ export class ProjectPageComponent implements OnInit, OnDestroy {
       this.projectId = params['id'];
     });
 
-    this.projects$ = this.projectService.getProjectById(this.projectId);
+    this.subscribeToCurrentUser();
+
+    this.getProject();
+
 
     this.projects$.subscribe(project => {
       this.boardId = project.boardId;
@@ -103,7 +121,7 @@ export class ProjectPageComponent implements OnInit, OnDestroy {
 
     this.technologyService.getAllTechnologies()
       .pipe(
-        takeUntil(this.isSubscribe)
+        takeUntil(this.unsubscribe$)
       )
       .subscribe({
         next: value => this.technologiesDropDownItems = value
@@ -111,25 +129,44 @@ export class ProjectPageComponent implements OnInit, OnDestroy {
 
     this.technologyService.getAllProjectTechnologies(this.projectId)
       .pipe(
-        takeUntil(this.isSubscribe)
+        takeUntil(this.unsubscribe$)
       )
       .subscribe({
         next: value => this.projectTechnologiesDropDownItems = value
       })
-
-    this.getUser();
   }
 
-  getUser() {
-    this.userService.getUser()
-      .pipe(takeUntil(this.isSubscribe))
+  public getStyleForTechnologies(code: string): { background: string } {
+    return { background: this.technologyColors[code] || '#4B4D52' };
+  }
+  public getStyleForFrameworks(code: string): { background: string } {
+    return { background: this.frameworkColors[code] || '#4B4D52' };
+  }
+
+  public subscribeToCurrentUser(): void {
+    this.userService.currentUser$
+      .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
-        next: value => {
-          this.user = value;
-        },
-        error: err => {
-          console.log(err)
+        next: user => {
+          this.user = user;
+          console.log(this.user.id);
         }
+      });
+  }
+
+  private getProject(): void {
+    this.spinnerService.showSpinner();
+
+    this.projectService.getProjectById(this.projectId)
+      .pipe(finalize(() => {
+          this.spinnerService.hideSpinner();
+        }),
+        takeUntil(this.unsubscribe$))
+      .subscribe({
+        next: result => {
+          this.project = result;
+        },
+        error: (error) => this.notificationService.showErrorNotification(error?.error?.detail)
       })
   }
 
@@ -161,7 +198,7 @@ export class ProjectPageComponent implements OnInit, OnDestroy {
       }
 
       this.projectService.updateProject(this.projectId, projectObj)
-        .pipe(takeUntil(this.isSubscribe))
+        .pipe(takeUntil(this.unsubscribe$))
         .subscribe({
           next: () => {
             this.updateProjVisible = false;
@@ -180,7 +217,7 @@ export class ProjectPageComponent implements OnInit, OnDestroy {
         description: this.updatingProjectDetailForm.value.description
       }
       this.projectService.updateProjectDetails(this.projectId, projectDetailObj)
-        .pipe(takeUntil(this.isSubscribe))
+        .pipe(takeUntil(this.unsubscribe$))
         .subscribe({
           next: () => {
             this.updateProjDetailVisible = false;
@@ -305,7 +342,7 @@ export class ProjectPageComponent implements OnInit, OnDestroy {
       this.loadTasksByBoardId(this.boardId);
 
       this.functionalityBlockService.createFunctionalityBlock(taskObj, this.boardId)
-        .pipe(takeUntil(this.isSubscribe))
+        .pipe(takeUntil(this.unsubscribe$))
         .subscribe({
           next: value => {
             this.taskVisible = false
@@ -337,7 +374,7 @@ export class ProjectPageComponent implements OnInit, OnDestroy {
       console.log(this.funcBlockId)
 
       this.functionalityBlockService.updateTask(taskObj, this.funcBlockId)
-        .pipe(takeUntil(this.isSubscribe))
+        .pipe(takeUntil(this.unsubscribe$))
         .subscribe({
           next: value => {
             this.updateTaskVisible = false
@@ -357,7 +394,7 @@ export class ProjectPageComponent implements OnInit, OnDestroy {
       console.log(this.funcBlockId)
 
       this.functionalityBlockService.deleteTask(this.funcBlockId)
-        .pipe(takeUntil(this.isSubscribe))
+        .pipe(takeUntil(this.unsubscribe$))
         .subscribe({
           next: value => {
             this.updateTaskVisible = false
@@ -372,7 +409,7 @@ export class ProjectPageComponent implements OnInit, OnDestroy {
   }
 
    ngOnDestroy() {
-    this.isSubscribe.next();
-    this.isSubscribe.complete();
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
    }
 }

@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
+import {ProjectInterface} from "../../../shared/interfaces/project/project.interface";
 
 @Component({
   selector: 'collabro-project-card',
@@ -6,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrl: './project-card.component.scss'
 })
 export class ProjectCardComponent {
-
+  @Input() project: ProjectInterface;
 }

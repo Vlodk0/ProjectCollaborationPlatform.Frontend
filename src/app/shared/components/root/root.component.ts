@@ -1,12 +1,11 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {TranslateService} from "@ngx-translate/core";
 import {MatIconRegistry} from "@angular/material/icon";
 import {DomSanitizer} from "@angular/platform-browser";
 import {BreakpointObserver} from "@angular/cdk/layout";
 import {Subject, takeUntil} from "rxjs";
 import {MatDrawerMode} from "@angular/material/sidenav";
 import {IconRegistry} from "../../services/general/icon.registry.service";
-import {Router} from "@angular/router";
+import {UserService} from "../../services/user.service";
 
 @Component({
   selector: 'collabro-root',
@@ -15,8 +14,7 @@ import {Router} from "@angular/router";
 })
 export class RootComponent implements OnInit, OnDestroy {
 
-  constructor(private readonly translate: TranslateService,
-              private readonly router: Router,
+  constructor(private readonly userService: UserService,
               private readonly matIconRegistry: MatIconRegistry,
               private readonly domSanitizer: DomSanitizer,
               private readonly breakPointObserver: BreakpointObserver) {
@@ -32,10 +30,13 @@ export class RootComponent implements OnInit, OnDestroy {
   public ngOnInit(): void {
     IconRegistry.register(this.matIconRegistry, this.domSanitizer);
     this.listenToDynamicSidebarModeChange();
+    this.userService.initUser();
     //this.router.navigate(['/signin']);
   }
 
   public ngOnDestroy(): void {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 
   public toggleSidebar(): void {

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {environment} from "../../environment";
 import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
-import {Observable} from "rxjs";
+import {BehaviorSubject, Observable} from "rxjs";
 import {GetUser} from "../interfaces/get-user";
 import {UpdateUser} from "../interfaces/update-user";
 import {PaginationFilter} from "../interfaces/pagination-filter";
@@ -16,6 +16,9 @@ import {UserInfoWithAvatar} from "../interfaces/user-info-with-avatar";
 export class UserService {
 
   private apiUrl: string = `${environment.apiUrl}/User`
+
+  private currentUserSubject$: BehaviorSubject<GetUser> = new BehaviorSubject(null);
+  public currentUser$: Observable<GetUser> = this.currentUserSubject$.asObservable();
 
   constructor(private readonly httpClient: HttpClient) { }
 
@@ -53,5 +56,13 @@ export class UserService {
 
   public getAvatar(avatarName: string) {
     return this.httpClient.get(this.apiUrl + `/${avatarName}`, {responseType: "blob"})
+  }
+
+  public initUser(): void {
+    this.getUser().subscribe({
+      next: (user) => {
+        this.currentUserSubject$.next(user);
+      }
+    });
   }
 }

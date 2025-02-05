@@ -9,6 +9,8 @@ import {ProjectsService} from "../../shared/services/projects.service";
 import {technologiesListConstant} from "../../core/constants/technology-list.constant";
 import {GetUser} from "../../shared/interfaces/get-user";
 import {UserService} from "../../shared/services/user.service";
+import {ProjectInterface} from "../../shared/interfaces/project/project.interface";
+import {PageProjectInterface} from "../../shared/interfaces/project/page-project.interface";
 
 @Component({
   selector: 'app-all-developers-page',
@@ -19,8 +21,8 @@ export class AllDevelopersPageComponent implements OnDestroy, OnInit {
   visible: boolean = false;
   addDevVisible: boolean = false;
   developers: PaginationDeveloper[];
-  technologies: DeveloperTechnology[];
-  projectDropDownItems: ProjectInfo[]
+  technologies: DeveloperTechnology[];x
+  projectDropDownItems: PageProjectInterface[];
   isSubscribe: Subject<void> = new Subject<void>()
   selectedProjects: ProjectInfo;
   selectedDeveloper: PaginationDeveloper | undefined
@@ -101,16 +103,16 @@ export class AllDevelopersPageComponent implements OnDestroy, OnInit {
     this.visible = true
   }
 
-  showAddingDevDialog() {
-    this.addDevVisible = true
-    this.projectService.getProjectOwnerProjects()
-      .pipe(
-        takeUntil(this.isSubscribe)
-      )
-      .subscribe({
-        next: value => this.projectDropDownItems = value
-      })
-  }
+  // showAddingDevDialog() {
+  //   this.addDevVisible = true
+  //   this.projectService.getProjectOwnerProjects()
+  //     .pipe(
+  //       takeUntil(this.isSubscribe)
+  //     )
+  //     .subscribe({
+  //       next: value => this.projectDropDownItems = value
+  //     })
+  // }
   ngOnDestroy() {
     this.isSubscribe.next();
     this.isSubscribe.complete();
