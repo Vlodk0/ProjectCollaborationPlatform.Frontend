@@ -1,3 +1,5 @@
+@import "../../../styles/variables";
+
 .profile-section-container {
   padding: 2.4rem;
   color: azure;
@@ -30,7 +32,7 @@
     display: flex;
     align-items: center;
     width: 100%;
-    background-color: #5C4FB5;
+    background-color: $main-purple-color;
     padding: 2.4rem;
     border-radius: 10px;
     column-gap: 2rem;

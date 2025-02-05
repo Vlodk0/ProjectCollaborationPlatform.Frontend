@@ -1,3 +1,5 @@
+@import "../../../styles/variables";
+
 .vc-sidebar-container {
   padding: 10px;
   height: 100%;
@@ -101,7 +103,7 @@
 }
 
 .active {
-  background-color: #5C4FB5;
+  background-color: $main-purple-color;
   border-radius: 4px;
 }
 

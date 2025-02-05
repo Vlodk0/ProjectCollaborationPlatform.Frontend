@@ -1,3 +1,5 @@
+@import "src/styles/variables.scss";
+
 .box-wrapper {
   background: #1A1C22;
   border-radius: 4px;
@@ -36,7 +38,7 @@
     font-weight: 200;
     font-size: 2.4rem;
     line-height: 2.8rem;
-    color: #5C4FB5;
+    color: $main-purple-color;
   }
 }
 
