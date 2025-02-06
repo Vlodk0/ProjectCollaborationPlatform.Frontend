@@ -149,7 +149,7 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
 
   public openAddressDialog(): void {
     const dialogRef = this.matDialog.open(UserAddressDialogComponent, {
-      disableClose: false
+      disableClose: true
     });
 
     dialogRef.afterClosed().subscribe();
