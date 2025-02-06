@@ -9,6 +9,7 @@ import {PaginationResponse} from "../interfaces/pagination-response";
 import {ProjectPagination} from "../interfaces/project-pagination";
 import {FormGroup} from "@angular/forms";
 import {UserInfoWithAvatar} from "../interfaces/user-info-with-avatar";
+import {UpdateAddressInterface} from "../interfaces/user/update-address.interface";
 
 @Injectable({
   providedIn: 'root'
@@ -64,5 +65,9 @@ export class UserService {
         this.currentUserSubject$.next(user);
       }
     });
+  }
+
+  public updateAddress(updateUserAddress: UpdateAddressInterface): Observable<void> {
+    return this.httpClient.patch<void>(this.apiUrl + '/address', updateUserAddress)
   }
 }

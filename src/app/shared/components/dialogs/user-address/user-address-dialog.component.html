@@ -1,33 +1,38 @@
 <div class="modal-wrapper">
   <div class="page-title">{{ 'profileSettings.changeYouAddressLabel' | translate }}</div>
 
-  <div class="input-container m-t-2-4">
+  <div class="input-container m-t-2-4" [formGroup]="addressForm">
     <mat-form-field appearance="outline" class="input-container-item-large">
       <mat-label>{{ 'profileSettings.countryLabel' | translate }}</mat-label>
 
-      <mat-select>
-        <mat-option *ngFor="let time of timeDurationListConstant"
-                    [value]="time?.duration">
-          {{ time?.label | translate }}
+      <mat-select formControlName="countryCode">
+        <mat-option *ngFor="let country of (countries$ | async)" [value]="country.code">
+          {{ country?.name }}
         </mat-option>
       </mat-select>
+
+      <collabro-control-validation-message [control]="addressForm.get('countryCode')" />
     </mat-form-field>
 
     <mat-form-field appearance="outline" class="input-container-item-large">
       <mat-label>{{ 'profileSettings.cityLabel' | translate }}</mat-label>
 
-      <input matInput/>
+      <input formControlName="city" matInput/>
+
+      <collabro-control-validation-message [control]="addressForm.get('city')" />
     </mat-form-field>
 
-    <mat-form-field appearance="outline" class="input-container-item-large">
+    <mat-form-field appearance="outline"
+                    class="input-container-item-large">
       <mat-label>{{ 'profileSettings.stateLabel' | translate }}</mat-label>
 
-      <mat-select>
-        <mat-option *ngFor="let time of timeDurationListConstant"
-                    [value]="time?.duration">
-          {{ time?.label | translate }}
+      <mat-select formControlName="state">
+        <mat-option *ngFor="let state of (states$ | async)" [value]="state">
+          {{ state }}
         </mat-option>
       </mat-select>
+
+      <collabro-control-validation-message [control]="addressForm.get('state')" />
     </mat-form-field>
 
     <div class="button-container justify-content-space-between w-100 flex-wrap">
@@ -38,6 +43,8 @@
       </button>
 
       <button class="button-purple"
+              (click)="updateUserAddress()"
+              [disabled]="!addressForm.valid"
               mat-button>
         {{ 'general.editLabel' | translate }}
       </button>

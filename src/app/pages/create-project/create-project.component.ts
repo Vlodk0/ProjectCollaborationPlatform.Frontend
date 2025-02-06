@@ -125,16 +125,6 @@ export class CreateProjectComponent implements OnInit, OnDestroy {
   public createProject(): void {
     this.spinnerService.showSpinner();
 
-    // const projectObj: CreateProjectInterface = {
-    //   title: this.projectForm.value.title,
-    //   projectDetails: this.projectForm.value.projectDetails,
-    //   payment: this.projectForm.value.payment,
-    //   type: this.projectForm.value.type,
-    //   timeDuration: this.projectForm.value.timeDuration,
-    //   technologyIds: this.projectForm.value.technologyIds,
-    //   frameworkIds: this.projectForm.value.frameworkIds,
-    // };
-
     this.projectService.createProject(this.projectForm.value as CreateProjectInterface)
       .pipe(
         finalize(() => this.spinnerService.hideSpinner()),
