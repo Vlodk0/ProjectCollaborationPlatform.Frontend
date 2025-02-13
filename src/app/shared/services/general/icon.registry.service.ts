@@ -47,5 +47,8 @@ export class IconRegistry {
     matIconRegistry.addSvgIcon(
       'location',
       domSanitizer.bypassSecurityTrustResourceUrl('assets/icons/location-icon.svg'));
+    matIconRegistry.addSvgIcon(
+      'plus',
+      domSanitizer.bypassSecurityTrustResourceUrl('assets/icons/plus-icon.svg'));
   }
 }

@@ -1,25 +1,23 @@
 <div class="project-wrapper flex-col">
-  <div class="project-header">{{project.title}}</div>
-  <div class="project-subtitle">  {{ project.type | projectTypeLabel | translate }}</div>
-
-  <div class="d-flex align-items-center justify-content-space-between w-100 m-t-2-4">
-    <div class="project-start-data">January 20, 2025</div>
-    <mat-icon *ngIf="true; else avatarPhoto" class="item-container-placeholder-icon"
-              [svgIcon]="'avatar-placeholder-icon'"></mat-icon>
-
-    <ng-template #avatarPhoto>
-      <img alt="" class="avatar-photo">
-    </ng-template>
-  </div>
-  <div class="d-flex align-items-center column-gap-3-6 flex-wrap">
+  <div class="project-subtitle">{{ project.type | projectTypeLabel | translate | uppercase }}</div>
+  <div class="project-upper-section-wrapper">
+    <div class="project-header">{{ project.title }}</div>
     <div class="d-flex align-items-center">
-      <span class="project-price">${{project.payment}}</span>
+      <span class="project-price">{{ project.payment | currency }}</span>
       <span class="project-price-time">/hour</span>
     </div>
+  </div>
+  <div class="project-lower-section-wrapper">
     <div class="d-flex align-items-center">
-      <mat-icon [svgIcon]="'project-duration-icon'" />
+      <mat-icon [svgIcon]="'project-duration-icon'"/>
       <p class="project-price-time">
         {{ project.timeDuration | timeDurationLabel | translate }}
+      </p>
+    </div>
+    <div class="d-flex align-items-center">
+      <mat-icon [svgIcon]="'project-duration-icon'"/>
+      <p class="project-price-time">
+        {{ project.createdTimeStamp | localDate: "shortDate" }}
       </p>
     </div>
   </div>

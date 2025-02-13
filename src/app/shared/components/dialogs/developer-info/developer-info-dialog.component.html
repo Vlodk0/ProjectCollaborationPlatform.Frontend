@@ -5,11 +5,11 @@
                  mat-align-tabs="start"
                  class="h-100">
     <mat-tab label="{{'developers.profileLabel' | translate}}">
-      <collabro-developer-profile />
+      <collabro-developer-profile [developer]="data?.developer"/>
     </mat-tab>
 
     <mat-tab label="{{'developers.feedbacksLabel' | translate}}">
-      <collabro-developer-comments />
+      <collabro-developer-comments/>
     </mat-tab>
   </mat-tab-group>
 </div>
@@ -17,6 +17,9 @@
 <div class="button-container">
   <button mat-dialog-close class="transparent-button" mat-button>
     {{ 'general.cancelLabel' | translate }}
+  </button>
+  <button class="button-purple big-button"
+          mat-button>{{ 'general.inviteLabel' | translate }}
   </button>
 </div>
 

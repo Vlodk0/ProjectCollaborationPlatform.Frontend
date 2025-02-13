@@ -6,6 +6,7 @@ import {PaginationDeveloper} from "../interfaces/pagination-developer";
 import {environment} from "../../environment";
 import {PaginationFilterDevs} from "../interfaces/pagination-filter-devs";
 import {Technology} from "../interfaces/technology";
+import {PageDeveloperInterface} from "../interfaces/developer/page-developer.interface";
 
 @Injectable({
   providedIn: 'root'
@@ -16,12 +17,12 @@ export class DeveloperService {
 
   constructor(private readonly httpClient: HttpClient) { }
 
-  public getAllDevelopers(filter: PaginationFilterDevs): Observable<PaginationResponse<PaginationDeveloper[]>> {
+  public getDevelopers(currentPage: number, pageSize: number): Observable<PageDeveloperInterface> {
     let params = new HttpParams()
-      .set('pageNumber', filter.pageNumber.toString())
-      .set('pageSize', filter.pageSize.toString());
+      .set('currentPage', currentPage.toString())
+      .set('pageSize', pageSize.toString())
 
-    return this.httpClient.get<PaginationResponse<PaginationDeveloper[]>>(this.apiUrl + '/developers', {params})
+    return this.httpClient.get<PageDeveloperInterface>(this.apiUrl + '/developers', {params})
   }
 
   public getDeveloperById(id: string): Observable<PaginationDeveloper> {

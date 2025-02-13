@@ -8,13 +8,13 @@
 html {
   font-size: 10px;
   height: 100%;
-  background-color: #26292B !important;
+  background-color: #0C0E12 !important;
 }
 
 body {
   font-family: Noto Sans;
   height: 100%;
-  background-color: #26292B !important;
+  background-color: #0C0E12 !important;
 }
 
 *, *::after, *::before {
@@ -66,9 +66,10 @@ body {
 }
 
 .technology-item-container {
-  border-radius: 4px;
-  padding: 1.2rem;
+  border-radius: 8px;
+  padding: 8px 14px;
   color: azure;
   font-weight: 500;
+  border: 1px solid #373639;
   font-size: 1.2rem;
 }

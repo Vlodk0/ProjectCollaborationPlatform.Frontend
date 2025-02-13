@@ -1,10 +1,10 @@
 @import "../../../styles/variables";
 
 .profile-section-container {
-  padding: 2.4rem;
+  padding: 50px;
   color: azure;
-  background-color: #1A1C22;
-  border-radius: 4px;
+  background-color: #13161B;
+  border-radius: 20px;
 
   .flex-between {
     display: flex;
@@ -28,17 +28,32 @@
     margin-bottom: 3.2rem;
   }
 
+  .avatar-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 25px;
+    border-radius: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 2.4rem;
+    gap: 25px;
+
+    font-weight: 500;
+    font-size: 2rem;
+    line-height: 32px;
+  }
+
   .item-container {
     display: flex;
     align-items: center;
     width: 100%;
-    background-color: $main-purple-color;
-    padding: 2.4rem;
-    border-radius: 10px;
-    column-gap: 2rem;
-    row-gap: 2rem;
+    padding: 25px;
+    border-radius: 20px;
+    border: 1px solid #373639;
+    justify-content: space-between;
     flex-wrap: wrap;
     margin-bottom: 2.4rem;
+    background-color: #0C0E12;
 
     &-placeholder {
       height: 7.2rem;
@@ -69,6 +84,7 @@
       justify-content: space-between;
       align-items: start;
       height: 100%;
+      gap: 0.4rem;
 
       .user-full-name {
         font-weight: 500;
@@ -115,15 +131,41 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      margin-bottom: 1.2rem;
     }
   }
 }
 
 .button-primary {
-  border-radius: .4rem;
+  border-radius: 14px;
+  border: 1px solid #373639;
+  padding: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: #22262F;
+}
+
+.input-wrapper {
+  border-radius: 12px;
+  border: 1px solid #373639;
+  padding: 10px 15px;
+  min-width: 300px;
+  height: 38px;
+  background: transparent;
+  gap: 1rem;
+}
+
+.text-area-wrapper {
+  border-radius: 12px;
+  border: 1px solid #373639;
+  padding: 10px 15px;
+  min-width: 300px;
+  height: auto;
+  background: transparent;
+  gap: 1rem;
+  width: 100%;
+  resize: none;
 }
 
 //.background-container {

@@ -5,7 +5,7 @@ import {Login} from "../interfaces/login";
 import {Router} from "@angular/router";
 import {Register} from "../interfaces/register";
 import {BehaviorSubject, catchError, Observable, of, Subject} from 'rxjs';
-import {CreateProjectOwner} from "../interfaces/create-project-owner";
+import {CreateProjectOwner} from "../interfaces/user/create-project-owner";
 import {CreateDeveloper} from "../interfaces/create-developer";
 import {TokenResponse} from "../interfaces/token-response";
 import {RefreshToken} from "../interfaces/refresh-token";
