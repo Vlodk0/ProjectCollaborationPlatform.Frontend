@@ -2,7 +2,7 @@
   <div class="d-flex w-100 flex-wrap column-gap-0-4 m-b-1-6">
     <mat-form-field
       appearance="outline"
-    class="input-container-item-one-of-two">
+      class="input-container-item-one-of-two">
       <mat-label>Test</mat-label>
       <mat-select>
         <mat-option>
@@ -20,11 +20,10 @@
     </mat-form-field>
   </div>
 
-  <div class="developers-wrapper">
-    <collabro-developer-card />
-    <collabro-developer-card />
-    <collabro-developer-card />
-    <collabro-developer-card />
-    <collabro-developer-card />
-  </div>
+  <collabro-paginator class="h-100">
+    <div class="developers-wrapper"
+         *ngFor="let developer of developers">
+      <collabro-developer-card [developer]="developer" />
+    </div>
+  </collabro-paginator>
 </div>

@@ -1,0 +1,13 @@
+  <div class="card-item">
+    <div class="card-item-header">{{functionalityBlock.taskName}}</div>
+    <div class="card-item-label">{{ functionalityBlock.label | projectTaskTypeLabel | translate }}</div>
+    <div class="d-flex justify-content-flex-end">
+      <mat-icon *ngIf="true; else avatarPhoto" class="item-container-placeholder-icon"
+                [svgIcon]="'avatar-placeholder-icon'"></mat-icon>
+
+      <ng-template #avatarPhoto>
+        <img alt="" class="avatar-photo">
+      </ng-template>
+    </div>
+  </div>
+

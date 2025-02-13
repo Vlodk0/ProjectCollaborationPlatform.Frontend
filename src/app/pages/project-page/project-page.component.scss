@@ -45,3 +45,27 @@
 .fullName-column, .location-column {
   width: 25%;
 }
+
+.board-wrapper {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  padding: 5rem;
+  gap: 1rem;
+
+  .board-column-wrapper {
+    height: 100%;
+    background: $main-purple-color;
+    border-radius: 4px;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2em;
+
+    .column-header {
+      font-weight: 500;
+      font-size: 2.4rem;
+      line-height: 32px;
+    }
+  }
+}

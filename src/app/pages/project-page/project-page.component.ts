@@ -1,22 +1,24 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ProjectsService} from "../../shared/services/projects.service";
 import {ActivatedRoute} from "@angular/router";
-import {catchError, finalize, Observable, of, Subject, takeUntil} from "rxjs";
+import {filter, finalize, Observable, Subject, takeUntil} from "rxjs";
 import {ProjectInfo} from "../../shared/interfaces/project-info";
 import {FormControl, FormGroup} from "@angular/forms";
 import {FunctionalityBlock} from "../../shared/interfaces/functionality-block";
 import {FunctionalityBlockService} from "../../shared/services/functionality-block.service";
-import {CreateTask} from "../../shared/interfaces/create-task";
 import {Technology} from "../../shared/interfaces/technology";
 import {TechnologyService} from "../../shared/services/technology.service";
-import {UpdateProject} from "../../shared/interfaces/update-project";
-import {ProjectDetail} from "../../shared/interfaces/project-detail";
 import {GetUser} from "../../shared/interfaces/get-user";
 import {UserService} from "../../shared/services/user.service";
 import {TechnologyInterface} from "../../shared/interfaces/project/technology.interface";
 import {ProjectInterface} from "../../shared/interfaces/project/project.interface";
 import {SpinnerService} from "../../shared/services/spinner.service";
 import {NotificationService} from "../../shared/services/notification.service";
+import {MatDialog} from "@angular/material/dialog";
+import {ProjectTaskDialogComponent} from "../../shared/components/dialogs/project-task/project-task-dialog.component";
+import {TaskLabelType} from "../../core/enums/task-label-type.enum";
+import {TaskStatus} from "../../core/enums/task-status.enum";
+import {CdkDragDrop, moveItemInArray, transferArrayItem} from "@angular/cdk/drag-drop";
 
 @Component({
   selector: 'app-project-page',
@@ -47,6 +49,10 @@ export class ProjectPageComponent implements OnInit, OnDestroy {
 
   public project: ProjectInterface = null;
   public developerTableColumns = ['fullName', 'location', 'action'];
+  public taskStatusEnum = TaskStatus;
+  public todoTasks: any[] = [];
+  public inProgressTasks: any[] = [];
+  public doneTasks: any[] = [];
 
   public technologyColors = {
     ["C#"]: 'gray',
@@ -70,6 +76,7 @@ export class ProjectPageComponent implements OnInit, OnDestroy {
     private functionalityBlockService: FunctionalityBlockService,
     private technologyService: TechnologyService,
     private userService: UserService,
+    private readonly matDialog: MatDialog,
     private readonly spinnerService: SpinnerService,
     private readonly notificationService: NotificationService
   ) {
@@ -80,7 +87,6 @@ export class ProjectPageComponent implements OnInit, OnDestroy {
   availableTasks: FunctionalityBlock[] = [];
 
   selectedTasks: FunctionalityBlock[] = [];
-  doneTasks: FunctionalityBlock[] = [];
 
   draggedTask: FunctionalityBlock | undefined | null;
 
@@ -93,10 +99,8 @@ export class ProjectPageComponent implements OnInit, OnDestroy {
 
     this.getProject();
 
-
     this.projects$.subscribe(project => {
       this.boardId = project.boardId;
-      this.loadTasksByBoardId(this.boardId);
     });
 
 
@@ -136,6 +140,52 @@ export class ProjectPageComponent implements OnInit, OnDestroy {
       })
   }
 
+  ngOnDestroy() {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
+  }
+
+  private initializeTaskArrays() {
+    this.todoTasks = this.project.projectTasks.filter(task => task.status === TaskStatus.Todo);
+    this.inProgressTasks = this.project.projectTasks.filter(task => task.status === TaskStatus.InProgress);
+    this.doneTasks = this.project.projectTasks.filter(task => task.status === TaskStatus.Done);
+  }
+
+  public onTaskDrop(event: CdkDragDrop<any[]>, newStatus: TaskStatus) {
+    if (event.previousContainer === event.container) {
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+    } else {
+      transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      );
+
+      const task = event.item.data;
+      task.status = newStatus;
+
+      this.functionalityBlockService.updateTaskStatus(task.id, newStatus)
+        .pipe(takeUntil(this.unsubscribe$))
+        .subscribe({
+        next: () => {
+          this.initializeTaskArrays();
+        },
+        error: () => {
+          transferArrayItem(
+            event.container.data,
+            event.previousContainer.data,
+            event.currentIndex,
+            event.previousIndex
+          );
+          task.status = event.previousContainer.id === 'todoList' ? TaskStatus.Todo :
+            event.previousContainer.id === 'inProgressList' ? TaskStatus.InProgress :
+              TaskStatus.Done;
+        }
+      });
+    }
+  }
+
   public getStyleForTechnologies(code: string): { background: string } {
     return { background: this.technologyColors[code] || '#4B4D52' };
   }
@@ -165,251 +215,69 @@ export class ProjectPageComponent implements OnInit, OnDestroy {
       .subscribe({
         next: result => {
           this.project = result;
+          this.initializeTaskArrays();
         },
         error: (error) => this.notificationService.showErrorNotification(error?.error?.detail)
       })
   }
 
-
-  addSelectedTechnology() {
-    const selectedTechnologyId = this.selectedTechnologies.map(t => t.id)
-
-    this.projectService.addTechnologiesForProject(this.projectId, selectedTechnologyId)
-      .subscribe((res => {
-        this.addTechVisible = false;
-      }))
-  }
-
-  removeSelectedTechnology() {
-    const selectedTechnologyId = this.selectedTechnologies.map(t => t.id)
-
-    this.projectService.removeTechnologyFromProject(this.projectId, selectedTechnologyId)
-      .subscribe((res => {
-        this.removeTechVisible = false;
-      }))
-  }
-
-  updateProject() {
-    if (this.updatingProjectForm.valid) {
-      const projectObj: UpdateProject = {
-        title: this.updatingProjectForm.value.title,
-        shortInfo: this.updatingProjectForm.value.shortInfo,
-        payment: this.updatingProjectForm.value.payment,
+  public editProjectTask(taskId: string, taskName: string, description: string, label: TaskLabelType): void {
+    const dialogRef = this.matDialog.open(ProjectTaskDialogComponent, {
+      disableClose: false,
+      data: {
+        projectId: this.projectId,
+        taskId,
+        taskName,
+        description,
+        label,
+        developers: this.project.developers,
       }
+    });
 
-      this.projectService.updateProject(this.projectId, projectObj)
-        .pipe(takeUntil(this.unsubscribe$))
-        .subscribe({
-          next: () => {
-            this.updateProjVisible = false;
-            // //this.messageService.add({severity:'success', summary:'Project is updated'});
-          },
-          error: () => {
-            // //this.messageService.add({severity:'error', summary:'Error updating'});
-          }
-        })
-    }
-  }
-
-  updateProjectDetail() {
-    if (this.updatingProjectDetailForm.valid) {
-      const projectDetailObj: ProjectDetail = {
-        description: this.updatingProjectDetailForm.value.description
-      }
-      this.projectService.updateProjectDetails(this.projectId, projectDetailObj)
-        .pipe(takeUntil(this.unsubscribe$))
-        .subscribe({
-          next: () => {
-            this.updateProjDetailVisible = false;
-            //this.messageService.add({severity:'success', summary:'Details are updated'});
-          },
-          error: () => {
-            //this.messageService.add({severity:'error', summary:'Error updating'});
-          }
-        })
-    }
-  }
-
-  showAddingTechDialog() {
-    this.addTechVisible = true
-  }
-
-  showRemovingTechDialog() {
-    this.removeTechVisible = true
-  }
-
-  showProjectUpdatingDialog() {
-    this.updateProjVisible = true
-  }
-
-  showProjectDetailUpdatingDialog() {
-    this.updateProjDetailVisible = true
-  }
-
-  loadTasksByBoardId(boardId: string) {
-    this.functionalityBlockService.getTasksByBoardId(boardId)
-      .subscribe(tasks => {
-        this.tasks$ = this.functionalityBlockService.getTasksByBoardId(boardId);
-        this.availableTasks = tasks.filter(task => task.status === 1);
-        this.selectedTasks = tasks.filter(task => task.status === 2);
-        this.doneTasks = tasks.filter(task => task.status === 3);
+    dialogRef.afterClosed()
+      .pipe(
+        takeUntil(this.unsubscribe$),
+        filter((result) => result)
+      )
+      .subscribe({
+        next: () => {
+          this.getProjectTasks();
+        }
       });
   }
 
-  toggleBoard() {
-    this.showBoard = !this.showBoard;
-  }
-
-  drop(targetColumn: string) {
-    if (this.draggedTask) {
-      const funcBlockId = this.draggedTask.id;
-      let newStatus: number;
-
-      switch (targetColumn) {
-        case 'todo':
-          newStatus = 1;
-          break;
-        case 'inProcess':
-          newStatus = 2;
-          break;
-        case 'done':
-          newStatus = 3;
-          break;
-        default:
-          return;
+  public addProjectTask(): void {
+    const dialogRef = this.matDialog.open(ProjectTaskDialogComponent, {
+      disableClose: false,
+      data: {
+        projectId: this.projectId
       }
+    });
 
-      this.functionalityBlockService.updateTaskStatus(funcBlockId, newStatus)
-        .pipe(
-          catchError((error) => {
-            console.error('Error updating task status:', error);
-            return of(null);
-          })
-        )
-        .subscribe(
-          (response) => {
-            if (response) {
-              console.log(`Task status updated to '${targetColumn}' successfully:`, response);
-
-              this.availableTasks = this.availableTasks.filter(t => t.id !== funcBlockId);
-              this.selectedTasks = this.selectedTasks.filter(t => t.id !== funcBlockId);
-              this.doneTasks = this.doneTasks.filter(t => t.id !== funcBlockId);
-
-              if (targetColumn === 'todo') {
-                this.availableTasks.push(this.draggedTask);
-
-              } else if (targetColumn === 'inProcess') {
-                this.selectedTasks.push(this.draggedTask);
-
-              } else if (targetColumn === 'done') {
-                this.doneTasks.push(this.draggedTask);
-
-              }
-
-              this.draggedTask = null;
-            } else {
-              console.log('Task status update failed');
-            }
-          }
-        );
-    }
+    dialogRef.afterClosed()
+      .pipe(
+        takeUntil(this.unsubscribe$),
+        filter((result) => result)
+      )
+      .subscribe({
+        next: () => {
+          this.getProjectTasks();
+        }
+      });
   }
 
-  dragStart(task: FunctionalityBlock) {
-    this.draggedTask = task;
+  private getProjectTasks(): void {
+    this.spinnerService.showSpinner();
+
+    this.functionalityBlockService.getProjectTasks(this.projectId)
+      .pipe(takeUntil(this.unsubscribe$),
+        finalize(() => this.spinnerService.hideSpinner()))
+      .subscribe({
+        next: (result) => {
+          this.project.projectTasks = result;
+          this.initializeTaskArrays();
+        },
+        error: (error) => this.notificationService.showErrorNotification(error?.error?.detail)
+      });
   }
-
-  dragEnd() {
-    this.draggedTask = null;
-  }
-
-  showTaskCreationDialog() {
-    this.taskVisible = true;
-  }
-
-  showTaskUpdatingDialog() {
-    this.updateTaskVisible = true;
-  }
-
-  createTask() {
-    if (this.creationTaskForm.valid) {
-      const taskObj: CreateTask = {
-        status: 1,
-        task: this.creationTaskForm.value.task
-      };
-
-      console.log(this.boardId)
-      this.loadTasksByBoardId(this.boardId);
-
-      this.functionalityBlockService.createFunctionalityBlock(taskObj, this.boardId)
-        .pipe(takeUntil(this.unsubscribe$))
-        .subscribe({
-          next: value => {
-            this.taskVisible = false
-            this.loadTasksByBoardId(this.boardId)
-            //this.messageService.add({severity:'success', summary:'Task added'});
-          },
-          error: () => {
-            //this.messageService.add({severity:'error', summary:'Error creating'});
-          }
-        })
-    }
-  }
-
-  getTaskIdClick(task: FunctionalityBlock) {
-    const taskId = task.id;
-    console.log('Task ID:', taskId);
-
-    this.funcBlockId = taskId;
-  }
-
-  updateTask() {
-    if (this.updatingTaskForm.valid) {
-      const taskObj: FunctionalityBlock = {
-        id: this.funcBlockId,
-        status: 1,
-        task: this.updatingTaskForm.value.task
-      };
-
-      console.log(this.funcBlockId)
-
-      this.functionalityBlockService.updateTask(taskObj, this.funcBlockId)
-        .pipe(takeUntil(this.unsubscribe$))
-        .subscribe({
-          next: value => {
-            this.updateTaskVisible = false
-            this.loadTasksByBoardId(this.boardId)
-            //this.messageService.add({severity:'success', summary:'Task is updated'});
-          },
-          error: () => {
-            //this.messageService.add({severity:'error', summary:'Error updating'});
-          }
-        })
-    }
-  }
-
-  deleteTask() {
-    if (this.updatingTaskForm.valid) {
-
-      console.log(this.funcBlockId)
-
-      this.functionalityBlockService.deleteTask(this.funcBlockId)
-        .pipe(takeUntil(this.unsubscribe$))
-        .subscribe({
-          next: value => {
-            this.updateTaskVisible = false
-            this.loadTasksByBoardId(this.boardId);
-            //this.messageService.add({severity:'success', summary:'Task was deleted'});
-          },
-          error: () => {
-            //this.messageService.add({severity:'error', summary:'Error deleting'});
-          }
-        })
-    }
-  }
-
-   ngOnDestroy() {
-    this.unsubscribe$.next();
-    this.unsubscribe$.complete();
-   }
 }

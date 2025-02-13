@@ -1,9 +1,5 @@
 <div class="profile-section-container">
-  <div class="flex-between">
-    <h3 class="page-title"> My Profile </h3>
-  </div>
-
-  <div class="item-container">
+  <div class="avatar-container">
     <div class="item-container-placeholder w-100">
       <mat-icon *ngIf="true; else avatarPhoto" class="item-container-placeholder-icon"
                 [svgIcon]="'avatar-placeholder-icon'"></mat-icon>
@@ -12,10 +8,9 @@
         <img alt="" class="avatar-photo">
       </ng-template>
     </div>
-    <div class="user-info-container m-t-2-4">
+    <div class="user-info-container">
       <div class="user-full-name"> Name Surname </div>
       <div class="user-role-name"> Developer</div>
-      <div class="user-full-address"> Leeds, United Kingdom</div>
     </div>
   </div>
 
@@ -24,32 +19,31 @@
       <div class="item-container-header flex-wrap">
         <div class="title">Personal Information</div>
         <button class="button-primary"
-                (click)="openUpdatePersonalInfoDialog()"
-                mat-raised-button>
+                (click)="openUpdatePersonalInfoDialog()">
           <mat-icon [svgIcon]="'edit'"></mat-icon>
         </button>
       </div>
-      <div class="d-flex column-gap-4 flex-wrap">
-        <div class="user-info-container">
-          <div class="info-title"> First Name</div>
-          <div class="user-role-name"> John</div>
+      <div class="d-flex justify-content-space-between flex-wrap">
+        <div class="user-info-container row-gap-0-4 column-gap-0-4">
+          <div class="info-title"> First Name*</div>
+          <input class="input-wrapper" placeholder="John" />
         </div>
 
-        <div class="user-info-container">
-          <div class="info-title"> Last Name</div>
-          <div class="user-role-name"> Doe</div>
+        <div class="user-info-container row-gap-0-4 column-gap-0-4">
+          <div class="info-title"> Last Name*</div>
+          <input class="input-wrapper" placeholder="Doe" />
         </div>
 
-        <div class="user-info-container">
-          <div class="info-title"> Email</div>
-          <div class="user-role-name"> john.doe&#64;gmail.com</div>
+        <div class="user-info-container row-gap-0-4 column-gap-0-4">
+          <div class="info-title">Email*</div>
+          <input class="input-wrapper" placeholder="john.doe@gmail.com" />
         </div>
       </div>
 
       <div class="w-100">
-        <div class="user-info-container m-t-1-6">
-          <div class="info-title"> Bio</div>
-          <div class="user-role-name"> Lorem Ipsum</div>
+        <div class="user-info-container m-t-2">
+          <div class="info-title">Bio</div>
+          <textarea class="text-area-wrapper" disabled="disabled" rows="5" placeholder="Lorem Ipsum"></textarea>
         </div>
       </div>
     </div>
@@ -60,25 +54,24 @@
       <div class="item-container-header">
         <div class="title">Address</div>
         <button class="button-primary"
-                (click)="openAddressDialog()"
-                mat-raised-button>
+                (click)="openAddressDialog()">
           <mat-icon [svgIcon]="'edit'"></mat-icon>
         </button>
       </div>
-      <div class="d-flex column-gap-4">
+      <div class="d-flex justify-content-space-between flex-wrap">
         <div class="user-info-container">
           <div class="info-title"> Country</div>
-          <div class="user-role-name"> United State of America</div>
+          <input class="input-wrapper" placeholder="United State of America" />
         </div>
 
         <div class="user-info-container">
           <div class="info-title"> City</div>
-          <div class="user-role-name"> Los Angeles</div>
+          <input class="input-wrapper" placeholder="Los Angeles" />
         </div>
 
         <div class="user-info-container">
           <div class="info-title"> State</div>
-          <div class="user-role-name"> AL</div>
+          <input class="input-wrapper" placeholder="LA" />
         </div>
       </div>
     </div>
@@ -89,15 +82,13 @@
       <div class="item-container-header flex-wrap">
         <div class="title">{{'technologies.technologiesLabel' | translate}}</div>
         <button class="button-primary"
-                (click)="openTechnologyDialog()"
-                mat-raised-button>
+                (click)="openTechnologyDialog()">
           <mat-icon [svgIcon]="'edit'"></mat-icon>
         </button>
       </div>
       <div class="d-flex column-gap-0-4 flex-wrap row-gap-0-4">
         <div class="technology-item-container"
-             *ngFor="let item of technologiesListConstant"
-             [ngStyle]="getStyleForTechnologies(item.code)">
+             *ngFor="let item of technologiesListConstant">
           {{ item.name | translate }}
         </div>
       </div>
@@ -109,15 +100,13 @@
       <div class="item-container-header">
         <div class="title">{{ 'frameworks.frameworksLabel' | translate }}</div>
         <button class="button-primary"
-                (click)="openFrameworkDialog()"
-                mat-raised-button>
+                (click)="openFrameworkDialog()">
           <mat-icon [svgIcon]="'edit'"></mat-icon>
         </button>
       </div>
       <div class="d-flex column-gap-0-4 flex-wrap row-gap-0-4">
         <div class="technology-item-container"
-             *ngFor="let item of frameworkListConstant"
-             [ngStyle]="getStyleForFrameworks(item.code)">
+             *ngFor="let item of frameworkListConstant">
           {{ item.name | translate }}
         </div>
       </div>

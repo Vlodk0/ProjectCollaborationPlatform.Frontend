@@ -3,6 +3,7 @@ import {TechnologyInterface} from "../project/technology.interface";
 import {FrameworkInterface} from "../project/framework.interface";
 
 export interface DeveloperInterface {
+  id: string
   firstName: string;
   lastName: string;
   email: string;

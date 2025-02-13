@@ -1,3 +1,5 @@
+@import "../../../../styles/variables";
+
 .wrapper {
   display: flex;
   height: 100vh;
@@ -5,6 +7,8 @@
   background-size: 200px;
   overflow: auto;
   background-color: black;
+  background-image: url('external/elipse-2.svg');
+  background-position: top 50px right 100px;
 }
 
 .left-container {
@@ -45,6 +49,7 @@
   display: flex;
   width: 100%;
   justify-content: space-around;
+  align-items: center;
 }
 
 .subtitle-container {
@@ -63,6 +68,11 @@
     font-weight: 400;
     line-height: 45px;
   }
+}
+
+.switcher-container {
+  padding: 4px;
+  margin: 14px;
 }
 
 .form {
@@ -144,12 +154,7 @@
   .login-button {
     width: 100%;
     padding: 14px 10px;
-    background: linear-gradient(
-        142deg,
-        rgba(45, 76, 238, 1) 0%,
-        rgba(33, 30, 191, 1) 53%,
-        rgba(3, 15, 116, 1) 100%
-    );
+    background: $blue-linear-gradient-color;
     border-radius: 12px;
     color: azure;
     height: auto;

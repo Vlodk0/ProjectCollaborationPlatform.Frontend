@@ -1,9 +1,10 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {CustomValidators} from "../../../shared/helpers/validators/customValidators";
 import {AuthService} from "../../../shared/services/auth.service";
 import {Register} from "../../../shared/interfaces/register";
-import {catchError, of, Subscription} from "rxjs";
+import {catchError, finalize, of} from "rxjs";
+import {ApplicationRoleEnum} from "../../../core/enums/application-role.enum";
+import {SpinnerService} from "../../../shared/services/spinner.service";
 
 @Component({
   selector: 'app-register-page',
@@ -12,9 +13,12 @@ import {catchError, of, Subscription} from "rxjs";
   providers: [AuthService]
 })
 export class RegisterPageComponent implements OnInit {
-
   registerForm!: FormGroup
   private isRegistered: boolean;
+
+  constructor(private authService: AuthService,
+              private spinnerService: SpinnerService) {
+  }
 
   addSuccessMessage() {
     //this.messageService.add({severity:'success', summary:'Email has sent!'});
@@ -28,15 +32,13 @@ export class RegisterPageComponent implements OnInit {
     //this.messageService.add({severity:'error', summary:'Server error "-505"'});
   }
 
-  constructor(private authService: AuthService) {
-  }
-
   ngOnInit() {
     this.setForm();
   }
 
 
   onSubmit() {
+    this.spinnerService.showSpinner();
     if (this.registerForm.valid) {
       console.log(this.registerForm.value);
     }
@@ -45,7 +47,7 @@ export class RegisterPageComponent implements OnInit {
       name: this.registerForm.value.email,
       email: this.registerForm.value.email,
       password: this.registerForm.value.password,
-      roleName: this.registerForm.value.checked === false ? "ProjectOwner" : "Dev"
+      roleName: this.registerForm.value.checked ? ApplicationRoleEnum.Dev : ApplicationRoleEnum.ProjectOwner
     }
 
 
@@ -60,7 +62,8 @@ export class RegisterPageComponent implements OnInit {
             console.log("error", err.status)
           }
           return of(err);
-        })
+        }),
+        finalize(() => this.spinnerService.hideSpinner())
       )
       .subscribe((res:any) => {
         this.isRegistered = res;

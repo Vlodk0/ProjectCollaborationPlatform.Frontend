@@ -1,4 +1,5 @@
 export interface CreateDeveloper {
   firstName: string,
-  lastName: string
+  lastName: string,
+  email: string
 }

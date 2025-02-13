@@ -33,18 +33,6 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
   public technologiesListConstant = technologiesListConstant;
   public frameworkListConstant = frameworkListConstant;
 
-  public technologyColors = {
-    ["C#"]: 'gray',
-    ["Python"]: 'pink',
-    ["Java"]: 'blue'
-  };
-  public frameworkColors = {
-    ["ASP.NET Core"]: 'gray',
-    ["Angular"]: 'pink',
-    ["React"]: 'blue'
-  };
-
-
   isSubscribe: Subject<void> = new Subject<void>()
 
   technologies: Technology[];
@@ -82,13 +70,6 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
         error: err =>
           console.log(err)
       })
-  }
-
-  public getStyleForTechnologies(code: string): { background: string } {
-    return { background: this.technologyColors[code] || 'black' };
-  }
-  public getStyleForFrameworks(code: string): { background: string } {
-    return { background: this.frameworkColors[code] || 'black' };
   }
 
   loadUser(): void {

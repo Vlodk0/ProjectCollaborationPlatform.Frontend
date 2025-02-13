@@ -1,0 +1,83 @@
+<div class="modal-wrapper">
+  <div class="page-title">{{
+      data?.taskId ?
+        ('myProject.updateTaskLabel' | translate) :
+        ('myProject.addNewTaskLabel' | translate)
+    }}
+  </div>
+
+  <div class="input-container m-t-2-4" [formGroup]="projectTaskForm">
+
+    <mat-form-field appearance="outline" class="input-container-item-large">
+      <mat-label>{{ 'myProject.taskLabel' | translate }}</mat-label>
+
+      <input formControlName="taskName" matInput/>
+
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="textarea w-100">
+      <mat-label>{{ 'myProject.descriptionLabel' | translate }}</mat-label>
+
+      <textarea formControlName="description" matInput rows="5"></textarea>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline"
+                    class="input-container-item-large">
+      <mat-label>{{ 'myProject.taskTypeLabel' | translate }}</mat-label>
+
+      <mat-select formControlName="label">
+        <mat-option *ngFor="let type of taskLabelTypeListConstant"
+                    [value]="type.value">
+          {{ type?.label | translate }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline"
+                    *ngIf="data?.taskId"
+                    class="input-container-item-large">
+      <mat-label>{{ 'myProject.developerLabel' | translate }}</mat-label>
+
+      <mat-select>
+        <mat-option *ngFor="let dev of data?.developers"
+                    [value]="dev.id">
+          {{ dev?.firstName + '' + dev?.lastName }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div class="button-container justify-content-space-between w-100 flex-wrap">
+      <button mat-dialog-close
+              class="transparent-button"
+              mat-button>
+        {{ 'general.cancelLabel' | translate }}
+      </button>
+
+      <ng-container *ngIf="data?.taskId; else addButtonTemplate">
+        <div class="d-flex column-gap-0-4">
+          <button class="button-red"
+                  (click)="deleteProjectTask()"
+                  mat-button>
+            {{ 'general.removeLabel' | translate }}
+          </button>
+
+          <button class="button-purple"
+                  (click)="updateProjectTask()"
+                  [disabled]="!projectTaskForm.valid"
+                  mat-button>
+            {{ 'general.editLabel' | translate }}
+          </button>
+        </div>
+      </ng-container>
+
+      <ng-template #addButtonTemplate>
+        <button class="button-purple"
+                (click)="addProjectTask()"
+                [disabled]="!projectTaskForm.valid"
+                mat-button>
+          {{ 'general.saveLabel' | translate }}
+        </button>
+      </ng-template>
+    </div>
+  </div>
+</div>

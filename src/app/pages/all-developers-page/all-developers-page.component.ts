@@ -1,16 +1,16 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {PaginationDeveloper} from "../../shared/interfaces/pagination-developer";
 import {DeveloperTechnology} from "../../shared/interfaces/developer-technology";
-import {Subject, takeUntil} from "rxjs";
+import {finalize, Subject, takeUntil} from "rxjs";
 import {PaginationFilterDevs} from "../../shared/interfaces/pagination-filter-devs";
 import {DeveloperService} from "../../shared/services/developer.service";
 import {ProjectInfo} from "../../shared/interfaces/project-info";
 import {ProjectsService} from "../../shared/services/projects.service";
-import {technologiesListConstant} from "../../core/constants/technology-list.constant";
 import {GetUser} from "../../shared/interfaces/get-user";
 import {UserService} from "../../shared/services/user.service";
-import {ProjectInterface} from "../../shared/interfaces/project/project.interface";
-import {PageProjectInterface} from "../../shared/interfaces/project/page-project.interface";
+import {SpinnerService} from "../../shared/services/spinner.service";
+import {DeveloperInterface} from "../../shared/interfaces/developer/developer.interface";
+import {NotificationService} from "../../shared/services/notification.service";
 
 @Component({
   selector: 'app-all-developers-page',
@@ -19,25 +19,17 @@ import {PageProjectInterface} from "../../shared/interfaces/project/page-project
 })
 export class AllDevelopersPageComponent implements OnDestroy, OnInit {
   visible: boolean = false;
-  addDevVisible: boolean = false;
-  developers: PaginationDeveloper[];
   technologies: DeveloperTechnology[];x
-  projectDropDownItems: PageProjectInterface[];
-  isSubscribe: Subject<void> = new Subject<void>()
   selectedProjects: ProjectInfo;
   selectedDeveloper: PaginationDeveloper | undefined
 
-  public technologiesListConstant = technologiesListConstant;
+  public isLoadingDevelopers = true;
+  public developers: DeveloperInterface[] = []
 
-  public technologyColors = {
-    ["C#"]: 'gray',
-    ["Python"]: 'pink',
-    ["JavaScript"]: 'blue'
-  };
+  private developersCurrentPage: number = 0;
+  private totalDevelopers: number = 0;
 
-  public getStyleForTechnologies(code: string): { background: string } {
-    return { background: this.technologyColors[code] || 'black' };
-  }
+  private unsubscribe$: Subject<void> = new Subject<void>();
 
   paginationFilter: PaginationFilterDevs = {
     pageNumber: 0,
@@ -53,18 +45,26 @@ export class AllDevelopersPageComponent implements OnDestroy, OnInit {
     isDeleted: false
   }
 
-  constructor(private developerService: DeveloperService,
-              private projectService: ProjectsService,
-              private userService: UserService) {
+  constructor(private readonly developerService: DeveloperService,
+              private readonly projectService: ProjectsService,
+              private readonly userService: UserService,
+              private readonly spinnerService: SpinnerService,
+              private readonly notificationService: NotificationService) {
   }
 
   ngOnInit() {
     this.getUser();
+    this.getDevelopers();
+  }
+
+  ngOnDestroy() {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 
   getUser() {
     this.userService.getUser()
-      .pipe(takeUntil(this.isSubscribe))
+      .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: value => {
           this.user = value;
@@ -87,7 +87,7 @@ export class AllDevelopersPageComponent implements OnDestroy, OnInit {
     console.log(this.selectedProjects.id)
     console.log(this.selectedDeveloper.id)
     this.projectService.addDevelopersOnProject(this.selectedProjects.id, [this.selectedDeveloper.id])
-      .pipe(takeUntil(this.isSubscribe))
+      .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: () => {
           //this.messageService.add({severity:'success', summary:'Developer added'});
@@ -103,18 +103,41 @@ export class AllDevelopersPageComponent implements OnDestroy, OnInit {
     this.visible = true
   }
 
-  // showAddingDevDialog() {
-  //   this.addDevVisible = true
-  //   this.projectService.getProjectOwnerProjects()
-  //     .pipe(
-  //       takeUntil(this.isSubscribe)
-  //     )
-  //     .subscribe({
-  //       next: value => this.projectDropDownItems = value
-  //     })
-  // }
-  ngOnDestroy() {
-    this.isSubscribe.next();
-    this.isSubscribe.complete();
+  public loadingDevelopers(resetPage: boolean) {
+    if (resetPage) {
+      this.getDevelopers(false);
+    } else if (this.totalDevelopers > this.developers.length && !this.isLoadingDevelopers) {
+      this.getDevelopers(true);
+    }
+  }
+
+  private getDevelopers(onScroll = false): void {
+    this.spinnerService.showSpinner();
+
+    if (!onScroll) {
+      this.developersCurrentPage = 0;
+    }
+
+    this.isLoadingDevelopers = true;
+
+    this.developerService.getDevelopers(this.developersCurrentPage, 20)
+      .pipe(finalize(() => {
+        this.isLoadingDevelopers = false;
+        this.spinnerService.hideSpinner();
+      }),
+      takeUntil(this.unsubscribe$))
+      .subscribe({
+        next: result => {
+          this.totalDevelopers = result.total;
+          this.developersCurrentPage++;
+
+          if (onScroll) {
+            this.developers.push(...result.items);
+          } else {
+            this.developers = result.items;
+          }
+        },
+        error: (error) => this.notificationService.showErrorNotification(error?.error?.detail)
+      })
   }
 }

@@ -89,4 +89,8 @@ export class ProjectsService {
   public deleteProject(id: string) {
     return this.httpClient.delete(this.apiUrl + `/${id}`)
   }
+
+  public addDeveloperToProject(projectId: string, devId: string[]): Observable<void> {
+    return this.httpClient.post<void>(this.apiUrl + `/developers/${projectId}`, devId)
+  }
 }

@@ -4,12 +4,13 @@
   padding: 10px;
   height: 100%;
   width: 25rem;
-  background-color: #1A1C22;
+  background-color: #0C0E12;
 
   .vc-sidebar-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    border-bottom: 1px solid #373639;
 
     img {
       width: 17rem;

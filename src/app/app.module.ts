@@ -67,6 +67,11 @@ import {TechnologyDialogComponent} from "./shared/components/dialogs/technology-
 import { ProjectTypeLabelPipe } from './core/pipes/project-type-label.pipe';
 import { ProjectTimeDurationLabelPipe } from './core/pipes/project-time-duration-label.pipe';
 import {MatTableModule} from "@angular/material/table";
+import { ProjectTaskCardComponent } from './pages/cards/project-task-card/project-task-card.component';
+import {ProjectTaskDialogComponent} from "./shared/components/dialogs/project-task/project-task-dialog.component";
+import {ProjectTaskLabelPipe} from "./core/pipes/project-task-label.pipe";
+import {DragDropModule} from "@angular/cdk/drag-drop";
+import {MatSlideToggle} from "@angular/material/slide-toggle";
 
 export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -79,6 +84,7 @@ const MODULES = [
   MatTableModule,
   MatCheckboxModule,
   MatSelectModule,
+  DragDropModule,
   MatTabsModule,
   MatProgressSpinner,
   AppRoutingModule,
@@ -117,6 +123,7 @@ const MODULES = [
     DeveloperProfileComponent,
     UserPersonalInfoDialogComponent,
     UserAddressDialogComponent,
+    ProjectTaskDialogComponent,
     AuthPageComponent,
     AfterRegisterPageComponent,
     InputComponent,
@@ -145,12 +152,15 @@ const MODULES = [
     CreateProjectComponent,
     LocalDatePipe,
     ProjectTypeLabelPipe,
-    ProjectTimeDurationLabelPipe
+    ProjectTimeDurationLabelPipe,
+    ProjectTaskCardComponent,
+    ProjectTaskLabelPipe
   ],
   imports: [
     ...MODULES,
     MatDialogClose,
-    MatDivider
+    MatDivider,
+    MatSlideToggle
   ],
   providers: [
     {

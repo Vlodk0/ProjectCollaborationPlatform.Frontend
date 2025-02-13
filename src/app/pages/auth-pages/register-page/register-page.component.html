@@ -1,5 +1,5 @@
 
-<div class="wrapper">
+<div class="wrapper" [formGroup]="registerForm">
   <div class="left-container">
 
     <div class="container-items">
@@ -9,6 +9,9 @@
         <div class="subtitle-container">
           <h2 class="subtitle">project owner</h2>
         </div>
+        <mat-slide-toggle class="switcher-container"
+                          [hideIcon]="true"
+                          formControlName="checked" />
         <div class="subtitle-container">
           <h2 class="subtitle">developer</h2>
         </div>
@@ -17,7 +20,7 @@
   </div>
 
   <div class="right-container">
-    <div class="form" [formGroup]="registerForm">
+    <div class="form">
       <div class="form-container">
         <div class="form-text-container">
           <div class="form-title">{{ "authPages.registerPage.signUpLabel" | translate }}</div>
@@ -73,7 +76,7 @@
         </div>
 
         <div class="footer-container">
-          <a class="transparent-button">{{ "authPages.registerPage.alreadyRegisteredLabel" | translate }}</a>
+          <a [routerLink]="'/signin'" class="transparent-button">{{ "authPages.registerPage.alreadyRegisteredLabel" | translate }}</a>
         </div>
       </div>
 

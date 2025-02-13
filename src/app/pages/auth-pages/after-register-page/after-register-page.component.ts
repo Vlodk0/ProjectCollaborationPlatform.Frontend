@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {CreateProjectOwner} from "../../../shared/interfaces/create-project-owner";
+import {CreateProjectOwner} from "../../../shared/interfaces/user/create-project-owner";
 import {AuthService} from "../../../shared/services/auth.service";
 import {Router} from "@angular/router";
 
@@ -34,6 +34,7 @@ export class AfterRegisterPageComponent implements OnInit{
     let afterEmailVerifyObj: CreateProjectOwner = {
       firstName: this.afterRegisterForm.value,
       lastName: this.afterRegisterForm.value,
+      email: this.afterRegisterForm.value,
     }
 
     // this.authService.isUserAdded(afterEmailVerifyObj.email);

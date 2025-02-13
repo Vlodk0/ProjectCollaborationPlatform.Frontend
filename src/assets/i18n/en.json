@@ -9,7 +9,9 @@
     "cancelLabel": "Cancel",
     "editLabel": "Edit",
     "fullNameLabel": "Full Name",
-    "actionLabel": "Action"
+    "actionLabel": "Action",
+    "addLabel": "Add",
+    "inviteLabel": "Invite"
   },
 
   "profileSettings": {
@@ -149,7 +151,16 @@
     "summaryLabel": "Summary",
     "teamLabel": "Team",
     "locationLabel": "Location",
-    "boardLabel": "Board"
+    "boardLabel": "Board",
+    "todoLabel": "TODO",
+    "doingLabel": "DOING",
+    "doneLabel": "DONE",
+    "taskLabel": "Task",
+    "descriptionLabel": "Description",
+    "taskTypeLabel": "Label",
+    "addNewTaskLabel": "Add new task",
+    "updateTaskLabel": "Update task",
+    "developerLabel": "Developer"
   },
   "projectType": {
     "webApplicationLabel": "Web Application",
@@ -170,5 +181,11 @@
     "bioLabel": "Bio",
     "aboutLabel": "About",
     "emailLabel": "Email"
+  },
+  "taskLabelType": {
+    "apiLabel": "API",
+    "webLabel": "WEB",
+    "mobileLabel": "Mobile",
+    "devopsLabel": "DevOps"
   }
 }

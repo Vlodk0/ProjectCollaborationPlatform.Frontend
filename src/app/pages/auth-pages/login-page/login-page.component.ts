@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../../../shared/services/auth.service";
 import {Login} from "../../../shared/interfaces/login";
-import {CreateProjectOwner} from "../../../shared/interfaces/create-project-owner";
+import {CreateProjectOwner} from "../../../shared/interfaces/user/create-project-owner";
 import {Router} from "@angular/router";
 import {CreateDeveloper} from "../../../shared/interfaces/create-developer";
 import {catchError, of, switchMap, throwError} from "rxjs";
@@ -47,7 +47,7 @@ export class LoginPageComponent implements OnInit {
               catchError(err => {
                 if (err instanceof HttpErrorResponse)
                   if (err.status === 404) {
-                    if (err.error.detail === 'Dev with such id is not found')
+                    if (err.error.detail === 'Developer was not found')
                       this.addDeveloper()
                     else if (err.error.detail === 'Project Owner with such id is not found') this.addProjectOwner()
                   } else if (err.status === 401) {
@@ -84,8 +84,9 @@ export class LoginPageComponent implements OnInit {
   }
   private addProjectOwner() {
     let userObj: CreateProjectOwner = {
-      firstName: "Amanda",
-      lastName: "Rose"
+      firstName: localStorage.getItem("firstName"),
+      lastName: localStorage.getItem("lastName"),
+      email: "",
     }
     this.authService.createProjectOwner(userObj)
   }
@@ -94,6 +95,7 @@ export class LoginPageComponent implements OnInit {
     let userObj: CreateDeveloper = {
       firstName: localStorage.getItem("firstName"),
       lastName: localStorage.getItem("lastName"),
+      email: ""
     }
     this.authService.createDev(userObj)
   }

@@ -6,6 +6,7 @@ import {Subject, takeUntil} from "rxjs";
 import {MatDrawerMode} from "@angular/material/sidenav";
 import {IconRegistry} from "../../services/general/icon.registry.service";
 import {UserService} from "../../services/user.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'collabro-root',
@@ -17,7 +18,8 @@ export class RootComponent implements OnInit, OnDestroy {
   constructor(private readonly userService: UserService,
               private readonly matIconRegistry: MatIconRegistry,
               private readonly domSanitizer: DomSanitizer,
-              private readonly breakPointObserver: BreakpointObserver) {
+              private readonly breakPointObserver: BreakpointObserver,
+              private readonly router: Router) {
   }
 
   public sidebarExpanded = false;
@@ -31,7 +33,7 @@ export class RootComponent implements OnInit, OnDestroy {
     IconRegistry.register(this.matIconRegistry, this.domSanitizer);
     this.listenToDynamicSidebarModeChange();
     this.userService.initUser();
-    //this.router.navigate(['/signin']);
+    //this.router.navigate(['/signup']);
   }
 
   public ngOnDestroy(): void {
