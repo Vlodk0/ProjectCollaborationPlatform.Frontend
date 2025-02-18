@@ -72,6 +72,17 @@ import {ProjectTaskDialogComponent} from "./shared/components/dialogs/project-ta
 import {ProjectTaskLabelPipe} from "./core/pipes/project-task-label.pipe";
 import {DragDropModule} from "@angular/cdk/drag-drop";
 import {MatSlideToggle} from "@angular/material/slide-toggle";
+import {ChooseProjectDialogComponent} from "./shared/components/dialogs/choose-project/choose-project-dialog.component";
+import {FeedbackDialogComponent} from "./shared/components/dialogs/feedback/feedback-dialog.component";
+import { ProjectSummaryComponent } from './pages/project-summary/project-summary.component';
+import {
+  ProjectOverviewSectionComponent
+} from "./pages/project-page/project-overview-section/project-overview-section.component";
+import {ProjectTeamSectionComponent} from "./pages/project-page/project-team-section/project-team-section.component";
+import {ProjectBoardSectionComponent} from "./pages/project-page/project-board-section/project-board-section.component";
+import {
+  ProjectRequestsSectionComponent
+} from "./pages/project-page/project-requests-section/project-requests-section.component";
 
 export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -118,9 +129,15 @@ const MODULES = [
     FrameworkDialogComponent,
     TechnologyDialogComponent,
     RootComponent,
+    ChooseProjectDialogComponent,
+    FeedbackDialogComponent,
     DeveloperInfoDialogComponent,
     DeveloperCommentsComponent,
     DeveloperProfileComponent,
+    ProjectOverviewSectionComponent,
+    ProjectTeamSectionComponent,
+    ProjectBoardSectionComponent,
+    ProjectRequestsSectionComponent,
     UserPersonalInfoDialogComponent,
     UserAddressDialogComponent,
     ProjectTaskDialogComponent,
@@ -154,7 +171,8 @@ const MODULES = [
     ProjectTypeLabelPipe,
     ProjectTimeDurationLabelPipe,
     ProjectTaskCardComponent,
-    ProjectTaskLabelPipe
+    ProjectTaskLabelPipe,
+    ProjectSummaryComponent
   ],
   imports: [
     ...MODULES,

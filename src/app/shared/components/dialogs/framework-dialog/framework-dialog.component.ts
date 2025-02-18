@@ -2,8 +2,12 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {TechnologyInterface} from "../../../interfaces/project/technology.interface";
 import {FrameworkInterface} from "../../../interfaces/project/framework.interface";
 import {FrameworkService} from "../../../services/framework.service";
-import {Subject, takeUntil} from "rxjs";
+import {finalize, Subject, takeUntil} from "rxjs";
 import {FormBuilder, FormGroup} from "@angular/forms";
+import {DeveloperFrameworkService} from "../../../services/developer-framework.service";
+import {SpinnerService} from "../../../services/spinner.service";
+import {NotificationService} from "../../../services/notification.service";
+import {MatDialogRef} from "@angular/material/dialog";
 
 @Component({
   selector: 'collabro-framework-dialog',
@@ -22,6 +26,10 @@ export class FrameworkDialogComponent implements OnInit, OnDestroy {
   public thirdFrameworkColumn: FrameworkInterface[] = [];
 
   constructor(private readonly frameworkService: FrameworkService,
+              private readonly developerFrameworkService: DeveloperFrameworkService,
+              private readonly spinnerService: SpinnerService,
+              private readonly notificationService: NotificationService,
+              private readonly dialogRef: MatDialogRef<FrameworkDialogComponent>,
               private readonly fb: FormBuilder) {
   }
 
@@ -33,6 +41,22 @@ export class FrameworkDialogComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.setForm();
     this.getFrameworks();
+  }
+
+  public addFrameworksForDeveloper(): void {
+    this.spinnerService.showSpinner()
+
+    this.developerFrameworkService.addFrameworksForDeveloper(this.projectForm.value)
+      .pipe(
+        finalize(() => this.spinnerService.hideSpinner()),
+        takeUntil(this.unsubscribe$))
+      .subscribe({
+        next: () => {
+          this.notificationService.showSuccessNotification();
+          this.dialogRef.close();
+        },
+        error: (error) => this.notificationService.showErrorNotification(error?.error?.detail)
+      })
   }
 
   public onFrameworkCheckboxChange(id: string, isChecked: boolean): void {

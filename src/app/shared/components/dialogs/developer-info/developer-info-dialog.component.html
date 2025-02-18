@@ -9,7 +9,11 @@
     </mat-tab>
 
     <mat-tab label="{{'developers.feedbacksLabel' | translate}}">
-      <collabro-developer-comments/>
+      <collabro-paginator class="h-100">
+        <collabro-developer-comments (loadData)="loadingFeedbacks($event)"
+                                     [developerId]="data?.developer?.id"
+                                     [feedbacks]="feedbacks"/>
+      </collabro-paginator>
     </mat-tab>
   </mat-tab-group>
 </div>
@@ -19,6 +23,7 @@
     {{ 'general.cancelLabel' | translate }}
   </button>
   <button class="button-purple big-button"
+          (click)="openProjectsDialog(data?.developer.id)"
           mat-button>{{ 'general.inviteLabel' | translate }}
   </button>
 </div>

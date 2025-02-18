@@ -37,6 +37,10 @@ const routes: Routes = [
         path: 'my-project/:id',
         loadChildren: () => import('../../../pages/project-page/project-page-routing.module').then(r => r.ProjectPageRoutingModule)
       },
+      {
+        path: 'project/:id',
+        loadChildren: () => import('../../../pages/project-summary/project-summary.routing.module').then(r => r.ProjectSummaryRoutingModule)
+      },
     ],
   },
 ];

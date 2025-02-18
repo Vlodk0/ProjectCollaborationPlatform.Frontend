@@ -45,3 +45,17 @@
     </div>
   </div>
 </div>
+
+<div class="button-container justify-content-space-between w-100 flex-wrap">
+  <button mat-dialog-close
+          class="transparent-button"
+          mat-button>
+    {{ 'general.cancelLabel' | translate }}
+  </button>
+
+  <button class="button-purple"
+          (click)="addFrameworksForDeveloper()"
+          mat-button>
+    {{ 'general.saveLabel' | translate }}
+  </button>
+</div>

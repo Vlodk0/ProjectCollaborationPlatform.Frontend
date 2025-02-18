@@ -12,6 +12,7 @@ import {
   CreateFunctionalityBlockInterface
 } from "../../../interfaces/functionality-block/create-functionality-block.interface";
 import {DeveloperInterface} from "../../../interfaces/developer/developer.interface";
+import {FunctionalityBlockInterface} from "../../../interfaces/project/functionality-block.interface";
 
 @Component({
   selector: 'collabro-project-task',
@@ -31,7 +32,7 @@ export class ProjectTaskDialogComponent implements OnDestroy, OnInit {
               private readonly dialogRef: MatDialogRef<ProjectTaskDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: {
                 projectId: string,
-                taskId: string,
+                task: FunctionalityBlockInterface,
                 taskName: string,
                 description: string,
                 label: TaskLabelType,
@@ -42,6 +43,7 @@ export class ProjectTaskDialogComponent implements OnDestroy, OnInit {
 
   ngOnInit(): void {
     this.setForm();
+    console.log(this.data)
   }
 
   public ngOnDestroy(): void {
@@ -68,7 +70,7 @@ export class ProjectTaskDialogComponent implements OnDestroy, OnInit {
   public updateProjectTask(): void {
     this.spinnerService.showSpinner();
 
-    this.functionalityBlockService.updateFunctionalityBlock(this.projectTaskForm.value as CreateFunctionalityBlockInterface, this.data.taskId)
+    this.functionalityBlockService.updateFunctionalityBlock(this.projectTaskForm.value as CreateFunctionalityBlockInterface, this.data?.task?.id)
       .pipe(
         finalize(() => this.spinnerService.hideSpinner()),
         takeUntil(this.unsubscribe$))
@@ -84,7 +86,7 @@ export class ProjectTaskDialogComponent implements OnDestroy, OnInit {
   public deleteProjectTask(): void {
     this.spinnerService.showSpinner();
 
-    this.functionalityBlockService.deleteFunctionalityBlock(this.data.taskId)
+    this.functionalityBlockService.deleteFunctionalityBlock(this.data?.task?.id)
       .pipe(
         finalize(() => this.spinnerService.hideSpinner()),
         takeUntil(this.unsubscribe$))
@@ -98,15 +100,18 @@ export class ProjectTaskDialogComponent implements OnDestroy, OnInit {
   }
 
   public assignProjectTask(developerId: string): void {
+    if (!developerId) return;
+
     this.spinnerService.showSpinner();
 
-    this.functionalityBlockService.assignProjectTask(this.data.taskId, developerId)
+    this.functionalityBlockService.assignProjectTask(this.data?.task?.id, developerId)
       .pipe(
         finalize(() => this.spinnerService.hideSpinner()),
         takeUntil(this.unsubscribe$))
       .subscribe({
         next: () => {
           this.notificationService.showSuccessNotification();
+          this.dialogRef.close(true);
         },
         error: (error) => this.notificationService.showErrorNotification(error?.error?.detail)
       });
@@ -119,7 +124,7 @@ export class ProjectTaskDialogComponent implements OnDestroy, OnInit {
       label: this.fb.control<TaskLabelType>(null, Validators.required)
     });
 
-    if (this.data?.taskId) {
+    if (this.data?.task?.id) {
       this.projectTaskForm.patchValue({
         taskName: this.data.taskName,
         description: this.data.description,

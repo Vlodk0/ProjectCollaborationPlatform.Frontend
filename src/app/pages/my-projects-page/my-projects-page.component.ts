@@ -85,26 +85,6 @@ export class MyProjectsPageComponent implements OnDestroy, OnInit {
       })
   }
 
-  showProjectCreationDialog() {
-    this.creationVisible = true
-  }
-  //
-  // loadProjects($event: TableLazyLoadEvent) {
-  //   console.log($event);
-  //
-  //   this.paginationFilter.pageNumber = $event.first || 0;
-  //   this.paginationFilter.pageSize = $event.rows || 10;
-  //   this.paginationFilter.sortColumn = $event.sortField?.toString() || "Payment";
-  //   this.paginationFilter.sortDirection = $event.sortOrder || 1;
-  //
-  //   this.userService.getAllProjects(this.paginationFilter)
-  //     .pipe(takeUntil(this.isSubscribe))
-  //     .subscribe(response => {
-  //       this.projects = response.data;
-  //       this.totalRecords = response.totalRecords;
-  //     })
-  // }
-
   public loadingProjects(resetPage: boolean) {
     if (resetPage) {
       this.getProjectOwnerProjects(false);

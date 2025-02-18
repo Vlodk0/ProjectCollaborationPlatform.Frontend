@@ -1,9 +1,12 @@
-import {Component, OnDestroy} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {PaginationFilter} from "../../shared/interfaces/pagination-filter";
 import {ProjectsService} from "../../shared/services/projects.service";
-import {ProjectPagination} from "../../shared/interfaces/project-pagination";
-import {Subject, takeUntil} from "rxjs";
-import {DeveloperTechnology} from "../../shared/interfaces/developer-technology";
+import {finalize, Subject, takeUntil} from "rxjs";
+import {ProjectInterface} from "../../shared/interfaces/project/project.interface";
+import {SpinnerService} from "../../shared/services/spinner.service";
+import {NotificationService} from "../../shared/services/notification.service";
+import {UserService} from "../../shared/services/user.service";
+import {GetUser} from "../../shared/interfaces/get-user";
 
 @Component({
   selector: 'app-all-projects-page',
@@ -12,14 +15,15 @@ import {DeveloperTechnology} from "../../shared/interfaces/developer-technology"
   providers: [ProjectsService]
 })
 
-export class AllProjectsPageComponent implements OnDestroy {
-  visible: boolean = false;
-  projects: ProjectPagination[];
-  totalRecords: number = 1;
-  technologies: DeveloperTechnology[];
-  public avatarSize: number = 48;
+export class AllProjectsPageComponent implements OnDestroy, OnInit {
+  public isLoadingProjects = true;
+  public projects: ProjectInterface[] = [];
+  public user: GetUser = null;
 
-  isSubscribe: Subject<void> = new Subject<void>()
+  private projectsCurrentPage: number = 0;
+  private totalProjects: number = 0;
+
+  private unsubscribe$: Subject<void> = new Subject<void>();
 
   paginationFilter: PaginationFilter = {
     pageNumber: 0,
@@ -29,33 +33,70 @@ export class AllProjectsPageComponent implements OnDestroy {
   }
 
 
-  constructor(private projectService: ProjectsService) {
+  constructor(private readonly projectService: ProjectsService,
+              private readonly spinnerService: SpinnerService,
+              private readonly notificationService: NotificationService,
+              private readonly userService: UserService) {
   }
 
-  showDialog(technologies: DeveloperTechnology[]) {
-    this.technologies = technologies
-    this.visible = true
+  ngOnInit(): void {
+    this.getProjects()
+    this.subscribeToCurrentUser();
   }
-
-  // loadProjects($event: TableLazyLoadEvent) {
-  //   console.log($event);
-  //
-  //   this.paginationFilter.pageNumber = $event.first || 0;
-  //   this.paginationFilter.pageSize = $event.rows || 10;
-  //   this.paginationFilter.sortColumn = $event.sortField?.toString() || "Payment";
-  //   this.paginationFilter.sortDirection = $event.sortOrder || 1;
-  //
-  //   this.projectService.getAllProjects(this.paginationFilter)
-  //     .pipe(takeUntil(this.isSubscribe))
-  //     .subscribe(response => {
-  //       this.projects = response.data;
-  //       this.totalRecords = response.totalRecords;
-  //     })
-  // }
 
   ngOnDestroy() {
-    this.isSubscribe.next();
-    this.isSubscribe.complete();
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
+  }
+
+  public subscribeToCurrentUser(): void {
+    this.userService.currentUser$
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe({
+        next: user => {
+          this.user = user;
+          console.log(this.user.id);
+        }
+      });
+  }
+
+  public loadingProjects(resetPage: boolean) {
+    if (resetPage) {
+      this.getProjects(false);
+    } else if (this.totalProjects > this.projects.length && !this.isLoadingProjects) {
+      this.getProjects(true);
+    }
+  }
+
+  private getProjects(onScroll = false): void {
+    this.spinnerService.showSpinner();
+
+    if (!onScroll) {
+      this.projectsCurrentPage = 0;
+    }
+
+    this.isLoadingProjects = true;
+
+    this.projectService.getProjects(this.projectsCurrentPage, 20)
+      .pipe(finalize(() => {
+          this.isLoadingProjects = false;
+          this.spinnerService.hideSpinner();
+        }),
+        takeUntil(this.unsubscribe$))
+      .subscribe({
+        next: result => {
+          this.totalProjects = result.total;
+          this.projectsCurrentPage++;
+
+          if (onScroll) {
+            this.projects.push(...result.items);
+          } else {
+            this.projects = result.items;
+          }
+
+        },
+        error: (error) => this.notificationService.showErrorNotification(error?.error?.detail)
+      })
   }
 }
 

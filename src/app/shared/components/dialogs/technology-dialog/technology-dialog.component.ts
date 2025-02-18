@@ -1,8 +1,12 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {TechnologyInterface} from "../../../interfaces/project/technology.interface";
-import {Subject, takeUntil} from "rxjs";
+import {finalize, Subject, takeUntil} from "rxjs";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {TechnologyService} from "../../../services/technology.service";
+import {SpinnerService} from "../../../services/spinner.service";
+import {NotificationService} from "../../../services/notification.service";
+import {DeveloperTechnologyService} from "../../../services/developer-technology.service";
+import {MatDialogRef} from "@angular/material/dialog";
 
 @Component({
   selector: 'collabro-technology-dialog',
@@ -14,13 +18,16 @@ export class TechnologyDialogComponent implements OnInit, OnDestroy {
 
   public technologies: TechnologyInterface[] = [];
   public projectForm: FormGroup;
-
   public firstTechnologyColumn: TechnologyInterface[] = [];
   public secondTechnologyColumn: TechnologyInterface[] = [];
   public thirdTechnologyColumn: TechnologyInterface[] = [];
 
   constructor(private readonly fb: FormBuilder,
-              private readonly technologyService: TechnologyService) {
+              private readonly technologyService: TechnologyService,
+              private readonly spinnerService: SpinnerService,
+              private readonly notificationService: NotificationService,
+              private readonly dialogRef: MatDialogRef<TechnologyDialogComponent>,
+              private readonly developerTechnologyService: DeveloperTechnologyService) {
   }
 
   ngOnDestroy(): void {
@@ -34,16 +41,16 @@ export class TechnologyDialogComponent implements OnInit, OnDestroy {
   }
 
   public onTechnologyCheckboxChange(id: string, isChecked: boolean): void {
-    const currentIds: string[] = this.projectForm.get('technologyIds').value;
+    const currentIds: string[] = this.projectForm.get('technologiesIds').value;
     const updatedIds = isChecked
       ? [...currentIds, id]
       : currentIds.filter(currentId => currentId !== id);
-    this.projectForm.get('technologyIds').setValue(updatedIds);
+    this.projectForm.get('technologiesIds').setValue(updatedIds);
   }
 
   private setForm(): void {
     this.projectForm = this.fb.group({
-      technologyIds: this.fb.control<string[]>([])
+      technologiesIds: this.fb.control<string[]>([])
     })
   }
 
@@ -59,5 +66,21 @@ export class TechnologyDialogComponent implements OnInit, OnDestroy {
           this.thirdTechnologyColumn = this.technologies.slice(12, 18);
         }
       });
+  }
+
+  public addTechnologiesForDeveloper(): void {
+    this.spinnerService.showSpinner()
+
+    this.developerTechnologyService.addTechnologyForDeveloper(this.projectForm.value)
+      .pipe(
+        finalize(() => this.spinnerService.hideSpinner()),
+        takeUntil(this.unsubscribe$))
+      .subscribe({
+        next: () => {
+          this.notificationService.showSuccessNotification();
+          this.dialogRef.close();
+        },
+        error: (error) => this.notificationService.showErrorNotification(error?.error?.detail)
+      })
   }
 }

@@ -1,0 +1,55 @@
+<div class="modal-wrapper">
+  <div class="page-title">{{
+      data?.feedbackId
+        ? ('developers.addFeedbackAboutDeveloperLabel' | translate)
+          : ('developers.editFeedbackLabel' | translate)
+    }}
+  </div>
+
+  <div class="input-container m-t-2-4">
+
+    <mat-form-field class="w-100 textarea" appearance="outline">
+      <textarea class="text-area"
+                [formControl]="feedbackMessageControl"
+                matInput
+                rows="5">
+      </textarea>
+
+      <collabro-control-validation-message [control]="feedbackMessageControl"/>
+    </mat-form-field>
+
+    <div class="button-container justify-content-space-between w-100 flex-wrap">
+      <button mat-dialog-close
+              class="transparent-button"
+              mat-button>
+        {{ 'general.cancelLabel' | translate }}
+      </button>
+
+      <ng-container *ngIf="data?.feedbackId; else addButtonTemplate">
+        <div class="d-flex column-gap-0-4">
+          <button class="button-red"
+                  (click)="deleteFeedback()"
+                  mat-button>
+            {{ 'general.removeLabel' | translate }}
+          </button>
+
+          <button class="button-purple"
+                  (click)="editFeedback()"
+                  [disabled]="!feedbackMessageControl.valid"
+                  mat-button>
+            {{ 'general.editLabel' | translate }}
+          </button>
+        </div>
+      </ng-container>
+
+      <ng-template #addButtonTemplate>
+        <button class="button-purple"
+                (click)="addFeedback()"
+                [disabled]="!feedbackMessageControl.valid"
+                mat-button>
+          {{ 'general.saveLabel' | translate }}
+        </button>
+      </ng-template>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,47 @@
+<div class="board-wrapper m-t-2" cdkDropListGroup>
+  <div class="w-100 board-column-wrapper" cdkDropList
+       [cdkDropListData]="todoTasks"
+       (cdkDropListDropped)="onTaskDrop($event, taskStatusEnum.Todo)">
+
+    <div class="d-flex justify-content-space-between align-items-center">
+      <div class="column-header">{{ 'myProject.todoLabel' | translate }}</div>
+      <button matTooltipClass="tooltip"
+              mat-icon-button
+              (click)="addProjectTask()"
+              matTooltip="{{'general.addLabel' | translate}}"
+              matTooltipPosition="above">
+
+        <mat-icon [svgIcon]="'plus'"></mat-icon>
+      </button>
+    </div>
+    <div *ngFor="let task of todoTasks" cdkDrag [cdkDragData]="task">
+      <collabro-project-task-card
+        (click)="editProjectTask(task, task.taskName, task.description, task.label)"
+        [functionalityBlock]="task"/>
+    </div>
+  </div>
+  <div class="w-100 board-column-wrapper" cdkDropList
+       [cdkDropListData]="inProgressTasks"
+       (cdkDropListDropped)="onTaskDrop($event, taskStatusEnum.InProgress)">
+
+    <div class="column-header m-b-1-6">{{ 'myProject.doingLabel' | translate }}</div>
+    <div *ngFor="let task of inProgressTasks" cdkDrag [cdkDragData]="task">
+      <collabro-project-task-card
+        (click)="editProjectTask(task, task.taskName, task.description, task.label)"
+        [functionalityBlock]="task"/>
+    </div>
+
+  </div>
+  <div class="w-100 board-column-wrapper"
+       cdkDropList
+       [cdkDropListData]="doneTasks"
+       (cdkDropListDropped)="onTaskDrop($event, taskStatusEnum.Done)">
+    <div class="column-header m-b-1-6">{{ 'myProject.doneLabel' | translate }}</div>
+    <div *ngFor="let task of doneTasks" cdkDrag [cdkDragData]="task">
+      <collabro-project-task-card
+        (click)="editProjectTask(task, task.taskName, task.description, task.label)"
+        [functionalityBlock]="task"/>
+    </div>
+
+  </div>
+</div>

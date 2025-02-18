@@ -1,0 +1,41 @@
+<table mat-table class="m-t-2" [dataSource]="developers">
+  <ng-container matColumnDef="fullName">
+    <th *matHeaderCellDef mat-header-cell>{{ 'general.fullNameLabel' | translate }}
+    </th>
+
+    <td *matCellDef="let element" class="fullName-column" mat-cell>
+      {{ element.firstName }} {{ element.lastName }}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="location">
+    <th *matHeaderCellDef mat-header-cell>{{ 'myProject.locationLabel' | translate }}
+    </th>
+
+    <td *matCellDef="let element" class="location-column" mat-cell>
+      {{ element.address?.countryCode }}, {{ element.address?.state }}, {{ element.address?.city }}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="action">
+    <th *matHeaderCellDef mat-header-cell>{{ 'general.actionLabel' | translate }}</th>
+
+    <td *matCellDef="let element" class="action-column" mat-cell>
+      <div class="table-items-basket">
+        <button mat-icon-button
+                (click)="openDeveloperInfoDialog(element)">
+          <mat-icon [svgIcon]="'profile'"></mat-icon>
+        </button>
+
+        <button mat-icon-button
+                (click)="removeDeveloperFromProject(element.id)">
+          <mat-icon [svgIcon]="'delete'"></mat-icon>
+        </button>
+      </div>
+    </td>
+  </ng-container>
+
+  <tr *matHeaderRowDef="developerTableColumns" mat-header-row></tr>
+
+  <tr *matRowDef="let row; columns: developerTableColumns;" mat-row></tr>
+</table>

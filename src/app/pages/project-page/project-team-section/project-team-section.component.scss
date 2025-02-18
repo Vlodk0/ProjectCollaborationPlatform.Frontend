@@ -1,0 +1,10 @@
+.fullName-column, .location-column {
+  width: 25%;
+}
+
+.table-items-basket {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1rem;
+}

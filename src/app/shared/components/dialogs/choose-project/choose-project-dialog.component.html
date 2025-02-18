@@ -1,0 +1,30 @@
+<div class="modal-wrapper">
+  <div class="page-title">{{ 'developers.chooseTheProjectLabel' | translate }}</div>
+  <div class="input-container m-t-2-4">
+    <mat-form-field appearance="outline" class="input-container-item-large">
+      <mat-label>{{ 'myProject.projectLabel' | translate }}</mat-label>
+
+      <mat-select [formControl]="projectId">
+        <mat-option *ngFor="let project of projects" [value]="project.id">
+          {{ project?.title }}
+        </mat-option>
+      </mat-select>
+
+      <collabro-control-validation-message [control]="projectId" />
+    </mat-form-field>
+  </div>
+  <div class="button-container justify-content-space-between w-100 flex-wrap">
+    <button mat-dialog-close
+            class="transparent-button"
+            mat-button>
+      {{ 'general.cancelLabel' | translate }}
+    </button>
+
+    <button class="button-purple"
+            (click)="addDeveloperToProject()"
+            [disabled]="!projectId.valid"
+            mat-button>
+      {{ 'general.saveLabel' | translate }}
+    </button>
+  </div>
+</div>

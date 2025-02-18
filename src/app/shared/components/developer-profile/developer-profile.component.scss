@@ -32,25 +32,22 @@
     }
 
     .profile-fullName {
-      color: azure;
-      font-size: 1.8rem;
-      font-weight: 400;
-      display: block;
-      margin-bottom: 0.7rem;
+      color: #FCFBFD;
+
+      font-size: 24px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: normal;
     }
 
     .profile-address {
-      color: azure;
-      font-size: 1.5rem;
-      align-items: center;
-      margin-top: 1.5rem;
+      color: #FCFBFD;
 
-      .user-location-icon {
-        width: 1.4rem;
-        height: 1.4rem;
-        font-size: 2.4rem;
-        margin-right: 1rem;
-      }
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+      opacity: 0.7;
     }
   }
 
@@ -62,9 +59,13 @@
 
     .personal-info-box {
       display: flex;
+      border-radius: 20px;
+      border: 1px solid var(--Border-for-elements, #373639);
+      background: var(--Dark-Black, #0C0E12);
+      padding: 25px;
+      gap: 20px;
 
       &:not(:last-child) {
-        border-bottom: 1px solid azure;
         padding-bottom: 1.6rem;
         margin-bottom: 1.6rem;
       }
@@ -85,12 +86,56 @@
         }
 
         .info-description {
-          color: #8894A6;
-          font-size: 1.6rem;
+          color:  #FCFBFD;
+          font-size: 16px;
           font-weight: 400;
+          opacity: 0.8;
         }
       }
     }
+  }
+}
+
+.email-wrapper {
+  display: flex;
+  padding: 25px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+
+  .email-header {
+    color: #FCFBFD;
+
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+  }
+
+  .email-input-wrapper {
+    display: flex;
+    padding: 8px 10px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    align-self: stretch;
+
+    border-radius: 8px;
+    border: 1px solid var(--Border-for-elements, #373639);
+    background: var(--Coal, #13161B);
+  }
+
+  .email-input-content {
+    color: var(--White, #FCFBFD);
+
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+
+  .copy-icon {
+    cursor: pointer;
   }
 }
 

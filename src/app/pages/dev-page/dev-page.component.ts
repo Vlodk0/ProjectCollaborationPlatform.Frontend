@@ -39,7 +39,7 @@ export class DevPageComponent implements OnInit {
     this.activatedRoute.params.subscribe(params => {
       this.devId = params['id'];
       this.loadDeveloperDetails();
-      this.loadFeedbacks();
+      // this.loadFeedbacks();
       this.loadDevTechnologies();
     });
 
@@ -56,37 +56,16 @@ export class DevPageComponent implements OnInit {
     this.technologies$ = this.developerService.getAllDevTechnologies(this.devId);
   }
 
-  loadFeedbacks(): void {
-    this.feedbacks$ = this.feedbackService.getAllDeveloperFeedback(
-      this.devId,
-      this.paginationFilter
-    )
-  }
+  // loadFeedbacks(): void {
+  //   this.feedbacks$ = this.feedbackService.getAllDeveloperFeedback(
+  //     this.devId,
+  //     this.paginationFilter
+  //   )
+  // }
 
   // onPageChange(event: PaginatorState): void {
   //   this.paginationFilter.pageNumber = event.first;
   //   this.paginationFilter.pageSize = 10;
   //   this.loadFeedbacks();
   // }
-
-  addFeedback(): void {
-    if (this.addingFeedbackForm.valid) {
-      const feedbackObj: Feedback = {
-        content: this.addingFeedbackForm.value.content
-      };
-
-      this.feedbackService.addFeedback(this.devId, feedbackObj)
-        .pipe(takeUntil(this.isSubscribe))
-        .subscribe({
-          next: () => {
-            this.addingFeedbackForm.reset()
-            //this.messageService.add({severity:'success', summary:'Feedback created'});
-            this.loadFeedbacks();
-          },
-          error: () => {
-            //this.messageService.add({severity:'error', summary:'Error adding'});
-          }
-        })
-    }
-  }
 }

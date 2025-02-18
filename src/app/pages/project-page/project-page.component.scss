@@ -1,71 +1,8 @@
 @import "../../../styles/variables";
 
-.box-wrapper {
-  background: #1A1C22;
-  border-radius: 4px;
-  width: 100%;
-  padding: 5rem;
-  min-height: 500px;
-
-  .project-title {
-    font-weight: 500;
-    font-size: 2rem;
-    line-height: 3.2rem;
-    color: #959699;
-  }
-
-  .project-type {
-    font-weight: 400;
-    font-size: 1.8rem;
-    line-height: 3rem;
-    color: #4B4D52;
-  }
-
-  .project-details {
-    font-weight: 700;
-    font-size: 1.8rem;
-    color: #4B4D52;
-  }
-
-  .project-item-header {
-    font-weight: 700;
-    font-size: 1.8rem;
-    line-height: 3rem;
-    color: #4B4D52;
-  }
-
-  .project-price {
-    font-weight: 200;
-    font-size: 2.4rem;
-    line-height: 2.8rem;
-    color: $main-purple-color;
-  }
-}
-
-.fullName-column, .location-column {
-  width: 25%;
-}
-
-.board-wrapper {
-  display: flex;
-  width: 100%;
-  justify-content: space-between;
-  padding: 5rem;
-  gap: 1rem;
-
-  .board-column-wrapper {
-    height: 100%;
-    background: $main-purple-color;
-    border-radius: 4px;
-    padding: 2rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1.2em;
-
-    .column-header {
-      font-weight: 500;
-      font-size: 2.4rem;
-      line-height: 32px;
-    }
-  }
+.project-page-wrapper {
+  border-radius: 20px;
+  border: 1px solid  #373639;
+  background: #13161B;
+  padding: 25px;
 }

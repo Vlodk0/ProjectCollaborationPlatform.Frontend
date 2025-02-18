@@ -42,9 +42,6 @@ export class FunctionalityBlockService {
   }
 
   public assignProjectTask(taskId: string, developerId: string): Observable<void> {
-    const params = new HttpParams()
-      .set('taskId', taskId.toString())
-      .set('developerId', developerId.toString());
-    return this.httpClient.patch<void>(this.apiUrl, {params});
+    return this.httpClient.patch<void>(`${this.apiUrl}?taskId=${taskId}&developerId=${developerId}`, {});
   }
 }
