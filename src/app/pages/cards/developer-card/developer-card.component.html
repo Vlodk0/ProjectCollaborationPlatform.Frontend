@@ -9,7 +9,7 @@
       </ng-template>
     </div>
 
-    <div class="user-info-container align-items-center">
+    <div class="user-info-container">
       <div class="d-flex align-items-center justify-content-space-between w-100">
         <div class="user-full-name"> {{ developer.firstName }} {{ developer.lastName }} </div>
         <mat-icon [svgIcon]="'menu'"></mat-icon>
@@ -18,12 +18,11 @@
     </div>
   </div>
 
-  <div class="d-flex column-gap-0-4 w-100 align-items-center m-t-2-4 justify-content-center">
+  <div class="technologies-container">
     <div class="technology-item-container w-100 d-flex justify-content-center"
          *ngFor="let item of technologiesListConstant.slice(0, 3)">
       {{ item.name | translate }}
     </div>
+    <div class="footer-label">+2</div>
   </div>
-  <div class="footer-label">+2</div>
-
 </div>

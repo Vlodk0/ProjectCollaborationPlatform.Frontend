@@ -66,10 +66,14 @@ body {
 }
 
 .technology-item-container {
-  border-radius: 8px;
+  display: flex;
+  height: 38px;
   padding: 8px 14px;
-  color: azure;
-  font-weight: 500;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  color: #FCFBFD;
+
+  border-radius: 8px;
   border: 1px solid #373639;
-  font-size: 1.2rem;
 }

@@ -23,14 +23,12 @@ export class ProjectsService {
   constructor(private readonly httpClient: HttpClient) {
   }
 
-  public getAllProjects(filter: PaginationFilter): Observable<PaginationResponse<ProjectPagination[]>> {
+  public getProjects(currentPage: number, pageSize: number): Observable<PageProjectInterface> {
     let params = new HttpParams()
-      .set('pageNumber', filter.pageNumber.toString())
-      .set('pageSize', filter.pageSize.toString())
-      .set('sortColumn', filter.sortColumn.toString())
-      .set('sortDirection', (filter.sortDirection === 1) ? 'asc' : 'desc');
+      .set('currentPage', currentPage.toString())
+      .set('pageSize', pageSize.toString())
 
-    return this.httpClient.get<PaginationResponse<ProjectPagination[]>>(this.apiUrl, {params});
+    return this.httpClient.get<PageProjectInterface>(`${this.apiUrl}/projects`, {params});
   }
 
   public getProjectOwnerProjects(currentPage: number, pageSize: number): Observable<PageProjectInterface> {
@@ -52,7 +50,7 @@ export class ProjectsService {
       .set('sortColumn', filter.sortColumn.toString())
       .set('sortDirection', (filter.sortDirection === 1) ? 'asc' : 'desc');
 
-    return this.httpClient.get<PaginationResponse<ProjectPagination[]>>(this.apiUrl + `/my-projects`, {params});
+    return this.httpClient.get<PaginationResponse<ProjectPagination[]>>(this.apiUrl + `/projects`, {params});
   }
 
   // public getProjectOwnerProjects(): Observable<ProjectInfo[]> {
@@ -91,6 +89,6 @@ export class ProjectsService {
   }
 
   public addDeveloperToProject(projectId: string, devId: string[]): Observable<void> {
-    return this.httpClient.post<void>(this.apiUrl + `/developers/${projectId}`, devId)
+    return this.httpClient.post<void>(this.apiUrl + `/${projectId}/developers`, devId)
   }
 }

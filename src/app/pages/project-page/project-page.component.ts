@@ -19,6 +19,9 @@ import {ProjectTaskDialogComponent} from "../../shared/components/dialogs/projec
 import {TaskLabelType} from "../../core/enums/task-label-type.enum";
 import {TaskStatus} from "../../core/enums/task-status.enum";
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from "@angular/cdk/drag-drop";
+import {FunctionalityBlockInterface} from "../../shared/interfaces/project/functionality-block.interface";
+import {ProjectRequestService} from "../../shared/services/project-request.service";
+import {ProjectRequestInterface} from "../../shared/interfaces/project/project-request.interface";
 
 @Component({
   selector: 'app-project-page',
@@ -48,11 +51,12 @@ export class ProjectPageComponent implements OnInit, OnDestroy {
   selectedTechnologies: Technology[]
 
   public project: ProjectInterface = null;
+  public projectRequests: ProjectRequestInterface[] = [];
   public developerTableColumns = ['fullName', 'location', 'action'];
   public taskStatusEnum = TaskStatus;
-  public todoTasks: any[] = [];
-  public inProgressTasks: any[] = [];
-  public doneTasks: any[] = [];
+  public todoTasks: FunctionalityBlockInterface[] = [];
+  public inProgressTasks: FunctionalityBlockInterface[] = [];
+  public doneTasks: FunctionalityBlockInterface[] = [];
 
   public technologyColors = {
     ["C#"]: 'gray',
@@ -78,7 +82,8 @@ export class ProjectPageComponent implements OnInit, OnDestroy {
     private userService: UserService,
     private readonly matDialog: MatDialog,
     private readonly spinnerService: SpinnerService,
-    private readonly notificationService: NotificationService
+    private readonly notificationService: NotificationService,
+    private readonly projectRequestService: ProjectRequestService
   ) {
   }
 
@@ -98,6 +103,8 @@ export class ProjectPageComponent implements OnInit, OnDestroy {
     this.subscribeToCurrentUser();
 
     this.getProject();
+
+    this.getProjectRequests();
 
     this.projects$.subscribe(project => {
       this.boardId = project.boardId;
@@ -149,6 +156,56 @@ export class ProjectPageComponent implements OnInit, OnDestroy {
     this.todoTasks = this.project.projectTasks.filter(task => task.status === TaskStatus.Todo);
     this.inProgressTasks = this.project.projectTasks.filter(task => task.status === TaskStatus.InProgress);
     this.doneTasks = this.project.projectTasks.filter(task => task.status === TaskStatus.Done);
+  }
+
+  public getProjectRequests(): void {
+    this.spinnerService.showSpinner();
+
+    this.projectRequestService.getProjectRequests(this.projectId)
+      .pipe(finalize(() => {
+          this.spinnerService.hideSpinner();
+        }),
+        takeUntil(this.unsubscribe$))
+      .subscribe({
+        next: result => {
+          this.projectRequests = result;
+        },
+        error: (error) => this.notificationService.showErrorNotification(error?.error?.detail)
+      })
+  }
+
+  public acceptProjectRequest(projectRequestId: string): void {
+    this.spinnerService.showSpinner();
+
+    this.projectRequestService.acceptProjectRequest(projectRequestId, this.projectId)
+      .pipe(finalize(() => {
+          this.spinnerService.hideSpinner();
+        }),
+        takeUntil(this.unsubscribe$))
+      .subscribe({
+        next: () => {
+          this.notificationService.showSuccessNotification();
+          this.getProjectRequests();
+        },
+        error: (error) => this.notificationService.showErrorNotification(error?.error?.detail)
+      })
+  }
+
+  public declineProjectRequest(projectRequestId: string): void {
+    this.spinnerService.showSpinner();
+
+    this.projectRequestService.declineProjectRequest(projectRequestId, this.projectId)
+      .pipe(finalize(() => {
+          this.spinnerService.hideSpinner();
+        }),
+        takeUntil(this.unsubscribe$))
+      .subscribe({
+        next: () => {
+          this.notificationService.showSuccessNotification();
+          this.getProjectRequests();
+        },
+        error: (error) => this.notificationService.showErrorNotification(error?.error?.detail)
+      })
   }
 
   public onTaskDrop(event: CdkDragDrop<any[]>, newStatus: TaskStatus) {
@@ -221,12 +278,12 @@ export class ProjectPageComponent implements OnInit, OnDestroy {
       })
   }
 
-  public editProjectTask(taskId: string, taskName: string, description: string, label: TaskLabelType): void {
+  public editProjectTask(task: FunctionalityBlockInterface, taskName: string, description: string, label: TaskLabelType): void {
     const dialogRef = this.matDialog.open(ProjectTaskDialogComponent, {
       disableClose: false,
       data: {
         projectId: this.projectId,
-        taskId,
+        task,
         taskName,
         description,
         label,

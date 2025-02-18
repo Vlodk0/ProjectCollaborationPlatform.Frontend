@@ -1,52 +1,71 @@
-<mat-tab-group animationDuration="0ms"
-               mat-stretch-tabs="false"
-               mat-align-tabs="start"
-               class="h-100">
+<div class="project-page-wrapper">
+  <mat-tab-group animationDuration="0ms"
+                 mat-stretch-tabs="false"
+                 mat-align-tabs="start"
+                 class="h-100">
     <mat-tab label="{{'myProject.summaryLabel' | translate}}">
       <div class="d-flex w-100 column-gap-3-6 row-gap-3-6 m-t-2">
         <div class="box-wrapper">
-          <div class="project-title">{{ project.title }}</div>
-
           <div class="project-type m-t-0-8">{{ project.type | projectTypeLabel | translate }}</div>
 
-          <div class="project-details m-t-2">{{ project.projectDetails }}</div>
+          <div class="d-flex justify-content-space-between align-items-center">
+            <div class="project-title">{{ project.title }}</div>
+            <div>
+              <span class="project-price">${{ project.payment | currency:' ':'symbol':'3.0-0' }}</span>
+              <span class="hour-label">{{ 'myProject.perHourLabel' | translate }}</span>
+            </div>
+          </div>
+
+          <div class="project-time-duration-wrapper">
+            <div class="d-flex align-items-center">
+              <mat-icon [svgIcon]="'project-duration-icon'"/>
+              <div class="time-duration-label">{{ project.timeDuration | timeDurationLabel | translate }}</div>
+            </div>
+
+            <div class="d-flex align-items-center">
+              <mat-icon [svgIcon]="'calendar'"/>
+              <div class="date-label">{{ project.createdTimeStamp | localDate }}</div>
+            </div>
+          </div>
+
+          <div class="project-details-wrapper">
+            <div class="details-header">{{ 'myProject.overviewLabel' | translate }}</div>
+            <div class="details-content">{{ project.projectDetails }}</div>
+          </div>
+
         </div>
         <div class="box-wrapper">
-          <div class="project-item-header">{{ 'frameworks.frameworksLabel' | translate }}</div>
-
-          <div class="d-flex column-gap-0-4 flex-wrap row-gap-0-4 m-t-0-8 w-100">
-            <div class="technology-item-container"
-                 *ngFor="let item of project.frameworks"
-                 [ngStyle]="getStyleForTechnologies(item.framework)">
-              {{ item.framework | translate }}
+          <div class="project-technologies-wrapper">
+            <div class="project-item-header">{{ 'technologies.technologiesLabel' | translate }}</div>
+            <div class="technology-item-wrapper">
+              <div class="technology-item-container"
+                   *ngFor="let item of project.technologies">
+                {{ item.technology | translate }}
+              </div>
             </div>
           </div>
 
-          <div class="project-item-header m-t-4">{{ 'technologies.technologiesLabel' | translate }}</div>
-
-          <div class="d-flex column-gap-0-4 flex-wrap row-gap-0-4 m-t-0-8 w-100">
-            <div class="technology-item-container"
-                 *ngFor="let item of project.technologies"
-                 [ngStyle]="getStyleForTechnologies(item.technology)">
-              {{ item.technology | translate }}
+          <div class="project-technologies-wrapper">
+            <div class="project-item-header">{{ 'frameworks.frameworksLabel' | translate }}</div>
+            <div class="technology-item-wrapper">
+              <div class="technology-item-container"
+                   *ngFor="let item of project.frameworks">
+                {{ item.framework | translate }}
+              </div>
             </div>
           </div>
-
-          <div class="project-item-header m-t-4">{{ 'myProject.paymentPerHourLabel' | translate }}</div>
-          <div class="project-price">{{ project.payment | currency }}</div>
-
         </div>
       </div>
     </mat-tab>
 
     <mat-tab label="{{'myProject.teamLabel' | translate}}">
-      <table mat-table class="m-t-2">
+      <table mat-table class="m-t-2" [dataSource]="project.developers">
         <ng-container matColumnDef="fullName">
           <th *matHeaderCellDef mat-header-cell>{{ 'general.fullNameLabel' | translate }}
           </th>
 
           <td *matCellDef="let element" class="fullName-column" mat-cell>
-            {{ element.fullName }}
+            {{ element.firstName }} {{ element.lastName }}
           </td>
         </ng-container>
 
@@ -55,7 +74,7 @@
           </th>
 
           <td *matCellDef="let element" class="location-column" mat-cell>
-            {{ element.countryName }}
+            {{ element.address?.countryCode }}, {{ element.address?.city }}
           </td>
         </ng-container>
 
@@ -81,54 +100,89 @@
       </table>
     </mat-tab>
 
-  <mat-tab label="{{'myProject.boardLabel' | translate}}">
-    <div class="board-wrapper m-t-2" cdkDropListGroup>
-      <div class="w-100 board-column-wrapper" cdkDropList
-           [cdkDropListData]="todoTasks"
-           (cdkDropListDropped)="onTaskDrop($event, taskStatusEnum.Todo)">
+    <mat-tab label="{{'myProject.boardLabel' | translate}}">
+      <div class="board-wrapper m-t-2" cdkDropListGroup>
+        <div class="w-100 board-column-wrapper" cdkDropList
+             [cdkDropListData]="todoTasks"
+             (cdkDropListDropped)="onTaskDrop($event, taskStatusEnum.Todo)">
 
-        <div class="d-flex justify-content-space-between align-items-center">
-          <div class="column-header">{{ 'myProject.todoLabel' | translate }}</div>
-          <button matTooltipClass="tooltip"
-                  mat-icon-button
-                  (click)="addProjectTask()"
-                  matTooltip="{{'general.addLabel' | translate}}"
-                  matTooltipPosition="above">
+          <div class="d-flex justify-content-space-between align-items-center">
+            <div class="column-header">{{ 'myProject.todoLabel' | translate }}</div>
+            <button matTooltipClass="tooltip"
+                    mat-icon-button
+                    (click)="addProjectTask()"
+                    matTooltip="{{'general.addLabel' | translate}}"
+                    matTooltipPosition="above">
 
-            <mat-icon [svgIcon]="'plus'"></mat-icon>
-          </button>
+              <mat-icon [svgIcon]="'plus'"></mat-icon>
+            </button>
+          </div>
+          <div *ngFor="let task of todoTasks" cdkDrag [cdkDragData]="task">
+            <collabro-project-task-card
+              (click)="editProjectTask(task, task.taskName, task.description, task.label)"
+              [functionalityBlock]="task"/>
+          </div>
         </div>
-        <div *ngFor="let task of todoTasks" cdkDrag [cdkDragData]="task">
-          <collabro-project-task-card
-            (click)="editProjectTask(task.id, task.taskName, task.description, task.label)"
-            [functionalityBlock]="task"/>
-        </div>
-      </div>
-      <div class="w-100 board-column-wrapper" cdkDropList
-           [cdkDropListData]="inProgressTasks"
-           (cdkDropListDropped)="onTaskDrop($event, taskStatusEnum.InProgress)">
+        <div class="w-100 board-column-wrapper" cdkDropList
+             [cdkDropListData]="inProgressTasks"
+             (cdkDropListDropped)="onTaskDrop($event, taskStatusEnum.InProgress)">
 
-        <div class="column-header m-b-1-6">{{ 'myProject.doingLabel' | translate }}</div>
+          <div class="column-header m-b-1-6">{{ 'myProject.doingLabel' | translate }}</div>
           <div *ngFor="let task of inProgressTasks" cdkDrag [cdkDragData]="task">
             <collabro-project-task-card
-              (click)="editProjectTask(task.id, task.taskName, task.description, task.label)"
+              (click)="editProjectTask(task, task.taskName, task.description, task.label)"
               [functionalityBlock]="task"/>
           </div>
 
-      </div>
-      <div class="w-100 board-column-wrapper"
-           cdkDropList
-           [cdkDropListData]="doneTasks"
-           (cdkDropListDropped)="onTaskDrop($event, taskStatusEnum.Done)">
-        <div class="column-header m-b-1-6">{{ 'myProject.doneLabel' | translate }}</div>
-        <div *ngFor="let task of doneTasks" cdkDrag [cdkDragData]="task">
-          <collabro-project-task-card
-            (click)="editProjectTask(task.id, task.taskName, task.description, task.label)"
-            [functionalityBlock]="task"/>
         </div>
+        <div class="w-100 board-column-wrapper"
+             cdkDropList
+             [cdkDropListData]="doneTasks"
+             (cdkDropListDropped)="onTaskDrop($event, taskStatusEnum.Done)">
+          <div class="column-header m-b-1-6">{{ 'myProject.doneLabel' | translate }}</div>
+          <div *ngFor="let task of doneTasks" cdkDrag [cdkDragData]="task">
+            <collabro-project-task-card
+              (click)="editProjectTask(task, task.taskName, task.description, task.label)"
+              [functionalityBlock]="task"/>
+          </div>
 
+        </div>
       </div>
-    </div>
-  </mat-tab>
+    </mat-tab>
 
-</mat-tab-group>
+    <mat-tab label="{{'myProject.requestsLabel' | translate}}">
+      <div *ngFor="let request of projectRequests"
+           class="request-container-wrapper m-t-2">
+        <div class="d-flex w-100 justify-content-space-between">
+          <div class="request-header">{{ 'myProject.newOnDemandRequestLabel' | translate }}</div>
+          <div class="request-time">{{ request.createdTimeStamp | localDate: "shortDate" }}</div>
+        </div>
+        <div class="d-flex w-100 justify-content-space-between">
+          <div class="request-content">
+            Developer {{ request.developer.firstName }} {{ request.developer.lastName }} wants to join your team
+          </div>
+          <div class="d-flex column-gap-1-6">
+            <button matTooltipClass="tooltip"
+                    (click)="acceptProjectRequest(request.id)"
+                    mat-icon-button
+                    matTooltip="{{'general.acceptLabel' | translate}}"
+                    matTooltipPosition="above">
+
+              <mat-icon [svgIcon]="'accept'"></mat-icon>
+            </button>
+            <button matTooltipClass="tooltip"
+                    (click)="declineProjectRequest(request.id)"
+                    mat-icon-button
+                    matTooltip="{{'general.rejectLabel' | translate}}"
+                    matTooltipPosition="above">
+
+              <mat-icon [svgIcon]="'reject'"></mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+    </mat-tab>
+
+
+  </mat-tab-group>
+</div>

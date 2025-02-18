@@ -1,6 +1,6 @@
 <div class="modal-wrapper">
   <div class="page-title">{{
-      data?.taskId ?
+      data?.task?.id ?
         ('myProject.updateTaskLabel' | translate) :
         ('myProject.addNewTaskLabel' | translate)
     }}
@@ -13,12 +13,15 @@
 
       <input formControlName="taskName" matInput/>
 
+      <collabro-control-validation-message [control]="projectTaskForm.get('taskName')" />
     </mat-form-field>
 
     <mat-form-field appearance="outline" class="textarea w-100">
       <mat-label>{{ 'myProject.descriptionLabel' | translate }}</mat-label>
 
       <textarea formControlName="description" matInput rows="5"></textarea>
+
+      <collabro-control-validation-message [control]="projectTaskForm.get('description')" />
     </mat-form-field>
 
     <mat-form-field appearance="outline"
@@ -31,17 +34,20 @@
           {{ type?.label | translate }}
         </mat-option>
       </mat-select>
+
+      <collabro-control-validation-message [control]="projectTaskForm.get('label')" />
     </mat-form-field>
 
-    <mat-form-field appearance="outline"
-                    *ngIf="data?.taskId"
+    <mat-form-field *ngIf="data?.task?.id"
+                    appearance="outline"
                     class="input-container-item-large">
       <mat-label>{{ 'myProject.developerLabel' | translate }}</mat-label>
 
-      <mat-select>
+      <mat-select [(value)]="data.task.developerId"
+                  (selectionChange)="assignProjectTask($event.value)">
         <mat-option *ngFor="let dev of data?.developers"
                     [value]="dev.id">
-          {{ dev?.firstName + '' + dev?.lastName }}
+          {{ dev?.firstName + ' ' + dev?.lastName }}
         </mat-option>
       </mat-select>
     </mat-form-field>
@@ -53,7 +59,7 @@
         {{ 'general.cancelLabel' | translate }}
       </button>
 
-      <ng-container *ngIf="data?.taskId; else addButtonTemplate">
+      <ng-container *ngIf="data?.task?.id; else addButtonTemplate">
         <div class="d-flex column-gap-0-4">
           <button class="button-red"
                   (click)="deleteProjectTask()"

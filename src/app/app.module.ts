@@ -72,6 +72,9 @@ import {ProjectTaskDialogComponent} from "./shared/components/dialogs/project-ta
 import {ProjectTaskLabelPipe} from "./core/pipes/project-task-label.pipe";
 import {DragDropModule} from "@angular/cdk/drag-drop";
 import {MatSlideToggle} from "@angular/material/slide-toggle";
+import {ChooseProjectDialogComponent} from "./shared/components/dialogs/choose-project/choose-project-dialog.component";
+import {FeedbackDialogComponent} from "./shared/components/dialogs/feedback/feedback-dialog.component";
+import { ProjectSummaryComponent } from './pages/project-summary/project-summary.component';
 
 export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -118,6 +121,8 @@ const MODULES = [
     FrameworkDialogComponent,
     TechnologyDialogComponent,
     RootComponent,
+    ChooseProjectDialogComponent,
+    FeedbackDialogComponent,
     DeveloperInfoDialogComponent,
     DeveloperCommentsComponent,
     DeveloperProfileComponent,
@@ -154,7 +159,8 @@ const MODULES = [
     ProjectTypeLabelPipe,
     ProjectTimeDurationLabelPipe,
     ProjectTaskCardComponent,
-    ProjectTaskLabelPipe
+    ProjectTaskLabelPipe,
+    ProjectSummaryComponent
   ],
   imports: [
     ...MODULES,

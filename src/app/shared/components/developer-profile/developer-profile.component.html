@@ -1,21 +1,32 @@
 <div class="developer-profile-personal-info-wrapper">
-  <div class="developer-general-info-general-info d-flex flex-wrap">
+  <div
+    class="developer-general-info-general-info align-items-center w-100 justify-content-space-between d-flex flex-wrap">
     <div class="profile-avatar-container d-flex">
-      <div class="avatar-image-wrapper">
-        <img class="avatar-image" *ngIf="false else emptyAvatar"
-             alt="x">
-        <ng-template #emptyAvatar>
-          <mat-icon class="icon" [svgIcon]="'avatar-placeholder-icon'"></mat-icon>
-        </ng-template>
-      </div>
+      <div class="d-flex align-items-center">
+        <div class="avatar-image-wrapper">
+          <img class="avatar-image" *ngIf="false else emptyAvatar"
+               alt="x">
+          <ng-template #emptyAvatar>
+            <mat-icon class="icon" [svgIcon]="'avatar-placeholder-icon'"></mat-icon>
+          </ng-template>
+        </div>
 
-      <div>
-        <span class="profile-fullName">{{ developer.firstName }} {{ developer.lastName }}</span>
-        <span class="d-flex profile-address">
+        <div>
+          <span class="profile-fullName">{{ developer.firstName }} {{ developer.lastName }}</span>
+          <span class="d-flex profile-address">
           <mat-icon class="user-location-icon" [svgIcon]="'location'"></mat-icon>
           <span>United States of America, AL, New York</span>
         </span>
-
+        </div>
+      </div>
+    </div>
+    <div class="email-wrapper">
+      <div class="email-header">{{ 'developers.emailLabel' | translate }}</div>
+      <div class="email-input-wrapper">
+        <div class="email-input-content">{{ developer.email }}</div>
+        <mat-icon class="copy-icon"
+                  (click)="copyEmail(developer.email)"
+                  [svgIcon]="'copy'" />
       </div>
     </div>
   </div>
@@ -27,13 +38,6 @@
 
 
   <div class="personal-information-wrapper">
-
-    <div class="personal-info-box">
-      <div class="info-box-description-wrapper d-flex">
-        <span class="description-title">{{ 'developers.emailLabel' | translate }}</span>
-        <span class="info-description">jon.doe&#64;gmail.com</span>
-      </div>
-    </div>
 
     <div class="personal-info-box">
       <div class="info-box-description-wrapper d-flex">

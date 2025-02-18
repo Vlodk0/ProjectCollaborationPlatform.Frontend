@@ -1,23 +1,32 @@
 <div class="reviews-container h-100 w-100">
-  <ng-container *ngIf="true else emptyReview">
-    <div class="review-box">
+  <div class="d-flex w-100 justify-content-flex-end">
+    <button class="button-purple m-b-1-6"
+            (click)="openFeedbackDialog()"
+            mat-button>
+      {{ 'general.addLabel' | translate }}
+    </button>
+  </div>
+  <ng-container *ngIf="feedbacks.length else emptyReview">
+    <div class="review-box" *ngFor="let feedback of feedbacks">
       <div class="patient-name-container">
-        <mat-icon class="patient-avatar" [svgIcon]="'avatar-placeholder-icon'"></mat-icon>
-
-        <span class="patient-name">Super PM</span>
+        <div class="d-flex align-items-center">
+          <mat-icon class="patient-avatar" [svgIcon]="'avatar-placeholder-icon'"></mat-icon>
+          <div>
+            <div class="patient-name">{{ feedback.firstName }} {{ feedback.lastName }}</div>
+            <div class="review-date">{{feedback.createdTimeStamp | localDate:'shortDate'}}</div>
+          </div>
+        </div>
+        <mat-icon (click)="openFeedbackDialog(feedback.id, feedback.content)"
+                  style="cursor: pointer"
+                  [svgIcon]="'edit'" />
       </div>
-
-      <div class="rating-container">
-        <span class="review-date">{{date | localDate:'shortDate'}}</span>
-      </div>
-
-      <span class="review-description">The Best</span>
+      <span class="review-description">{{ feedback.content }}</span>
     </div>
   </ng-container>
 
   <ng-template #emptyReview>
     <div class="empty-reviews-container h-100">
-      <h3 class="empty-title">{{'doctorProfile.emptyReviewsTitleLabel' | translate}}</h3>
+      <h3 class="empty-title">{{'developers.developerDoestNotHaveFeedbacksLabel' | translate}}</h3>
       <img class="empty-doctors-image" src="assets/images/doctors.png" alt="doctors">
     </div>
   </ng-template>

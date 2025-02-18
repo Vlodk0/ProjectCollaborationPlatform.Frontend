@@ -1,4 +1,4 @@
-<div class="projects-section-container">
+<div *ngIf="projects.length || isLoadingProjects else emptyState" class="projects-section-container">
   <div class="d-flex w-100 flex-wrap column-gap-0-4 m-b-1-6">
     <mat-form-field
       appearance="outline"
@@ -21,13 +21,18 @@
   </div>
 
   <div class="projects-wrapper">
-    <collabro-project-card />
-    <collabro-project-card />
-    <collabro-project-card />
-    <collabro-project-card />
-    <collabro-project-card />
-    <collabro-project-card />
-    <collabro-project-card />
-    <collabro-project-card />
+    <collabro-paginator class="h-100">
+      <collabro-project-card *ngFor="let project of projects"
+                             [routerLink]="['/project', project?.id]"
+                             [project]="project" />
+    </collabro-paginator>
   </div>
 </div>
+
+<ng-template #emptyState>
+  <div class="d-flex h-100 align-items-center justify-content-center">
+    <collabro-empty-state [title]="('emptyState.currentListOfProjectIsEmptyLabel' | translate)"
+                          [subtitle]="('emptyState.projectOwnerNotCreatedProjectLabel' | translate)"/>
+
+  </div>
+</ng-template>

@@ -50,5 +50,17 @@ export class IconRegistry {
     matIconRegistry.addSvgIcon(
       'plus',
       domSanitizer.bypassSecurityTrustResourceUrl('assets/icons/plus-icon.svg'));
+    matIconRegistry.addSvgIcon(
+      'calendar',
+      domSanitizer.bypassSecurityTrustResourceUrl('assets/icons/calendar-icon.svg'));
+    matIconRegistry.addSvgIcon(
+      'copy',
+      domSanitizer.bypassSecurityTrustResourceUrl('assets/icons/copy-icon.svg'));
+    matIconRegistry.addSvgIcon(
+      'accept',
+      domSanitizer.bypassSecurityTrustResourceUrl('assets/icons/accept-icon.svg'));
+    matIconRegistry.addSvgIcon(
+      'reject',
+      domSanitizer.bypassSecurityTrustResourceUrl('assets/icons/reject-icon.svg'));
   }
 }

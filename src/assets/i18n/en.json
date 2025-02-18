@@ -11,7 +11,10 @@
     "fullNameLabel": "Full Name",
     "actionLabel": "Action",
     "addLabel": "Add",
-    "inviteLabel": "Invite"
+    "inviteLabel": "Invite",
+    "sendRequestLabel": "Send Request",
+    "acceptLabel": "Accept",
+    "rejectLabel": "Reject"
   },
 
   "profileSettings": {
@@ -152,7 +155,7 @@
     "teamLabel": "Team",
     "locationLabel": "Location",
     "boardLabel": "Board",
-    "todoLabel": "TODO",
+    "todoLabel": "TO DO",
     "doingLabel": "DOING",
     "doneLabel": "DONE",
     "taskLabel": "Task",
@@ -160,7 +163,12 @@
     "taskTypeLabel": "Label",
     "addNewTaskLabel": "Add new task",
     "updateTaskLabel": "Update task",
-    "developerLabel": "Developer"
+    "developerLabel": "Developer",
+    "projectLabel": "Project",
+    "perHourLabel": "/hour",
+    "overviewLabel": "Overview",
+    "requestsLabel": "Requests",
+    "newOnDemandRequestLabel": "New On Demand Request"
   },
   "projectType": {
     "webApplicationLabel": "Web Application",
@@ -180,12 +188,20 @@
     "feedbacksLabel": "Feedbacks",
     "bioLabel": "Bio",
     "aboutLabel": "About",
-    "emailLabel": "Email"
+    "emailLabel": "Email",
+    "chooseTheProjectLabel": "Choose the project",
+    "addFeedbackAboutDeveloperLabel": "Add feedback about developer",
+    "developerDoestNotHaveFeedbacksLabel": "This developer doesn't have any feedbacks yet",
+    "editFeedbackLabel": "Edit feedback"
   },
   "taskLabelType": {
     "apiLabel": "API",
     "webLabel": "WEB",
     "mobileLabel": "Mobile",
     "devopsLabel": "DevOps"
+  },
+  "emptyState": {
+    "currentListOfProjectIsEmptyLabel": "The current list of projects is empty",
+    "projectOwnerNotCreatedProjectLabel": "No one project owner has not created any projects yet"
   }
 }

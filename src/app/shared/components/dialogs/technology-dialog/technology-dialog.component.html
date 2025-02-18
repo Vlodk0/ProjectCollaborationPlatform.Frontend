@@ -2,14 +2,14 @@
   {{ 'technologies.technologiesLabel' | translate }}
 </h2>
 
-<div class="d-flex w-100 flex-wrap justify-content-center">
+<div class="d-flex w-100 flex-wrap justify-content-center" [formGroup]="projectForm">
   <div class="checkboxes-container">
     <div class="checkbox-container" *ngFor="let form of firstTechnologyColumn">
       <mat-checkbox [matTooltip]="form?.technology"
                     matTooltipClass="tooltip"
                     [aria-label]="form?.id"
                     [aria-labelledby]="form?.technology"
-                    [checked]="projectForm.get('frameworkIds').value.includes(form.id)"
+                    [checked]="projectForm.get('technologiesIds')?.value?.includes(form.id)"
                     (change)="onTechnologyCheckboxChange(form.id, $event.checked)"
                     [value]="form.id" class="checkbox">
         {{ form?.technology | translate }}
@@ -23,7 +23,7 @@
                     matTooltipClass="tooltip"
                     [aria-label]="form?.id"
                     [aria-labelledby]="form?.technology"
-                    [checked]="projectForm.get('frameworkIds').value.includes(form.id)"
+                    [checked]="projectForm.get('technologiesIds')?.value?.includes(form.id)"
                     (change)="onTechnologyCheckboxChange(form.id, $event.checked)"
                     [value]="form.id" class="checkbox">
         {{ form?.technology | translate }}
@@ -37,11 +37,25 @@
                     matTooltipClass="tooltip"
                     [aria-label]="form?.id"
                     [aria-labelledby]="form?.technology"
-                    [checked]="projectForm.get('frameworkIds').value.includes(form.id)"
+                    [checked]="projectForm.get('technologiesIds')?.value?.includes(form.id)"
                     (change)="onTechnologyCheckboxChange(form.id, $event.checked)"
                     [value]="form.id" class="checkbox">
         {{ form?.technology | translate }}
       </mat-checkbox>
     </div>
   </div>
+</div>
+
+<div class="button-container justify-content-space-between w-100 flex-wrap">
+  <button mat-dialog-close
+          class="transparent-button"
+          mat-button>
+    {{ 'general.cancelLabel' | translate }}
+  </button>
+
+  <button class="button-purple"
+          (click)="addTechnologiesForDeveloper()"
+          mat-button>
+    {{ 'general.saveLabel' | translate }}
+  </button>
 </div>
