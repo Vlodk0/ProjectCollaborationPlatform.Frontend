@@ -12,6 +12,7 @@ import {ProjectDetail} from "../interfaces/project-detail";
 import {CreateProjectInterface} from "../interfaces/project/create-project.interface";
 import {PageProjectInterface} from "../interfaces/project/page-project.interface";
 import {ProjectInterface} from "../interfaces/project/project.interface";
+import {DeveloperInterface} from "../interfaces/developer/developer.interface";
 
 @Injectable({
   providedIn: 'root'
@@ -43,20 +44,6 @@ export class ProjectsService {
     return this.httpClient.get<ProjectInterface>(this.apiUrl + `/${projectId}`)
   }
 
-  public getAllProjectsByProjectOwner(filter: PaginationFilter): Observable<PaginationResponse<ProjectPagination[]>> {
-    let params = new HttpParams()
-      .set('pageNumber', filter.pageNumber.toString())
-      .set('pageSize', filter.pageSize.toString())
-      .set('sortColumn', filter.sortColumn.toString())
-      .set('sortDirection', (filter.sortDirection === 1) ? 'asc' : 'desc');
-
-    return this.httpClient.get<PaginationResponse<ProjectPagination[]>>(this.apiUrl + `/projects`, {params});
-  }
-
-  // public getProjectOwnerProjects(): Observable<ProjectInfo[]> {
-  //   return this.httpClient.get<ProjectInfo[]>(this.apiUrl + '/projectOwner/projects');
-  // }
-
   public addDevelopersOnProject(projectId: string, devId: string[]) {
     return this.httpClient.post(this.apiUrl + `/developers/${projectId}`, devId)
   }
@@ -65,30 +52,19 @@ export class ProjectsService {
     return this.httpClient.post<void>(this.apiUrl, projectObj)
   }
 
-  public addTechnologiesForProject(projId: string, techId: string[]) {
-    return this.httpClient.post(this.apiUrl + `/technologies/${projId}`, techId)
-  }
-
-  public removeTechnologyFromProject(projId: string, techId: string[]) {
-    const options = {
-      body: techId
-    }
-    return this.httpClient.delete(this.apiUrl + `/technologies/${projId}`, options)
-  }
-
-  public updateProject(projId: string, projObj: UpdateProject) {
-    return this.httpClient.put(this.apiUrl + `/${projId}`, projObj)
-  }
-
-  public updateProjectDetails(projId: string, description: ProjectDetail) {
-    return this.httpClient.put(this.apiUrl + `/ProjectDetails/${projId}`, description)
-  }
-
   public deleteProject(id: string) {
     return this.httpClient.delete(this.apiUrl + `/${id}`)
   }
 
   public addDeveloperToProject(projectId: string, devId: string[]): Observable<void> {
     return this.httpClient.post<void>(this.apiUrl + `/${projectId}/developers`, devId)
+  }
+
+  public getProjectDevelopers(projectId: string): Observable<Array<DeveloperInterface>> {
+    return this.httpClient.get<Array<DeveloperInterface>>(`${this.apiUrl}/${projectId}/developers`)
+  }
+
+  public removeDeveloperFromProject(projectId: string, developerId: string): Observable<void> {
+    return this.httpClient.delete<void>(`${this.apiUrl}/${projectId}/developers?developerId=${developerId}`)
   }
 }

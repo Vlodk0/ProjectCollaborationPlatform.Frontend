@@ -62,5 +62,11 @@ export class IconRegistry {
     matIconRegistry.addSvgIcon(
       'reject',
       domSanitizer.bypassSecurityTrustResourceUrl('assets/icons/reject-icon.svg'));
+    matIconRegistry.addSvgIcon(
+      'delete',
+      domSanitizer.bypassSecurityTrustResourceUrl('assets/icons/delete-icon.svg'));
+    matIconRegistry.addSvgIcon(
+      'profile',
+      domSanitizer.bypassSecurityTrustResourceUrl('assets/icons/profile-icon.svg'));
   }
 }
