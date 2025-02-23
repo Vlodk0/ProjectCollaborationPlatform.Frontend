@@ -1,12 +1,11 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from "@angular/forms";
 import {UserService} from "../../shared/services/user.service";
-import {UpdateUser} from "../../shared/interfaces/update-user";
-import {Subject, switchAll, switchMap, takeUntil} from "rxjs";
+import {UpdateUserInfoInterface} from "../../shared/interfaces/user/update-user-info.interface";
+import {Subject, switchMap, takeUntil} from "rxjs";
 import {TechnologyService} from "../../shared/services/technology.service";
 import {Technology} from "../../shared/interfaces/technology";
 import {DeveloperService} from "../../shared/services/developer.service";
-import {GetUser} from "../../shared/interfaces/get-user";
 import {UserInfoWithAvatar} from "../../shared/interfaces/user-info-with-avatar";
 import {TechnologyInterface} from "../../shared/interfaces/project/technology.interface";
 
@@ -41,7 +40,7 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
     avatarName: 'setup-avatar.png',
   }
 
-  updatedUser: UpdateUser
+  updatedUser: UpdateUserInfoInterface
 
   onUpload(event: any) {
     this.userAvatar = event.target.files[0];
@@ -79,7 +78,7 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
 
   updateUser() {
     if (this.updatingUserForm.valid) {
-      let userObj: UpdateUser = {
+      let userObj: UpdateUserInfoInterface = {
         firstName: this.updatingUserForm.value.firstName,
         lastName: this.updatingUserForm.value.lastName
       }
@@ -88,7 +87,7 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
         .pipe(takeUntil(this.isSubscribe))
         .subscribe({
           next: value => {
-            this.updatedUser = value
+            //this.updatedUser = value
             //this.messageService.add({severity: 'success', summary: 'User is updated'});
           },
           error: () => {

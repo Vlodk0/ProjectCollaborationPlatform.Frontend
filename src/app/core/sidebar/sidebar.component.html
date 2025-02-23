@@ -50,14 +50,14 @@
 
     <div>
       <div *ngIf="sidebarExpanded" class="vc-menu-item">
-        <button class="button-red" (click)="logout()" [disabled]="isLogoutProcessing"
+        <button class="button-red" [disabled]="isLogoutProcessing"
                 mat-raised-button>
           {{'sideBar.logoutLabel' | translate}}
         </button>
       </div>
 
       <div *ngIf="!sidebarExpanded" class="vc-menu-item">
-        <button (click)="logout()" [disabled]="isLogoutProcessing">
+        <button [disabled]="isLogoutProcessing">
           <mat-icon [svgIcon]="'log-out'"
                     class="icon">
           </mat-icon>

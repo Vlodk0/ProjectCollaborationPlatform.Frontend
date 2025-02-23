@@ -9,9 +9,10 @@
                     matTooltipClass="tooltip"
                     [aria-label]="form?.id"
                     [aria-labelledby]="form?.technology"
-                    [checked]="projectForm.get('technologiesIds')?.value?.includes(form.id)"
+                    [checked]="projectForm.get('technologyIds')?.value?.includes(form.id)"
                     (change)="onTechnologyCheckboxChange(form.id, $event.checked)"
-                    [value]="form.id" class="checkbox">
+                    [value]="form.id"
+                    class="checkbox">
         {{ form?.technology | translate }}
       </mat-checkbox>
     </div>
@@ -23,9 +24,10 @@
                     matTooltipClass="tooltip"
                     [aria-label]="form?.id"
                     [aria-labelledby]="form?.technology"
-                    [checked]="projectForm.get('technologiesIds')?.value?.includes(form.id)"
+                    [checked]="projectForm.get('technologyIds')?.value?.includes(form.id)"
                     (change)="onTechnologyCheckboxChange(form.id, $event.checked)"
-                    [value]="form.id" class="checkbox">
+                    [value]="form.id"
+                    class="checkbox">
         {{ form?.technology | translate }}
       </mat-checkbox>
     </div>
@@ -37,9 +39,10 @@
                     matTooltipClass="tooltip"
                     [aria-label]="form?.id"
                     [aria-labelledby]="form?.technology"
-                    [checked]="projectForm.get('technologiesIds')?.value?.includes(form.id)"
+                    [checked]="projectForm.get('technologyIds')?.value?.includes(form.id)"
                     (change)="onTechnologyCheckboxChange(form.id, $event.checked)"
-                    [value]="form.id" class="checkbox">
+                    [value]="form.id"
+                    class="checkbox">
         {{ form?.technology | translate }}
       </mat-checkbox>
     </div>

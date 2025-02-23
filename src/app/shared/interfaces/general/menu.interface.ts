@@ -1,5 +1,6 @@
 export interface MenuConfigInterface {
-  userMenu: MenuItemInterface[];
+  developerMenu: MenuItemInterface[];
+  projectOwnerMenu: MenuItemInterface[];
 }
 
 export interface MenuItemInterface {

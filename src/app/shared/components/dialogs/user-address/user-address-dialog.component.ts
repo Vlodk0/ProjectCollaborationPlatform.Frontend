@@ -1,6 +1,6 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, Inject, OnDestroy, OnInit} from '@angular/core';
 import {StaticDataService} from "../../../services/static-data.service";
-import {finalize, Observable, Subject, takeUntil} from "rxjs";
+import {finalize, Observable, Subject, take, takeUntil} from "rxjs";
 import {CountryInterface} from "../../../interfaces/country-interface";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {UpdateAddressFormGroup} from "../../../../core/types/form-groups/update-address-form-group";
@@ -8,7 +8,7 @@ import {SpinnerService} from "../../../services/spinner.service";
 import {UserService} from "../../../services/user.service";
 import {UpdateAddressInterface} from "../../../interfaces/user/update-address.interface";
 import {NotificationService} from "../../../services/notification.service";
-import {MatDialogRef} from "@angular/material/dialog";
+import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 
 @Component({
   selector: 'collabro-user-address',
@@ -28,7 +28,12 @@ export class UserAddressDialogComponent implements OnInit, OnDestroy {
               private readonly userService: UserService,
               private readonly fb: FormBuilder,
               private readonly spinnerService: SpinnerService,
-              private readonly notificationService: NotificationService) {
+              private readonly notificationService: NotificationService,
+              @Inject(MAT_DIALOG_DATA) public data: {
+                countryCode: string,
+                city: string,
+                state: string,
+              }) {
   }
 
   public ngOnDestroy(): void {
@@ -37,8 +42,20 @@ export class UserAddressDialogComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-      this.setForm();
-      this.handleCountryCodeChange();
+    this.setForm();
+    if (this.data?.countryCode) {
+      this.loadStates(this.data.countryCode);
+    }
+   this.handleCountryCodeChange();
+  }
+
+  private loadStates(countryCode: string): void {
+    this.states$ = this.staticDataService.getAllStates(countryCode.toLowerCase());
+    this.states$.pipe(take(1)).subscribe((states) => {
+      if (states.includes(this.data?.state)) {
+        this.addressForm.get('state')!.setValue(this.data?.state);
+      }
+    });
   }
 
   private handleCountryCodeChange(): void {
@@ -47,16 +64,25 @@ export class UserAddressDialogComponent implements OnInit, OnDestroy {
       .subscribe((countryCode: string) => {
         if (countryCode) {
           this.states$ = this.staticDataService.getAllStates(countryCode.toLowerCase());
-          this.addressForm.get('state')!.reset();
+          this.states$.pipe(take(1)).subscribe((states) => {
+            const currentState = this.data?.state;
+            if (states.includes(currentState)) {
+              this.addressForm.get('state')!.setValue(currentState);
+            } else {
+              this.addressForm.get('state')!.reset();
+            }
+          });
         }
       });
   }
 
+
+
   private setForm(): void {
     this.addressForm = this.fb.group<UpdateAddressFormGroup>({
-      countryCode: this.fb.control<string>(null, [Validators.required]),
-      city: this.fb.control<string>(null, [Validators.required]),
-      state: this.fb.control<string>(null, [Validators.required])
+      countryCode: this.fb.control<string>(this.data?.countryCode ?? '', [Validators.required]),
+      city: this.fb.control<string>(this.data?.city ?? '', [Validators.required]),
+      state: this.fb.control<string>(this.data?.state ?? '', [Validators.required])
     });
   }
 

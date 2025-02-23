@@ -16,8 +16,4 @@ export class DeveloperTechnologyService {
   public addTechnologyForDeveloper(technologyIds: string[]): Observable<void> {
     return this.httpClient.post<void>(this.apiUrl, technologyIds);
   }
-
-  public addFrameworksForDeveloper(frameworkIds: string[]): Observable<void> {
-    return this.httpClient.post<void>(this.apiUrl, frameworkIds);
-  }
 }

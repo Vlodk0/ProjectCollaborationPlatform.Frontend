@@ -7,6 +7,7 @@ import {environment} from "../../environment";
 import {PaginationFilterDevs} from "../interfaces/pagination-filter-devs";
 import {Technology} from "../interfaces/technology";
 import {PageDeveloperInterface} from "../interfaces/developer/page-developer.interface";
+import {DeveloperInterface} from "../interfaces/developer/developer.interface";
 
 @Injectable({
   providedIn: 'root'
@@ -25,8 +26,8 @@ export class DeveloperService {
     return this.httpClient.get<PageDeveloperInterface>(this.apiUrl + '/developers', {params})
   }
 
-  public getDeveloperById(id: string): Observable<PaginationDeveloper> {
-    return this.httpClient.get<PaginationDeveloper>(this.apiUrl + `/${id}`)
+  public getDeveloper(developerId: string): Observable<DeveloperInterface> {
+    return this.httpClient.get<DeveloperInterface>(this.apiUrl + `/${developerId}`)
   }
 
   public deleteDeveloper(id: string) {

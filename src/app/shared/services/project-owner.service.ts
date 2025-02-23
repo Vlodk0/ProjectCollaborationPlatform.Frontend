@@ -5,6 +5,7 @@ import {PaginationFilterDevs} from "../interfaces/pagination-filter-devs";
 import {Observable} from "rxjs";
 import {PaginationResponse} from "../interfaces/pagination-response";
 import {ProjectOwnerPagination} from "../interfaces/project-owner-pagination";
+import {ProjectOwnerInterface} from "../interfaces/project/project-owner.interface";
 
 @Injectable({
   providedIn: 'root'
@@ -25,5 +26,9 @@ export class ProjectOwnerService {
 
   public deleteProjectOwner(id: string) {
     return this.httpClient.delete(this.apiUrl + `/${id}`)
+  }
+
+  public getProjectOwner(projectOwnerId: string): Observable<ProjectOwnerInterface> {
+    return this.httpClient.get<ProjectOwnerInterface>(this.apiUrl + `/${projectOwnerId}`)
   }
 }

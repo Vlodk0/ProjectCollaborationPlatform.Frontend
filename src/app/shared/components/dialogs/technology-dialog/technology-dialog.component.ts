@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, Inject, OnDestroy, OnInit} from '@angular/core';
 import {TechnologyInterface} from "../../../interfaces/project/technology.interface";
 import {finalize, Subject, takeUntil} from "rxjs";
 import {FormBuilder, FormGroup} from "@angular/forms";
@@ -6,7 +6,7 @@ import {TechnologyService} from "../../../services/technology.service";
 import {SpinnerService} from "../../../services/spinner.service";
 import {NotificationService} from "../../../services/notification.service";
 import {DeveloperTechnologyService} from "../../../services/developer-technology.service";
-import {MatDialogRef} from "@angular/material/dialog";
+import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 
 @Component({
   selector: 'collabro-technology-dialog',
@@ -27,7 +27,10 @@ export class TechnologyDialogComponent implements OnInit, OnDestroy {
               private readonly spinnerService: SpinnerService,
               private readonly notificationService: NotificationService,
               private readonly dialogRef: MatDialogRef<TechnologyDialogComponent>,
-              private readonly developerTechnologyService: DeveloperTechnologyService) {
+              private readonly developerTechnologyService: DeveloperTechnologyService,
+              @Inject(MAT_DIALOG_DATA) public data: {
+                developerTechnologies: TechnologyInterface[],
+              }) {
   }
 
   ngOnDestroy(): void {
@@ -41,17 +44,24 @@ export class TechnologyDialogComponent implements OnInit, OnDestroy {
   }
 
   public onTechnologyCheckboxChange(id: string, isChecked: boolean): void {
-    const currentIds: string[] = this.projectForm.get('technologiesIds').value;
+    const currentIds: string[] = this.projectForm.get('technologyIds').value;
     const updatedIds = isChecked
       ? [...currentIds, id]
       : currentIds.filter(currentId => currentId !== id);
-    this.projectForm.get('technologiesIds').setValue(updatedIds);
+    this.projectForm.get('technologyIds').setValue(updatedIds);
   }
 
   private setForm(): void {
     this.projectForm = this.fb.group({
-      technologiesIds: this.fb.control<string[]>([])
+      technologyIds: this.fb.control<string[]>([])
     })
+
+    if (this.data?.developerTechnologies) {
+      const technologyIds = this.data?.developerTechnologies.map(item => item.id);
+      this.projectForm.patchValue({
+        technologyIds: technologyIds
+      });
+    }
   }
 
   private getTechnologies(): void {

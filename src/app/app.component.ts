@@ -6,6 +6,7 @@ import {BreakpointObserver} from "@angular/cdk/layout";
 import {MatIconRegistry} from "@angular/material/icon";
 import {DomSanitizer} from "@angular/platform-browser";
 import {IconRegistry} from "./shared/services/general/icon.registry.service";
+import {UserService} from "./shared/services/user.service";
 
 @Component({
   selector: 'app-root',
@@ -18,7 +19,8 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(private readonly translate: TranslateService,
               private readonly matIconRegistry: MatIconRegistry,
               private readonly domSanitizer: DomSanitizer,
-              private readonly breakPointObserver: BreakpointObserver) {
+              private readonly breakPointObserver: BreakpointObserver,
+              private readonly userService: UserService) {
     this.translate.setDefaultLang('en');
     this.translate.use('en');
   }

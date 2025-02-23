@@ -30,9 +30,16 @@ export class RootComponent implements OnInit, OnDestroy {
   public sidebarMode: MatDrawerMode = 'side';
 
   public ngOnInit(): void {
+    this.userService.getUser()
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe({
+        next: (user) => {
+          this.userService.initUser(user)
+        }
+      });
+
     IconRegistry.register(this.matIconRegistry, this.domSanitizer);
     this.listenToDynamicSidebarModeChange();
-    this.userService.initUser();
     //this.router.navigate(['/signup']);
   }
 

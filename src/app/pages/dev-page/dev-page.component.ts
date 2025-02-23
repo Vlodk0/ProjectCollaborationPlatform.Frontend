@@ -10,6 +10,7 @@ import { GetFeedback } from '../../shared/interfaces/get-feedback';
 import { Feedback } from '../../shared/interfaces/feedback';
 import {PaginationDeveloper} from "../../shared/interfaces/pagination-developer";
 import {Technology} from "../../shared/interfaces/technology";
+import {DeveloperInterface} from "../../shared/interfaces/developer/developer.interface";
 
 @Component({
   selector: 'app-dev-page',
@@ -17,7 +18,7 @@ import {Technology} from "../../shared/interfaces/technology";
   styleUrls: ['./dev-page.component.scss'],
 })
 export class DevPageComponent implements OnInit {
-  developers$: Observable<PaginationDeveloper>;
+  developers$: Observable<DeveloperInterface>;
   technologies$: Observable<Technology[]>;
   feedbacks$: Observable<PaginationResponse<GetFeedback[]>>;
   devId: string;
@@ -49,7 +50,7 @@ export class DevPageComponent implements OnInit {
   }
 
   loadDeveloperDetails(): void {
-    this.developers$ = this.developerService.getDeveloperById(this.devId);
+    this.developers$ = this.developerService.getDeveloper(this.devId);
   }
 
   loadDevTechnologies(): void {

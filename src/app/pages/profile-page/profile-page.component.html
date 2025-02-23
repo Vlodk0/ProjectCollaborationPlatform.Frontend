@@ -9,8 +9,8 @@
       </ng-template>
     </div>
     <div class="user-info-container">
-      <div class="user-full-name"> Name Surname </div>
-      <div class="user-role-name"> Developer</div>
+      <div class="user-full-name"> {{ commonUser?.firstName }} {{ commonUser?.lastName }} </div>
+      <div class="user-role-name">{{ user?.roleName === applicationRoleEnum.Dev ? ('general.developerLabel' | translate) : ('general.projectOwnerLabel' | translate) }}</div>
     </div>
   </div>
 
@@ -23,27 +23,30 @@
           <mat-icon [svgIcon]="'edit'"></mat-icon>
         </button>
       </div>
-      <div class="d-flex justify-content-space-between flex-wrap">
+      <div class="user-info-wrapper">
         <div class="user-info-container row-gap-0-4 column-gap-0-4">
           <div class="info-title"> First Name*</div>
-          <input class="input-wrapper" placeholder="John" />
+          <div class="input-wrapper"> {{ commonUser?.firstName }} </div>
         </div>
 
         <div class="user-info-container row-gap-0-4 column-gap-0-4">
           <div class="info-title"> Last Name*</div>
-          <input class="input-wrapper" placeholder="Doe" />
+          <div class="input-wrapper"> {{ commonUser?.lastName }} </div>
         </div>
 
         <div class="user-info-container row-gap-0-4 column-gap-0-4">
           <div class="info-title">Email*</div>
-          <input class="input-wrapper" placeholder="john.doe@gmail.com" />
+          <div class="input-wrapper">{{ commonUser?.email }}</div>
         </div>
       </div>
 
       <div class="w-100">
         <div class="user-info-container m-t-2">
           <div class="info-title">Bio</div>
-          <textarea class="text-area-wrapper" disabled="disabled" rows="5" placeholder="Lorem Ipsum"></textarea>
+          <textarea class="text-area-wrapper"
+                    disabled="disabled"
+                    rows="5"
+                    placeholder="{{ commonUser?.bio }}"></textarea>
         </div>
       </div>
     </div>
@@ -58,26 +61,26 @@
           <mat-icon [svgIcon]="'edit'"></mat-icon>
         </button>
       </div>
-      <div class="d-flex justify-content-space-between flex-wrap">
+      <div class="user-info-wrapper">
         <div class="user-info-container">
           <div class="info-title"> Country</div>
-          <input class="input-wrapper" placeholder="United State of America" />
+          <div class="input-wrapper"> {{ commonUser?.address?.countryCode }} </div>
         </div>
 
         <div class="user-info-container">
-          <div class="info-title"> City</div>
-          <input class="input-wrapper" placeholder="Los Angeles" />
+          <div class="info-title"> City </div>
+          <div class="input-wrapper"> {{ commonUser?.address?.city }} </div>
         </div>
 
         <div class="user-info-container">
           <div class="info-title"> State</div>
-          <input class="input-wrapper" placeholder="LA" />
+          <div class="input-wrapper"> {{ commonUser?.address?.state }} </div>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="item-container">
+  <div *ngIf="user?.roleName === applicationRoleEnum.Dev" class="item-container">
     <div class="item-container-header-wrapper">
       <div class="item-container-header flex-wrap">
         <div class="title">{{'technologies.technologiesLabel' | translate}}</div>
@@ -86,16 +89,16 @@
           <mat-icon [svgIcon]="'edit'"></mat-icon>
         </button>
       </div>
-      <div class="d-flex column-gap-0-4 flex-wrap row-gap-0-4">
+      <div class="technology-wrapper">
         <div class="technology-item-container"
-             *ngFor="let item of technologiesListConstant">
-          {{ item.name | translate }}
+             *ngFor="let item of developer?.technologies">
+          {{ item.technology | translate }}
         </div>
       </div>
     </div>
   </div>
 
-  <div class="item-container">
+  <div *ngIf="user?.roleName === applicationRoleEnum.Dev" class="item-container">
     <div class="item-container-header-wrapper">
       <div class="item-container-header">
         <div class="title">{{ 'frameworks.frameworksLabel' | translate }}</div>
@@ -104,97 +107,13 @@
           <mat-icon [svgIcon]="'edit'"></mat-icon>
         </button>
       </div>
-      <div class="d-flex column-gap-0-4 flex-wrap row-gap-0-4">
+      <div class="technology-wrapper">
         <div class="technology-item-container"
-             *ngFor="let item of frameworkListConstant">
-          {{ item.name | translate }}
+             *ngFor="let item of developer?.frameworks">
+          {{ item.framework | translate }}
         </div>
       </div>
     </div>
   </div>
 </div>
-
-
-<!--<app-header></app-header>-->
-
-<!--<div class="background-container">-->
-<!--  <div class="avatar-container">-->
-<!--    <div class="avatar-content">-->
-<!--      <img src="{{imageData}}" alt="">-->
-<!--    </div>-->
-<!--    <div class="name-container">-->
-<!--      <span class="name-content">{{ user.firstName }} {{ user.lastName }}</span>-->
-<!--      <span class="role-content">{{ user.roleName }}</span>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--</div>-->
-
-<!--<div class="profile-info-container">-->
-<!--  <div class="my-account-header">-->
-<!--    <span class="my-account-header-content">My account</span>-->
-<!--  </div>-->
-<!--  <span class="user-info-header">USER INFORMATION</span>-->
-<!--  <div class="credentials-container">-->
-<!--    <div class="username-header">-->
-<!--      <span class="username-content">Username</span>-->
-<!--      <input disabled type="text" class="username-input"-->
-<!--             placeholder="{{user.email.substring(0 , user.email.indexOf('@'))}}">-->
-<!--    </div>-->
-<!--    <div class="email-header">-->
-<!--      <span class="email-content">Email</span>-->
-<!--      <input disabled type="text" class="email-input" placeholder="{{user.email}}">-->
-<!--    </div>-->
-<!--    <div class="first-name-header">-->
-<!--      <span class="first-name-content">First Name</span>-->
-<!--      <input disabled type="text" class="first-name-input" placeholder="{{user.firstName}}">-->
-<!--    </div>-->
-<!--    <div class="last-name-header">-->
-<!--      <span class="last-name-content">Last Name</span>-->
-<!--      <input disabled type="text" class="last-name-input" placeholder="{{user.lastName}}">-->
-<!--    </div>-->
-<!--    <div class="line">-->
-<!--      <svg width="1001" height="1" viewBox="0 0 1001 1" fill="none" xmlns="http://www.w3.org/2000/svg">-->
-<!--        <rect width="1001" height="1" fill="black" fill-opacity="0.1"/>-->
-<!--      </svg>-->
-<!--    </div>-->
-<!--    <div *ngIf="user.roleName == 'Dev'">-->
-<!--      <span class="feedbacks-header">FEEDBACKS</span>-->
-<!--      <div class="feedback-container">-->
-<!--        <ng-container *ngIf="feedbacks$ | async as feedbacks">-->
-<!--          <div *ngFor="let feedback of feedbacks.data" class="feedbacks-content">-->
-<!--            {{ feedback.content }}-->
-<!--          </div>-->
-<!--        </ng-container>-->
-<!--        <div class="card flex justify-content-center">-->
-<!--          <p-paginator-->
-<!--            (onPageChange)="onPageChange($event)"-->
-<!--            [first]="paginationFilter.pageNumber * paginationFilter.pageSize"-->
-<!--            [rows]="paginationFilter.pageSize"-->
-<!--            [totalRecords]="(feedbacks$ | async)?.totalRecords || 0"-->
-<!--          ></p-paginator>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--</div>-->
-
-<!--<div *ngIf="user.roleName == 'Dev'">-->
-<!--  <div class="secondary-container">-->
-<!--    <span class="secondary-container-content">Technology stack</span>-->
-<!--    <div class="tech-stack-container">-->
-<!--      <div class="tech-header">-->
-<!--        <span>Language</span>-->
-<!--        <span>Framework</span>-->
-<!--      </div>-->
-<!--      <div class="tech-container">-->
-<!--        <ul>-->
-<!--          <li *ngFor="let tech of technologies" class="tech-content">-->
-<!--            <span>{{ tech.technology }}</span>-->
-<!--            <span>{{ tech.framework }}</span>-->
-<!--          </li>-->
-<!--        </ul>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--</div>-->
 

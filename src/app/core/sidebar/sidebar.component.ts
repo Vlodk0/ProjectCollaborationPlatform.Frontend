@@ -1,15 +1,26 @@
-import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output
+} from '@angular/core';
 import {Router} from "@angular/router";
 import {GetUser} from "../../shared/interfaces/get-user";
 import {UserService} from "../../shared/services/user.service";
-import {Subject, takeUntil} from "rxjs";
+import {filter, Subject, takeUntil} from "rxjs";
 import {MenuConfigInterface} from "../../shared/interfaces/general/menu.interface";
 import {ConfigService} from "../../shared/interfaces/general/config.service";
+import {ApplicationRoleEnum} from "../enums/application-role.enum";
 
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
-  styleUrl: './sidebar.component.scss'
+  styleUrl: './sidebar.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SidebarComponent implements OnInit, OnDestroy {
   @Input() public sidebarExpanded = true;
@@ -18,46 +29,38 @@ export class SidebarComponent implements OnInit, OnDestroy {
   @Output() public hideSidebar: EventEmitter<void> = new EventEmitter();
 
   public isLogoutProcessing: boolean = false;
-
   public menuItems = [];
+  public user: GetUser = null;
 
-  position: string = 'center';
+  private readonly unsubscribe$: Subject<void> = new Subject<void>()
 
   constructor(private readonly router: Router,
               private readonly configService: ConfigService,
-              private readonly userService: UserService) {
-  }
-
-  isSubscribe: Subject<void> = new Subject<void>()
-
-  user: GetUser = {
-    id: '',
-    lastName: '',
-    firstName: '',
-    email: '',
-    roleName: '',
-    isDeleted: false
+              private readonly userService: UserService,
+              private readonly cdr: ChangeDetectorRef) {
   }
 
   ngOnInit() {
-    localStorage.getItem('access-token')
-
-    this.configService.getConfigMenu().subscribe({
-      next: (menu) => this.handleMenuItems(menu),
-      error: (err) => console.error('Error fetching menu config:', err)
-    });
-
-    this.getUser()
+    this.subscribeToCurrentUser();
   }
 
-  getUser() {
-    this.userService.getUser()
-      .pipe(takeUntil(this.isSubscribe))
+  ngOnDestroy() {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
+  }
+
+  public subscribeToCurrentUser(): void {
+    this.userService.currentUser$
+      .pipe(filter(Boolean),
+        takeUntil(this.unsubscribe$))
       .subscribe({
-        next: value => {
-          this.user = value;
+        next: user => {
+          this.user = user;
+          this.cdr.detectChanges();
+
+          this.loadMenuItems();
         }
-      })
+      });
   }
 
   public doToggleSidebar(): void {
@@ -68,36 +71,24 @@ export class SidebarComponent implements OnInit, OnDestroy {
     this.hideSidebar.emit();
   }
 
-  logout(position?: string) {
-    this.position = position;
-
-    // this.confirmationService.confirm({
-    //   message: 'Are you sure you want to logout?',
-    //   header: 'Logout',
-    //   icon: 'pi pi-info-circle',
-    //   acceptIcon: "none",
-    //   rejectIcon: "none",
-    //   rejectButtonStyleClass: "p-button-text",
-    //   accept: () => {
-    //     this.isLogoutProcessing = true;
-    //     //this.messageService.add({severity: 'info', summary: 'Confirmed', detail: 'Request submitted'});
-    //     localStorage.removeItem('access_token')
-    //     localStorage.removeItem('refresh_token')
-    //     this.router.navigateByUrl('signin')
-    //   },
-    //   reject: () => {
-    //     //this.messageService.add({severity: 'error', summary: 'Rejected', detail: 'Process incomplete', life: 3000});
-    //   },
-    //   key: 'positionDialog'
-    // })
-  }
-
-  ngOnDestroy() {
-    this.isSubscribe.next();
-    this.isSubscribe.complete();
+  private loadMenuItems(): void {
+    this.configService.getConfigMenu()
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe({
+        next: (menu) => this.handleMenuItems(menu),
+        error: (err) => console.error(`Error fetching menu config:`, err)
+      });
   }
 
   private handleMenuItems(result: MenuConfigInterface): void {
-      this.menuItems = result.userMenu
+    if (!this.user) return;
+
+    if (this.user.roleName === ApplicationRoleEnum.Dev) {
+      this.menuItems = result.developerMenu
+    } else if (this.user.roleName === ApplicationRoleEnum.ProjectOwner) {
+      this.menuItems = result.projectOwnerMenu
+    }
+
+    this.cdr.detectChanges();
   }
 }

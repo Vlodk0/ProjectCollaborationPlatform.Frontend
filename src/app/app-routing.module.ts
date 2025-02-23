@@ -47,27 +47,27 @@ const routes: Routes = [
     path: 'email-success',
     loadChildren: () => import('./static-pages/email-success-page/email-success-page-routing.module').then(r => r.EmailSuccessPageRoutingModule)
   },
-  {
-    path: 'my-settings',
-    loadChildren: () => import('./pages/settings-page/settings-page-routing.module').then(r => r.SettingsPageRoutingModule)
-  },
-  {
-    path: 'my-project/:id',
-    loadChildren: () => import('./pages/project-page/project-page-routing.module').then(r => r.ProjectPageRoutingModule)
-  },
-  {
-    path: 'project-info/:id',
-    loadChildren: () => import('./pages/project-info-page/project-info-page-routing.module').then(r => r.ProjectInfoPageRoutingModule)
-  },
-  {
-    path: 'developer/:id',
-    loadChildren: () => import('./pages/dev-page/dev-page-routing.module').then(r => r.DevPageRoutingModule)
-  },
-  {
-    path: 'admin-panel',
-    loadChildren: () => import('./pages/admin-panel/admin-panel-routing.module').then(r => r.AdminPanelRoutingModule),
-    canActivate: [AdminGuardService]
-  },
+  // {
+  //   path: 'my-settings',
+  //   loadChildren: () => import('./pages/settings-page/settings-page-routing.module').then(r => r.SettingsPageRoutingModule)
+  // },
+  // {
+  //   path: 'my-project/:id',
+  //   loadChildren: () => import('./pages/project-page/project-page-routing.module').then(r => r.ProjectPageRoutingModule)
+  // },
+  // {
+  //   path: 'project-info/:id',
+  //   loadChildren: () => import('./pages/project-info-page/project-info-page-routing.module').then(r => r.ProjectInfoPageRoutingModule)
+  // },
+  // {
+  //   path: 'developer/:id',
+  //   loadChildren: () => import('./pages/dev-page/dev-page-routing.module').then(r => r.DevPageRoutingModule)
+  // },
+  // {
+  //   path: 'admin-panel',
+  //   loadChildren: () => import('./pages/admin-panel/admin-panel-routing.module').then(r => r.AdminPanelRoutingModule),
+  //   canActivate: [AdminGuardService]
+  // },
   {
     path: '404',
     loadChildren: () => import('./static-pages/page-not-found/page-not-found-routing.module').then(r => r.PageNotFoundRoutingModule)

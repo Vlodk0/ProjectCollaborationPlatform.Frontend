@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, Inject, OnDestroy, OnInit} from '@angular/core';
 import {TechnologyInterface} from "../../../interfaces/project/technology.interface";
 import {FrameworkInterface} from "../../../interfaces/project/framework.interface";
 import {FrameworkService} from "../../../services/framework.service";
@@ -7,7 +7,7 @@ import {FormBuilder, FormGroup} from "@angular/forms";
 import {DeveloperFrameworkService} from "../../../services/developer-framework.service";
 import {SpinnerService} from "../../../services/spinner.service";
 import {NotificationService} from "../../../services/notification.service";
-import {MatDialogRef} from "@angular/material/dialog";
+import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 
 @Component({
   selector: 'collabro-framework-dialog',
@@ -30,7 +30,10 @@ export class FrameworkDialogComponent implements OnInit, OnDestroy {
               private readonly spinnerService: SpinnerService,
               private readonly notificationService: NotificationService,
               private readonly dialogRef: MatDialogRef<FrameworkDialogComponent>,
-              private readonly fb: FormBuilder) {
+              private readonly fb: FormBuilder,
+              @Inject(MAT_DIALOG_DATA) public data: {
+                developerFrameworks: FrameworkInterface[],
+              }) {
   }
 
   ngOnDestroy(): void {
@@ -85,5 +88,12 @@ export class FrameworkDialogComponent implements OnInit, OnDestroy {
     this.projectForm = this.fb.group({
       frameworkIds: this.fb.control<string[]>([])
     })
+
+    if (this.data?.developerFrameworks) {
+      const frameworkIds = this.data?.developerFrameworks.map(tech => tech.id);
+      this.projectForm.patchValue({
+        frameworkIds: frameworkIds
+      });
+    }
   }
 }

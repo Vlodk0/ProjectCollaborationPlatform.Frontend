@@ -14,7 +14,9 @@
     "inviteLabel": "Invite",
     "sendRequestLabel": "Send Request",
     "acceptLabel": "Accept",
-    "rejectLabel": "Reject"
+    "rejectLabel": "Reject",
+    "developerLabel": "Developer",
+    "projectOwnerLabel": "Project Owner"
   },
 
   "profileSettings": {

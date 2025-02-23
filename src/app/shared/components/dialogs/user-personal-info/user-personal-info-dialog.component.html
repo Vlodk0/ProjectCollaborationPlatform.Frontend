@@ -1,4 +1,4 @@
-<div class="modal-wrapper">
+<div class="modal-wrapper" [formGroup]="userPersonalInfoFormGroup">
   <div class="page-title">{{ 'profileSettings.updatePersonalInfoLabel' | translate }}</div>
 
   <div class="input-container m-t-2-4">
@@ -6,16 +6,21 @@
       <mat-label>{{ 'profileSettings.firstNameLabel' | translate }}</mat-label>
 
       <input formControlName="firstName" matInput/>
+
+      <collabro-control-validation-message [control]="userPersonalInfoFormGroup.get('firstName')" />
     </mat-form-field>
 
     <mat-form-field appearance="outline" class="input-container-item-large">
       <mat-label>{{ 'profileSettings.lastNameLabel' | translate }}</mat-label>
 
       <input formControlName="lastName" matInput/>
+
+      <collabro-control-validation-message [control]="userPersonalInfoFormGroup.get('lastName')" />
     </mat-form-field>
 
     <mat-form-field class="w-100 textarea" appearance="outline">
       <textarea class="text-area"
+                formControlName="bio"
                 matInput
                 rows="5">
       </textarea>
@@ -29,8 +34,9 @@
       </button>
 
       <button class="button-purple"
+              (click)="updateUserPersonalInfo()"
               mat-button>
-        {{ 'general.editLabel' | translate }}
+        {{ 'general.saveLabel' | translate }}
       </button>
     </div>
   </div>

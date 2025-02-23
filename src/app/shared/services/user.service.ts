@@ -3,7 +3,7 @@ import {environment} from "../../environment";
 import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {BehaviorSubject, Observable} from "rxjs";
 import {GetUser} from "../interfaces/get-user";
-import {UpdateUser} from "../interfaces/update-user";
+import {UpdateUserInfoInterface} from "../interfaces/user/update-user-info.interface";
 import {PaginationFilter} from "../interfaces/pagination-filter";
 import {PaginationResponse} from "../interfaces/pagination-response";
 import {ProjectPagination} from "../interfaces/project-pagination";
@@ -27,8 +27,8 @@ export class UserService {
     return this.httpClient.get<GetUser>(this.apiUrl);
   }
 
-  public updateUser(user: UpdateUser) {
-    return this.httpClient.patch<UpdateUser>(this.apiUrl, user)
+  public updateUser(user: UpdateUserInfoInterface): Observable<void> {
+    return this.httpClient.patch<void>(this.apiUrl, user)
   }
 
   public getAllProjects(filter: PaginationFilter): Observable<PaginationResponse<ProjectPagination[]>> {
@@ -59,12 +59,8 @@ export class UserService {
     return this.httpClient.get(this.apiUrl + `/${avatarName}`, {responseType: "blob"})
   }
 
-  public initUser(): void {
-    this.getUser().subscribe({
-      next: (user) => {
-        this.currentUserSubject$.next(user);
-      }
-    });
+  public initUser(user: GetUser): void {
+    this.currentUserSubject$.next(user);
   }
 
   public updateAddress(updateUserAddress: UpdateAddressInterface): Observable<void> {
