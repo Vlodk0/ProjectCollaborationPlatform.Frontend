@@ -55,13 +55,17 @@
   .user-info-container {
     display: flex;
     flex-direction: column;
-    align-items: center;
     height: 100%;
 
     .user-full-name {
       font-weight: 500;
       font-size: 2rem;
       line-height: 32px;
+    }
+
+    .country-image {
+      width: 15px;
+      height: 15px;
     }
 
     .user-role-name {

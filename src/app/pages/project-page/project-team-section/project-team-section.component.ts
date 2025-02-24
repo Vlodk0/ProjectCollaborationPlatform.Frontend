@@ -16,8 +16,8 @@ import {NotificationService} from "../../../shared/services/notification.service
 })
 export class ProjectTeamSectionComponent implements OnInit, OnDestroy {
   @Input() projectId: string;
+  @Input() developers: Array<DeveloperInterface>;
 
-  public developers: Array<DeveloperInterface>;
   public developerTableColumns = ['fullName', 'location', 'action'];
 
   private unsubscribe$: Subject<void> = new Subject<void>();
@@ -34,7 +34,7 @@ export class ProjectTeamSectionComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.getProjectDevelopers()
+    //this.getProjectDevelopers()
   }
 
   private getProjectDevelopers(): void {

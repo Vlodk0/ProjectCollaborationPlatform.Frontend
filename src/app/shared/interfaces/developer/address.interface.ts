@@ -3,4 +3,5 @@ export interface AddressInterface {
   countryCode: string;
   city: string;
   state: string;
+  countryName: string;
 }

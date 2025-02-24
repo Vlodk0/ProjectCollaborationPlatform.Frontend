@@ -68,5 +68,11 @@ export class IconRegistry {
     matIconRegistry.addSvgIcon(
       'profile',
       domSanitizer.bypassSecurityTrustResourceUrl('assets/icons/profile-icon.svg'));
+    matIconRegistry.addSvgIcon(
+      'ukraine',
+      domSanitizer.bypassSecurityTrustResourceUrl('assets/icons/ukraine-icon.svg'));
+    matIconRegistry.addSvgIcon(
+      'usa',
+      domSanitizer.bypassSecurityTrustResourceUrl('assets/icons/usa-icon.svg'));
   }
 }

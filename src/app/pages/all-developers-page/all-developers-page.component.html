@@ -20,7 +20,7 @@
     </mat-form-field>
   </div>
 
-  <collabro-paginator class="h-100">
+  <collabro-paginator [flexDirection]="'row'" class="h-100">
     <div class="developers-wrapper"
          *ngFor="let developer of developers">
       <collabro-developer-card [developer]="developer" />

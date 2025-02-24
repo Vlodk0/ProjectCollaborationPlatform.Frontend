@@ -9,6 +9,7 @@ import {debounceTime, Subject, takeUntil} from "rxjs";
 export class PaginatorComponent {
   @Input() public showMoreButton = false;
   @Input() public loadDataByClick = false;
+  @Input() public flexDirection: 'row' | 'column' = 'column';
 
   @Output() public loadDataEmitter = new EventEmitter<void>();
 

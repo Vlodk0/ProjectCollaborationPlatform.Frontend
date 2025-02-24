@@ -2,22 +2,30 @@
   <mat-tab-group animationDuration="0ms"
                  mat-stretch-tabs="false"
                  mat-align-tabs="start"
+                 [(selectedIndex)]="tabIndex"
+                 (selectedTabChange)="selectedTabChange()"
                  class="h-100">
     <mat-tab label="{{'myProject.summaryLabel' | translate}}">
       <collabro-project-overview-section [project]="project" />
     </mat-tab>
 
     <mat-tab label="{{'myProject.teamLabel' | translate}}">
-      <collabro-project-team-section [projectId]="project.id" />
+      <collabro-project-team-section [projectId]="project.id"
+                                     [developers]="developers" />
     </mat-tab>
 
     <mat-tab label="{{'myProject.boardLabel' | translate}}">
       <collabro-project-board-section [projectId]="project.id"
-                                      [developers]="project.developers" />
+                                      [developers]="developers"
+                                      [projectTasks]="projectTasks"
+                                      [todoTasks]="todoTasks"
+                                      [inProgressTasks]="inProgressTasks"
+                                      [doneTasks]="doneTasks" />
     </mat-tab>
 
     <mat-tab label="{{'myProject.requestsLabel' | translate}}">
-      <collabro-project-requests-section [projectId]="project.id" />
+      <collabro-project-requests-section [projectId]="project.id"
+                                         [projectRequests]="projectRequests" />
     </mat-tab>
 
 

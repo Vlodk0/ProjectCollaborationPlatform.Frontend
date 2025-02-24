@@ -22,12 +22,12 @@ import {DeveloperInterface} from "../../../shared/interfaces/developer/developer
 export class ProjectBoardSectionComponent implements OnInit, OnDestroy {
   @Input() projectId: string;
   @Input() developers: DeveloperInterface[];
+  @Input() projectTasks: FunctionalityBlockInterface[];
 
-  public projectTasks: FunctionalityBlockInterface[];
   public taskStatusEnum = TaskStatus;
-  public todoTasks: FunctionalityBlockInterface[] = [];
-  public inProgressTasks: FunctionalityBlockInterface[] = [];
-  public doneTasks: FunctionalityBlockInterface[] = [];
+  @Input() todoTasks: FunctionalityBlockInterface[] = [];
+  @Input() inProgressTasks: FunctionalityBlockInterface[] = [];
+  @Input() doneTasks: FunctionalityBlockInterface[] = [];
 
   private unsubscribe$: Subject<void> = new Subject<void>();
 
@@ -38,7 +38,7 @@ export class ProjectBoardSectionComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.getProjectTasks();
+    //this.getProjectTasks();
   }
 
   ngOnDestroy() {

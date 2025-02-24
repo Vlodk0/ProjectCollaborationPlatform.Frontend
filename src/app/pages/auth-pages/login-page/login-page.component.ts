@@ -84,8 +84,8 @@ export class LoginPageComponent implements OnInit {
   }
   private addProjectOwner() {
     let userObj: CreateProjectOwner = {
-      firstName: localStorage.getItem("firstName"),
-      lastName: localStorage.getItem("lastName"),
+      firstName: "",
+      lastName: "",
       email: "",
     }
     this.authService.createProjectOwner(userObj)
@@ -93,8 +93,8 @@ export class LoginPageComponent implements OnInit {
 
   private addDeveloper() {
     let userObj: CreateDeveloper = {
-      firstName: localStorage.getItem("firstName"),
-      lastName: localStorage.getItem("lastName"),
+      firstName: "",
+      lastName: "",
       email: ""
     }
     this.authService.createDev(userObj)

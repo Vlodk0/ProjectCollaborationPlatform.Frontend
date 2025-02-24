@@ -8,7 +8,12 @@ import {UserService} from "../../shared/services/user.service";
 import {ProjectInterface} from "../../shared/interfaces/project/project.interface";
 import {SpinnerService} from "../../shared/services/spinner.service";
 import {NotificationService} from "../../shared/services/notification.service";
-import {popResultSelector} from "rxjs/internal/util/args";
+import {ProjectPageTabsEnum} from "../../core/enums/pages/project-page-tabs.enum";
+import {DeveloperInterface} from "../../shared/interfaces/developer/developer.interface";
+import {TaskStatus} from "../../core/enums/task-status.enum";
+import {FunctionalityBlockInterface} from "../../shared/interfaces/project/functionality-block.interface";
+import {ProjectRequestService} from "../../shared/services/project-request.service";
+import {ProjectRequestInterface} from "../../shared/interfaces/project/project-request.interface";
 
 @Component({
   selector: 'app-project-page',
@@ -18,6 +23,14 @@ import {popResultSelector} from "rxjs/internal/util/args";
 })
 export class ProjectPageComponent implements OnInit, OnDestroy {
   public project: ProjectInterface = null;
+  public tabIndex: ProjectPageTabsEnum = ProjectPageTabsEnum.Overview;
+  public developers: Array<DeveloperInterface>;
+  public projectTasks: FunctionalityBlockInterface[];
+  public todoTasks: FunctionalityBlockInterface[] = [];
+  public inProgressTasks: FunctionalityBlockInterface[] = [];
+  public doneTasks: FunctionalityBlockInterface[] = [];
+  public projectRequests: ProjectRequestInterface[] = [];
+
   private projectId: string;
 
   private unsubscribe$: Subject<void> = new Subject<void>();
@@ -29,6 +42,8 @@ export class ProjectPageComponent implements OnInit, OnDestroy {
     private userService: UserService,
     private readonly spinnerService: SpinnerService,
     private readonly notificationService: NotificationService,
+    private readonly functionalityBlockService: FunctionalityBlockService,
+    private readonly projectRequestService: ProjectRequestService
   ) {
   }
 
@@ -75,5 +90,71 @@ export class ProjectPageComponent implements OnInit, OnDestroy {
       })
   }
 
-  protected readonly popResultSelector = popResultSelector;
+  private getProjectDevelopers(): void {
+    this.spinnerService.showSpinner();
+
+    this.projectService.getProjectDevelopers(this.projectId)
+      .pipe(finalize(() => {
+          this.spinnerService.hideSpinner();
+        }),
+        takeUntil(this.unsubscribe$))
+      .subscribe({
+        next: result => {
+          this.developers = result;
+        }
+      });
+  }
+
+  private getProjectTasks(): void {
+    this.spinnerService.showSpinner();
+
+    this.functionalityBlockService.getProjectTasks(this.projectId)
+      .pipe(takeUntil(this.unsubscribe$),
+        finalize(() => this.spinnerService.hideSpinner()))
+      .subscribe({
+        next: (result) => {
+          this.projectTasks = result;
+          this.initializeTaskArrays();
+        },
+        error: (error) => this.notificationService.showErrorNotification(error?.error?.detail)
+      });
+  }
+
+  private initializeTaskArrays() {
+    this.todoTasks = this.projectTasks.filter(task => task.status === TaskStatus.Todo);
+    this.inProgressTasks = this.projectTasks.filter(task => task.status === TaskStatus.InProgress);
+    this.doneTasks = this.projectTasks.filter(task => task.status === TaskStatus.Done);
+  }
+
+  public getProjectRequests(): void {
+    this.spinnerService.showSpinner();
+
+    this.projectRequestService.getProjectRequests(this.projectId)
+      .pipe(finalize(() => {
+          this.spinnerService.hideSpinner();
+        }),
+        takeUntil(this.unsubscribe$))
+      .subscribe({
+        next: result => {
+          this.projectRequests = result;
+        },
+        error: (error) => this.notificationService.showErrorNotification(error?.error?.detail)
+      })
+  }
+
+  public selectedTabChange(): void {
+    if (this.tabIndex === ProjectPageTabsEnum.Overview) {
+      this.project = null;
+      this.getProject();
+    } else if (this.tabIndex === ProjectPageTabsEnum.Team) {
+      this.developers = [];
+      this.getProjectDevelopers();
+    } else if (this.tabIndex === ProjectPageTabsEnum.Board) {
+      this.projectTasks = [];
+      this.getProjectTasks();
+    } else if (this.tabIndex === ProjectPageTabsEnum.Requests) {
+      this.projectRequests = [];
+      this.getProjectRequests();
+    }
+  }
 }

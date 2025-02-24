@@ -1,10 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {PaginationDeveloper} from "../../shared/interfaces/pagination-developer";
 import {DeveloperTechnology} from "../../shared/interfaces/developer-technology";
 import {finalize, Subject, takeUntil} from "rxjs";
-import {PaginationFilterDevs} from "../../shared/interfaces/pagination-filter-devs";
 import {DeveloperService} from "../../shared/services/developer.service";
-import {ProjectInfo} from "../../shared/interfaces/project-info";
 import {ProjectsService} from "../../shared/services/projects.service";
 import {GetUser} from "../../shared/interfaces/get-user";
 import {UserService} from "../../shared/services/user.service";
@@ -18,10 +15,7 @@ import {NotificationService} from "../../shared/services/notification.service";
   styleUrl: './all-developers-page.component.scss'
 })
 export class AllDevelopersPageComponent implements OnDestroy, OnInit {
-  visible: boolean = false;
-  technologies: DeveloperTechnology[];x
-  selectedProjects: ProjectInfo;
-  selectedDeveloper: PaginationDeveloper | undefined
+  technologies: DeveloperTechnology[];
 
   public isLoadingDevelopers = true;
   public developers: DeveloperInterface[] = []
@@ -30,11 +24,6 @@ export class AllDevelopersPageComponent implements OnDestroy, OnInit {
   private totalDevelopers: number = 0;
 
   private unsubscribe$: Subject<void> = new Subject<void>();
-
-  paginationFilter: PaginationFilterDevs = {
-    pageNumber: 0,
-    pageSize: 15,
-  }
 
   user: GetUser = {
     id: '',
@@ -73,34 +62,6 @@ export class AllDevelopersPageComponent implements OnDestroy, OnInit {
           console.log(err)
         }
       })
-  }
-
-  onProjectClick(selectedProject: ProjectInfo): void {
-    this.selectedProjects = selectedProject;
-  }
-
-  onDeveloperClick(selectedDev: PaginationDeveloper): void {
-    this.selectedDeveloper = selectedDev;
-  }
-
-  addDev() {
-    console.log(this.selectedProjects.id)
-    console.log(this.selectedDeveloper.id)
-    this.projectService.addDevelopersOnProject(this.selectedProjects.id, [this.selectedDeveloper.id])
-      .pipe(takeUntil(this.unsubscribe$))
-      .subscribe({
-        next: () => {
-          //this.messageService.add({severity:'success', summary:'Developer added'});
-        },
-        error: () => {
-          //this.messageService.add({severity:'error', summary:'Error adding'});
-        }
-      })
-  }
-
-  showDialog(technologies: DeveloperTechnology[]) {
-    this.technologies = technologies
-    this.visible = true
   }
 
   public loadingDevelopers(resetPage: boolean) {

@@ -12,8 +12,7 @@ import {NotificationService} from "../../../shared/services/notification.service
 })
 export class ProjectRequestsSectionComponent implements OnInit, OnDestroy {
   @Input() projectId: string;
-
-  public projectRequests: ProjectRequestInterface[] = [];
+  @Input() projectRequests: ProjectRequestInterface[] = [];
 
   private unsubscribe$: Subject<void> = new Subject<void>();
 
@@ -23,7 +22,7 @@ export class ProjectRequestsSectionComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.getProjectRequests();
+    //this.getProjectRequests();
   }
 
   ngOnDestroy() {

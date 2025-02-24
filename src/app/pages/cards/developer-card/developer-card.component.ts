@@ -1,5 +1,4 @@
 import {Component, Input} from '@angular/core';
-import {technologiesListConstant} from "../../../core/constants/technology-list.constant";
 import {MatDialog} from "@angular/material/dialog";
 import {
   DeveloperInfoDialogComponent
@@ -16,8 +15,6 @@ export class DeveloperCardComponent {
 
   constructor(private readonly matDialog: MatDialog) {
   }
-
-  public technologiesListConstant = technologiesListConstant;
 
   public openDeveloperInfoDialog(developer: DeveloperInterface): void {
     const dialogRef = this.matDialog.open(DeveloperInfoDialogComponent, {

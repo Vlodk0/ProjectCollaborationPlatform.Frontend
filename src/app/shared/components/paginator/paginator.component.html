@@ -1,4 +1,6 @@
-<div (scroll)="onListScroll($event)" class="paginator">
+<div [ngStyle]="{'flex-direction': flexDirection}"
+     (scroll)="onListScroll($event)"
+     class="paginator">
   <ng-content></ng-content>
 
   <div *ngIf="showMoreButton && loadDataByClick" class="show-more-wrapper">

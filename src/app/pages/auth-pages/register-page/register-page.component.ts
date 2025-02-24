@@ -39,20 +39,16 @@ export class RegisterPageComponent implements OnInit {
 
   onSubmit() {
     this.spinnerService.showSpinner();
-    if (this.registerForm.valid) {
-      console.log(this.registerForm.value);
-    }
 
     let registerObj: Register = {
       name: this.registerForm.value.email,
+      firstName: this.registerForm.value.firstName,
+      lastName: this.registerForm.value.lastName,
       email: this.registerForm.value.email,
       password: this.registerForm.value.password,
       roleName: this.registerForm.value.checked ? ApplicationRoleEnum.Dev : ApplicationRoleEnum.ProjectOwner
     }
 
-
-    localStorage.setItem("firstName", this.registerForm.value.firstName)
-    localStorage.setItem("lastName", this.registerForm.value.lastName)
     this.authService.register(registerObj)
       .pipe(
         catchError(err => {
