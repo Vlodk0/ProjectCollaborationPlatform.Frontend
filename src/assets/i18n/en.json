@@ -207,6 +207,11 @@
     "applyFiltersLabel": "Apply filters"
   },
 
+  "projects": {
+    "projectsLabel": "Projects",
+    "filterProjectsLabel": "Filter Projects"
+  },
+
   "taskLabelType": {
     "apiLabel": "API",
     "webLabel": "WEB",

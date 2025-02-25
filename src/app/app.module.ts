@@ -85,6 +85,7 @@ import {
 } from "./pages/project-page/project-requests-section/project-requests-section.component";
 import {MatMenu, MatMenuTrigger} from "@angular/material/menu";
 import {FilterDevelopersComponent} from "./shared/components/filters/filter-developers/filter-developers.component";
+import {FilterProjectsComponent} from "./shared/components/filters/filter-projects/filter-projects.component";
 
 export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -166,6 +167,7 @@ const MODULES = [
     AdminPanelComponent,
     FilterDevelopersComponent,
     EmptyStateComponent,
+    FilterProjectsComponent,
     ControlValidationMessageComponent,
     DeveloperCardComponent,
     ProjectCardComponent,

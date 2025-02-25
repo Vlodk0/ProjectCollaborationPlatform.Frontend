@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {PaginationFilter} from "../../shared/interfaces/pagination-filter";
 import {ProjectsService} from "../../shared/services/projects.service";
 import {finalize, Subject, takeUntil} from "rxjs";
@@ -7,6 +7,15 @@ import {SpinnerService} from "../../shared/services/spinner.service";
 import {NotificationService} from "../../shared/services/notification.service";
 import {UserService} from "../../shared/services/user.service";
 import {GetUser} from "../../shared/interfaces/get-user";
+import {MatMenuTrigger} from "@angular/material/menu";
+import {TechnologyInterface} from "../../shared/interfaces/project/technology.interface";
+import {FrameworkInterface} from "../../shared/interfaces/project/framework.interface";
+import {FormBuilder, FormGroup} from "@angular/forms";
+import {ProjectRequestFormGroup} from "../../core/types/form-groups/project-request-form-group";
+import {FilterProjectRequestInterface} from "../../shared/interfaces/project/filter-project-request.interface";
+import {ProjectFilterInterface} from "../../shared/interfaces/project/project-filter.interface";
+import {TechnologyService} from "../../shared/services/technology.service";
+import {FrameworkService} from "../../shared/services/framework.service";
 
 @Component({
   selector: 'app-all-projects-page',
@@ -15,38 +24,51 @@ import {GetUser} from "../../shared/interfaces/get-user";
   providers: [ProjectsService]
 })
 
-export class AllProjectsPageComponent implements OnDestroy, OnInit {
+export class AllProjectsPageComponent implements OnDestroy, OnInit, AfterViewInit {
+  @ViewChild('filterMenu') public filterMenu: MatMenuTrigger;
+
   public isLoadingProjects = true;
   public projects: ProjectInterface[] = [];
   public user: GetUser = null;
+  public technologies: TechnologyInterface[];
+  public frameworks: FrameworkInterface[];
+  public menuIsClosed: boolean;
+  public projectsFormGroup: FormGroup<ProjectRequestFormGroup>;
+
 
   private projectsCurrentPage: number = 0;
   private totalProjects: number = 0;
 
   private unsubscribe$: Subject<void> = new Subject<void>();
 
-  paginationFilter: PaginationFilter = {
-    pageNumber: 0,
-    pageSize: 15,
-    sortColumn: "Payment",
-    sortDirection: 1
-  }
-
-
   constructor(private readonly projectService: ProjectsService,
               private readonly spinnerService: SpinnerService,
+              private readonly technologyService: TechnologyService,
+              private readonly frameworkService: FrameworkService,
               private readonly notificationService: NotificationService,
+              private readonly fb: FormBuilder,
               private readonly userService: UserService) {
   }
 
   ngOnInit(): void {
     this.getProjects()
     this.subscribeToCurrentUser();
+    this.setForm();
+    this.getTechnologies();
+    this.getAllFrameworks();
   }
 
   ngOnDestroy() {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
+  }
+
+  public ngAfterViewInit(): void {
+    this.filterMenu.menuClosed
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe({
+        next: () => this.menuIsClosed = !this.menuIsClosed
+      });
   }
 
   public subscribeToCurrentUser(): void {
@@ -55,9 +77,33 @@ export class AllProjectsPageComponent implements OnDestroy, OnInit {
       .subscribe({
         next: user => {
           this.user = user;
-          console.log(this.user.id);
         }
       });
+  }
+
+  public applyFilters(filters: ProjectFilterInterface): void {
+    this.projectsFormGroup.patchValue({
+      technologyIds: filters.selectedTechnologies,
+      frameworkIds: filters.selectedFrameworks,
+      currentPage: 0
+    });
+
+    this.filterMenu.closeMenu();
+
+    this.filterProjects();
+  }
+
+  private createParams(): FilterProjectRequestInterface {
+    const params: FilterProjectRequestInterface = {} as FilterProjectRequestInterface;
+
+    for (const key in this.projectsFormGroup.value) {
+      if (this.projectsFormGroup.value.hasOwnProperty(key) &&
+        this.projectsFormGroup.value[key] !== null) {
+        params[key] = this.projectsFormGroup.value[key];
+      }
+    }
+
+    return params;
   }
 
   public loadingProjects(resetPage: boolean) {
@@ -97,6 +143,56 @@ export class AllProjectsPageComponent implements OnDestroy, OnInit {
         },
         error: (error) => this.notificationService.showErrorNotification(error?.error?.detail)
       })
+  }
+
+  private filterProjects(onScroll = false): void {
+    this.spinnerService.showSpinner();
+
+    this.projectService.filterProjects(this.createParams())
+      .pipe(
+        finalize(() => {
+          this.isLoadingProjects = false;
+          this.spinnerService.hideSpinner();
+        }),
+        takeUntil(this.unsubscribe$))
+      .subscribe({
+        next: (value) => {
+          onScroll ? this.projects.push(...value.items) : this.projects = value.items;
+
+          this.totalProjects = value.total;
+          this.projectsFormGroup.patchValue({currentPage: this.projectsFormGroup.get('currentPage').value + 1});
+        },
+        error: (error) => this.notificationService.showErrorNotification(error?.error?.detail)
+      })
+  }
+
+  private getTechnologies(): void {
+    this.technologyService.getAllTechnologies()
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe({
+        next: (technologies: TechnologyInterface[]) => {
+          this.technologies = technologies;
+        }
+      });
+  }
+
+  private getAllFrameworks(): void {
+    this.frameworkService.getAllFrameworks()
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe({
+        next: (frameworks: FrameworkInterface[]) => {
+          this.frameworks = frameworks;
+        }
+      });
+  }
+
+  private setForm(): void {
+    this.projectsFormGroup = this.fb.group<ProjectRequestFormGroup>({
+      technologyIds: this.fb.control([]),
+      frameworkIds: this.fb.control([]),
+      currentPage: this.fb.control(0),
+      pageSize: this.fb.control(20)
+    });
   }
 }
 

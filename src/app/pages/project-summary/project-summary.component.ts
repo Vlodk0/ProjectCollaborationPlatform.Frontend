@@ -2,10 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {finalize, Subject, takeUntil} from "rxjs";
 import {ProjectsService} from "../../shared/services/projects.service";
 import {ActivatedRoute, Router} from "@angular/router";
-import {FunctionalityBlockService} from "../../shared/services/functionality-block.service";
-import {TechnologyService} from "../../shared/services/technology.service";
 import {UserService} from "../../shared/services/user.service";
-import {MatDialog} from "@angular/material/dialog";
 import {SpinnerService} from "../../shared/services/spinner.service";
 import {NotificationService} from "../../shared/services/notification.service";
 import {GetUser} from "../../shared/interfaces/get-user";
@@ -30,10 +27,7 @@ export class ProjectSummaryComponent implements OnInit, OnDestroy {
   constructor(
     private projectService: ProjectsService,
     private activatedRoute: ActivatedRoute,
-    private functionalityBlockService: FunctionalityBlockService,
-    private technologyService: TechnologyService,
     private userService: UserService,
-    private readonly matDialog: MatDialog,
     private readonly router: Router,
     private readonly projectRequestService: ProjectRequestService,
     private readonly spinnerService: SpinnerService,

@@ -54,5 +54,4 @@ export class FilterDevelopersComponent implements OnInit, OnChanges {
       selectedTechnologies: this.fb.control(this.selectedTechnology ?? null),
     });
   }
-
 }
