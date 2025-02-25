@@ -77,3 +77,34 @@ body {
   border-radius: 8px;
   border: 1px solid #373639;
 }
+
+.filter-menu {
+  padding: 1.6rem 2.4rem 2.4rem 2.4rem;
+  background: #0C0E12;
+
+  .filter-title {
+    font-weight: 500;
+    font-size: 2rem;
+    line-height: 3.2rem;
+    color: #FCFBFD;
+  }
+
+  .filter-label {
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 19px;
+    color: #FCFBFD;
+    padding: 2.5rem 0 1rem 0;
+    text-transform: uppercase;
+  }
+
+  .input-container-item-large {
+    width: 32rem;
+    height: 5rem;
+  }
+
+  .filter-button {
+    margin-top: 2.5rem;
+  }
+}
+

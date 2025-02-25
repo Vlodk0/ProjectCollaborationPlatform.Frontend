@@ -16,7 +16,8 @@
     "acceptLabel": "Accept",
     "rejectLabel": "Reject",
     "developerLabel": "Developer",
-    "projectOwnerLabel": "Project Owner"
+    "projectOwnerLabel": "Project Owner",
+    "searchLabel": "Search"
   },
 
   "profileSettings": {
@@ -196,6 +197,21 @@
     "developerDoestNotHaveFeedbacksLabel": "This developer doesn't have any feedbacks yet",
     "editFeedbackLabel": "Edit feedback"
   },
+
+  "filterDevelopers": {
+    "filterDevelopersLabel": "Filter Developers",
+    "countryLabel": "Country",
+    "technologyLabel": "Technology",
+    "frameworkLabel": "Framework",
+    "clearFiltersLabel": "Clear filters",
+    "applyFiltersLabel": "Apply filters"
+  },
+
+  "projects": {
+    "projectsLabel": "Projects",
+    "filterProjectsLabel": "Filter Projects"
+  },
+
   "taskLabelType": {
     "apiLabel": "API",
     "webLabel": "WEB",

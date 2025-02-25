@@ -1,23 +1,23 @@
 <div *ngIf="projects.length || isLoadingProjects else emptyState" class="projects-section-container">
-  <div class="d-flex w-100 flex-wrap column-gap-0-4 m-b-1-6">
-    <mat-form-field
-      appearance="outline"
-      class="input-container-item-one-of-two">
-      <mat-label>Test</mat-label>
-      <mat-select>
-        <mat-option>
-          Test1
-        </mat-option>
-        <mat-option>
-          Test2
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
+  <div class="d-flex align-items-center flex-wrap column-gap-1 row-gap-1 m-b-1-6">
+    <div class="projects-title">{{ 'projects.projectsLabel' | translate }}</div>
 
-    <mat-form-field appearance="outline" class="input-container-item-one-of-two">
-      <mat-label>Test</mat-label>
-      <input matInput/>
-    </mat-form-field>
+    <div class="filter-button">
+      <button mat-icon-button
+              [matMenuTriggerFor]="filters"
+              #filterMenu="matMenuTrigger">
+        <mat-icon [svgIcon]="'filter'"></mat-icon>
+      </button>
+
+      <mat-menu #filters="matMenu" xPosition="before">
+        <collabro-filter-projects [technologies]="technologies"
+                                  [frameworks]="frameworks"
+                                  [menuIsClosed]="menuIsClosed"
+                                  [selectedTechnology]="projectsFormGroup.get('technologyIds')?.value"
+                                  [selectedFramework]="projectsFormGroup.get('frameworkIds')?.value"
+                                  (projectFilters)="applyFilters($event)" />
+      </mat-menu>
+    </div>
   </div>
 
   <div class="projects-wrapper">
@@ -30,9 +30,11 @@
 </div>
 
 <ng-template #emptyState>
-  <div class="d-flex h-100 align-items-center justify-content-center">
-    <collabro-empty-state [title]="('emptyState.currentListOfProjectIsEmptyLabel' | translate)"
-                          [subtitle]="('emptyState.projectOwnerNotCreatedProjectLabel' | translate)"/>
+  <div class="projects-section-container">
+    <div class="d-flex h-100 align-items-center justify-content-center">
+      <collabro-empty-state [title]="('emptyState.currentListOfProjectIsEmptyLabel' | translate)"
+                            [subtitle]="('emptyState.projectOwnerNotCreatedProjectLabel' | translate)"/>
 
+    </div>
   </div>
 </ng-template>

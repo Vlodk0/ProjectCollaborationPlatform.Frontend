@@ -1,0 +1,55 @@
+<div (click)="$event.stopPropagation()" class="filter-menu" [formGroup]="developerFilterFormGroup">
+  <h2 class="filter-title">{{ 'filterDevelopers.filterDevelopersLabel' | translate }}</h2>
+
+  <h3 class="filter-label">{{ 'filterDevelopers.countryLabel' | translate }}</h3>
+
+  <div class="input-container">
+    <mat-form-field appearance="outline" class="input-container-item-large">
+      <mat-label>{{ 'filterDevelopers.countryLabel' | translate }}</mat-label>
+      <mat-select formControlName="selectedCountry">
+        <mat-option *ngFor="let country of (countries$ | async)" [value]="country.code">
+          {{ country?.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <h3 class="filter-label">{{ 'filterDevelopers.technologyLabel' | translate }}</h3>
+
+  <div class="input-container">
+    <mat-form-field appearance="outline" class="input-container-item-large">
+      <mat-label>{{ 'filterDevelopers.technologyLabel' | translate }}</mat-label>
+      <mat-select multiple formControlName="selectedTechnologies">
+        <mat-option *ngFor="let technology of technologies" [value]="technology.id">
+          {{ technology?.technology }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <h3 class="filter-label">{{ 'filterDevelopers.frameworkLabel' | translate }}</h3>
+
+  <div class="input-container">
+    <mat-form-field appearance="outline" class="input-container-item-large">
+      <mat-label>{{ 'filterDevelopers.frameworkLabel' | translate }}</mat-label>
+      <mat-select multiple formControlName="selectedFrameworks">
+        <mat-option *ngFor="let framework of frameworks" [value]="framework.id">
+          {{ framework?.framework }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <button (click)="clearFilters()"
+          class="filter-button button-purple wide-button"
+          mat-button>
+    {{'filterDevelopers.clearFiltersLabel' | translate}}
+  </button>
+
+  <button (click)="applyFilters()"
+          class="filter-button button-purple wide-button"
+          mat-button>
+    {{'filterDevelopers.applyFiltersLabel' | translate}}
+  </button>
+
+</div>

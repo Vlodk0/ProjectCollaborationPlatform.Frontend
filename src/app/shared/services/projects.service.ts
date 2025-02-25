@@ -13,6 +13,9 @@ import {CreateProjectInterface} from "../interfaces/project/create-project.inter
 import {PageProjectInterface} from "../interfaces/project/page-project.interface";
 import {ProjectInterface} from "../interfaces/project/project.interface";
 import {DeveloperInterface} from "../interfaces/developer/developer.interface";
+import {DeveloperRequestInterface} from "../interfaces/developer/developer-request.interface";
+import {PageDeveloperInterface} from "../interfaces/developer/page-developer.interface";
+import {FilterProjectRequestInterface} from "../interfaces/project/filter-project-request.interface";
 
 @Injectable({
   providedIn: 'root'
@@ -66,5 +69,9 @@ export class ProjectsService {
 
   public removeDeveloperFromProject(projectId: string, developerId: string): Observable<void> {
     return this.httpClient.delete<void>(`${this.apiUrl}/${projectId}/developers?developerId=${developerId}`)
+  }
+
+  public filterProjects(params: FilterProjectRequestInterface | HttpParams): Observable<PageProjectInterface> {
+    return this.httpClient.get<PageProjectInterface>(`${this.apiUrl}/search/projects`, { params: params as HttpParams });
   }
 }

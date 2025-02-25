@@ -1,29 +1,49 @@
 <div class="developers-section-container">
-  <div class="d-flex w-100 flex-wrap column-gap-0-4 m-b-1-6">
-    <mat-form-field
-      appearance="outline"
-      class="input-container-item-one-of-two">
-      <mat-label>Test</mat-label>
-      <mat-select>
-        <mat-option>
-          Test1
-        </mat-option>
-        <mat-option>
-          Test2
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
+  <div class="d-flex w-100 flex-wrap justify-content-space-between align-items-center">
+    <div class="developers-title">{{ 'sideBar.developersLabel' | translate }}</div>
+    <div class="d-flex flex-wrap column-gap-1 row-gap-1 align-items-center"
+         [formGroup]="developersFormGroup">
+      <div class="small-icon-button">
+        <mat-form-field appearance="outline" class="input-container-item-large search-filter">
+          <mat-icon matPrefix [svgIcon]="'search'"></mat-icon>
 
-    <mat-form-field appearance="outline" class="input-container-item-one-of-two">
-      <mat-label>Test</mat-label>
-      <input matInput/>
-    </mat-form-field>
+          <input formControlName="searchTerm" [placeholder]="'general.searchLabel' | translate" matInput/>
+
+          <button mat-icon-button
+                  matSuffix
+                  (click)="resetSearch()"
+                  class="m-r-1"
+                  *ngIf="developersFormGroup.get('searchTerm')?.value">
+            <mat-icon [svgIcon]="'close'"></mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
+
+      <div class="filter-button">
+        <button mat-icon-button
+                [matMenuTriggerFor]="filters"
+                #filterMenu="matMenuTrigger">
+          <mat-icon [svgIcon]="'filter'"></mat-icon>
+        </button>
+
+        <mat-menu #filters="matMenu" xPosition="before">
+          <collabro-filter-developers [countries$]="countries$"
+                                      [frameworks]="frameworks"
+                                      [technologies]="technologies"
+                                      [selectedCountry]="developersFormGroup.get('countryCodes')?.value"
+                                      [selectedTechnology]="developersFormGroup.get('technologyIds')?.value"
+                                      [selectedFramework]="developersFormGroup.get('frameworkIds')?.value"
+                                      [menuIsClosed]="menuIsClosed"
+                                      (developerFilters)="applyFilters($event)"/>
+        </mat-menu>
+      </div>
+    </div>
   </div>
 
   <collabro-paginator [flexDirection]="'row'" class="h-100">
     <div class="developers-wrapper"
          *ngFor="let developer of developers">
-      <collabro-developer-card [developer]="developer" />
+      <collabro-developer-card [developer]="developer"/>
     </div>
   </collabro-paginator>
 </div>
