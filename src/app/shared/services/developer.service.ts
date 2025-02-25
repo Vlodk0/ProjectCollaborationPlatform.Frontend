@@ -8,6 +8,7 @@ import {PaginationFilterDevs} from "../interfaces/pagination-filter-devs";
 import {Technology} from "../interfaces/technology";
 import {PageDeveloperInterface} from "../interfaces/developer/page-developer.interface";
 import {DeveloperInterface} from "../interfaces/developer/developer.interface";
+import {DeveloperRequestInterface} from "../interfaces/developer/developer-request.interface";
 
 @Injectable({
   providedIn: 'root'
@@ -44,5 +45,9 @@ export class DeveloperService {
 
   public getAllDevTechnologies(devId: string): Observable<Technology[]> {
     return this.httpClient.get<Technology[]>(this.apiUrl + `/Technologies/dev/${devId}`)
+  }
+
+  public filterDevelopers(params: DeveloperRequestInterface | HttpParams): Observable<PageDeveloperInterface> {
+    return this.httpClient.get<PageDeveloperInterface>(`${this.apiUrl}/search/developers`, { params: params as HttpParams });
   }
 }

@@ -1,7 +1,21 @@
 .developers-section-container {
-  padding: 2.4rem;
-  color: azure;
-  height: 100%;
+  display: inline-flex;
+  padding: 25px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 25px;
+  min-height: calc(100vh - 3.2rem);
+  width: 100%;
+
+  border-radius: 20px;
+  border: 1px solid #373639;
+  background: #13161B;
+
+  .developers-title {
+    color: #FFF;
+    font-size: 24px;
+    font-weight: 600;
+  }
 }
 
 .developers-wrapper {

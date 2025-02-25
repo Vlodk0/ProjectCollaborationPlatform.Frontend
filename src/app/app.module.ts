@@ -83,6 +83,8 @@ import {ProjectBoardSectionComponent} from "./pages/project-page/project-board-s
 import {
   ProjectRequestsSectionComponent
 } from "./pages/project-page/project-requests-section/project-requests-section.component";
+import {MatMenu, MatMenuTrigger} from "@angular/material/menu";
+import {FilterDevelopersComponent} from "./shared/components/filters/filter-developers/filter-developers.component";
 
 export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -162,6 +164,7 @@ const MODULES = [
     ProjectInfoPageComponent,
     DevPageComponent,
     AdminPanelComponent,
+    FilterDevelopersComponent,
     EmptyStateComponent,
     ControlValidationMessageComponent,
     DeveloperCardComponent,
@@ -178,7 +181,9 @@ const MODULES = [
     ...MODULES,
     MatDialogClose,
     MatDivider,
-    MatSlideToggle
+    MatSlideToggle,
+    MatMenu,
+    MatMenuTrigger
   ],
   providers: [
     {
