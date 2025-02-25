@@ -1,4 +1,4 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {TaskStatus} from "../../../core/enums/task-status.enum";
 import {FunctionalityBlock} from "../../../shared/interfaces/functionality-block";
 import {filter, finalize, Subject, takeUntil} from "rxjs";
@@ -19,7 +19,7 @@ import {DeveloperInterface} from "../../../shared/interfaces/developer/developer
   templateUrl: './project-board-section.component.html',
   styleUrl: './project-board-section.component.scss'
 })
-export class ProjectBoardSectionComponent implements OnInit, OnDestroy {
+export class ProjectBoardSectionComponent implements OnDestroy {
   @Input() projectId: string;
   @Input() developers: DeveloperInterface[];
   @Input() projectTasks: FunctionalityBlockInterface[];
@@ -29,16 +29,14 @@ export class ProjectBoardSectionComponent implements OnInit, OnDestroy {
   @Input() inProgressTasks: FunctionalityBlockInterface[] = [];
   @Input() doneTasks: FunctionalityBlockInterface[] = [];
 
+  @Output() projectTasksUpdated: EventEmitter<void> = new EventEmitter<void>();
+
   private unsubscribe$: Subject<void> = new Subject<void>();
 
   constructor(private readonly functionalityBlockService: FunctionalityBlockService,
               private readonly spinnerService: SpinnerService,
               private readonly notificationService: NotificationService,
               private readonly matDialog: MatDialog) {
-  }
-
-  ngOnInit(): void {
-    //this.getProjectTasks();
   }
 
   ngOnDestroy() {
@@ -96,7 +94,7 @@ export class ProjectBoardSectionComponent implements OnInit, OnDestroy {
       )
       .subscribe({
         next: () => {
-          this.getProjectTasks();
+          this.projectTasksUpdated.emit();
         }
       });
   }
@@ -121,24 +119,8 @@ export class ProjectBoardSectionComponent implements OnInit, OnDestroy {
       )
       .subscribe({
         next: () => {
-          this.getProjectTasks();
+          this.projectTasksUpdated.emit();
         }
-      });
-  }
-
-
-  private getProjectTasks(): void {
-    this.spinnerService.showSpinner();
-
-    this.functionalityBlockService.getProjectTasks(this.projectId)
-      .pipe(takeUntil(this.unsubscribe$),
-        finalize(() => this.spinnerService.hideSpinner()))
-      .subscribe({
-        next: (result) => {
-          this.projectTasks = result;
-          this.initializeTaskArrays();
-        },
-        error: (error) => this.notificationService.showErrorNotification(error?.error?.detail)
       });
   }
 

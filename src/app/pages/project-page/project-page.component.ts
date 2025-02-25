@@ -90,7 +90,7 @@ export class ProjectPageComponent implements OnInit, OnDestroy {
       })
   }
 
-  private getProjectDevelopers(): void {
+  public getProjectDevelopers(): void {
     this.spinnerService.showSpinner();
 
     this.projectService.getProjectDevelopers(this.projectId)
@@ -105,7 +105,7 @@ export class ProjectPageComponent implements OnInit, OnDestroy {
       });
   }
 
-  private getProjectTasks(): void {
+  public getProjectTasks(): void {
     this.spinnerService.showSpinner();
 
     this.functionalityBlockService.getProjectTasks(this.projectId)

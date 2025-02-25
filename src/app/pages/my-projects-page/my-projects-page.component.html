@@ -1,4 +1,4 @@
-<div *ngIf="projects.length || isLoadingProjects else emptyState">
+<div *ngIf="projects.length || isLoadingProjects else emptyState" class="my-projects-page-container">
   <collabro-paginator class="h-100">
     <div class="projects-wrapper"
          *ngFor="let project of projects">

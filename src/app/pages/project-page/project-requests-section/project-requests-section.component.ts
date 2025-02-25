@@ -1,4 +1,4 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {finalize, Subject, takeUntil} from "rxjs";
 import {ProjectRequestInterface} from "../../../shared/interfaces/project/project-request.interface";
 import {ProjectRequestService} from "../../../shared/services/project-request.service";
@@ -10,19 +10,17 @@ import {NotificationService} from "../../../shared/services/notification.service
   templateUrl: './project-requests-section.component.html',
   styleUrl: './project-requests-section.component.scss'
 })
-export class ProjectRequestsSectionComponent implements OnInit, OnDestroy {
+export class ProjectRequestsSectionComponent implements OnDestroy {
   @Input() projectId: string;
   @Input() projectRequests: ProjectRequestInterface[] = [];
+
+  @Output() projectRequestsUpdated: EventEmitter<void> = new EventEmitter<void>();
 
   private unsubscribe$: Subject<void> = new Subject<void>();
 
   constructor(private readonly projectRequestService: ProjectRequestService,
               private readonly spinnerService: SpinnerService,
               private readonly notificationService: NotificationService) {
-  }
-
-  ngOnInit(): void {
-    //this.getProjectRequests();
   }
 
   ngOnDestroy() {
@@ -41,7 +39,7 @@ export class ProjectRequestsSectionComponent implements OnInit, OnDestroy {
       .subscribe({
         next: () => {
           this.notificationService.showSuccessNotification();
-          this.getProjectRequests();
+          this.projectRequestsUpdated.emit();
         },
         error: (error) => this.notificationService.showErrorNotification(error?.error?.detail)
       })
@@ -58,24 +56,7 @@ export class ProjectRequestsSectionComponent implements OnInit, OnDestroy {
       .subscribe({
         next: () => {
           this.notificationService.showSuccessNotification();
-          this.getProjectRequests();
-        },
-        error: (error) => this.notificationService.showErrorNotification(error?.error?.detail)
-      })
-  }
-
-
-  public getProjectRequests(): void {
-    this.spinnerService.showSpinner();
-
-    this.projectRequestService.getProjectRequests(this.projectId)
-      .pipe(finalize(() => {
-          this.spinnerService.hideSpinner();
-        }),
-        takeUntil(this.unsubscribe$))
-      .subscribe({
-        next: result => {
-          this.projectRequests = result;
+          this.projectRequestsUpdated.emit();
         },
         error: (error) => this.notificationService.showErrorNotification(error?.error?.detail)
       })

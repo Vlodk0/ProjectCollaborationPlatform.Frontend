@@ -43,7 +43,6 @@ export class ProjectTaskDialogComponent implements OnDestroy, OnInit {
 
   ngOnInit(): void {
     this.setForm();
-    console.log(this.data)
   }
 
   public ngOnDestroy(): void {

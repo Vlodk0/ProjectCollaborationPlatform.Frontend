@@ -12,7 +12,7 @@
         </div>
 
         <div>
-          <span class="profile-fullName">{{ developer.firstName }} {{ developer.lastName }}</span>
+          <span class="profile-fullName">{{ developer?.firstName }} {{ developer?.lastName }}</span>
           <span class="d-flex profile-address">
           <mat-icon class="user-location-icon" [svgIcon]="'location'"></mat-icon>
           <span>United States of America, AL, New York</span>
@@ -23,16 +23,15 @@
     <div class="email-wrapper">
       <div class="email-header">{{ 'developers.emailLabel' | translate }}</div>
       <div class="email-input-wrapper">
-        <div class="email-input-content">{{ developer.email }}</div>
+        <div class="email-input-content">{{ developer?.email }}</div>
         <mat-icon class="copy-icon"
-                  (click)="copyEmail(developer.email)"
+                  (click)="copyEmail(developer?.email)"
                   [svgIcon]="'copy'" />
       </div>
     </div>
   </div>
 
   <div class="m-t-2">
-    <mat-divider></mat-divider>
     <mat-divider></mat-divider>
   </div>
 
@@ -44,8 +43,8 @@
         <span class="description-title">{{ 'technologies.technologiesLabel' | translate }}</span>
         <div class="d-flex column-gap-0-4 flex-wrap row-gap-0-4">
           <div class="technology-item-container"
-               *ngFor="let item of technologiesListConstant">
-            {{ item.name | translate }}
+               *ngFor="let item of developer?.technologies">
+            {{ item.technology | translate }}
           </div>
         </div>
       </div>
@@ -56,8 +55,8 @@
         <span class="description-title">{{ 'frameworks.frameworksLabel' | translate }}</span>
         <div class="d-flex column-gap-0-4 flex-wrap row-gap-0-4">
           <div class="technology-item-container"
-               *ngFor="let item of frameworkListConstant">
-            {{ item.name | translate }}
+               *ngFor="let item of developer?.frameworks">
+            {{ item.framework | translate }}
           </div>
         </div>
       </div>
@@ -67,8 +66,7 @@
       <div class="info-box-description-wrapper d-flex">
         <span class="description-title">{{ 'developers.bioLabel' | translate }}
           ({{ 'developers.aboutLabel' | translate }})</span>
-        <span class="info-description">Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
-The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.</span>
+        <span class="info-description">{{ developer?.bio }}</span>
       </div>
     </div>
   </div>

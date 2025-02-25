@@ -1,3 +1,12 @@
+.my-projects-page-container {
+  padding: 50px;
+  color: azure;
+  border-radius: 20px;
+  border: 1px solid #373639;
+  background: #13161B;
+  min-height: calc(100vh - 3.2rem);
+}
+
 .preview-page {
   display: flex;
   flex-direction: column;

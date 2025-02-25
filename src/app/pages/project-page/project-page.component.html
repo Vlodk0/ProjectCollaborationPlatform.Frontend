@@ -11,7 +11,8 @@
 
     <mat-tab label="{{'myProject.teamLabel' | translate}}">
       <collabro-project-team-section [projectId]="project.id"
-                                     [developers]="developers" />
+                                     [developers]="developers"
+                                     (projectDevelopersUpdated)="getProjectDevelopers()" />
     </mat-tab>
 
     <mat-tab label="{{'myProject.boardLabel' | translate}}">
@@ -20,12 +21,14 @@
                                       [projectTasks]="projectTasks"
                                       [todoTasks]="todoTasks"
                                       [inProgressTasks]="inProgressTasks"
-                                      [doneTasks]="doneTasks" />
+                                      [doneTasks]="doneTasks"
+                                      (projectTasksUpdated)="getProjectTasks()" />
     </mat-tab>
 
     <mat-tab label="{{'myProject.requestsLabel' | translate}}">
       <collabro-project-requests-section [projectId]="project.id"
-                                         [projectRequests]="projectRequests" />
+                                         [projectRequests]="projectRequests"
+                                         (projectRequestsUpdated)="getProjectRequests()" />
     </mat-tab>
 
 

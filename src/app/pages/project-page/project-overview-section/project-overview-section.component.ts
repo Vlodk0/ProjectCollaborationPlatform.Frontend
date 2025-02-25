@@ -8,5 +8,4 @@ import {ProjectInterface} from "../../../shared/interfaces/project/project.inter
 })
 export class ProjectOverviewSectionComponent {
   @Input() project: ProjectInterface;
-
 }

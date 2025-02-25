@@ -220,6 +220,8 @@
   },
   "emptyState": {
     "currentListOfProjectIsEmptyLabel": "The current list of projects is empty",
-    "projectOwnerNotCreatedProjectLabel": "No one project owner has not created any projects yet"
+    "projectOwnerNotCreatedProjectLabel": "No one project owner has not created any projects yet",
+    "noFeedbacksYetLabel": "No Feedback Yet",
+    "beTheFirstToShareFeedback": "Be the first to share your feedback and help others know more about this developer!"
   }
 }

@@ -25,9 +25,10 @@
   </ng-container>
 
   <ng-template #emptyReview>
-    <div class="empty-reviews-container h-100">
-      <h3 class="empty-title">{{'developers.developerDoestNotHaveFeedbacksLabel' | translate}}</h3>
-      <img class="empty-doctors-image" src="assets/images/doctors.png" alt="doctors">
+    <div class="d-flex h-100 align-items-center justify-content-center">
+      <collabro-empty-state [title]="('emptyState.noFeedbacksYetLabel' | translate)"
+                            [subtitle]="('emptyState.beTheFirstToShareFeedback' | translate)"/>
+
     </div>
   </ng-template>
 </div>

@@ -1,4 +1,4 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {ProjectsService} from "../../../shared/services/projects.service";
 import {SpinnerService} from "../../../shared/services/spinner.service";
 import {DeveloperInterface} from "../../../shared/interfaces/developer/developer.interface";
@@ -14,9 +14,11 @@ import {NotificationService} from "../../../shared/services/notification.service
   templateUrl: './project-team-section.component.html',
   styleUrl: './project-team-section.component.scss'
 })
-export class ProjectTeamSectionComponent implements OnInit, OnDestroy {
+export class ProjectTeamSectionComponent implements OnDestroy {
   @Input() projectId: string;
   @Input() developers: Array<DeveloperInterface>;
+
+  @Output() projectDevelopersUpdated: EventEmitter<void> = new EventEmitter<void>();
 
   public developerTableColumns = ['fullName', 'location', 'action'];
 
@@ -33,25 +35,6 @@ export class ProjectTeamSectionComponent implements OnInit, OnDestroy {
     this.unsubscribe$.complete();
   }
 
-  ngOnInit(): void {
-    //this.getProjectDevelopers()
-  }
-
-  private getProjectDevelopers(): void {
-    this.spinnerService.showSpinner();
-
-    this.projectService.getProjectDevelopers(this.projectId)
-      .pipe(finalize(() => {
-          this.spinnerService.hideSpinner();
-        }),
-        takeUntil(this.unsubscribe$))
-      .subscribe({
-        next: result => {
-          this.developers = result;
-        }
-      });
-  }
-
   public openDeveloperInfoDialog(developer: DeveloperInterface): void {
     const dialogRef = this.matDialog.open(DeveloperInfoDialogComponent, {
       disableClose: false,
@@ -59,8 +42,6 @@ export class ProjectTeamSectionComponent implements OnInit, OnDestroy {
         developer: developer
       }
     });
-
-    dialogRef.afterClosed().subscribe();
   }
 
   public removeDeveloperFromProject(developerId: string): void {
@@ -74,7 +55,7 @@ export class ProjectTeamSectionComponent implements OnInit, OnDestroy {
       .subscribe({
         next: () => {
           this.notificationService.showSuccessNotification();
-          this.getProjectDevelopers();
+          this.projectDevelopersUpdated.emit();
         },
         error: (error) => this.notificationService.showErrorNotification(error?.error?.detail)
       });
