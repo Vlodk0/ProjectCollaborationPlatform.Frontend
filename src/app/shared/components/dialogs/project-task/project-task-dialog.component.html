@@ -38,7 +38,7 @@
       <collabro-control-validation-message [control]="projectTaskForm.get('label')" />
     </mat-form-field>
 
-    <mat-form-field *ngIf="data?.task?.id"
+    <mat-form-field *ngIf="data?.task?.id && data?.developers?.length"
                     appearance="outline"
                     class="input-container-item-large">
       <mat-label>{{ 'myProject.developerLabel' | translate }}</mat-label>

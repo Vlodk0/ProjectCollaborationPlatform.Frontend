@@ -1,5 +1,4 @@
 import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {PaginationFilter} from "../../shared/interfaces/pagination-filter";
 import {ProjectsService} from "../../shared/services/projects.service";
 import {finalize, Subject, takeUntil} from "rxjs";
 import {ProjectInterface} from "../../shared/interfaces/project/project.interface";
@@ -12,10 +11,10 @@ import {TechnologyInterface} from "../../shared/interfaces/project/technology.in
 import {FrameworkInterface} from "../../shared/interfaces/project/framework.interface";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {ProjectRequestFormGroup} from "../../core/types/form-groups/project-request-form-group";
-import {FilterProjectRequestInterface} from "../../shared/interfaces/project/filter-project-request.interface";
 import {ProjectFilterInterface} from "../../shared/interfaces/project/project-filter.interface";
 import {TechnologyService} from "../../shared/services/technology.service";
 import {FrameworkService} from "../../shared/services/framework.service";
+import {FilterProjectRequestInterface} from "../../shared/interfaces/project/filter-project-request.interface";
 
 @Component({
   selector: 'app-all-projects-page',

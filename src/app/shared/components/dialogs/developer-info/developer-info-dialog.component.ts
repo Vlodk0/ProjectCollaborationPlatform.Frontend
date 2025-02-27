@@ -1,4 +1,4 @@
-import {Component, Inject, OnDestroy, OnInit, Output} from '@angular/core';
+import {ChangeDetectorRef, Component, Inject, OnDestroy, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {DeveloperInterface} from "../../../interfaces/developer/developer.interface";
 import {finalize, Subject, takeUntil} from "rxjs";
@@ -7,6 +7,7 @@ import {NotificationService} from "../../../services/notification.service";
 import {ChooseProjectDialogComponent} from "../choose-project/choose-project-dialog.component";
 import {FeedbackInterface} from "../../../interfaces/feedback/feedback.interface";
 import {FeedbackService} from "../../../services/feedback.service";
+import {UserService} from "../../../services/user.service";
 
 @Component({
   selector: 'collabro-developer-info',
@@ -16,6 +17,7 @@ import {FeedbackService} from "../../../services/feedback.service";
 export class DeveloperInfoDialogComponent implements OnDestroy, OnInit {
   public isLoadingFeedbacks = true;
   public feedbacks: FeedbackInterface[] = [];
+  public imageData: string | ArrayBuffer | null;
 
   private feedbacksCurrentPage: number = 0;
   private totalFeedbacks: number = 0;
@@ -25,10 +27,13 @@ export class DeveloperInfoDialogComponent implements OnDestroy, OnInit {
   constructor(private readonly dialogRef: MatDialogRef<DeveloperInfoDialogComponent>,
               private readonly feedbackService: FeedbackService,
               private readonly matDialog: MatDialog,
+              private readonly userService: UserService,
+              private readonly cdr: ChangeDetectorRef,
               private readonly spinnerService: SpinnerService,
               private readonly notificationService: NotificationService,
               @Inject(MAT_DIALOG_DATA) public data: {
-                developer: DeveloperInterface
+                developer: DeveloperInterface,
+                developerAvatar: string | ArrayBuffer
               }) {
   }
 
@@ -86,8 +91,50 @@ export class DeveloperInfoDialogComponent implements OnDestroy, OnInit {
             this.feedbacks = result.items;
           }
 
+          this.getFeedbackAvatars();
+
         },
         error: (error) => this.notificationService.showErrorNotification(error?.error?.detail)
       })
+  }
+
+  private getFeedbackAvatars(): void {
+    if (!this.feedbacks?.length) {
+      return;
+    }
+
+    this.spinnerService.showSpinner();
+
+    this.feedbacks.forEach(feedback => {
+      if (!feedback.avatarName) {
+        return;
+      }
+
+      this.userService.getAvatar(feedback.avatarName)
+        .pipe(
+          finalize(() => this.spinnerService.hideSpinner()),
+          takeUntil(this.unsubscribe$)
+        )
+        .subscribe({
+          next: result => {
+            this.createImageFromBlob(result);
+          }
+        });
+    });
+  }
+
+  private createImageFromBlob(image: Blob): void {
+    if (!image) {
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.addEventListener('load', () => {
+      this.imageData = reader.result;
+      this.spinnerService.hideSpinner();
+      this.cdr.detectChanges();
+    }, false);
+
+    reader.readAsDataURL(image);
   }
 }

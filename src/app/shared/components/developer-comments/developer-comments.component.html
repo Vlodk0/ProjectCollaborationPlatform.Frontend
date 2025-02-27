@@ -9,16 +9,23 @@
   <ng-container *ngIf="feedbacks.length else emptyReview">
     <div class="review-box" *ngFor="let feedback of feedbacks">
       <div class="patient-name-container">
-        <div class="d-flex align-items-center">
-          <mat-icon class="patient-avatar" [svgIcon]="'avatar-placeholder-icon'"></mat-icon>
+        <div class="d-flex align-items-center row-gap-1 column-gap-1">
+          <div class="item-container-placeholder">
+            <mat-icon *ngIf="!feedback?.avatarName; else avatarPhoto" class="item-container-placeholder-icon"
+                      [svgIcon]="'avatar-placeholder-icon'"></mat-icon>
+
+            <ng-template #avatarPhoto>
+              <img [src]="imageData" alt="" class="avatar-photo">
+            </ng-template>
+          </div>
           <div>
             <div class="patient-name">{{ feedback.firstName }} {{ feedback.lastName }}</div>
-            <div class="review-date">{{feedback.createdTimeStamp | localDate:'shortDate'}}</div>
+            <div class="review-date">{{ feedback.createdTimeStamp | localDate:'shortDate' }}</div>
           </div>
         </div>
         <mat-icon (click)="openFeedbackDialog(feedback.id, feedback.content)"
                   style="cursor: pointer"
-                  [svgIcon]="'edit'" />
+                  [svgIcon]="'edit'"/>
       </div>
       <span class="review-description">{{ feedback.content }}</span>
     </div>

@@ -4,7 +4,7 @@ import {HttpClient} from "@angular/common/http";
 import {Login} from "../interfaces/login";
 import {Router} from "@angular/router";
 import {Register} from "../interfaces/register";
-import {BehaviorSubject, catchError, Observable, of, Subject} from 'rxjs';
+import {BehaviorSubject, Observable, Subject} from 'rxjs';
 import {CreateProjectOwner} from "../interfaces/user/create-project-owner";
 import {CreateDeveloper} from "../interfaces/create-developer";
 import {TokenResponse} from "../interfaces/token-response";
@@ -45,8 +45,6 @@ export class AuthService {
   }
 
   createProjectOwner(projectOwner: CreateProjectOwner) {
-    localStorage.removeItem('firstName');
-    localStorage.removeItem('lastName');
     return this.httpClient.post(this.apiUrl, projectOwner)
       .subscribe(
         (res: any) => {

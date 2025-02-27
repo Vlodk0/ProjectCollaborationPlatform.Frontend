@@ -82,3 +82,39 @@
     text-align: center;
   }
 }
+
+.item-container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 2.4rem;
+  border-radius: 10px;
+  column-gap: 2rem;
+  row-gap: 2rem;
+  flex-wrap: wrap;
+  margin-bottom: 2.4rem;
+  gap: 20px;
+
+  &-placeholder {
+    height: 45px;
+    width: 45px;
+    background: #DFE7F5;
+    border: 1px dashed #BBC5D8;
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    overflow: hidden;
+
+    &-icon {
+      width: 3.2rem;
+      height: 3.2rem;
+      font-size: 3.2rem;
+    }
+
+    .avatar-photo {
+      height: 100%;
+    }
+  }
+}

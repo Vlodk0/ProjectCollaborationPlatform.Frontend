@@ -6,4 +6,5 @@ export interface FeedbackInterface {
   firstName: string;
   lastName: string;
   content: string;
+  avatarName: string;
 }
