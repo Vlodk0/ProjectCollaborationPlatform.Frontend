@@ -12,6 +12,7 @@ import {filter, Subject, takeUntil} from "rxjs";
 export class DeveloperCommentsComponent implements OnDestroy {
   @Input() feedbacks: FeedbackInterface[] = [];
   @Input() developerId: string;
+  @Input() imageData: string | ArrayBuffer | null;
 
   @Output() public loadData = new EventEmitter<boolean>();
 

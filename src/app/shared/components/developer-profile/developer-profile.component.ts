@@ -10,6 +10,7 @@ import {NotificationService} from "../../services/notification.service";
 })
 export class DeveloperProfileComponent {
   @Input() developer: DeveloperInterface;
+  @Input() developerAvatar: string | ArrayBuffer
 
   constructor(private readonly clipboard: Clipboard,
               private readonly notificationService: NotificationService) {

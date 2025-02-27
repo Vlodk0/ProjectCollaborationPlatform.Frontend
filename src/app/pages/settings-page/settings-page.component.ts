@@ -44,7 +44,7 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
 
   onUpload(event: any) {
     this.userAvatar = event.target.files[0];
-    this.userService.uploadAvatar(this.userAvatar)
+    //this.userService.uploadAvatar(this.userAvatar)
   }
 
   createImageFromBlob(img: Blob) {

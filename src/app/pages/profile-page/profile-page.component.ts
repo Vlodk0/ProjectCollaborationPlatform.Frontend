@@ -1,7 +1,6 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {filter, finalize, of, Subject, switchMap, takeUntil} from "rxjs";
+import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
+import {filter, finalize, Subject, takeUntil} from "rxjs";
 import {UserService} from "../../shared/services/user.service";
-import {Technology} from "../../shared/interfaces/technology";
 import {DeveloperService} from "../../shared/services/developer.service";
 import {MatDialog} from "@angular/material/dialog";
 import {
@@ -27,15 +26,16 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
   public commonUser: DeveloperInterface | ProjectOwnerInterface = null;
   public developer: DeveloperInterface = null;
   public applicationRoleEnum = ApplicationRoleEnum;
+  public avatarUrl: string;
+  public imageData: string | ArrayBuffer | null;
 
   private unsubscribe$: Subject<void> = new Subject<void>();
 
-  technologies: Technology[];
-  imageData: string | ArrayBuffer | null = "./assets/setup-avatar.png";
-
+  private avatar: File;
 
   constructor(private readonly userService: UserService,
               private readonly matDialog: MatDialog,
+              private readonly cdr: ChangeDetectorRef,
               private readonly spinnerService: SpinnerService,
               private readonly developerService: DeveloperService,
               private readonly projectOwnerService: ProjectOwnerService) {
@@ -48,6 +48,25 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
+  }
+
+  public uploadAvatar(event): void {
+    this.avatar = event.target.files[0];
+
+    const fileReader = new FileReader();
+    fileReader.readAsDataURL(this.avatar);
+    fileReader.onload = (event) => this.avatarUrl = (event.target.result as string);
+
+    const formData = new FormData();
+    formData.append('file', this.avatar, this.avatar.name);
+
+    this.userService.uploadAvatar(formData)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe({
+        next: () => {
+          this.subscribeToCurrentUser();
+        }
+      });
   }
 
   public subscribeToCurrentUser(): void {
@@ -78,6 +97,7 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
         next: result => {
           this.commonUser = result;
           this.developer = result;
+          this.getAvatar();
         }
       })
   }
@@ -93,38 +113,43 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
       .subscribe({
         next: result => {
           this.commonUser = result;
+          this.getAvatar();
         }
       })
   }
 
-  loadUser(): void {
-    this.userService.getUserWithAvatar()
-      .pipe(
-        switchMap((res: any) => {
-          this.user = res;
-          if (res.avatarName === null || res.avatarName === '') {
-            return of(res)
-          }
-          return this.userService.getAvatar(res.avatarName)
-        })
-      )
+  private getAvatar(): void {
+    if (!this.commonUser.avatarName) {
+      return;
+    }
+
+    this.spinnerService.showSpinner();
+
+    this.userService.getAvatar(this.commonUser.avatarName)
+      .pipe(finalize(() => {
+          this.spinnerService.hideSpinner();
+        }),
+        takeUntil(this.unsubscribe$))
       .subscribe({
-        next: value => {
-          this.createImageFromBlob(value)
+        next: result => {
+          this.createImageFromBlob(result);
         }
       })
   }
 
-  createImageFromBlob(img: Blob) {
+  public createImageFromBlob(image: Blob): void {
+    if (!image) {
+      return;
+    }
+
     const reader = new FileReader();
     reader.addEventListener('load', () => {
       this.imageData = reader.result;
+      this.spinnerService.hideSpinner();
+      this.cdr.detectChanges();
     }, false);
-    if (img) {
-      reader.readAsDataURL(img);
-    } else {
-      this.imageData = "./assets/setup-avatar.png";
-    }
+
+    reader.readAsDataURL(image);
   }
 
   public openUpdatePersonalInfoDialog(): void {

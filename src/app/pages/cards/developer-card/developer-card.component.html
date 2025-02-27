@@ -1,11 +1,11 @@
 <div (click)="openDeveloperInfoDialog(developer)" class="card-wrapper flex-col">
   <div class="d-flex align-items-center">
     <div class="item-container-placeholder m-r-1-6 w-100">
-      <mat-icon *ngIf="true; else avatarPhoto" class="item-container-placeholder-icon"
+      <mat-icon *ngIf="!developer?.avatarName; else avatarPhoto" class="item-container-placeholder-icon"
                 [svgIcon]="'avatar-placeholder-icon'"></mat-icon>
 
       <ng-template #avatarPhoto>
-        <img alt="" class="avatar-photo">
+        <img [src]="imageData" alt="" class="avatar-photo">
       </ng-template>
     </div>
 

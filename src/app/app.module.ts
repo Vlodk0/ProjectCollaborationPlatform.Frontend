@@ -86,6 +86,7 @@ import {
 import {MatMenu, MatMenuTrigger} from "@angular/material/menu";
 import {FilterDevelopersComponent} from "./shared/components/filters/filter-developers/filter-developers.component";
 import {FilterProjectsComponent} from "./shared/components/filters/filter-projects/filter-projects.component";
+import {NgOptimizedImage} from "@angular/common";
 
 export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -185,7 +186,8 @@ const MODULES = [
     MatDivider,
     MatSlideToggle,
     MatMenu,
-    MatMenuTrigger
+    MatMenuTrigger,
+    NgOptimizedImage
   ],
   providers: [
     {

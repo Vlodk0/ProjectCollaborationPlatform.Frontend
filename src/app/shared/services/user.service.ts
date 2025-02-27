@@ -41,14 +41,11 @@ export class UserService {
     return this.httpClient.get<PaginationResponse<ProjectPagination[]>>(this.apiUrl + `/projects`, {params});
   }
 
-  public uploadAvatar(userAvatar: File) {
-    let formData = new FormData();
-    formData.append('avatar', userAvatar);
-
+  public uploadAvatar(userAvatar: FormData) {
     const headers = new HttpHeaders()
       .append("Content-Disposition", 'multipart/form-data')
 
-    return this.httpClient.post(this.apiUrl + '/photo', formData, {headers})
+    return this.httpClient.post(this.apiUrl + '/photo', userAvatar, {headers})
   }
 
   public getUserWithAvatar(): Observable<UserInfoWithAvatar> {

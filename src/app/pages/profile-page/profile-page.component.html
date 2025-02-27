@@ -1,11 +1,16 @@
 <div class="profile-section-container">
   <div class="avatar-container">
-    <div class="item-container-placeholder w-100">
-      <mat-icon *ngIf="true; else avatarPhoto" class="item-container-placeholder-icon"
+    <div (click)="avatar.click()" class="item-container-placeholder w-100">
+      <mat-icon *ngIf="!commonUser?.avatarName; else avatarPhoto" class="item-container-placeholder-icon"
                 [svgIcon]="'avatar-placeholder-icon'"></mat-icon>
 
+      <input #avatar
+             (change)="uploadAvatar($event)"
+             accept="image/png, image/jpeg, image/jpg, image/webp"
+             type="file">
+
       <ng-template #avatarPhoto>
-        <img alt="" class="avatar-photo">
+        <img [src]="imageData" alt="" class="avatar-photo">
       </ng-template>
     </div>
     <div class="user-info-container">

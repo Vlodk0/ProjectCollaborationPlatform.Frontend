@@ -4,7 +4,9 @@
     <div class="profile-avatar-container d-flex">
       <div class="d-flex align-items-center">
         <div class="avatar-image-wrapper">
-          <img class="avatar-image" *ngIf="false else emptyAvatar"
+          <img class="avatar-image"
+               *ngIf="developerAvatar else emptyAvatar"
+               [src]="developerAvatar"
                alt="x">
           <ng-template #emptyAvatar>
             <mat-icon class="icon" [svgIcon]="'avatar-placeholder-icon'"></mat-icon>
