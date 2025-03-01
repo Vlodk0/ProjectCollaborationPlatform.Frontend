@@ -64,7 +64,10 @@
     "allProjectsLabel": "All Projects",
     "developersLabel": "Developers",
     "profileLabel": "Profile",
-    "logoutLabel": "Logout"
+    "logoutLabel": "Logout",
+    "dashboardLabel": "Dashboard",
+    "projectOwnersLabel": "Project Owners",
+    "projectsLabel": "Projects"
   },
   "notification": {
     "successRequestLabel": "Success request.",

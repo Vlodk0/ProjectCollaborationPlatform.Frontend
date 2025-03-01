@@ -84,9 +84,11 @@ export class SidebarComponent implements OnInit, OnDestroy {
     if (!this.user) return;
 
     if (this.user.roleName === ApplicationRoleEnum.Dev) {
-      this.menuItems = result.developerMenu
+      this.menuItems = result.developerMenu;
     } else if (this.user.roleName === ApplicationRoleEnum.ProjectOwner) {
-      this.menuItems = result.projectOwnerMenu
+      this.menuItems = result.projectOwnerMenu;
+    } else if (this.user.roleName === ApplicationRoleEnum.Admin) {
+      this.menuItems = result.adminMenu;
     }
 
     this.cdr.detectChanges();

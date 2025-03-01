@@ -1,4 +1,5 @@
 export enum ApplicationRoleEnum {
   ProjectOwner = "ProjectOwner",
-  Dev = "Dev"
+  Dev = "Dev",
+  Admin = "Admin"
 }

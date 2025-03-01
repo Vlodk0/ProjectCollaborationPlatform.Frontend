@@ -15,6 +15,18 @@ export class IconRegistry {
       'my-projects-icon',
       domSanitizer.bypassSecurityTrustResourceUrl('assets/icons/my-projects-icon.svg'));
     matIconRegistry.addSvgIcon(
+      'dashboard-icon',
+      domSanitizer.bypassSecurityTrustResourceUrl('assets/icons/dashboard-icon.svg'));
+    matIconRegistry.addSvgIcon(
+      'project-owner-icon',
+      domSanitizer.bypassSecurityTrustResourceUrl('assets/icons/project-owner-icon.svg'));
+    matIconRegistry.addSvgIcon(
+      'projects-icon',
+      domSanitizer.bypassSecurityTrustResourceUrl('assets/icons/projects-icon.svg'));
+    matIconRegistry.addSvgIcon(
+      'developer-icon',
+      domSanitizer.bypassSecurityTrustResourceUrl('assets/icons/developer-icon.svg'));
+    matIconRegistry.addSvgIcon(
       'all-projects-icon',
       domSanitizer.bypassSecurityTrustResourceUrl('assets/icons/all-projects-icon.svg'));
     matIconRegistry.addSvgIcon(

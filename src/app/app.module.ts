@@ -7,28 +7,27 @@ import {InputComponent} from './shared/components/input/input.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {SidebarComponent} from './core/sidebar/sidebar.component';
 import {HeaderComponent} from './core/header/header.component';
-import {ProfilePageComponent} from './pages/profile-page/profile-page.component';
-import {AllProjectsPageComponent} from './pages/all-projects-page/all-projects-page.component';
+import {ProfilePageComponent} from './pages/user-pages/profile-page/profile-page.component';
+import {AllProjectsPageComponent} from './pages/user-pages/all-projects-page/all-projects-page.component';
 import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from "@angular/common/http";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {AuthPageComponent} from "./pages/auth-pages/auth-page.component";
-import {AfterRegisterPageComponent} from "./pages/auth-pages/after-register-page/after-register-page.component";
-import {LoginPageComponent} from "./pages/auth-pages/login-page/login-page.component";
-import {RegisterPageComponent} from "./pages/auth-pages/register-page/register-page.component";
-import {ResetPasswordPageComponent} from "./pages/auth-pages/reset-password-page/reset-password-page.component";
+import {AuthPageComponent} from "./pages/user-pages/auth-pages/auth-page.component";
+import {AfterRegisterPageComponent} from "./pages/user-pages/auth-pages/after-register-page/after-register-page.component";
+import {LoginPageComponent} from "./pages/user-pages/auth-pages/login-page/login-page.component";
+import {RegisterPageComponent} from "./pages/user-pages/auth-pages/register-page/register-page.component";
+import {ResetPasswordPageComponent} from "./pages/user-pages/auth-pages/reset-password-page/reset-password-page.component";
 import {HttpRequestInterceptor} from "./core/interceptors/auth.interceptor";
 import {EmailSuccessPageComponent} from './static-pages/email-success-page/email-success-page.component';
 import {EmailFailedPageComponent} from './static-pages/email-failed-page/email-failed-page.component';
-import {AllProjectsPageModule} from "./pages/all-projects-page/all-projects-page.module";
-import {SettingsPageComponent} from './pages/settings-page/settings-page.component';
+import {AllProjectsPageModule} from "./pages/user-pages/all-projects-page/all-projects-page.module";
+import {SettingsPageComponent} from './pages/user-pages/settings-page/settings-page.component';
 import {SharedModule} from "./shared/shared.module";
-import {ProjectPageComponent} from './pages/project-page/project-page.component';
+import {ProjectPageComponent} from './pages/user-pages/project-page/project-page.component';
 import {PageNotFoundComponent} from './static-pages/page-not-found/page-not-found.component';
-import {AllDevelopersPageComponent} from './pages/all-developers-page/all-developers-page.component';
-import {MyProjectsPageComponent} from './pages/my-projects-page/my-projects-page.component';
-import {ProjectInfoPageComponent} from './pages/project-info-page/project-info-page.component';
-import {DevPageComponent} from './pages/dev-page/dev-page.component';
-import {AdminPanelComponent} from './pages/admin-panel/admin-panel.component';
+import {AllDevelopersPageComponent} from './pages/user-pages/all-developers-page/all-developers-page.component';
+import {MyProjectsPageComponent} from './pages/user-pages/my-projects-page/my-projects-page.component';
+import {ProjectInfoPageComponent} from './pages/user-pages/project-info-page/project-info-page.component';
+import {DevPageComponent} from './pages/user-pages/dev-page/dev-page.component';
 import {EmptyStateComponent} from "./shared/components/empty-state/empty-state.component";
 import {
   ControlValidationMessageComponent
@@ -46,9 +45,9 @@ import {MatProgressSpinner} from "@angular/material/progress-spinner";
 import {PaginatorComponent} from "./shared/components/paginator/paginator.component";
 import {MatInputModule} from "@angular/material/input";
 import {MatSelectModule} from "@angular/material/select";
-import { DeveloperCardComponent } from './pages/cards/developer-card/developer-card.component';
-import { ProjectCardComponent } from './pages/cards/project-card/project-card.component';
-import { CreateProjectComponent } from './pages/create-project/create-project.component';
+import { DeveloperCardComponent } from './pages/user-pages/cards/developer-card/developer-card.component';
+import { ProjectCardComponent } from './pages/user-pages/cards/project-card/project-card.component';
+import { CreateProjectComponent } from './pages/user-pages/create-project/create-project.component';
 import {MatStepperModule} from "@angular/material/stepper";
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import {
@@ -67,22 +66,22 @@ import {TechnologyDialogComponent} from "./shared/components/dialogs/technology-
 import { ProjectTypeLabelPipe } from './core/pipes/project-type-label.pipe';
 import { ProjectTimeDurationLabelPipe } from './core/pipes/project-time-duration-label.pipe';
 import {MatTableModule} from "@angular/material/table";
-import { ProjectTaskCardComponent } from './pages/cards/project-task-card/project-task-card.component';
+import { ProjectTaskCardComponent } from './pages/user-pages/cards/project-task-card/project-task-card.component';
 import {ProjectTaskDialogComponent} from "./shared/components/dialogs/project-task/project-task-dialog.component";
 import {ProjectTaskLabelPipe} from "./core/pipes/project-task-label.pipe";
 import {DragDropModule} from "@angular/cdk/drag-drop";
 import {MatSlideToggle} from "@angular/material/slide-toggle";
 import {ChooseProjectDialogComponent} from "./shared/components/dialogs/choose-project/choose-project-dialog.component";
 import {FeedbackDialogComponent} from "./shared/components/dialogs/feedback/feedback-dialog.component";
-import { ProjectSummaryComponent } from './pages/project-summary/project-summary.component';
+import { ProjectSummaryComponent } from './pages/user-pages/project-summary/project-summary.component';
 import {
   ProjectOverviewSectionComponent
-} from "./pages/project-page/project-overview-section/project-overview-section.component";
-import {ProjectTeamSectionComponent} from "./pages/project-page/project-team-section/project-team-section.component";
-import {ProjectBoardSectionComponent} from "./pages/project-page/project-board-section/project-board-section.component";
+} from "./pages/user-pages/project-page/project-overview-section/project-overview-section.component";
+import {ProjectTeamSectionComponent} from "./pages/user-pages/project-page/project-team-section/project-team-section.component";
+import {ProjectBoardSectionComponent} from "./pages/user-pages/project-page/project-board-section/project-board-section.component";
 import {
   ProjectRequestsSectionComponent
-} from "./pages/project-page/project-requests-section/project-requests-section.component";
+} from "./pages/user-pages/project-page/project-requests-section/project-requests-section.component";
 import {MatMenu, MatMenuTrigger} from "@angular/material/menu";
 import {FilterDevelopersComponent} from "./shared/components/filters/filter-developers/filter-developers.component";
 import {FilterProjectsComponent} from "./shared/components/filters/filter-projects/filter-projects.component";
@@ -165,7 +164,6 @@ const MODULES = [
     MyProjectsPageComponent,
     ProjectInfoPageComponent,
     DevPageComponent,
-    AdminPanelComponent,
     FilterDevelopersComponent,
     EmptyStateComponent,
     FilterProjectsComponent,

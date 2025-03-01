@@ -1,0 +1,9 @@
+@import "../../../../styles/variables";
+
+.project-page-wrapper {
+  border-radius: 20px;
+  border: 1px solid  #373639;
+  background: #13161B;
+  padding: 25px;
+  min-height: calc(100vh - 3.2rem);
+}

@@ -46,5 +46,31 @@
       "icon": "developers-icon",
       "title": "sideBar.developersLabel"
     }
+  ],
+  "adminMenu": [
+    {
+      "routerLink": "dashboard",
+      "controlName": "totalRequests",
+      "icon": "dashboard-icon",
+      "title": "sideBar.dashboardLabel"
+    },
+    {
+      "routerLink": "projects",
+      "controlName": "totalRequests",
+      "icon": "projects-icon",
+      "title": "sideBar.projectsLabel"
+    },
+    {
+      "routerLink": "developers",
+      "controlName": "totalRequests",
+      "icon": "developer-icon",
+      "title": "sideBar.developersLabel"
+    },
+    {
+      "routerLink": "project-owners",
+      "controlName": "totalRequests",
+      "icon": "project-owner-icon",
+      "title": "sideBar.projectOwnersLabel"
+    }
   ]
 }
