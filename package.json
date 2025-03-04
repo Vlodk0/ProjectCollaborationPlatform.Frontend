@@ -23,7 +23,6 @@
     "@angular/router": "^17.2.0",
     "@ngx-translate/core": "^16.0.4",
     "@ngx-translate/http-loader": "^8.0.0",
-    "@swimlane/ngx-charts": "^22.0.0-alpha.0",
     "apexcharts": "^3.54.1",
     "echarts": "^5.5.0",
     "ng-apexcharts": "^1.8.0",
