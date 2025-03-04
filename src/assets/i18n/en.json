@@ -215,12 +215,24 @@
     "filterProjectsLabel": "Filter Projects"
   },
 
+  "admin": {
+    "developersCountLabel": "Developers",
+    "projectOwnersCountLabel": "Project Owners",
+    "activeCountLabel": "Active",
+    "deletedCountLabel": "Deleted",
+    "projectsCountLabel": "Projects",
+    "projectsByTypeLabel": "Projects by Type",
+    "projectsByTimeDurationLabel": "Projects by Time",
+    "projectsCountInMonthLabel": "Project count in Month"
+  },
+
   "taskLabelType": {
     "apiLabel": "API",
     "webLabel": "WEB",
     "mobileLabel": "Mobile",
     "devopsLabel": "DevOps"
   },
+
   "emptyState": {
     "currentListOfProjectIsEmptyLabel": "The current list of projects is empty",
     "projectOwnerNotCreatedProjectLabel": "No one project owner has not created any projects yet",

@@ -7,6 +7,8 @@ const routes: Routes = [
     path: '',
     component: RootComponent,
     children: [
+
+      //INFO: User pages
       {
         path: '',
         pathMatch: 'full',
@@ -40,6 +42,24 @@ const routes: Routes = [
       {
         path: 'project/:id',
         loadChildren: () => import('../../../pages/user-pages/project-summary/project-summary.routing.module').then(r => r.ProjectSummaryRoutingModule)
+      },
+
+      //INFO: Admin pages
+      {
+        path: 'dashboard',
+        loadChildren: () => import('../../../pages/admin-pages/dashboard/dashboard.routing.module').then(r => r.DashboardRoutingModule)
+      },
+      {
+        path: 'projects',
+        loadChildren: () => import('../../../pages/admin-pages/projects/projects.routing.module').then(r => r.ProjectsRoutingModule)
+      },
+      {
+        path: 'developers',
+        loadChildren: () => import('../../../pages/admin-pages/developers/developers.routing.module').then(r => r.DevelopersRoutingModule)
+      },
+      {
+        path: 'project-owners',
+        loadChildren: () => import('../../../pages/admin-pages/project-owners/project-owners.routing.module').then(r => r.ProjectOwnersRoutingModule)
       },
     ],
   },

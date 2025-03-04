@@ -2,6 +2,7 @@ import {AddressInterface} from "../developer/address.interface";
 import {ProjectInterface} from "./project.interface";
 
 export interface ProjectOwnerInterface {
+  id: string;
   firstName: string;
   lastName: string;
   email: string;

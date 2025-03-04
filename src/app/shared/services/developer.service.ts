@@ -1,10 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {PaginationResponse} from "../interfaces/pagination-response";
-import {PaginationDeveloper} from "../interfaces/pagination-developer";
 import {environment} from "../../environment";
-import {PaginationFilterDevs} from "../interfaces/pagination-filter-devs";
 import {Technology} from "../interfaces/technology";
 import {PageDeveloperInterface} from "../interfaces/developer/page-developer.interface";
 import {DeveloperInterface} from "../interfaces/developer/developer.interface";

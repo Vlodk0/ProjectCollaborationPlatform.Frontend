@@ -1,0 +1,133 @@
+<div class="page-wrapper d-flex gap-8-px">
+  <div class="left-side-container">
+    <div class="d-flex flex-col w-100">
+      <div class="left-side-statistic-container">
+        <div class="cards-container">
+          <div>
+            <mat-card class="tile">
+              <mat-card-header>
+                <mat-card-title>
+                  {{ 'admin.developersCountLabel' | translate }}
+                </mat-card-title>
+              </mat-card-header>
+
+              <div class="card-content">
+                {{ dashboardData?.developerCount }}
+              </div>
+
+              <div class="card-footer">
+                <div class="card-footer-block active">
+                  {{ 'admin.activeCountLabel' | translate }}:
+                  <div class="badge">
+                    {{ dashboardData?.activeDeveloperCount }}
+                  </div>
+                </div>
+
+                <div class="card-footer-block inactive">
+                  {{ 'admin.deletedCountLabel' | translate }}:
+                  <div class="badge">
+                    {{ dashboardData?.deletedDeveloperCount }}
+                  </div>
+
+                </div>
+              </div>
+            </mat-card>
+          </div>
+          <div>
+            <mat-card class="tile">
+              <mat-card-header>
+                <mat-card-title>
+                  {{ 'admin.projectOwnersCountLabel' | translate }}
+                </mat-card-title>
+              </mat-card-header>
+
+              <div class="card-content">
+                {{ dashboardData?.projectOwnerCount }}
+              </div>
+
+              <div class="card-footer">
+                <div class="card-footer-block active">
+                  {{ 'admin.activeCountLabel' | translate }}:
+                  <div class="badge">
+                    {{ dashboardData?.activeProjectOwnerCount }}
+                  </div>
+                </div>
+
+                <div class="card-footer-block inactive">
+                  {{ 'admin.deletedCountLabel' | translate }}:
+                  <div class="badge">
+                    {{ dashboardData?.deletedProjectOwnerCount }}
+                  </div>
+
+                </div>
+              </div>
+            </mat-card>
+          </div>
+          <div>
+            <mat-card class="tile">
+              <mat-card-header>
+                <mat-card-title>
+                  {{ 'admin.projectsCountLabel' | translate }}
+                </mat-card-title>
+              </mat-card-header>
+
+              <div class="card-content">
+                {{ dashboardData?.projectCount }}
+              </div>
+
+              <div class="card-footer">
+                &nbsp;
+              </div>
+            </mat-card>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="linear-chart-container">
+      <div class="chart-label">{{ 'admin.projectsCountInMonthLabel' | translate }}</div>
+      <div id="projectByDayChart">
+        <apx-chart
+          [series]="projectByDayChartOptions?.series"
+          [chart]="projectByDayChartOptions?.chart"
+          [labels]="projectByDayChartOptions?.labels"
+          [fill]="projectByDayChartOptions?.fill"
+          [stroke]="projectByDayChartOptions?.stroke"
+          [xaxis]="projectByDayChartOptions?.xaxis"
+          [yaxis]="projectByDayChartOptions?.yaxis"
+          [tooltip]="projectByDayChartOptions?.tooltip"
+          [dataLabels]="projectByDayChartOptions?.dataLabels"
+          [responsive]="projectByDayChartOptions?.responsive"
+        ></apx-chart>
+      </div>
+    </div>
+  </div>
+  <div class="charts-wrapper">
+    <div class="chart-container">
+      <div class="chart-label">{{ 'admin.projectsByTypeLabel' | translate }}</div>
+      <div id="projectByTypeChart">
+        <apx-chart
+          [series]="projectByTypeChartOptions?.series"
+          [chart]="projectByTypeChartOptions?.chart"
+          [labels]="projectByTypeChartOptions?.labels"
+          [fill]="projectByTypeChartOptions?.fill"
+          [dataLabels]="projectByTypeChartOptions?.dataLabels"
+          [responsive]="projectByTypeChartOptions?.responsive"
+        ></apx-chart>
+      </div>
+    </div>
+
+    <div class="chart-container">
+      <div class="chart-label">{{ 'admin.projectsByTimeDurationLabel' | translate }}</div>
+      <div id="projectByTimeDurationChart">
+        <apx-chart
+          [series]="projectByTimeDurationChartOptions?.series"
+          [chart]="projectByTimeDurationChartOptions?.chart"
+          [labels]="projectByTimeDurationChartOptions?.labels"
+          [fill]="projectByTimeDurationChartOptions?.fill"
+          [dataLabels]="projectByTimeDurationChartOptions?.dataLabels"
+          [responsive]="projectByTimeDurationChartOptions?.responsive"
+        ></apx-chart>
+      </div>
+    </div>
+  </div>
+</div>
