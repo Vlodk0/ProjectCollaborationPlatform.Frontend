@@ -92,7 +92,8 @@ import { DevelopersComponent } from './pages/admin-pages/developers/developers.c
 import { ProjectOwnersComponent } from './pages/admin-pages/project-owners/project-owners.component';
 import {MatCardHeader, MatCardModule} from "@angular/material/card";
 import {NgApexchartsModule} from "ng-apexcharts";
-import {NgxChartsModule} from "@swimlane/ngx-charts";
+import {NgSelectModule} from "@ng-select/ng-select";
+import {NgxDatatableModule} from "@swimlane/ngx-datatable";
 
 export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -200,7 +201,8 @@ const MODULES = [
     MatCardModule,
     MatCardHeader,
     NgApexchartsModule,
-    NgxChartsModule,
+    NgSelectModule,
+    NgxDatatableModule
   ],
   providers: [
     {

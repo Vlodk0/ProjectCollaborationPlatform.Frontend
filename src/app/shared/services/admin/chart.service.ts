@@ -111,7 +111,7 @@ export class ChartService {
       },
       tooltip: {
         x: {
-          format: 'dd/MM/yy HH:mm'
+          format: 'dd/MM/yy'
         },
         theme:  'dark',
       },

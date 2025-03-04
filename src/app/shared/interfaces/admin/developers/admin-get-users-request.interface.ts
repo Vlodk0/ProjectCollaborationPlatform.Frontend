@@ -6,5 +6,5 @@ export interface AdminGetUsersRequestInterface {
   currentPage: number;
   pageSize: number;
   sortByProperty: UserSortingClauseEnum;
-  sortOrder: string;
+  sortOrder: 'asc' | 'desc';
 }

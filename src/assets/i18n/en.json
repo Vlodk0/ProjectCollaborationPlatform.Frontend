@@ -17,7 +17,9 @@
     "rejectLabel": "Reject",
     "developerLabel": "Developer",
     "projectOwnerLabel": "Project Owner",
-    "searchLabel": "Search"
+    "searchLabel": "Search",
+    "statusLabel": "Status",
+    "deleteLabel": "Delete"
   },
 
   "profileSettings": {
@@ -223,7 +225,20 @@
     "projectsCountLabel": "Projects",
     "projectsByTypeLabel": "Projects by Type",
     "projectsByTimeDurationLabel": "Projects by Time",
-    "projectsCountInMonthLabel": "Project count in Month"
+    "projectsCountInMonthLabel": "Project count in Month",
+    "countryLabel": "Country",
+    "columns": {
+      "firstNameLabel": "First Name",
+      "lastNameLabel": "Last Name",
+      "emailLabel": "Email",
+      "countryLabel": "Country",
+      "stateLabel": "State",
+      "registeredLabel": "Registered"
+    },
+    "developerStatus": {
+      "activeLabel": "Active",
+      "deletedLabel": "Deleted"
+    }
   },
 
   "taskLabelType": {

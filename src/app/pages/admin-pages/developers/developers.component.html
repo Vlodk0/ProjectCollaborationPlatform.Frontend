@@ -1,3 +1,191 @@
-<div class="page-wrapper">
-  <p>developers works!</p>
+<div class="page-wrapper" [formGroup]="form">
+  <div class="filters">
+    <mat-form-field appearance="outline" class="input-container-item-large search-filter">
+      <mat-icon matPrefix [svgIcon]="'search'"></mat-icon>
+
+      <input formControlName="searchTerm" [placeholder]="'general.searchLabel' | translate" matInput/>
+
+      <button mat-icon-button
+              matSuffix
+              (click)="resetSearch()"
+              *ngIf="!!form?.value?.searchTerm?.length"
+              class="m-r-1">
+        <mat-icon [svgIcon]="'close'"></mat-icon>
+      </button>
+    </mat-form-field>
+
+    <div class='filters-container'>
+      <mat-form-field appearance="outline" class="dropdown-menu">
+        <mat-label>{{ 'filterDevelopers.countryLabel' | translate }}</mat-label>
+        <mat-select formControlName="countryCodes" multiple>
+          <mat-option *ngFor="let country of (countries$ | async)" [value]="country.code">
+            <img [width]="22.5" [height]="15" [src]="country?.flagUrl" />
+            {{ country?.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+    </div>
+  </div>
+
+  <ngx-datatable (page)="paging($event)"
+                 (sort)="sort($event)"
+                 *ngIf="!!developers?.items"
+                 [columnMode]="'force'"
+                 [count]="developers?.total"
+                 [externalPaging]="true"
+                 [externalSorting]="true"
+                 [footerHeight]="64"
+                 [headerHeight]="48"
+                 [limit]="developers?.pageSize"
+                 [offset]="developers?.currentPage"
+                 [rowHeight]="64"
+                 [rowIdentity]="rowIdentity"
+                 [rows]="developers?.items"
+                 [trackByProp]="'id'"
+                 class="material vc-grid">
+
+    <ngx-datatable-column name="First Name"
+                          prop='firstName'>
+      <ng-template let-column="column"
+                   ngx-datatable-header-template>
+        <span class="vc-header-label">
+          {{ 'admin.columns.firstNameLabel' | translate }}
+        </span>
+      </ng-template>
+      <ng-template let-row="row"
+                   ngx-datatable-cell-template>
+        <span class="vc-grid-label">
+          {{row.firstName}}
+        </span>
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="Last Name"
+                          prop='lastName'>
+      <ng-template let-column="column"
+                   ngx-datatable-header-template>
+        <span class="vc-header-label">
+          {{ 'admin.columns.lastNameLabel' | translate }}
+        </span>
+      </ng-template>
+      <ng-template let-row="row"
+                   ngx-datatable-cell-template>
+        <span class="vc-grid-label">
+          {{row.lastName}}
+        </span>
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column [sortable]="false"
+                          name="Email"
+                          prop='email'>
+      <ng-template let-column="column"
+                   ngx-datatable-header-template>
+        <span class="vc-header-label">
+          {{ 'admin.columns.emailLabel' | translate }}
+        </span>
+      </ng-template>
+      <ng-template let-row="row"
+                   ngx-datatable-cell-template>
+        <span class="vc-grid-label">
+          {{row.email }}
+        </span>
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column [sortable]="false"
+                          [maxWidth]="275"
+                          name="Country"
+                          prop='countryName'>
+      <ng-template let-column="column"
+                   ngx-datatable-header-template>
+        <span class="vc-header-label">
+          {{ 'admin.columns.countryLabel' | translate }}
+        </span>
+      </ng-template>
+      <ng-template let-row="row"
+                   ngx-datatable-cell-template>
+        <span class="vc-grid-label">
+          {{row.address?.countryName }}
+        </span>
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column [sortable]="false"
+                          [maxWidth]="75"
+                          name="State"
+                          prop='state'>
+      <ng-template let-column="column"
+                   ngx-datatable-header-template>
+        <span class="vc-header-label">
+          {{ 'admin.columns.stateLabel' | translate }}
+        </span>
+      </ng-template>
+      <ng-template let-row="row"
+                   ngx-datatable-cell-template>
+        <span class="vc-grid-label">
+          {{row.address?.state }}
+        </span>
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column [sortable]="false"
+                          cellClass="center-cell"
+                          headerClass="center-cell"
+                          name="isDeleted"
+                          prop='isDeleted'>
+      <ng-template let-column="column"
+                   ngx-datatable-header-template>
+        <span class="vc-header-label">
+          {{ 'general.statusLabel' | translate }}
+        </span>
+      </ng-template>
+      <ng-template let-row="row"
+                   ngx-datatable-cell-template>
+        <span class="vc-grid-label">
+          <ng-container [ngSwitch]="row.isDeleted">
+            <ng-template [ngSwitchCase]="true">
+              <span class="status-chip deleted">
+                {{ 'admin.developerStatus.deletedLabel' | translate }}
+              </span>
+            </ng-template>
+            <ng-template [ngSwitchCase]="false">
+              <span class="status-chip active">
+                {{ 'admin.developerStatus.activeLabel' | translate }}
+              </span>
+            </ng-template>
+          </ng-container>
+        </span>
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="CreatedTimeStamp"
+                          prop='createdTimeStamp'>
+      <ng-template let-column="column"
+                   ngx-datatable-header-template>
+        <span class="vc-header-label">
+          {{ 'admin.columns.registeredLabel' | translate }}
+        </span>
+      </ng-template>
+      <ng-template let-row="row"
+                   ngx-datatable-cell-template>
+        <span class="vc-grid-label">
+          {{row.createdTimeStamp | localDate: "shortDate" }}
+        </span>
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column [sortable]="false"
+                          cellClass="actions-cell"
+                          headerClass="actions-cell">
+      <ng-template let-row="row" ngx-datatable-cell-template>
+        <button mat-icon-button matSuffix (click)="openDeveloperInfoDialog(row, row?.avatarName)">
+          <mat-icon svgIcon="view"></mat-icon>
+        </button>
+      </ng-template>
+    </ngx-datatable-column>
+
+
+  </ngx-datatable>
 </div>

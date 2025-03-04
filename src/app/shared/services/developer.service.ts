@@ -28,8 +28,8 @@ export class DeveloperService {
     return this.httpClient.get<DeveloperInterface>(this.apiUrl + `/${developerId}`)
   }
 
-  public deleteDeveloper(id: string) {
-    return this.httpClient.delete(this.apiUrl + `/${id}`)
+  public deleteDeveloper(developerId: string) {
+    return this.httpClient.delete(`${this.apiUrl}/${developerId}`)
   }
 
   public addTechnologyForDev(techId: string[]) {
