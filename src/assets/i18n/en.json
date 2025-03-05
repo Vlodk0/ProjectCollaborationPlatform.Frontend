@@ -233,7 +233,8 @@
       "emailLabel": "Email",
       "countryLabel": "Country",
       "stateLabel": "State",
-      "registeredLabel": "Registered"
+      "registeredLabel": "Registered",
+      "projectsCountLabel": "Projects"
     },
     "developerStatus": {
       "activeLabel": "Active",

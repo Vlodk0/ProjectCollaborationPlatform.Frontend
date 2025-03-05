@@ -6,7 +6,7 @@ import {StaticDataService} from "../../../shared/services/static-data.service";
 import {debounceTime, distinctUntilChanged, filter, finalize, Observable, Subject, takeUntil} from "rxjs";
 import {CountryInterface} from "../../../shared/interfaces/country-interface";
 import {FormBuilder, FormGroup} from "@angular/forms";
-import {SearchAdminDeveloperFormGroup} from "../../../core/types/form-groups/admin/search-admin-developer-form-group";
+import {SearchAdminUserFormGroup} from "../../../core/types/form-groups/admin/search-admin-user-form-group";
 import {UserSortingClauseEnum} from "../../../core/enums/admin/user-sorting-clause.enum";
 import {
   AdminGetUsersRequestInterface
@@ -26,7 +26,7 @@ import {Page} from "../../../shared/interfaces/general/page.interface";
   styleUrl: './developers.component.scss'
 })
 export class DevelopersComponent implements OnInit, OnDestroy {
-  public form: FormGroup<SearchAdminDeveloperFormGroup>;
+  public form: FormGroup<SearchAdminUserFormGroup>;
   public developers: Page<AdminDeveloperDataInterface>;
 
   public countries$: Observable<CountryInterface[]> = this.staticDataService.getAllCountries();
@@ -143,7 +143,7 @@ export class DevelopersComponent implements OnInit, OnDestroy {
   }
 
   private setupForm(): void {
-    this.form = this.fb.group<SearchAdminDeveloperFormGroup>({
+    this.form = this.fb.group<SearchAdminUserFormGroup>({
       searchTerm: this.fb.control(''),
       countryCodes: this.fb.control<string[]>(["UA", "US"]),
       currentPage: this.fb.control<number>(0),
