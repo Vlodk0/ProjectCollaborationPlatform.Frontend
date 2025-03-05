@@ -5,7 +5,7 @@ import {filter, finalize, Subject, takeUntil} from "rxjs";
 import {FunctionalityBlockService} from "../../../../shared/services/functionality-block.service";
 import {SpinnerService} from "../../../../shared/services/spinner.service";
 import {NotificationService} from "../../../../shared/services/notification.service";
-import {FunctionalityBlockInterface} from "../../../../shared/interfaces/project/functionality-block.interface";
+import {FunctionalityBlockInterface} from "../../../../shared/interfaces/functionality-block/functionality-block.interface";
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from "@angular/cdk/drag-drop";
 import {
   ProjectTaskDialogComponent

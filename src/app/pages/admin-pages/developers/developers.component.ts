@@ -9,9 +9,6 @@ import {FormBuilder, FormGroup} from "@angular/forms";
 import {SearchAdminDeveloperFormGroup} from "../../../core/types/form-groups/admin/search-admin-developer-form-group";
 import {UserSortingClauseEnum} from "../../../core/enums/admin/user-sorting-clause.enum";
 import {
-  PageAdminDeveloperDataInterface
-} from "../../../shared/interfaces/admin/developers/page-admin-developer-data.interface";
-import {
   AdminGetUsersRequestInterface
 } from "../../../shared/interfaces/admin/developers/admin-get-users-request.interface";
 import {PagingEvent} from "../../../shared/interfaces/admin/developers/paging-event.interface";
@@ -20,6 +17,8 @@ import {
   DeveloperInfoDialogComponent
 } from "../../../shared/components/dialogs/developer-info/developer-info-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
+import {AdminDeveloperDataInterface} from "../../../shared/interfaces/admin/developers/admin-developer-data.interface";
+import {Page} from "../../../shared/interfaces/general/page.interface";
 
 @Component({
   selector: 'collabro-developers',
@@ -28,7 +27,7 @@ import {MatDialog} from "@angular/material/dialog";
 })
 export class DevelopersComponent implements OnInit, OnDestroy {
   public form: FormGroup<SearchAdminDeveloperFormGroup>;
-  public developers: PageAdminDeveloperDataInterface;
+  public developers: Page<AdminDeveloperDataInterface>;
 
   public countries$: Observable<CountryInterface[]> = this.staticDataService.getAllCountries();
 

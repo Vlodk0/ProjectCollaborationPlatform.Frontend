@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {FunctionalityBlockInterface} from "../../../../shared/interfaces/project/functionality-block.interface";
+import {FunctionalityBlockInterface} from "../../../../shared/interfaces/functionality-block/functionality-block.interface";
 
 @Component({
   selector: 'collabro-project-task-card',

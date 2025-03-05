@@ -3,9 +3,9 @@ import {HttpClient, HttpParams} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {environment} from "../../environment";
 import {Technology} from "../interfaces/technology";
-import {PageDeveloperInterface} from "../interfaces/developer/page-developer.interface";
 import {DeveloperInterface} from "../interfaces/developer/developer.interface";
 import {DeveloperRequestInterface} from "../interfaces/developer/developer-request.interface";
+import { Page } from '../interfaces/general/page.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -16,12 +16,12 @@ export class DeveloperService {
 
   constructor(private readonly httpClient: HttpClient) { }
 
-  public getDevelopers(currentPage: number, pageSize: number): Observable<PageDeveloperInterface> {
+  public getDevelopers(currentPage: number, pageSize: number): Observable<Page<DeveloperInterface>> {
     let params = new HttpParams()
       .set('currentPage', currentPage.toString())
       .set('pageSize', pageSize.toString())
 
-    return this.httpClient.get<PageDeveloperInterface>(this.apiUrl + '/developers', {params})
+    return this.httpClient.get<Page<DeveloperInterface>>(this.apiUrl + '/developers', {params})
   }
 
   public getDeveloper(developerId: string): Observable<DeveloperInterface> {
@@ -44,7 +44,7 @@ export class DeveloperService {
     return this.httpClient.get<Technology[]>(this.apiUrl + `/Technologies/dev/${devId}`)
   }
 
-  public filterDevelopers(params: DeveloperRequestInterface | HttpParams): Observable<PageDeveloperInterface> {
-    return this.httpClient.get<PageDeveloperInterface>(`${this.apiUrl}/search/developers`, { params: params as HttpParams });
+  public filterDevelopers(params: DeveloperRequestInterface | HttpParams): Observable<Page<DeveloperInterface>> {
+    return this.httpClient.get<Page<DeveloperInterface>>(`${this.apiUrl}/search/developers`, { params: params as HttpParams });
   }
 }
