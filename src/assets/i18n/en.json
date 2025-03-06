@@ -234,11 +234,17 @@
       "countryLabel": "Country",
       "stateLabel": "State",
       "registeredLabel": "Registered",
-      "projectsCountLabel": "Projects"
+      "projectsCountLabel": "Projects",
+      "cityLabel": "City"
     },
     "developerStatus": {
       "activeLabel": "Active",
       "deletedLabel": "Deleted"
+    },
+    "project-owner": {
+      "profileLabel": "Profile",
+      "projectsLabel": "Projects",
+      "feedbacksLabel": "Feedbacks"
     }
   },
 

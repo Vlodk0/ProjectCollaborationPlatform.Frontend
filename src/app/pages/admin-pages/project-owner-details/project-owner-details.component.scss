@@ -1,0 +1,28 @@
+.tab-wrapper {
+  padding: 20px
+}
+
+.feedback-wrapper {
+  width: 100%;
+  border: 1px solid #373639;
+  background-color: #0C0E12;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border-radius: 20px;
+  padding: 20px;
+
+  .content {
+    color: var(--White, #FCFBFD);
+
+    font-size: 16px;
+    font-weight: 500;
+  }
+
+  .date {
+    color: var(--White, #FCFBFD);
+    font-size: 14px;
+    font-weight: 400;
+    opacity: 0.8;
+  }
+}

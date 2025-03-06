@@ -60,6 +60,9 @@ const routes: Routes = [
       {
         path: 'project-owners',
         loadChildren: () => import('../../../pages/admin-pages/project-owners/project-owners.routing.module').then(r => r.ProjectOwnersRoutingModule)
+      },      {
+        path: 'project-owners/:id',
+        loadChildren: () => import('../../../pages/admin-pages/project-owner-details/project-owner-details.routing.module').then(r => r.ProjectOwnerDetailsRoutingModule)
       },
     ],
   },
