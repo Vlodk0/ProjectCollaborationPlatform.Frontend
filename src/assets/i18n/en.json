@@ -235,7 +235,16 @@
       "stateLabel": "State",
       "registeredLabel": "Registered",
       "projectsCountLabel": "Projects",
-      "cityLabel": "City"
+      "cityLabel": "City",
+      "titleLabel": "Title",
+      "projectTypeLabel": "Type",
+      "timeDurationLabel": "Duration",
+      "paymentLabel": "Payment",
+      "developersCountLabel": "Developers",
+      "technologiesCountLabel": "Technologies",
+      "frameworksCountLabel": "Frameworks",
+      "createdLabel": "Created",
+      "projectOwnerLabel": "Owner"
     },
     "developerStatus": {
       "activeLabel": "Active",

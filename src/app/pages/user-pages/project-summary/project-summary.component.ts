@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import {finalize, Subject, takeUntil} from "rxjs";
 import {ProjectsService} from "../../../shared/services/projects.service";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -41,7 +41,6 @@ export class ProjectSummaryComponent implements OnInit, OnDestroy {
     });
 
     this.subscribeToCurrentUser();
-
     this.getProject();
   }
 

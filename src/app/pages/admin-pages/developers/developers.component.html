@@ -19,7 +19,7 @@
         <mat-label>{{ 'filterDevelopers.countryLabel' | translate }}</mat-label>
         <mat-select formControlName="countryCodes" multiple>
           <mat-option *ngFor="let country of (countries$ | async)" [value]="country.code">
-            <img [width]="22.5" [height]="15" [src]="country?.flagUrl" />
+            <img [width]="22.5" [height]="15" [src]="country?.flagUrl"/>
             {{ country?.name }}
           </mat-option>
         </mat-select>
@@ -56,7 +56,7 @@
       <ng-template let-row="row"
                    ngx-datatable-cell-template>
         <span class="vc-grid-label">
-          {{row.firstName}}
+          {{ row.firstName }}
         </span>
       </ng-template>
     </ngx-datatable-column>
@@ -72,7 +72,7 @@
       <ng-template let-row="row"
                    ngx-datatable-cell-template>
         <span class="vc-grid-label">
-          {{row.lastName}}
+          {{ row.lastName }}
         </span>
       </ng-template>
     </ngx-datatable-column>
@@ -89,7 +89,7 @@
       <ng-template let-row="row"
                    ngx-datatable-cell-template>
         <span class="vc-grid-label">
-          {{row.email }}
+          {{ row.email }}
         </span>
       </ng-template>
     </ngx-datatable-column>
@@ -107,7 +107,7 @@
       <ng-template let-row="row"
                    ngx-datatable-cell-template>
         <span class="vc-grid-label">
-          {{row.address?.countryName }}
+          {{ row.address?.countryName }}
         </span>
       </ng-template>
     </ngx-datatable-column>
@@ -125,7 +125,7 @@
       <ng-template let-row="row"
                    ngx-datatable-cell-template>
         <span class="vc-grid-label">
-          {{row.address?.state }}
+          {{ row.address?.state }}
         </span>
       </ng-template>
     </ngx-datatable-column>
@@ -171,7 +171,7 @@
       <ng-template let-row="row"
                    ngx-datatable-cell-template>
         <span class="vc-grid-label">
-          {{row.createdTimeStamp | localDate: "shortDate" }}
+          {{ row.createdTimeStamp | localDate: "shortDate" }}
         </span>
       </ng-template>
     </ngx-datatable-column>
