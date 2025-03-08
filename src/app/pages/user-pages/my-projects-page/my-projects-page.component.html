@@ -1,5 +1,5 @@
 <div *ngIf="projects.length || isLoadingProjects else emptyState" class="my-projects-page-container">
-  <collabro-paginator class="h-100">
+  <collabro-paginator class="h-100" [flexDirection]="'row'">
     <div class="projects-wrapper"
          *ngFor="let project of projects">
       <collabro-project-card [routerLink]="['/my-project', project.id]"

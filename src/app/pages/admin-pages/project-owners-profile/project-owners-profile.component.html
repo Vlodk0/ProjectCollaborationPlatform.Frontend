@@ -1,0 +1,26 @@
+<div *ngIf="projectOwner" class="item-wrapper">
+  <div class="item-wrapper-container">
+    <div class="item-container-placeholder">
+      <mat-icon *ngIf="!imageData; else avatarPhoto" class="item-container-placeholder-icon"
+                [svgIcon]="'avatar-placeholder-icon'"></mat-icon>
+
+      <ng-template #avatarPhoto>
+        <img [src]="imageData" alt="" class="avatar-photo">
+      </ng-template>
+    </div>
+    <div class="profile-info-container">
+      <div>
+        <div class="item-title d-flex align-items-center justify-content-center">{{ projectOwner?.firstName + ' ' + projectOwner?.lastName }}</div>
+      </div>
+      <div class="item-content">{{ 'admin.columns.emailLabel' | translate }} : {{ projectOwner?.email }}</div>
+      <div class="item-content">{{ 'admin.countryLabel' | translate }} : {{ projectOwner?.address?.countryName }}</div>
+      <div class="item-content">{{ 'admin.columns.stateLabel' | translate }} : {{ projectOwner?.address?.state }}</div>
+      <div class="item-content">{{ 'admin.columns.cityLabel' | translate }} : {{ projectOwner?.address?.city }}</div>
+      <div class="item-content">{{ 'admin.columns.registeredLabel' | translate }} : {{ projectOwner?.createdTimeStamp | localDate: 'shortDate' }}</div>
+    </div>
+  </div>
+
+  <div class="bio-container">
+    {{ projectOwner?.bio }}
+  </div>
+</div>

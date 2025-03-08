@@ -17,7 +17,9 @@
     "rejectLabel": "Reject",
     "developerLabel": "Developer",
     "projectOwnerLabel": "Project Owner",
-    "searchLabel": "Search"
+    "searchLabel": "Search",
+    "statusLabel": "Status",
+    "deleteLabel": "Delete"
   },
 
   "profileSettings": {
@@ -215,12 +217,53 @@
     "filterProjectsLabel": "Filter Projects"
   },
 
+  "admin": {
+    "developersCountLabel": "Developers",
+    "projectOwnersCountLabel": "Project Owners",
+    "activeCountLabel": "Active",
+    "deletedCountLabel": "Deleted",
+    "projectsCountLabel": "Projects",
+    "projectsByTypeLabel": "Projects by Type",
+    "projectsByTimeDurationLabel": "Projects by Time",
+    "projectsCountInMonthLabel": "Project count in Month",
+    "countryLabel": "Country",
+    "columns": {
+      "firstNameLabel": "First Name",
+      "lastNameLabel": "Last Name",
+      "emailLabel": "Email",
+      "countryLabel": "Country",
+      "stateLabel": "State",
+      "registeredLabel": "Registered",
+      "projectsCountLabel": "Projects",
+      "cityLabel": "City",
+      "titleLabel": "Title",
+      "projectTypeLabel": "Type",
+      "timeDurationLabel": "Duration",
+      "paymentLabel": "Payment",
+      "developersCountLabel": "Developers",
+      "technologiesCountLabel": "Technologies",
+      "frameworksCountLabel": "Frameworks",
+      "createdLabel": "Created",
+      "projectOwnerLabel": "Owner"
+    },
+    "developerStatus": {
+      "activeLabel": "Active",
+      "deletedLabel": "Deleted"
+    },
+    "project-owner": {
+      "profileLabel": "Profile",
+      "projectsLabel": "Projects",
+      "feedbacksLabel": "Feedbacks"
+    }
+  },
+
   "taskLabelType": {
     "apiLabel": "API",
     "webLabel": "WEB",
     "mobileLabel": "Mobile",
     "devopsLabel": "DevOps"
   },
+
   "emptyState": {
     "currentListOfProjectIsEmptyLabel": "The current list of projects is empty",
     "projectOwnerNotCreatedProjectLabel": "No one project owner has not created any projects yet",

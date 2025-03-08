@@ -92,5 +92,8 @@ export class IconRegistry {
     matIconRegistry.addSvgIcon(
       'filter',
       domSanitizer.bypassSecurityTrustResourceUrl('assets/icons/filter-icon.svg'));
+    matIconRegistry.addSvgIcon(
+      'view',
+      domSanitizer.bypassSecurityTrustResourceUrl('assets/icons/view-icon.svg'));
   }
 }

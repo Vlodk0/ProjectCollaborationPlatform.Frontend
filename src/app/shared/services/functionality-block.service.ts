@@ -1,15 +1,12 @@
 import { Injectable } from '@angular/core';
 import {environment} from "../../environment";
-import {HttpClient, HttpParams} from "@angular/common/http";
+import {HttpClient} from "@angular/common/http";
 import {FunctionalityBlock} from "../interfaces/functionality-block";
 import {Observable} from "rxjs";
-import {ProjectInfo} from "../interfaces/project-info";
-import {CreateTask} from "../interfaces/create-task";
 import {
   CreateFunctionalityBlockInterface
 } from "../interfaces/functionality-block/create-functionality-block.interface";
-import {PageFunctionalityBlockInterface} from "../interfaces/functionality-block/page-functionality-block.interface";
-import {FunctionalityBlockInterface} from "../interfaces/project/functionality-block.interface";
+import {FunctionalityBlockInterface} from "../interfaces/functionality-block/functionality-block.interface";
 import {TaskStatus} from "../../core/enums/task-status.enum";
 
 @Injectable({

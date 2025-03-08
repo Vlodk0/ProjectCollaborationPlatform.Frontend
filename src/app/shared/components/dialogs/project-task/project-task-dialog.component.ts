@@ -12,7 +12,7 @@ import {
   CreateFunctionalityBlockInterface
 } from "../../../interfaces/functionality-block/create-functionality-block.interface";
 import {DeveloperInterface} from "../../../interfaces/developer/developer.interface";
-import {FunctionalityBlockInterface} from "../../../interfaces/project/functionality-block.interface";
+import {FunctionalityBlockInterface} from "../../../interfaces/functionality-block/functionality-block.interface";
 
 @Component({
   selector: 'collabro-project-task',

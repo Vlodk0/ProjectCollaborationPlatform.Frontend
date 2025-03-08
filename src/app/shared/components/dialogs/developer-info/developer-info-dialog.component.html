@@ -6,14 +6,15 @@
                  class="h-100">
     <mat-tab label="{{'developers.profileLabel' | translate}}">
       <collabro-developer-profile [developer]="data?.developer"
-                                  [developerAvatar]="data?.developerAvatar"/>
+                                  [developerAvatar]="avatarData"/>
     </mat-tab>
 
     <mat-tab label="{{'developers.feedbacksLabel' | translate}}">
       <collabro-paginator class="h-100">
         <collabro-developer-comments (loadData)="loadingFeedbacks($event)"
                                      [developerId]="data?.developer?.id"
-                                     [feedbacks]="feedbacks" [imageData]="imageData"/>
+                                     [feedbacks]="feedbacks"
+                                     [imageData]="imageData"/>
       </collabro-paginator>
     </mat-tab>
   </mat-tab-group>
@@ -23,9 +24,18 @@
   <button mat-dialog-close class="transparent-button" mat-button>
     {{ 'general.cancelLabel' | translate }}
   </button>
-  <button class="button-purple big-button"
-          (click)="openProjectsDialog(data?.developer.id)"
-          mat-button>{{ 'general.inviteLabel' | translate }}
+
+  <button *ngIf="user?.roleName === roleEnum.Admin && !data?.developer.isDeleted else inviteButton"
+          class="button-red big-button"
+          (click)="deleteDeveloper(data?.developer.id)"
+          mat-button>{{ 'general.deleteLabel' | translate }}
   </button>
+
+  <ng-template #inviteButton>
+    <button *ngIf="user?.roleName === roleEnum.ProjectOwner"  class="button-purple big-button"
+            (click)="openProjectsDialog(data?.developer.id)"
+            mat-button>{{ 'general.inviteLabel' | translate }}
+    </button>
+  </ng-template>
 </div>
 

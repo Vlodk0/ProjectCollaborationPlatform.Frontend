@@ -178,9 +178,9 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
     const dialogRef = this.matDialog.open(UserAddressDialogComponent, {
       disableClose: true,
       data: {
-        countryCode: this.commonUser.address.countryCode,
-        city: this.commonUser.address.city,
-        state: this.commonUser.address.state
+        countryCode: this.commonUser?.address?.countryCode,
+        city: this.commonUser?.address?.city,
+        state: this.commonUser?.address?.state
       }
     });
 

@@ -1,0 +1,226 @@
+<div class="page-wrapper" [formGroup]="form">
+  <div class="filters">
+    <mat-form-field appearance="outline" class="input-container-item-large search-filter">
+      <mat-icon matPrefix [svgIcon]="'search'"></mat-icon>
+
+      <input formControlName="searchTerm" [placeholder]="'general.searchLabel' | translate" matInput/>
+
+      <button mat-icon-button
+              matSuffix
+              (click)="resetSearch()"
+              *ngIf="!!form?.value?.searchTerm?.length"
+              class="m-r-1">
+        <mat-icon [svgIcon]="'close'"></mat-icon>
+      </button>
+    </mat-form-field>
+
+    <div class='filters-container'>
+
+      <mat-form-field appearance="outline" class="input-container-item-one-of-three">
+        <mat-label>{{ 'myProject.typeLabel' | translate }}</mat-label>
+
+        <mat-select multiple formControlName="projectTypes">
+          <mat-option *ngFor="let type of projectTypeListConstant"
+                      [value]="type.type">
+            {{ type?.label | translate }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="input-container-item-one-of-three">
+        <mat-label>{{ 'myProject.timeDurationLabel' | translate }}</mat-label>
+
+        <mat-select multiple formControlName="projectTimeDurations">
+          <mat-option *ngFor="let time of timeDurationListConstant"
+                      [value]="time?.duration">
+            {{ time?.label | translate }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="dropdown-menu">
+        <mat-label>{{ 'filterDevelopers.countryLabel' | translate }}</mat-label>
+        <mat-select multiple formControlName="countryCodes">
+          <mat-option *ngFor="let country of (countries$ | async)" [value]="country.code">
+            <img [width]="22.5" [height]="15" [src]="country?.flagUrl"/>
+            {{ country?.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+    </div>
+  </div>
+
+  <ngx-datatable (page)="paging($event)"
+                 (sort)="sort($event)"
+                 *ngIf="!!projects?.items"
+                 [columnMode]="'force'"
+                 [count]="projects?.total"
+                 [externalPaging]="true"
+                 [externalSorting]="true"
+                 [footerHeight]="64"
+                 [headerHeight]="48"
+                 [limit]="projects?.pageSize"
+                 [offset]="projects?.currentPage"
+                 [rowHeight]="64"
+                 [rowIdentity]="rowIdentity"
+                 [rows]="projects?.items"
+                 [trackByProp]="'id'"
+                 class="material vc-grid">
+    <ngx-datatable-column name="Title"
+                          prop='title'>
+      <ng-template let-column="column"
+                   ngx-datatable-header-template>
+        <span class="vc-header-label">
+          {{ 'admin.columns.titleLabel' | translate }}
+        </span>
+      </ng-template>
+      <ng-template let-row="row"
+                   ngx-datatable-cell-template>
+        <span class="vc-grid-label">
+          {{ row.title }}
+        </span>
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column [sortable]="false"
+                          name="Type"
+                          prop='type'>
+      <ng-template let-column="column"
+                   ngx-datatable-header-template>
+        <span class="vc-header-label">
+          {{ 'admin.columns.projectTypeLabel' | translate }}
+        </span>
+      </ng-template>
+      <ng-template let-row="row"
+                   ngx-datatable-cell-template>
+        <span class="vc-grid-label">
+          {{ row.type | projectTypeLabel | translate }}
+        </span>
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column [sortable]="false"
+                          name="Duration"
+                          prop='duration'>
+      <ng-template let-column="column"
+                   ngx-datatable-header-template>
+        <span class="vc-header-label">
+          {{ 'admin.columns.timeDurationLabel' | translate }}
+        </span>
+      </ng-template>
+      <ng-template let-row="row"
+                   ngx-datatable-cell-template>
+        <span class="vc-grid-label">
+          {{ row.timeDuration | timeDurationLabel | translate }}
+        </span>
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="Paymeny"
+                          prop='payment'>
+      <ng-template let-column="column"
+                   ngx-datatable-header-template>
+        <span class="vc-header-label">
+          {{ 'admin.columns.paymentLabel' | translate }}
+        </span>
+      </ng-template>
+      <ng-template let-row="row"
+                   ngx-datatable-cell-template>
+        <span class="vc-grid-label">
+          {{ row.payment }}
+        </span>
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="Developers Count"
+                          prop='developersCount'>
+      <ng-template let-column="column"
+                   ngx-datatable-header-template>
+        <span class="vc-header-label">
+          {{ 'admin.columns.developersCountLabel' | translate }}
+        </span>
+      </ng-template>
+      <ng-template let-row="row"
+                   ngx-datatable-cell-template>
+        <span class="vc-grid-label">
+          {{ row.developersCount }}
+        </span>
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="Technologies Count"
+                          prop='technologiesCount'>
+      <ng-template let-column="column"
+                   ngx-datatable-header-template>
+        <span class="vc-header-label">
+          {{ 'admin.columns.technologiesCountLabel' | translate }}
+        </span>
+      </ng-template>
+      <ng-template let-row="row"
+                   ngx-datatable-cell-template>
+        <span class="vc-grid-label">
+          {{ row.technologiesCount }}
+        </span>
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="Frameworks Count"
+                          prop='frameworksCount'>
+      <ng-template let-column="column"
+                   ngx-datatable-header-template>
+        <span class="vc-header-label">
+          {{ 'admin.columns.frameworksCountLabel' | translate }}
+        </span>
+      </ng-template>
+      <ng-template let-row="row"
+                   ngx-datatable-cell-template>
+        <span class="vc-grid-label">
+          {{ row.frameworksCount }}
+        </span>
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="CreatedTimeStamp"
+                          prop='createdTimeStamp'>
+      <ng-template let-column="column"
+                   ngx-datatable-header-template>
+        <span class="vc-header-label">
+          {{ 'admin.columns.createdLabel' | translate }}
+        </span>
+      </ng-template>
+      <ng-template let-row="row"
+                   ngx-datatable-cell-template>
+        <span class="vc-grid-label">
+          {{ row.createdTimeStamp | localDate: "shortDate" }}
+        </span>
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="ProjectOwner"
+                          prop='projectOwner'>
+      <ng-template let-column="column"
+                   ngx-datatable-header-template>
+        <span class="vc-header-label">
+          {{ 'admin.columns.projectOwnerLabel' | translate }}
+        </span>
+      </ng-template>
+      <ng-template let-row="row"
+                   ngx-datatable-cell-template>
+        <span class="vc-grid-label">
+          {{ row.projectOwner?.firstName + ' ' + row.projectOwner?.lastName }}
+        </span>
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column [sortable]="false"
+                          cellClass="actions-cell"
+                          headerClass="actions-cell">
+      <ng-template let-row="row" ngx-datatable-cell-template>
+        <button mat-icon-button matSuffix [routerLink]="['/project', row?.id]">
+          <mat-icon svgIcon="view"></mat-icon>
+        </button>
+      </ng-template>
+    </ngx-datatable-column>
+  </ngx-datatable>
+</div>

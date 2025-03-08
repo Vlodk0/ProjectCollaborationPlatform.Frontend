@@ -11,7 +11,7 @@ import {NotificationService} from "../../../shared/services/notification.service
 import {ProjectPageTabsEnum} from "../../../core/enums/pages/project-page-tabs.enum";
 import {DeveloperInterface} from "../../../shared/interfaces/developer/developer.interface";
 import {TaskStatus} from "../../../core/enums/task-status.enum";
-import {FunctionalityBlockInterface} from "../../../shared/interfaces/project/functionality-block.interface";
+import {FunctionalityBlockInterface} from "../../../shared/interfaces/functionality-block/functionality-block.interface";
 import {ProjectRequestService} from "../../../shared/services/project-request.service";
 import {ProjectRequestInterface} from "../../../shared/interfaces/project/project-request.interface";
 

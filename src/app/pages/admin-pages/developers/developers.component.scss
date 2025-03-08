@@ -1,0 +1,183 @@
+.filters {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+
+  .search-container-form-field {
+    width: 18%;
+    font-size: 14px;
+    margin-right: 24px;
+
+    &-prefix {
+      margin-right: 8px;
+      margin-left: 8px;
+    }
+  }
+
+  .filters-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    &-form-field {
+      font-size: 14px;
+
+      &:not(:first-child) {
+        margin-left: 8px;
+      }
+    }
+  }
+}
+
+.select-header {
+  padding-top: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.vc-grid {
+  width: 100%;
+  margin-top: 8px;
+  border: 1px solid #373639;
+  background-color: #0C0E12;
+  border-radius: 20px;
+
+  ::ng-deep .datatable-body-cell {
+    display: flex;
+    align-items: center;
+  }
+
+  ::ng-deep .datatable-body-row {
+    .datatable-body-cell {
+      &.vc-avatar-container {
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .vc-avatar {
+          border-radius: 50%;
+          height: 42px;
+          width: 42px;
+        }
+      }
+    }
+  }
+
+  ::ng-deep {
+    .datatable-header-cell, .datatable-body-cell {
+      &.center-cell {
+        text-align: center;
+        justify-content: center;
+      }
+
+      &.actions-cell {
+        width: 120px;
+        min-width: 120px;
+        text-align: end;
+        justify-content: flex-end;
+      }
+    }
+  }
+
+  ::ng-deep .vc-fa-icon {
+    &.checkmark {
+      color: #009688;
+      stroke: #009688;
+      font-size: 20px;
+    }
+  }
+
+  .badge {
+    margin-left: 8px;
+    border-radius: 4px;
+    max-width: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--white);
+    font-size: 14px;
+    font-weight: normal;
+    cursor: default;
+    user-select: none;
+    background-color: var(--b600);
+    width: 36px;
+    height: 24px;
+  }
+
+  .status-chip {
+    border-radius: 16px;
+    color: azure;
+    margin: 4px;
+    padding: 7px 12px;
+    align-items: center;
+    min-height: 32px;
+
+    &.active {
+      background-color: #5C4FB5;
+    }
+
+    &.deleted {
+      background-color: #C93535;
+    }
+  }
+}
+
+.vc-select {
+  flex: 1;
+  max-width: 300px;
+
+  &:not(:first-child) {
+    margin-left: 32px;
+  }
+
+  ::ng-deep .ng-value-container {
+
+    .vc-select-trigger {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+      font-size: 16px;
+
+      &-badge {
+        height: 22px;
+        width: 22px;
+        background-color: #009688;
+        border-radius: 50%;
+        color: azure;
+        font-size: 16px;
+        line-height: 22px;
+        text-align: center;
+      }
+
+      &-label {
+        margin-left: 8px;
+        height: 28px;
+        line-height: 28px;
+        color: azure;
+      }
+    }
+  }
+
+  .vc-select-option-flag {
+    margin-left: 8px;
+    height: 15px;
+    width: 22.5px;
+  }
+
+  .vc-select-option-label {
+    margin-left: 8px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+}
+
+.vc-header-label {
+  text-transform: uppercase;
+}

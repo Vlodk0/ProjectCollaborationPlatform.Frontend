@@ -1,21 +1,12 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from "@angular/common/http";
-import {PaginationFilter} from "../interfaces/pagination-filter";
 import {Observable} from "rxjs";
-import {PaginationResponse} from "../interfaces/pagination-response";
-import {ProjectPagination} from "../interfaces/project-pagination";
 import {environment} from "../../environment";
-import {ProjectInfo} from "../interfaces/project-info";
-import {CreateProject} from "../interfaces/create-project";
-import {UpdateProject} from "../interfaces/update-project";
-import {ProjectDetail} from "../interfaces/project-detail";
 import {CreateProjectInterface} from "../interfaces/project/create-project.interface";
-import {PageProjectInterface} from "../interfaces/project/page-project.interface";
 import {ProjectInterface} from "../interfaces/project/project.interface";
 import {DeveloperInterface} from "../interfaces/developer/developer.interface";
-import {DeveloperRequestInterface} from "../interfaces/developer/developer-request.interface";
-import {PageDeveloperInterface} from "../interfaces/developer/page-developer.interface";
 import {FilterProjectRequestInterface} from "../interfaces/project/filter-project-request.interface";
+import {Page} from "../interfaces/general/page.interface";
 
 @Injectable({
   providedIn: 'root'
@@ -27,20 +18,20 @@ export class ProjectsService {
   constructor(private readonly httpClient: HttpClient) {
   }
 
-  public getProjects(currentPage: number, pageSize: number): Observable<PageProjectInterface> {
+  public getProjects(currentPage: number, pageSize: number): Observable<Page<ProjectInterface>> {
     let params = new HttpParams()
       .set('currentPage', currentPage.toString())
       .set('pageSize', pageSize.toString())
 
-    return this.httpClient.get<PageProjectInterface>(`${this.apiUrl}/projects`, {params});
+    return this.httpClient.get<Page<ProjectInterface>>(`${this.apiUrl}/projects`, {params});
   }
 
-  public getProjectOwnerProjects(currentPage: number, pageSize: number): Observable<PageProjectInterface> {
+  public getProjectOwnerProjects(currentPage: number, pageSize: number): Observable<Page<ProjectInterface>> {
     let params = new HttpParams()
       .set('currentPage', currentPage.toString())
       .set('pageSize', pageSize.toString())
 
-    return this.httpClient.get<PageProjectInterface>(`${this.apiUrl}/myProjects`, {params});
+    return this.httpClient.get<Page<ProjectInterface>>(`${this.apiUrl}/myProjects`, {params});
   }
 
   public getProjectById(projectId: string): Observable<ProjectInterface> {
@@ -71,7 +62,7 @@ export class ProjectsService {
     return this.httpClient.delete<void>(`${this.apiUrl}/${projectId}/developers?developerId=${developerId}`)
   }
 
-  public filterProjects(params: FilterProjectRequestInterface | HttpParams): Observable<PageProjectInterface> {
-    return this.httpClient.get<PageProjectInterface>(`${this.apiUrl}/search/projects`, { params: params as HttpParams });
+  public filterProjects(params: FilterProjectRequestInterface | HttpParams): Observable<Page<ProjectInterface>> {
+    return this.httpClient.get<Page<ProjectInterface>>(`${this.apiUrl}/search/projects`, { params: params as HttpParams });
   }
 }

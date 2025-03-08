@@ -30,9 +30,9 @@ export class UserAddressDialogComponent implements OnInit, OnDestroy {
               private readonly spinnerService: SpinnerService,
               private readonly notificationService: NotificationService,
               @Inject(MAT_DIALOG_DATA) public data: {
-                countryCode: string,
-                city: string,
-                state: string,
+                countryCode?: string,
+                city?: string,
+                state?: string,
               }) {
   }
 

@@ -1,9 +1,7 @@
-import {ProjectInterface} from "./project.interface";
-
-export interface PageProjectInterface {
+export class Page<T> {
   count: number;
   currentPage: number;
-  items: Array<ProjectInterface>;
+  items: Array<T>;
   pageSize: number;
   skip: number;
   take: number;

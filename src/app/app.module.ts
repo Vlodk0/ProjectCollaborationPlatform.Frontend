@@ -86,6 +86,17 @@ import {MatMenu, MatMenuTrigger} from "@angular/material/menu";
 import {FilterDevelopersComponent} from "./shared/components/filters/filter-developers/filter-developers.component";
 import {FilterProjectsComponent} from "./shared/components/filters/filter-projects/filter-projects.component";
 import {NgOptimizedImage} from "@angular/common";
+import { DashboardComponent } from './pages/admin-pages/dashboard/dashboard.component';
+import { ProjectsComponent } from './pages/admin-pages/projects/projects.component';
+import { DevelopersComponent } from './pages/admin-pages/developers/developers.component';
+import { ProjectOwnersComponent } from './pages/admin-pages/project-owners/project-owners.component';
+import {MatCardHeader, MatCardModule} from "@angular/material/card";
+import {NgApexchartsModule} from "ng-apexcharts";
+import {NgSelectModule} from "@ng-select/ng-select";
+import {NgxDatatableModule} from "@swimlane/ngx-datatable";
+import { ProjectOwnerDetailsComponent } from './pages/admin-pages/project-owner-details/project-owner-details.component';
+import { ProjectOwnersProfileComponent } from './pages/admin-pages/project-owners-profile/project-owners-profile.component';
+import { ProjectDetailComponent } from './pages/admin-pages/project-detail/project-detail.component';
 
 export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -176,7 +187,14 @@ const MODULES = [
     ProjectTimeDurationLabelPipe,
     ProjectTaskCardComponent,
     ProjectTaskLabelPipe,
-    ProjectSummaryComponent
+    ProjectSummaryComponent,
+    DashboardComponent,
+    ProjectsComponent,
+    DevelopersComponent,
+    ProjectOwnersComponent,
+    ProjectOwnerDetailsComponent,
+    ProjectOwnersProfileComponent,
+    ProjectDetailComponent
   ],
   imports: [
     ...MODULES,
@@ -185,7 +203,12 @@ const MODULES = [
     MatSlideToggle,
     MatMenu,
     MatMenuTrigger,
-    NgOptimizedImage
+    NgOptimizedImage,
+    MatCardModule,
+    MatCardHeader,
+    NgApexchartsModule,
+    NgSelectModule,
+    NgxDatatableModule
   ],
   providers: [
     {

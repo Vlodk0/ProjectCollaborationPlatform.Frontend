@@ -3,10 +3,10 @@ import {HttpClient, HttpParams} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {environment} from "../../environment";
 import {GetFeedback} from "../interfaces/get-feedback";
-import {Feedback} from "../interfaces/feedback";
 import {PaginationFilterDevs} from "../interfaces/pagination-filter-devs";
 import {PaginationResponse} from "../interfaces/pagination-response";
-import {PageFeedbackInterface} from "../interfaces/feedback/page-feedback.interface";
+import {Page} from "../interfaces/general/page.interface";
+import {FeedbackInterface} from "../interfaces/feedback/feedback.interface";
 
 @Injectable({
   providedIn: 'root'
@@ -18,8 +18,8 @@ export class FeedbackService {
   constructor(private httpClient: HttpClient) {
   }
 
-  public getAllDeveloperFeedback(developerId: string, currentPage: number, pageSize: number): Observable<PageFeedbackInterface> {
-    return this.httpClient.get<PageFeedbackInterface>(`${this.apiUrl}?developerId=${developerId}&currentPage=${currentPage}&pageSize=${pageSize}`);
+  public getAllDeveloperFeedback(developerId: string, currentPage: number, pageSize: number): Observable<Page<FeedbackInterface>> {
+    return this.httpClient.get<Page<FeedbackInterface>>(`${this.apiUrl}?developerId=${developerId}&currentPage=${currentPage}&pageSize=${pageSize}`);
   }
 
   public addFeedback(devId: string, message: string): Observable<void> {

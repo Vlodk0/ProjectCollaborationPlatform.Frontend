@@ -1,0 +1,139 @@
+.blue {
+  background: #007bff;
+}
+
+.red {
+  background: #dc3545;
+}
+
+.green {
+  background: #28a745;
+}
+
+.left-side-statistic-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.cards-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  gap: 8px
+}
+
+div {
+  flex: 1 auto;
+
+  .tile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: 15px;
+
+    .card-content {
+      text-align: center;
+      font-size: 64px;
+      font-weight: bold;
+      line-height: 80px;
+      color: azure;
+    }
+
+    .card-footer {
+      height: 22px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      &-block {
+        display: flex;
+        font-size: 16px;
+
+        .badge {
+          margin-left: 8px;
+          border-radius: 4px;
+          max-width: 40px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          color: azure;
+          height: 21px;
+          font-size: 14px;
+          font-weight: bold;
+          cursor: default;
+          user-select: none;
+        }
+      }
+
+      .active {
+        color: #26AF55;
+
+        .badge {
+          background-color: #26AF55;
+        }
+      }
+
+      .inactive {
+        justify-content: flex-end;
+        color: #A81F1F;
+
+        .badge {
+          background-color: #A81F1F;
+        }
+      }
+    }
+  }
+}
+
+.charts-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.linear-chart-container {
+  border: 1px solid #373639;
+  background-color: #0C0E12;
+  border-radius: 20px;
+  height: 100%;
+  width: 100%;
+  padding: 40px;
+  gap: 8px;
+  display: flex;
+  flex-direction: column;
+}
+
+.test {
+  width: 100%;
+}
+
+.left-side-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 8px;
+}
+
+.chart-container {
+  border-radius: 20px;
+  border: 1px solid #373639;
+  background-color: #0C0E12;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0;
+}
+
+.chart-label {
+  margin-top: 20px;
+  font-size: 1.9rem;
+  line-height: 2.2rem;
+  font-weight: 500;
+  color: #FCFBFD;
+}
+
