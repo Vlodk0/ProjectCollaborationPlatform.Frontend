@@ -6,7 +6,7 @@ import {SpinnerService} from "../../../shared/services/spinner.service";
 import {projectTypeListConstant} from "../../../core/constants/project-type-list.constant";
 import {timeDurationListConstant} from "../../../core/constants/time-duration-list.constant";
 import {FormBuilder, FormGroup} from "@angular/forms";
-import {NotificationService} from "../../../shared/services/notification.service";
+import {SnackBarService} from "../../../shared/services/snack-bar.service";
 import {SearchAdminProjectFormGroup} from "../../../core/types/form-groups/admin/search-admin-project-form-group";
 import {AdminProjectDataInterface} from "../../../shared/interfaces/admin/projects/admin-project-data.interface";
 import {Page} from "../../../shared/interfaces/general/page.interface";
@@ -38,7 +38,7 @@ export class ProjectsComponent implements OnInit, OnDestroy {
               private readonly fb: FormBuilder,
               private readonly cdr: ChangeDetectorRef,
               private readonly adminProjectService: AdminProjectService,
-              private readonly notificationService: NotificationService,
+              private readonly notificationService: SnackBarService,
               private readonly staticDataService: StaticDataService) {
   }
 

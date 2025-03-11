@@ -18,7 +18,7 @@ import {TimeDuration} from "../../../core/enums/time-duration.enum";
 import {ProjectsService} from "../../../shared/services/projects.service";
 import {SpinnerService} from "../../../shared/services/spinner.service";
 import {CreateProjectInterface} from "../../../shared/interfaces/project/create-project.interface";
-import {NotificationService} from "../../../shared/services/notification.service";
+import {SnackBarService} from "../../../shared/services/snack-bar.service";
 
 @Component({
   selector: 'collabro-create-project',
@@ -54,7 +54,7 @@ export class CreateProjectComponent implements OnInit, OnDestroy {
               private readonly fb: FormBuilder,
               private readonly projectService: ProjectsService,
               private readonly spinnerService: SpinnerService,
-              private readonly notificationService: NotificationService) {
+              private readonly notificationService: SnackBarService) {
     this.setForm();
   }
 

@@ -3,72 +3,73 @@
   [
     {
       "routerLink": "my-profile",
-      "controlName": "totalRequests",
       "icon": "my-profile-icon",
       "title": "sideBar.profileLabel"
     },
     {
       "routerLink": "all-projects",
-      "controlName": "totalRequests",
       "icon": "all-projects-icon",
       "title": "sideBar.allProjectsLabel"
     },
     {
       "routerLink": "my-projects",
-      "controlName": "totalRequests",
       "icon": "my-projects-icon",
       "title": "sideBar.myProjectsLabel"
+    },
+    {
+      "routerLink": "notifications",
+      "controlName": "totalNotifications",
+      "icon": "notifications-icon",
+      "title": "sideBar.notificationsLabel"
     }
   ],
   "projectOwnerMenu":
   [
     {
       "routerLink": "my-profile",
-      "controlName": "totalRequests",
       "icon": "my-profile-icon",
       "title": "sideBar.profileLabel"
     },
     {
       "routerLink": "all-projects",
-      "controlName": "totalRequests",
       "icon": "all-projects-icon",
       "title": "sideBar.allProjectsLabel"
     },
     {
       "routerLink": "my-projects",
-      "controlName": "totalRequests",
       "icon": "my-projects-icon",
       "title": "sideBar.myProjectsLabel"
     },
     {
       "routerLink": "all-developers",
-      "controlName": "totalRequests",
       "icon": "developers-icon",
       "title": "sideBar.developersLabel"
+    },
+    {
+      "routerLink": "notifications",
+      "controlName": "totalNotifications",
+      "icon": "notifications-icon",
+      "title": "sideBar.notificationsLabel"
     }
   ],
   "adminMenu": [
     {
       "routerLink": "dashboard",
-      "controlName": "totalRequests",
       "icon": "dashboard-icon",
       "title": "sideBar.dashboardLabel"
     },
     {
       "routerLink": "projects",
-      "controlName": "totalRequests",
       "icon": "projects-icon",
       "title": "sideBar.projectsLabel"
     },
     {
       "routerLink": "developers",
-      "controlName": "totalRequests",
       "icon": "developer-icon",
       "title": "sideBar.developersLabel"
     },
     {
       "routerLink": "project-owners",
-      "controlName": "totalRequests",
       "icon": "project-owner-icon",
       "title": "sideBar.projectOwnersLabel"
     }

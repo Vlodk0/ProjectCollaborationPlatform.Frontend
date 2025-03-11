@@ -7,7 +7,7 @@ import {GetUser} from "../../../shared/interfaces/get-user";
 import {UserService} from "../../../shared/services/user.service";
 import {ProjectInterface} from "../../../shared/interfaces/project/project.interface";
 import {SpinnerService} from "../../../shared/services/spinner.service";
-import {NotificationService} from "../../../shared/services/notification.service";
+import {SnackBarService} from "../../../shared/services/snack-bar.service";
 import {ProjectPageTabsEnum} from "../../../core/enums/pages/project-page-tabs.enum";
 import {DeveloperInterface} from "../../../shared/interfaces/developer/developer.interface";
 import {TaskStatus} from "../../../core/enums/task-status.enum";
@@ -41,7 +41,7 @@ export class ProjectPageComponent implements OnInit, OnDestroy {
     private activatedRoute: ActivatedRoute,
     private userService: UserService,
     private readonly spinnerService: SpinnerService,
-    private readonly notificationService: NotificationService,
+    private readonly notificationService: SnackBarService,
     private readonly functionalityBlockService: FunctionalityBlockService,
     private readonly projectRequestService: ProjectRequestService
   ) {

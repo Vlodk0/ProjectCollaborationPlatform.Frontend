@@ -3,7 +3,7 @@ import {finalize, Subject, takeUntil} from "rxjs";
 import {ProjectInterface} from "../../../interfaces/project/project.interface";
 import {SpinnerService} from "../../../services/spinner.service";
 import {ProjectsService} from "../../../services/projects.service";
-import {NotificationService} from "../../../services/notification.service";
+import {SnackBarService} from "../../../services/snack-bar.service";
 import {FormBuilder, Validators} from "@angular/forms";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 
@@ -26,7 +26,7 @@ export class ChooseProjectDialogComponent implements OnInit, OnDestroy {
 
   constructor(private readonly spinnerService: SpinnerService,
               private readonly projectService: ProjectsService,
-              private readonly notificationService: NotificationService,
+              private readonly notificationService: SnackBarService,
               private readonly fb: FormBuilder,
               private readonly dialogRef: MatDialogRef<ChooseProjectDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: {

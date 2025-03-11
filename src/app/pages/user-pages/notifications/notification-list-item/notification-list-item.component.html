@@ -1,0 +1,14 @@
+<div class="notification-box"
+     [ngClass]="{'unread': notification.delivered, 'active': isCurrentAlert}"
+     (click)="openAlert()">
+  <div class="notification-header">
+    <button (click)="deleteNotification(notification.id)" mat-icon-button>
+      <mat-icon [svgIcon]="'close'"></mat-icon>
+    </button>
+    <div class="notification-date">{{ notification?.createdTimestamp | localDate: 'longDate' }}</div>
+  </div>
+  <div class="notification-content-wrapper">
+    <div class="notification-title">{{ notification?.title }}</div>
+    <div class="notification-content">{{ notification.message }}</div>
+  </div>
+</div>

@@ -7,7 +7,7 @@ import {
   DeveloperInfoDialogComponent
 } from "../../../../shared/components/dialogs/developer-info/developer-info-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
-import {NotificationService} from "../../../../shared/services/notification.service";
+import {SnackBarService} from "../../../../shared/services/snack-bar.service";
 
 @Component({
   selector: 'collabro-project-team-section',
@@ -27,7 +27,7 @@ export class ProjectTeamSectionComponent implements OnDestroy {
   constructor(private readonly projectService: ProjectsService,
               private readonly spinnerService: SpinnerService,
               private readonly matDialog: MatDialog,
-              private readonly notificationService: NotificationService) {
+              private readonly notificationService: SnackBarService) {
   }
 
   ngOnDestroy() {

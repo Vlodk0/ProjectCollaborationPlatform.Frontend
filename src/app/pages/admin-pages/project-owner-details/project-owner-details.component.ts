@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ProjectOwnerDetailsTabsEnum} from "../../../core/enums/pages/project-owner-details-tabs.enum";
 import {ActivatedRoute} from "@angular/router";
 import {finalize, Subject, takeUntil} from "rxjs";
-import {NotificationService} from "../../../shared/services/notification.service";
+import {SnackBarService} from "../../../shared/services/snack-bar.service";
 import {SpinnerService} from "../../../shared/services/spinner.service";
 import {
   AdminProjectOwnerDataInterface
@@ -39,7 +39,7 @@ export class ProjectOwnerDetailsComponent implements OnInit, OnDestroy {
               private readonly adminProjectOwnerService: AdminProjectOwnerService,
               private readonly spinnerService: SpinnerService,
               private readonly feedbackService: FeedbackService,
-              private readonly notificationService: NotificationService) {
+              private readonly notificationService: SnackBarService) {
   }
 
   ngOnInit(): void {

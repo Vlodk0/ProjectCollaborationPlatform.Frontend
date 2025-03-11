@@ -3,7 +3,7 @@ import {finalize, Subject, takeUntil} from "rxjs";
 import {ProjectRequestInterface} from "../../../../shared/interfaces/project/project-request.interface";
 import {ProjectRequestService} from "../../../../shared/services/project-request.service";
 import {SpinnerService} from "../../../../shared/services/spinner.service";
-import {NotificationService} from "../../../../shared/services/notification.service";
+import {SnackBarService} from "../../../../shared/services/snack-bar.service";
 
 @Component({
   selector: 'collabro-project-requests-section',
@@ -20,7 +20,7 @@ export class ProjectRequestsSectionComponent implements OnDestroy {
 
   constructor(private readonly projectRequestService: ProjectRequestService,
               private readonly spinnerService: SpinnerService,
-              private readonly notificationService: NotificationService) {
+              private readonly notificationService: SnackBarService) {
   }
 
   ngOnDestroy() {

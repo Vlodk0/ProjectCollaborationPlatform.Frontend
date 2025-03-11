@@ -6,7 +6,7 @@ import {finalize, Subject, takeUntil} from "rxjs";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {DeveloperFrameworkService} from "../../../services/developer-framework.service";
 import {SpinnerService} from "../../../services/spinner.service";
-import {NotificationService} from "../../../services/notification.service";
+import {SnackBarService} from "../../../services/snack-bar.service";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 
 @Component({
@@ -28,7 +28,7 @@ export class FrameworkDialogComponent implements OnInit, OnDestroy {
   constructor(private readonly frameworkService: FrameworkService,
               private readonly developerFrameworkService: DeveloperFrameworkService,
               private readonly spinnerService: SpinnerService,
-              private readonly notificationService: NotificationService,
+              private readonly notificationService: SnackBarService,
               private readonly dialogRef: MatDialogRef<FrameworkDialogComponent>,
               private readonly fb: FormBuilder,
               @Inject(MAT_DIALOG_DATA) public data: {

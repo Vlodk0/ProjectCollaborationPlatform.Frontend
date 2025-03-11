@@ -8,7 +8,7 @@ import {GetUser} from "../../../shared/interfaces/get-user";
 import {UserService} from "../../../shared/services/user.service";
 import {SpinnerService} from "../../../shared/services/spinner.service";
 import {ProjectInterface} from "../../../shared/interfaces/project/project.interface";
-import {NotificationService} from "../../../shared/services/notification.service";
+import {SnackBarService} from "../../../shared/services/snack-bar.service";
 
 @Component({
   selector: 'app-my-projects-page',
@@ -43,7 +43,7 @@ export class MyProjectsPageComponent implements OnDestroy, OnInit {
               private readonly activatedRoute: ActivatedRoute,
               private readonly router: Router,
               private readonly spinnerService: SpinnerService,
-              private readonly notificationService: NotificationService) {
+              private readonly notificationService: SnackBarService) {
   }
 
   ngOnInit() {

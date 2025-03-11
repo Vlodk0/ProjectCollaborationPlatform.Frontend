@@ -4,7 +4,7 @@ import {FunctionalityBlock} from "../../../../shared/interfaces/functionality-bl
 import {filter, finalize, Subject, takeUntil} from "rxjs";
 import {FunctionalityBlockService} from "../../../../shared/services/functionality-block.service";
 import {SpinnerService} from "../../../../shared/services/spinner.service";
-import {NotificationService} from "../../../../shared/services/notification.service";
+import {SnackBarService} from "../../../../shared/services/snack-bar.service";
 import {FunctionalityBlockInterface} from "../../../../shared/interfaces/functionality-block/functionality-block.interface";
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from "@angular/cdk/drag-drop";
 import {
@@ -35,7 +35,7 @@ export class ProjectBoardSectionComponent implements OnDestroy {
 
   constructor(private readonly functionalityBlockService: FunctionalityBlockService,
               private readonly spinnerService: SpinnerService,
-              private readonly notificationService: NotificationService,
+              private readonly notificationService: SnackBarService,
               private readonly matDialog: MatDialog) {
   }
 

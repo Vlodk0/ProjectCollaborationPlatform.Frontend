@@ -6,7 +6,7 @@ import {debounceTime, distinctUntilChanged, finalize, Observable, Subject, takeU
 import {CountryInterface} from "../../../shared/interfaces/country-interface";
 import {SpinnerService} from "../../../shared/services/spinner.service";
 import {MatDialog} from "@angular/material/dialog";
-import {NotificationService} from "../../../shared/services/notification.service";
+import {SnackBarService} from "../../../shared/services/snack-bar.service";
 import {StaticDataService} from "../../../shared/services/static-data.service";
 import {
   AdminProjectOwnerDataInterface
@@ -36,7 +36,7 @@ export class ProjectOwnersComponent implements OnInit, OnDestroy {
               private readonly cdr: ChangeDetectorRef,
               private readonly matDialog: MatDialog,
               private readonly adminProjectOwnerService: AdminProjectOwnerService,
-              private readonly notificationService: NotificationService,
+              private readonly notificationService: SnackBarService,
               private readonly staticDataService: StaticDataService) {
   }
 

@@ -7,7 +7,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {CreateProjectTaskFormGroup} from "../../../../core/types/form-groups/create-project-task-form-group";
 import {TaskLabelType} from "../../../../core/enums/task-label-type.enum";
 import {SpinnerService} from "../../../services/spinner.service";
-import {NotificationService} from "../../../services/notification.service";
+import {SnackBarService} from "../../../services/snack-bar.service";
 import {
   CreateFunctionalityBlockInterface
 } from "../../../interfaces/functionality-block/create-functionality-block.interface";
@@ -27,7 +27,7 @@ export class ProjectTaskDialogComponent implements OnDestroy, OnInit {
 
   constructor(private readonly functionalityBlockService: FunctionalityBlockService,
               private readonly spinnerService: SpinnerService,
-              private readonly notificationService: NotificationService,
+              private readonly notificationService: SnackBarService,
               private readonly fb: FormBuilder,
               private readonly dialogRef: MatDialogRef<ProjectTaskDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: {
