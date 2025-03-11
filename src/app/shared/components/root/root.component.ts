@@ -7,6 +7,7 @@ import {MatDrawerMode} from "@angular/material/sidenav";
 import {IconRegistry} from "../../services/general/icon.registry.service";
 import {UserService} from "../../services/user.service";
 import {Router} from "@angular/router";
+import {SocketService} from "../../services/socket.service";
 
 @Component({
   selector: 'collabro-root',
@@ -19,6 +20,7 @@ export class RootComponent implements OnInit, OnDestroy {
               private readonly matIconRegistry: MatIconRegistry,
               private readonly domSanitizer: DomSanitizer,
               private readonly breakPointObserver: BreakpointObserver,
+              private readonly socketService: SocketService,
               private readonly router: Router) {
   }
 
@@ -35,6 +37,7 @@ export class RootComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (user) => {
           this.userService.initUser(user)
+          this.socketService.start();
         }
       });
 
@@ -46,6 +49,7 @@ export class RootComponent implements OnInit, OnDestroy {
   public ngOnDestroy(): void {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
+    this.socketService.stop();
   }
 
   public toggleSidebar(): void {
