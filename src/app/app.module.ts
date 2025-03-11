@@ -97,6 +97,11 @@ import {NgxDatatableModule} from "@swimlane/ngx-datatable";
 import { ProjectOwnerDetailsComponent } from './pages/admin-pages/project-owner-details/project-owner-details.component';
 import { ProjectOwnersProfileComponent } from './pages/admin-pages/project-owners-profile/project-owners-profile.component';
 import { ProjectDetailComponent } from './pages/admin-pages/project-detail/project-detail.component';
+import { NotificationsComponent } from './pages/user-pages/notifications/notifications.component';
+import {MatBadgeModule} from "@angular/material/badge";
+import {
+  NotificationListItemComponent
+} from "./pages/user-pages/notifications/notification-list-item/notification-list-item.component";
 
 export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -191,15 +196,18 @@ const MODULES = [
     DashboardComponent,
     ProjectsComponent,
     DevelopersComponent,
+    NotificationListItemComponent,
     ProjectOwnersComponent,
     ProjectOwnerDetailsComponent,
     ProjectOwnersProfileComponent,
-    ProjectDetailComponent
+    ProjectDetailComponent,
+    NotificationsComponent
   ],
   imports: [
     ...MODULES,
     MatDialogClose,
     MatDivider,
+    MatBadgeModule,
     MatSlideToggle,
     MatMenu,
     MatMenuTrigger,

@@ -3,7 +3,7 @@ import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog
 import {DeveloperInterface} from "../../../interfaces/developer/developer.interface";
 import {filter, finalize, Subject, takeUntil} from "rxjs";
 import {SpinnerService} from "../../../services/spinner.service";
-import {NotificationService} from "../../../services/notification.service";
+import {SnackBarService} from "../../../services/snack-bar.service";
 import {ChooseProjectDialogComponent} from "../choose-project/choose-project-dialog.component";
 import {FeedbackInterface} from "../../../interfaces/feedback/feedback.interface";
 import {FeedbackService} from "../../../services/feedback.service";
@@ -37,7 +37,7 @@ export class DeveloperInfoDialogComponent implements OnDestroy, OnInit {
               private readonly cdr: ChangeDetectorRef,
               private readonly spinnerService: SpinnerService,
               private readonly developerService: DeveloperService,
-              private readonly notificationService: NotificationService,
+              private readonly notificationService: SnackBarService,
               @Inject(MAT_DIALOG_DATA) public data: {
                 developer: DeveloperInterface,
                 developerAvatar?: string | ArrayBuffer

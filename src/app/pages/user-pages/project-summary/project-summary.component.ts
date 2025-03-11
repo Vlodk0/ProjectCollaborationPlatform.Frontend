@@ -4,11 +4,12 @@ import {ProjectsService} from "../../../shared/services/projects.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {UserService} from "../../../shared/services/user.service";
 import {SpinnerService} from "../../../shared/services/spinner.service";
-import {NotificationService} from "../../../shared/services/notification.service";
+import {SnackBarService} from "../../../shared/services/snack-bar.service";
 import {GetUser} from "../../../shared/interfaces/get-user";
 import {ProjectInterface} from "../../../shared/interfaces/project/project.interface";
 import {ProjectRequestService} from "../../../shared/services/project-request.service";
 import {ApplicationRoleEnum} from "../../../core/enums/application-role.enum";
+import {AlertsService} from "../../../shared/services/alerts.service";
 
 @Component({
   selector: 'collabro-project-summary',
@@ -31,7 +32,8 @@ export class ProjectSummaryComponent implements OnInit, OnDestroy {
     private readonly router: Router,
     private readonly projectRequestService: ProjectRequestService,
     private readonly spinnerService: SpinnerService,
-    private readonly notificationService: NotificationService
+    private readonly notificationService: SnackBarService,
+    private readonly alertService: AlertsService
   ) {
   }
 
@@ -86,9 +88,10 @@ export class ProjectSummaryComponent implements OnInit, OnDestroy {
         }),
         takeUntil(this.unsubscribe$))
       .subscribe({
-        next: () => {
+        next: (value: any) => {
           this.notificationService.showSuccessNotification();
           this.router.navigate(['/all-projects']);
+          this.alertService.setNewAlert(value);
         },
         error: (error) => this.notificationService.showErrorNotification(error?.error?.detail)
       })

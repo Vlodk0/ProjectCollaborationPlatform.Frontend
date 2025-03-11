@@ -1,7 +1,7 @@
 import {Component, Input} from '@angular/core';
 import {DeveloperInterface} from "../../interfaces/developer/developer.interface";
 import {Clipboard} from "@angular/cdk/clipboard";
-import {NotificationService} from "../../services/notification.service";
+import {SnackBarService} from "../../services/snack-bar.service";
 
 @Component({
   selector: 'collabro-developer-profile',
@@ -13,7 +13,7 @@ export class DeveloperProfileComponent {
   @Input() developerAvatar?: string | ArrayBuffer
 
   constructor(private readonly clipboard: Clipboard,
-              private readonly notificationService: NotificationService) {
+              private readonly notificationService: SnackBarService) {
   }
 
   public copyEmail(email: string): void {

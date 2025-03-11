@@ -5,7 +5,7 @@ import {GetUser} from "../../../shared/interfaces/get-user";
 import {UserService} from "../../../shared/services/user.service";
 import {SpinnerService} from "../../../shared/services/spinner.service";
 import {DeveloperInterface} from "../../../shared/interfaces/developer/developer.interface";
-import {NotificationService} from "../../../shared/services/notification.service";
+import {SnackBarService} from "../../../shared/services/snack-bar.service";
 import {DeveloperRequestFormGroup} from "../../../core/types/form-groups/developer-request-form-group";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {DeveloperRequestInterface} from "../../../shared/interfaces/developer/developer-request.interface";
@@ -48,7 +48,7 @@ export class AllDevelopersPageComponent implements OnDestroy, OnInit, AfterViewI
               private readonly spinnerService: SpinnerService,
               private readonly technologyService: TechnologyService,
               private readonly frameworkService: FrameworkService,
-              private readonly notificationService: NotificationService) {
+              private readonly notificationService: SnackBarService) {
   }
 
   ngOnInit() {

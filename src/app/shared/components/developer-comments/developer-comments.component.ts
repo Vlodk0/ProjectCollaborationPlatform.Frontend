@@ -16,7 +16,7 @@ export class DeveloperCommentsComponent implements OnDestroy {
 
   @Output() public loadData = new EventEmitter<boolean>();
 
-  private unsubscribe$: Subject<void> = new Subject<void>();
+  private readonly unsubscribe$: Subject<void> = new Subject<void>();
 
   constructor(private readonly matDialog: MatDialog) {
   }

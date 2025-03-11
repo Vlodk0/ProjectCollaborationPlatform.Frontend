@@ -15,11 +15,17 @@
            [routerLink]="menuItem?.routerLink" (click)="selectItemMenu()"
            class="vc-menu-item" routerLinkActive="active">
           <mat-icon [svgIcon]="menuItem?.icon"
+                    [matBadgeHidden]="badgesFormGroup.get(menuItem.controlName).value <= 0 || sidebarExpanded"
+                    [matBadge]="badgesFormGroup.get(menuItem.controlName).value"
                     class="icon">
           </mat-icon>
 
           <p *ngIf="sidebarExpanded" class="vc-menu-item-label">{{menuItem.title | translate}}</p>
 
+          <div *ngIf="sidebarExpanded && badgesFormGroup?.get(menuItem.controlName).value > 0"
+               class="vc-menu-item-badge">
+            {{badgesFormGroup?.get(menuItem.controlName).value}}
+          </div>
         </a>
 
         <a

@@ -1,47 +1,57 @@
-import { Injectable } from '@angular/core';
-import {MatSnackBar} from "@angular/material/snack-bar";
-import {TranslateService} from "@ngx-translate/core";
+import {Injectable} from '@angular/core';
+import {environment} from "../../environment";
+import {HttpClient} from "@angular/common/http";
+import {Observable} from "rxjs";
+import {Page} from "../interfaces/general/page.interface";
+import {NotificationInterface} from "../interfaces/notification.interface";
 
 @Injectable({
   providedIn: 'root'
 })
 export class NotificationService {
 
-  constructor(private readonly snackBar: MatSnackBar,
-              private readonly translateService: TranslateService) {
+  private apiUrl = `${environment.apiUrl}/Notification`;
+
+  constructor(private httpClient: HttpClient) {
   }
 
-  public showSuccessNotification(customMessage: string = null) {
-    customMessage ?
-      this.showNotification(customMessage, 'snackbar-success') :
-      this.showNotification('notification.successRequestLabel', 'snackbar-success')
-  }
+  public getNotifications(
+    developerId?: string,
+    projectOwnerId?: string,
+    currentPage: number = 0,
+    pageSize: number = 20
+  ): Observable<Page<NotificationInterface>> {
 
+    const params: any = {}
 
-  public showErrorNotification(errorMessage: string, customMessage: string = null): void {
-    if (customMessage) {
-      this.showNotification(customMessage, 'snackbar-error')
-
-      return
+    if (developerId) {
+      params.developerId = developerId;
+    }
+    if (projectOwnerId) {
+      params.projectOwnerId = projectOwnerId;
     }
 
-    errorMessage ?
-      this.showNotification(errorMessage, 'snackbar-error') :
-      this.showNotification('notification.errorOccurredLabel', 'snackbar-error')
+    params.currentPage = currentPage.toString();
+    params.pageSize = pageSize.toString();
+
+    return this.httpClient.get<Page<NotificationInterface>>(`${this.apiUrl}/notifications`, {params});
   }
 
-  private showNotification(
-    message: string,
-    panelClass: string = 'snackbar-error',
-    actionName: string = this.translateService.instant('notification.closeLabel')): void {
+  public updateNotifications(
+    notificationIds: string[],
+    developerId?: string,
+    projectOwnerId?: string
+  ): Observable<void> {
+    const params: any = {};
 
-    const MESSAGE = message?.includes('Label') ? this.translateService.instant(message) : message;
+    if (projectOwnerId) {
+      params.projectOwnerId = projectOwnerId;
+    }
 
-    this.snackBar.open(MESSAGE, actionName, {
-      duration: 15000,
-      verticalPosition: 'top',
-      horizontalPosition: 'right',
-      panelClass: [panelClass]
-    });
+    return this.httpClient.patch<void>(`${this.apiUrl}`, {notificationIds}, {params});
+  }
+
+  public deleteNotification(notificationId: string): Observable<void> {
+    return this.httpClient.delete<void>(`${this.apiUrl}/${notificationId}`);
   }
 }

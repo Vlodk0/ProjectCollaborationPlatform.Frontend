@@ -15,6 +15,9 @@ export class IconRegistry {
       'my-projects-icon',
       domSanitizer.bypassSecurityTrustResourceUrl('assets/icons/my-projects-icon.svg'));
     matIconRegistry.addSvgIcon(
+      'notifications-icon',
+      domSanitizer.bypassSecurityTrustResourceUrl('assets/icons/notifications-icon.svg'));
+    matIconRegistry.addSvgIcon(
       'dashboard-icon',
       domSanitizer.bypassSecurityTrustResourceUrl('assets/icons/dashboard-icon.svg'));
     matIconRegistry.addSvgIcon(
@@ -95,5 +98,8 @@ export class IconRegistry {
     matIconRegistry.addSvgIcon(
       'view',
       domSanitizer.bypassSecurityTrustResourceUrl('assets/icons/view-icon.svg'));
+    matIconRegistry.addSvgIcon(
+      'read-all',
+      domSanitizer.bypassSecurityTrustResourceUrl('assets/icons/read-all-icon.svg'));
   }
 }

@@ -1,7 +1,7 @@
 import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import {SpinnerService} from "../../../shared/services/spinner.service";
 import {AdminDeveloperService} from "../../../shared/services/admin/admin-developer.service";
-import {NotificationService} from "../../../shared/services/notification.service";
+import {SnackBarService} from "../../../shared/services/snack-bar.service";
 import {StaticDataService} from "../../../shared/services/static-data.service";
 import {debounceTime, distinctUntilChanged, filter, finalize, Observable, Subject, takeUntil} from "rxjs";
 import {CountryInterface} from "../../../shared/interfaces/country-interface";
@@ -38,7 +38,7 @@ export class DevelopersComponent implements OnInit, OnDestroy {
               private readonly cdr: ChangeDetectorRef,
               private readonly matDialog: MatDialog,
               private readonly adminDeveloperService: AdminDeveloperService,
-              private readonly notificationService: NotificationService,
+              private readonly notificationService: SnackBarService,
               private readonly staticDataService: StaticDataService) {
   }
 

@@ -7,7 +7,7 @@ import {UpdateAddressFormGroup} from "../../../../core/types/form-groups/update-
 import {SpinnerService} from "../../../services/spinner.service";
 import {UserService} from "../../../services/user.service";
 import {UpdateAddressInterface} from "../../../interfaces/user/update-address.interface";
-import {NotificationService} from "../../../services/notification.service";
+import {SnackBarService} from "../../../services/snack-bar.service";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 
 @Component({
@@ -28,7 +28,7 @@ export class UserAddressDialogComponent implements OnInit, OnDestroy {
               private readonly userService: UserService,
               private readonly fb: FormBuilder,
               private readonly spinnerService: SpinnerService,
-              private readonly notificationService: NotificationService,
+              private readonly notificationService: SnackBarService,
               @Inject(MAT_DIALOG_DATA) public data: {
                 countryCode?: string,
                 city?: string,

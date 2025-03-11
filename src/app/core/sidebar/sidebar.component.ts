@@ -8,13 +8,16 @@ import {
   OnInit,
   Output
 } from '@angular/core';
-import {Router} from "@angular/router";
 import {GetUser} from "../../shared/interfaces/get-user";
 import {UserService} from "../../shared/services/user.service";
 import {filter, Subject, takeUntil} from "rxjs";
 import {MenuConfigInterface} from "../../shared/interfaces/general/menu.interface";
 import {ConfigService} from "../../shared/interfaces/general/config.service";
 import {ApplicationRoleEnum} from "../enums/application-role.enum";
+import {BadgesService} from "../../shared/services/badges.service";
+import {FormBuilder, FormGroup} from "@angular/forms";
+import {BadgesFormGroup} from "../types/form-groups/badges-form-group";
+import {AlertsService} from "../../shared/services/alerts.service";
 
 @Component({
   selector: 'app-sidebar',
@@ -31,17 +34,22 @@ export class SidebarComponent implements OnInit, OnDestroy {
   public isLogoutProcessing: boolean = false;
   public menuItems = [];
   public user: GetUser = null;
+  public badgesFormGroup: FormGroup<BadgesFormGroup>;
 
   private readonly unsubscribe$: Subject<void> = new Subject<void>()
 
-  constructor(private readonly router: Router,
+  constructor(private readonly alertService: AlertsService,
               private readonly configService: ConfigService,
+              private readonly fb: FormBuilder,
               private readonly userService: UserService,
+              private readonly badgesService: BadgesService,
               private readonly cdr: ChangeDetectorRef) {
   }
 
   ngOnInit() {
     this.subscribeToCurrentUser();
+    this.setForm();
+    this.updateBadge();
   }
 
   ngOnDestroy() {
@@ -59,6 +67,11 @@ export class SidebarComponent implements OnInit, OnDestroy {
           this.cdr.detectChanges();
 
           this.loadMenuItems();
+
+
+          this.user?.roleName === ApplicationRoleEnum.Dev
+            ? this.getDeveloperBadges()
+            : this.getProjectOwnerBadges();
         }
       });
   }
@@ -92,5 +105,37 @@ export class SidebarComponent implements OnInit, OnDestroy {
     }
 
     this.cdr.detectChanges();
+  }
+
+  public updateBadge(): void {
+    this.alertService.getNewAlert()
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe({
+        next: () => this.user?.roleName === ApplicationRoleEnum.Dev
+          ? this.getDeveloperBadges()
+          : this.getProjectOwnerBadges()
+      });
+  }
+
+  private getDeveloperBadges(): void {
+    this.badgesService.getDeveloperBadges(this.user.id)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe({
+        next: (badges) => this.badgesFormGroup.patchValue(badges)
+      })
+  }
+
+  private getProjectOwnerBadges(): void {
+    this.badgesService.getProjectOwnerBadges(this.user.id)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe({
+        next: (badges) => this.badgesFormGroup.patchValue(badges)
+      })
+  }
+
+  private setForm(): void {
+    this.badgesFormGroup = this.fb.group<BadgesFormGroup>({
+      totalNotifications: this.fb.control(null)
+    });
   }
 }

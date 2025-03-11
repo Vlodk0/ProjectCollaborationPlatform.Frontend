@@ -3,7 +3,7 @@ import {FormBuilder, Validators} from "@angular/forms";
 import {FeedbackService} from "../../../services/feedback.service";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {SpinnerService} from "../../../services/spinner.service";
-import {NotificationService} from "../../../services/notification.service";
+import {SnackBarService} from "../../../services/snack-bar.service";
 import {finalize, Subject, takeUntil} from "rxjs";
 
 @Component({
@@ -20,7 +20,7 @@ export class FeedbackDialogComponent implements OnInit, OnDestroy {
 
   constructor(private readonly feedbackService: FeedbackService,
               private readonly spinnerService: SpinnerService,
-              private readonly notificationService: NotificationService,
+              private readonly notificationService: SnackBarService,
               private readonly fb: FormBuilder,
               private readonly dialogRef: MatDialogRef<FeedbackDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: {

@@ -4,7 +4,7 @@ import {finalize, Subject, takeUntil} from "rxjs";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {TechnologyService} from "../../../services/technology.service";
 import {SpinnerService} from "../../../services/spinner.service";
-import {NotificationService} from "../../../services/notification.service";
+import {SnackBarService} from "../../../services/snack-bar.service";
 import {DeveloperTechnologyService} from "../../../services/developer-technology.service";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 
@@ -25,7 +25,7 @@ export class TechnologyDialogComponent implements OnInit, OnDestroy {
   constructor(private readonly fb: FormBuilder,
               private readonly technologyService: TechnologyService,
               private readonly spinnerService: SpinnerService,
-              private readonly notificationService: NotificationService,
+              private readonly notificationService: SnackBarService,
               private readonly dialogRef: MatDialogRef<TechnologyDialogComponent>,
               private readonly developerTechnologyService: DeveloperTechnologyService,
               @Inject(MAT_DIALOG_DATA) public data: {

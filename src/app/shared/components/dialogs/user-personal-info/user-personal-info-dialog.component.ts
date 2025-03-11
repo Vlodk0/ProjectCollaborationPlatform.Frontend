@@ -5,7 +5,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {UserService} from "../../../services/user.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {SpinnerService} from "../../../services/spinner.service";
-import {NotificationService} from "../../../services/notification.service";
+import {SnackBarService} from "../../../services/snack-bar.service";
 
 @Component({
   selector: 'collabro-user-personal-info',
@@ -22,7 +22,7 @@ export class UserPersonalInfoDialogComponent implements OnInit, OnDestroy {
               private readonly userService: UserService,
               private readonly fb: FormBuilder,
               private readonly spinnerService: SpinnerService,
-              private readonly notificationService: NotificationService,
+              private readonly notificationService: SnackBarService,
               @Inject(MAT_DIALOG_DATA) public data: {
                 firstName: string,
                 lastName: string,

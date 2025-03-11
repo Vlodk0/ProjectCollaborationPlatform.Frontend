@@ -3,7 +3,7 @@ import {ProjectsService} from "../../../shared/services/projects.service";
 import {finalize, Subject, takeUntil} from "rxjs";
 import {ProjectInterface} from "../../../shared/interfaces/project/project.interface";
 import {SpinnerService} from "../../../shared/services/spinner.service";
-import {NotificationService} from "../../../shared/services/notification.service";
+import {SnackBarService} from "../../../shared/services/snack-bar.service";
 import {UserService} from "../../../shared/services/user.service";
 import {GetUser} from "../../../shared/interfaces/get-user";
 import {MatMenuTrigger} from "@angular/material/menu";
@@ -44,7 +44,7 @@ export class AllProjectsPageComponent implements OnDestroy, OnInit, AfterViewIni
               private readonly spinnerService: SpinnerService,
               private readonly technologyService: TechnologyService,
               private readonly frameworkService: FrameworkService,
-              private readonly notificationService: NotificationService,
+              private readonly notificationService: SnackBarService,
               private readonly fb: FormBuilder,
               private readonly userService: UserService) {
   }
