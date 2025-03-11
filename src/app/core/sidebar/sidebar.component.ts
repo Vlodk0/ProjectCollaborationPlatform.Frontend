@@ -8,7 +8,6 @@ import {
   OnInit,
   Output
 } from '@angular/core';
-import {Router} from "@angular/router";
 import {GetUser} from "../../shared/interfaces/get-user";
 import {UserService} from "../../shared/services/user.service";
 import {filter, Subject, takeUntil} from "rxjs";
@@ -69,7 +68,6 @@ export class SidebarComponent implements OnInit, OnDestroy {
 
           this.loadMenuItems();
 
-          debugger
 
           this.user?.roleName === ApplicationRoleEnum.Dev
             ? this.getDeveloperBadges()
