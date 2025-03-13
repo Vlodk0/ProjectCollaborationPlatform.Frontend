@@ -1,11 +1,20 @@
-<div *ngIf="projects.length || isLoadingProjects else emptyState" class="my-projects-page-container">
-  <collabro-paginator class="h-100" [flexDirection]="'row'">
-    <div class="projects-wrapper"
-         *ngFor="let project of projects">
-      <collabro-project-card [routerLink]="['/my-project', project.id]"
-                             [project]="project" />
-    </div>
-  </collabro-paginator>
+<div class="page-wrapper">
+  <div class="d-flex w-100 justify-content-space-between align-items-center">
+    <div class="page-title">{{ 'sideBar.myProjectsLabel' | translate }}</div>
+    <button (click)="navigateToCreateProject()"
+            class="button-purple"
+            mat-button>{{ 'myProject.createProjectLabel' | translate }}
+    </button>
+  </div>
+  <div *ngIf="projects.length || isLoadingProjects else emptyState">
+    <collabro-paginator class="h-100" [flexDirection]="'row'">
+      <div class="projects-wrapper"
+           *ngFor="let project of projects">
+        <collabro-project-card [routerLink]="['/my-project', project.id]"
+                               [project]="project" />
+      </div>
+    </collabro-paginator>
+  </div>
 </div>
 
 <ng-template #emptyState>
@@ -17,7 +26,7 @@
         <div>{{ 'myProject.ifYesClickCreateProjectLabel' | translate }}</div>
       </h2>
 
-      <img src="/src/assets/images/empty-states/my-project-empty-state.png" alt="myProject">
+      <img src="assets/images/empty-states/my-project-empty-state.png" alt="myProject">
 
       <h3 class="visit-subtitle">{{ 'myProject.youHaveNotCreatedProjectLabel' | translate }}</h3>
 

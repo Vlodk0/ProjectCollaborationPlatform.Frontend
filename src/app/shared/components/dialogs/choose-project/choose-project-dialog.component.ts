@@ -6,6 +6,7 @@ import {ProjectsService} from "../../../services/projects.service";
 import {SnackBarService} from "../../../services/snack-bar.service";
 import {FormBuilder, Validators} from "@angular/forms";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
+import {ProjectRequestService} from "../../../services/project-request.service";
 
 @Component({
   selector: 'collabro-choose-project',
@@ -26,6 +27,7 @@ export class ChooseProjectDialogComponent implements OnInit, OnDestroy {
 
   constructor(private readonly spinnerService: SpinnerService,
               private readonly projectService: ProjectsService,
+              private readonly projectRequestService: ProjectRequestService,
               private readonly notificationService: SnackBarService,
               private readonly fb: FormBuilder,
               private readonly dialogRef: MatDialogRef<ChooseProjectDialogComponent>,
@@ -43,10 +45,10 @@ export class ChooseProjectDialogComponent implements OnInit, OnDestroy {
     this.unsubscribe$.complete();
   }
 
-  public addDeveloperToProject(): void {
+  public inviteDeveloperToProject(): void {
     this.spinnerService.showSpinner();
 
-    this.projectService.addDeveloperToProject(this.projectId.value, [this.data?.developerId])
+    this.projectRequestService.inviteDeveloperToProject(this.projectId.value, this.data?.developerId)
       .pipe(
         finalize(() => this.spinnerService.hideSpinner()),
         takeUntil(this.unsubscribe$))
