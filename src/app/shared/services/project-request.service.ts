@@ -28,4 +28,8 @@ export class ProjectRequestService {
   public declineProjectRequest(projectRequestId: string, projectId: string): Observable<void> {
     return this.httpClient.patch<void>(`${this.apiUrl}/decline/${projectRequestId}?projectId=${projectId}`, {})
   }
+
+  public inviteDeveloperToProject(projectId: string, developerId: string): Observable<void> {
+    return this.httpClient.post<void>(`${this.apiUrl}/invite?projectId=${projectId}&developerId=${developerId}`, {})
+  }
 }

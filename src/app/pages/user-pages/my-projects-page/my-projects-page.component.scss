@@ -1,3 +1,10 @@
+.page-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 8px;
+}
+
 .my-projects-page-container {
   padding: 50px;
   color: azure;
@@ -5,6 +12,12 @@
   border: 1px solid #373639;
   background: #13161B;
   min-height: calc(100vh - 3.2rem);
+}
+
+.page-title {
+  color: #FFF;
+  font-size: 24px;
+  font-weight: 600;
 }
 
 .preview-page {

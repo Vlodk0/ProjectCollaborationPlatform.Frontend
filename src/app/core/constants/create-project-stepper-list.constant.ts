@@ -3,22 +3,22 @@ import {CreateProjectStepperListEnum} from "../enums/create-project-stepper-list
 export const createProjectStepperListConstant = [
   {
     index: CreateProjectStepperListEnum.TitleAndType,
-    label: 'myProject.titleAndType',
+    label: 'stepperTitle.titleAndType',
   },
   {
     index: CreateProjectStepperListEnum.ProjectDetails,
-    label: 'myProject.projectDetailsLabel',
+    label: 'stepperTitle.projectDetailsLabel',
   },
   {
     index: CreateProjectStepperListEnum.PaymentAndDuration,
-    label: 'myProject.paymentAndDurationLabel',
+    label: 'stepperTitle.paymentAndDurationLabel',
   },
   {
     index: CreateProjectStepperListEnum.Frameworks,
-    label: 'myProject.frameworksLabel',
+    label: 'stepperTitle.frameworksLabel',
   },
   {
     index: CreateProjectStepperListEnum.Technologies,
-    label: 'myProject.technologiesLabel',
+    label: 'stepperTitle.technologiesLabel',
   }
 ]

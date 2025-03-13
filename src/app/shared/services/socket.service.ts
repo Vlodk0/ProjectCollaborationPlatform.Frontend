@@ -17,7 +17,6 @@ export class SocketService {
     if (this.active) {
       return;
     }
-    debugger
 
     const token = localStorage.getItem('access_token'); // Ensure token is stored in localStorage/sessionStorage
 
@@ -33,6 +32,10 @@ export class SocketService {
 
     this.connection.on(
       SignalrEvent.newNotification,
+      (value: any) => this.alertService.setNewAlert(value));
+
+    this.connection.on(
+      SignalrEvent.newInvitation,
       (value: any) => this.alertService.setNewAlert(value));
 
     this.startConnection();

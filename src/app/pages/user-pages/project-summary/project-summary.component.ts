@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {finalize, Subject, takeUntil} from "rxjs";
 import {ProjectsService} from "../../../shared/services/projects.service";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -88,10 +88,9 @@ export class ProjectSummaryComponent implements OnInit, OnDestroy {
         }),
         takeUntil(this.unsubscribe$))
       .subscribe({
-        next: (value: any) => {
+        next: () => {
           this.notificationService.showSuccessNotification();
           this.router.navigate(['/all-projects']);
-          this.alertService.setNewAlert(value);
         },
         error: (error) => this.notificationService.showErrorNotification(error?.error?.detail)
       })

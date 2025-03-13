@@ -135,7 +135,8 @@ export class SidebarComponent implements OnInit, OnDestroy {
 
   private setForm(): void {
     this.badgesFormGroup = this.fb.group<BadgesFormGroup>({
-      totalNotifications: this.fb.control(null)
+      totalNotifications: this.fb.control(null),
+      totalProjectRequests: this.fb.control(null)
     });
   }
 }
