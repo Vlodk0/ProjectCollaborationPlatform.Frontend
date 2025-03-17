@@ -1,0 +1,32 @@
+.modal-wrapper {
+  min-width: 30rem;
+  max-width: 60rem;
+
+  .page-title {
+    text-align: center;
+    line-height: 1.2;
+    color: azure;
+  }
+
+  .message {
+    margin-top: 1.6rem;
+    font-size: 1.8rem;
+    max-width: 100%;
+    text-align: center;
+    color: azure;
+  }
+
+  button {
+    width: 12rem;
+    text-transform: uppercase;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.14);
+    background-color: #5C4FB5;
+    color: azure;
+    border-radius: 4px;
+  }
+
+  .transparent-button {
+    color: azure;
+    background-color: transparent;
+  }
+}

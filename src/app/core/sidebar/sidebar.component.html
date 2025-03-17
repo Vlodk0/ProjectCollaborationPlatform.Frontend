@@ -56,7 +56,9 @@
 
     <div>
       <div *ngIf="sidebarExpanded" class="vc-menu-item">
-        <button class="button-red" [disabled]="isLogoutProcessing"
+        <button class="button-red"
+                (click)="logout()"
+                [disabled]="isLogoutProcessing"
                 mat-raised-button>
           {{'sideBar.logoutLabel' | translate}}
         </button>
