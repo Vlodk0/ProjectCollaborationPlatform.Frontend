@@ -103,6 +103,7 @@ import {
   NotificationListItemComponent
 } from "./pages/user-pages/notifications/notification-list-item/notification-list-item.component";
 import { InvitationsComponent } from './pages/user-pages/invitations/invitations.component';
+import {ConfirmDialogComponent} from "./shared/components/dialogs/confirm-dialog/confirm-dialog.component";
 
 export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -178,6 +179,7 @@ const MODULES = [
     ProjectPageComponent,
     PageNotFoundComponent,
     AllDevelopersPageComponent,
+    ConfirmDialogComponent,
     MyProjectsPageComponent,
     ProjectInfoPageComponent,
     DevPageComponent,

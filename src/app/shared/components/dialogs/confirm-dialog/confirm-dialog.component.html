@@ -1,0 +1,17 @@
+<div class="modal-wrapper">
+  <h1 class="page-title">{{ data?.title }}</h1>
+
+  <p *ngIf="data?.message" class="message">
+    {{ data?.message }}
+  </p>
+
+  <div class="button-container">
+    <button (click)="closeDialog(true)" TabIndex="-1" class="transparent-button" mat-button>
+      {{ 'general.yesLabel' | translate }}
+    </button>
+
+    <button (click)="closeDialog(false)" TabIndex="-1" class="button-primary" mat-button>
+      {{ 'general.noLabel' | translate }}
+    </button>
+  </div>
+</div>

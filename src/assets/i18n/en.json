@@ -20,6 +20,9 @@
     "searchLabel": "Search",
     "statusLabel": "Status",
     "deleteLabel": "Delete",
+    "areYouSureYouWantLogOutLabel": "Are you sure you want to log out?",
+    "yesLabel": "Yes",
+    "noLabel": "No",
     "projectLabel": "Project"
   },
 

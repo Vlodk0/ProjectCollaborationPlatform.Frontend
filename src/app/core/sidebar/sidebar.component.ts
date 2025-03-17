@@ -18,6 +18,8 @@ import {BadgesService} from "../../shared/services/badges.service";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {BadgesFormGroup} from "../types/form-groups/badges-form-group";
 import {AlertsService} from "../../shared/services/alerts.service";
+import {TranslateService} from "@ngx-translate/core";
+import {ConfirmDialogService} from "../../shared/services/confirm-dialog.service";
 
 @Component({
   selector: 'app-sidebar',
@@ -41,6 +43,8 @@ export class SidebarComponent implements OnInit, OnDestroy {
   constructor(private readonly alertService: AlertsService,
               private readonly configService: ConfigService,
               private readonly fb: FormBuilder,
+              private readonly translateService: TranslateService,
+              private readonly confirmDialogService: ConfirmDialogService,
               private readonly userService: UserService,
               private readonly badgesService: BadgesService,
               private readonly cdr: ChangeDetectorRef) {
@@ -144,5 +148,19 @@ export class SidebarComponent implements OnInit, OnDestroy {
       totalNotifications: this.fb.control(null),
       totalProjectRequests: this.fb.control(null)
     });
+  }
+
+  public logout(): void {
+    const title = this.translateService.instant('general.areYouSureYouWantLogOutLabel');
+
+    this.confirmDialogService.openConfirmDialog(title)
+      .pipe(
+        filter((result) => !!result),
+        takeUntil(this.unsubscribe$))
+      .subscribe({
+        next: () => {
+          this.isLogoutProcessing = true;
+        }
+      })
   }
 }
