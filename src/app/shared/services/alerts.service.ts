@@ -20,7 +20,6 @@ export class AlertsService {
   }
 
   public setNewAlert(alert: NotificationInterface): void {
-    debugger
     this.newAlert$.next(alert)
   }
 

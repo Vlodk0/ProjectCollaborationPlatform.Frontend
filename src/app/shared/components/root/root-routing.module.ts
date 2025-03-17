@@ -28,6 +28,10 @@ const routes: Routes = [
         loadChildren: () => import('../../../pages/user-pages/my-projects-page/my-projects-page-routing.module').then(r => r.MyProjectsPageRoutingModule)
       },
       {
+        path: 'invitations',
+        loadChildren: () => import('../../../pages/user-pages/invitations/invitations.routing.module').then(r => r.InvitationsRoutingModule)
+      },
+      {
         path: 'notifications',
         loadChildren: () => import('../../../pages/user-pages/notifications/notifications.routing.module').then(r => r.NotificationsRoutingModule)
       },

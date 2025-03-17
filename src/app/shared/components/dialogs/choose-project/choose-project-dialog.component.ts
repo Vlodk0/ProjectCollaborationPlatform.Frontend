@@ -90,10 +90,12 @@ export class ChooseProjectDialogComponent implements OnInit, OnDestroy {
           this.totalProjects = result.total;
           this.projectsCurrentPage++;
 
+          const filteredProjects = result.items.filter(() => !this.data?.developerId);
+
           if (onScroll) {
-            this.projects.push(...result.items);
+            this.projects.push(...filteredProjects);
           } else {
-            this.projects = result.items;
+            this.projects = filteredProjects;
           }
 
         },

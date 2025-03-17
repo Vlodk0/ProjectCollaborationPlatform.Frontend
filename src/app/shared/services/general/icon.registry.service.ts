@@ -18,6 +18,9 @@ export class IconRegistry {
       'notifications-icon',
       domSanitizer.bypassSecurityTrustResourceUrl('assets/icons/notifications-icon.svg'));
     matIconRegistry.addSvgIcon(
+      'invitations-icon',
+      domSanitizer.bypassSecurityTrustResourceUrl('assets/icons/invitations-icon.svg'));
+    matIconRegistry.addSvgIcon(
       'dashboard-icon',
       domSanitizer.bypassSecurityTrustResourceUrl('assets/icons/dashboard-icon.svg'));
     matIconRegistry.addSvgIcon(
@@ -101,5 +104,8 @@ export class IconRegistry {
     matIconRegistry.addSvgIcon(
       'read-all',
       domSanitizer.bypassSecurityTrustResourceUrl('assets/icons/read-all-icon.svg'));
+    matIconRegistry.addSvgIcon(
+      'dots',
+      domSanitizer.bypassSecurityTrustResourceUrl('assets/icons/dots-icon.svg'));
   }
 }

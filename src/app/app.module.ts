@@ -82,7 +82,7 @@ import {ProjectBoardSectionComponent} from "./pages/user-pages/project-page/proj
 import {
   ProjectRequestsSectionComponent
 } from "./pages/user-pages/project-page/project-requests-section/project-requests-section.component";
-import {MatMenu, MatMenuTrigger} from "@angular/material/menu";
+import {MatMenuModule} from "@angular/material/menu";
 import {FilterDevelopersComponent} from "./shared/components/filters/filter-developers/filter-developers.component";
 import {FilterProjectsComponent} from "./shared/components/filters/filter-projects/filter-projects.component";
 import {NgOptimizedImage} from "@angular/common";
@@ -102,6 +102,7 @@ import {MatBadgeModule} from "@angular/material/badge";
 import {
   NotificationListItemComponent
 } from "./pages/user-pages/notifications/notification-list-item/notification-list-item.component";
+import { InvitationsComponent } from './pages/user-pages/invitations/invitations.component';
 
 export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -201,7 +202,8 @@ const MODULES = [
     ProjectOwnerDetailsComponent,
     ProjectOwnersProfileComponent,
     ProjectDetailComponent,
-    NotificationsComponent
+    NotificationsComponent,
+    InvitationsComponent
   ],
   imports: [
     ...MODULES,
@@ -209,8 +211,7 @@ const MODULES = [
     MatDivider,
     MatBadgeModule,
     MatSlideToggle,
-    MatMenu,
-    MatMenuTrigger,
+    MatMenuModule,
     NgOptimizedImage,
     MatCardModule,
     MatCardHeader,

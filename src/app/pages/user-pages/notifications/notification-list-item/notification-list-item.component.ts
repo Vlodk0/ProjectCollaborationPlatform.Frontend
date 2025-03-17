@@ -1,4 +1,4 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {finalize, Subject, takeUntil} from "rxjs";
 import {SpinnerService} from "../../../../shared/services/spinner.service";
 import {NotificationService} from "../../../../shared/services/notification.service";
@@ -13,6 +13,9 @@ import {AlertsService} from "../../../../shared/services/alerts.service";
 })
 export class NotificationListItemComponent implements OnInit, OnDestroy {
   @Input() notification: NotificationInterface;
+
+  @Output() notificationDeleted: EventEmitter<void> = new EventEmitter<void>();
+
   public isCurrentAlert: boolean;
 
   private readonly unsubscribe$: Subject<void> = new Subject<void>();
@@ -43,6 +46,7 @@ export class NotificationListItemComponent implements OnInit, OnDestroy {
       .subscribe({
         next: () => {
           this.snackBarService.showSuccessNotification();
+          this.notificationDeleted.emit();
         },
         error: (error) => this.snackBarService.showErrorNotification(error?.error?.detail)
       })

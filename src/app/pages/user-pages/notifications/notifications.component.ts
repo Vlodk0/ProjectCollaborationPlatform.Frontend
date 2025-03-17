@@ -62,9 +62,13 @@ export class NotificationsComponent implements OnInit, OnDestroy {
     }
   }
 
-  private getNotifications(): void {
+  public getNotifications(onScroll = false): void {
     this.spinnerService.showSpinner();
     this.isLoadingNotifications = true;
+
+    if (!onScroll) {
+      this.notificationsCurrentPage = 0;
+    }
 
     const request$ = this.user?.roleName === ApplicationRoleEnum.Dev
       ? this.notificationService.getNotifications(this.user?.id, null, this.notificationsCurrentPage, 20)
@@ -86,11 +90,14 @@ export class NotificationsComponent implements OnInit, OnDestroy {
       )
       .subscribe({
         next: result => {
-          this.notifications = this.notifications?.length
-            ? this.notifications.concat(result.items)
-            : result.items;
-
           this.totalNotifications = result.total;
+          this.notificationsCurrentPage++;
+
+          if (onScroll) {
+            this.notifications.push(...result.items);
+          } else {
+            this.notifications = result.items;
+          }
         },
         error: (error) => this.snackBarService.showErrorNotification(error?.error?.detail)
       });

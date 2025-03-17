@@ -1,0 +1,49 @@
+<div *ngIf="invitations.length || isLoadingInvitations else invitationsEmptyState" class="page-wrapper">
+  <collabro-paginator class="w-100" (loadDataEmitter)="loadingInvitations(true)">
+    <div *ngFor="let invitation of invitations"
+         class="request-container-wrapper m-t-2">
+      <div class="d-flex w-100 justify-content-space-between">
+        <div class="request-header">{{ 'invitations.youHaveBeenInvitedLabel' | translate }}</div>
+        <div class="request-time">{{ invitation.createdTimeStamp | localDate: "shortDate" }}</div>
+      </div>
+      <div class="d-flex w-100 justify-content-space-between align-items-center">
+        <div class="request-content">
+          {{ 'invitations.theProjectOwnerHasInvitedYouToJoinProjectLabel' | translate: {value: invitation?.project?.title} }}
+        </div>
+        <div>
+          <button (click)="$event.stopPropagation();
+                 $event.preventDefault()" [matMenuTriggerFor]="actions"
+                  mat-icon-button>
+            <mat-icon [svgIcon]="'dots'"></mat-icon>
+          </button>
+
+          <mat-menu class="new-styles" #actions>
+
+            <button (click)="acceptProjectRequest(invitation?.id, invitation?.projectId)" mat-menu-item>
+              <mat-icon [svgIcon]="'accept'"></mat-icon>
+              {{ 'general.acceptLabel' | translate }}
+            </button>
+
+            <button (click)="declineProjectRequest(invitation?.id, invitation?.projectId)"
+                    mat-menu-item>
+              <mat-icon [svgIcon]="'reject'" />
+              {{ 'general.rejectLabel' | translate }}
+            </button>
+
+            <button [routerLink]="['/project', invitation?.projectId]" mat-menu-item>
+              <mat-icon [svgIcon]="'view'" />
+              {{ 'general.projectLabel' | translate }}
+            </button>
+          </mat-menu>
+        </div>
+      </div>
+    </div>
+  </collabro-paginator>
+</div>
+
+<ng-template #invitationsEmptyState>
+  <div class="empty-state-wrapper">
+    <collabro-empty-state class="h-100" [title]="('emptyState.noInvitationsYetLabel' | translate)"
+                          [subtitle]="('emptyState.youHaveNotReceiveAnyProjectInvitationsYetLabel' | translate)" />
+  </div>
+</ng-template>

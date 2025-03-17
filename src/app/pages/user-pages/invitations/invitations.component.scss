@@ -1,0 +1,49 @@
+.request-container-wrapper {
+  display: flex;
+  padding: 24px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+  border-radius: 15px;
+  border: 1px solid var(--Border-for-elements, #373639);
+  background: var(--Dark-Black, #0C0E12);
+
+  .request-header {
+    color: #FCFBFD;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+  }
+
+  .request-time {
+    color: #FCFBFD;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    opacity: 0.8;
+  }
+
+  .request-content {
+    color: #FCFBFD;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    opacity: 0.8;
+  }
+}
+
+.empty-state-wrapper {
+  padding: 40px;
+  color: azure;
+  border-radius: 20px;
+  border: 1px solid #373639;
+  background: #13161B;
+  min-height: calc(100vh - 3.2rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
