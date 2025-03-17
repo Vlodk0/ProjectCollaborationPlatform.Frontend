@@ -1,8 +1,9 @@
-<div class="page-wrapper">
+<div *ngIf="notifications.length || isLoadingNotifications else notificationsEmptyState"
+     class="page-wrapper">
   <div class="d-flex w-100 justify-content-space-between align-items-center">
     <div class="title">{{ 'sideBar.notificationsLabel' | translate }}</div>
     <button (click)="readAllAlerts()" matTooltipClass="tooltip" mat-icon-button
-            matTooltip="{{'alerts.markAllAsReadLabel' | translate}}"
+            matTooltip="{{'notification.markAllAsReadLabel' | translate}}"
             matTooltipPosition="above">
 
       <mat-icon [svgIcon]="'read-all'"></mat-icon>
@@ -12,6 +13,14 @@
                        [loadDataByClick]="false"
                        [showMoreButton]="this.totalNotifications > this.notifications?.length">
     <collabro-notification-list-item *ngFor=" let notification of notifications"
+                                     (notificationDeleted)="getNotifications()"
                                      [notification]="notification" />
   </collabro-paginator>
 </div>
+
+<ng-template #notificationsEmptyState>
+  <div class="empty-state-wrapper">
+    <collabro-empty-state class="h-100" [title]="('emptyState.noNotificationsYetLabel' | translate)"
+                          [subtitle]="('emptyState.youAreCaughtUpAnyUpdatesWillAppearHereLabel' | translate)" />
+  </div>
+</ng-template>

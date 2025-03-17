@@ -3,6 +3,7 @@ import {environment} from "../../environment";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {ProjectRequestInterface} from "../interfaces/project/project-request.interface";
+import {Page} from "../interfaces/general/page.interface";
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +20,10 @@ export class ProjectRequestService {
 
   public getProjectRequests(projectId: string): Observable<Array<ProjectRequestInterface>> {
     return this.httpClient.get<Array<ProjectRequestInterface>>(`${this.apiUrl}/project/${projectId}`)
+  }
+
+  public getDeveloperProjectRequests(currentPage: number, pageSize: number): Observable<Page<ProjectRequestInterface>> {
+    return this.httpClient.get<Page<ProjectRequestInterface>>(`${this.apiUrl}/developer?currentPage=${currentPage}&pageSize=${pageSize}`)
   }
 
   public acceptProjectRequest(projectRequestId: string, projectId: string): Observable<void> {

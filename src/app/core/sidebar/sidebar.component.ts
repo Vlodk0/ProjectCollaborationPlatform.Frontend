@@ -121,7 +121,10 @@ export class SidebarComponent implements OnInit, OnDestroy {
     this.badgesService.getDeveloperBadges(this.user.id)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
-        next: (badges) => this.badgesFormGroup.patchValue(badges)
+        next: (badges) => {
+          this.badgesFormGroup.patchValue(badges);
+          this.cdr.detectChanges();
+        }
       })
   }
 
@@ -129,7 +132,10 @@ export class SidebarComponent implements OnInit, OnDestroy {
     this.badgesService.getProjectOwnerBadges(this.user.id)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
-        next: (badges) => this.badgesFormGroup.patchValue(badges)
+        next: (badges) => {
+          this.badgesFormGroup.patchValue(badges);
+          this.cdr.detectChanges();
+        }
       })
   }
 

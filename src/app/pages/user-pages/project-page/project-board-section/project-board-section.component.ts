@@ -1,10 +1,7 @@
-import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnDestroy, Output} from '@angular/core';
 import {TaskStatus} from "../../../../core/enums/task-status.enum";
-import {FunctionalityBlock} from "../../../../shared/interfaces/functionality-block";
-import {filter, finalize, Subject, takeUntil} from "rxjs";
+import {filter, Subject, takeUntil} from "rxjs";
 import {FunctionalityBlockService} from "../../../../shared/services/functionality-block.service";
-import {SpinnerService} from "../../../../shared/services/spinner.service";
-import {SnackBarService} from "../../../../shared/services/snack-bar.service";
 import {FunctionalityBlockInterface} from "../../../../shared/interfaces/functionality-block/functionality-block.interface";
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from "@angular/cdk/drag-drop";
 import {
@@ -34,8 +31,6 @@ export class ProjectBoardSectionComponent implements OnDestroy {
   private unsubscribe$: Subject<void> = new Subject<void>();
 
   constructor(private readonly functionalityBlockService: FunctionalityBlockService,
-              private readonly spinnerService: SpinnerService,
-              private readonly notificationService: SnackBarService,
               private readonly matDialog: MatDialog) {
   }
 

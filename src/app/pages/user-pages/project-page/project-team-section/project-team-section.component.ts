@@ -39,7 +39,8 @@ export class ProjectTeamSectionComponent implements OnDestroy {
     const dialogRef = this.matDialog.open(DeveloperInfoDialogComponent, {
       disableClose: false,
       data: {
-        developer: developer
+        developer: developer,
+        developerAvatar: developer.avatarName,
       }
     });
   }

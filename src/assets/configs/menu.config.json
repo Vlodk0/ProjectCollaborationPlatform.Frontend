@@ -17,6 +17,12 @@
       "title": "sideBar.myProjectsLabel"
     },
     {
+      "routerLink": "invitations",
+      "controlName": "totalProjectRequests",
+      "icon": "invitations-icon",
+      "title": "sideBar.invitationsLabel"
+    },
+    {
       "routerLink": "notifications",
       "controlName": "totalNotifications",
       "icon": "notifications-icon",

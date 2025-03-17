@@ -19,7 +19,8 @@
     "projectOwnerLabel": "Project Owner",
     "searchLabel": "Search",
     "statusLabel": "Status",
-    "deleteLabel": "Delete"
+    "deleteLabel": "Delete",
+    "projectLabel": "Project"
   },
 
   "profileSettings": {
@@ -70,12 +71,14 @@
     "dashboardLabel": "Dashboard",
     "projectOwnersLabel": "Project Owners",
     "projectsLabel": "Projects",
-    "notificationsLabel": "Notifications"
+    "notificationsLabel": "Notifications",
+    "invitationsLabel": "Invitations"
   },
   "notification": {
     "successRequestLabel": "Success request.",
     "closeLabel": "Close",
-    "errorOccurredLabel": "An error occurred."
+    "errorOccurredLabel": "An error occurred.",
+    "markAllAsReadLabel": "Mark all as read"
   },
   "authPages": {
     "loginPage": {
@@ -272,10 +275,19 @@
     "devopsLabel": "DevOps"
   },
 
+  "invitations": {
+    "youHaveBeenInvitedLabel": "You've Been Invited!",
+    "theProjectOwnerHasInvitedYouToJoinProjectLabel": "The project owner has invited you to join {{value}}. Review the project details and decide whether to accept or decline the invitation."
+  },
+
   "emptyState": {
     "currentListOfProjectIsEmptyLabel": "The current list of projects is empty",
     "projectOwnerNotCreatedProjectLabel": "No one project owner has not created any projects yet",
     "noFeedbacksYetLabel": "No Feedback Yet",
-    "beTheFirstToShareFeedback": "Be the first to share your feedback and help others know more about this developer!"
+    "beTheFirstToShareFeedback": "Be the first to share your feedback and help others know more about this developer!",
+    "noNotificationsYetLabel": "No Notifications Yet!",
+    "youAreCaughtUpAnyUpdatesWillAppearHereLabel": "You're all caught up! Any important updates, invitations, or requests will appear here.",
+    "noInvitationsYetLabel": "No Invitations Yet!",
+    "youHaveNotReceiveAnyProjectInvitationsYetLabel": "You haven't received any project invitations yet. When a project owner invites you, it will appear here."
   }
 }
