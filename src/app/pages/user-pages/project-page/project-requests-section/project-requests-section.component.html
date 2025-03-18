@@ -1,30 +1,42 @@
-<div *ngFor="let request of projectRequests"
-     class="request-container-wrapper m-t-2">
-  <div class="d-flex w-100 justify-content-space-between">
-    <div class="request-header">{{ 'myProject.newOnDemandRequestLabel' | translate }}</div>
-    <div class="request-time">{{ request.createdTimeStamp | localDate: "shortDate" }}</div>
-  </div>
-  <div class="d-flex w-100 justify-content-space-between">
-    <div class="request-content">
-      Developer {{ request.developer.firstName }} {{ request.developer.lastName }} wants to join your team
+<div *ngIf="projectRequests.length else emptyState">
+  <div *ngFor="let request of projectRequests"
+       class="request-container-wrapper m-t-2">
+    <div class="d-flex w-100 justify-content-space-between">
+      <div class="request-header">{{ 'myProject.newOnDemandRequestLabel' | translate }}</div>
+      <div class="request-time">{{ request.createdTimeStamp | localDate: "shortDate" }}</div>
     </div>
-    <div class="d-flex column-gap-1-6">
-      <button matTooltipClass="tooltip"
-              (click)="acceptProjectRequest(request.id)"
-              mat-icon-button
-              matTooltip="{{'general.acceptLabel' | translate}}"
-              matTooltipPosition="above">
+    <div class="d-flex w-100 justify-content-space-between">
+      <div class="request-content">
+        Developer {{ request.developer.firstName }} {{ request.developer.lastName }} wants to join your team
+      </div>
+      <div class="d-flex column-gap-1-6">
+        <button matTooltipClass="tooltip"
+                (click)="acceptProjectRequest(request.id)"
+                mat-icon-button
+                matTooltip="{{'general.acceptLabel' | translate}}"
+                matTooltipPosition="above">
 
-        <mat-icon [svgIcon]="'accept'"></mat-icon>
-      </button>
-      <button matTooltipClass="tooltip"
-              (click)="declineProjectRequest(request.id)"
-              mat-icon-button
-              matTooltip="{{'general.rejectLabel' | translate}}"
-              matTooltipPosition="above">
+          <mat-icon [svgIcon]="'accept'"></mat-icon>
+        </button>
+        <button matTooltipClass="tooltip"
+                (click)="declineProjectRequest(request.id)"
+                mat-icon-button
+                matTooltip="{{'general.rejectLabel' | translate}}"
+                matTooltipPosition="above">
 
-        <mat-icon [svgIcon]="'reject'"></mat-icon>
-      </button>
+          <mat-icon [svgIcon]="'reject'"></mat-icon>
+        </button>
+      </div>
     </div>
   </div>
 </div>
+
+<ng-template #emptyState>
+  <div class="h-100">
+    <div class="d-flex h-100 align-items-center justify-content-center">
+      <collabro-empty-state [title]="('emptyState.noRequestsYetLabel' | translate)"
+                            [subtitle]="('emptyState.noDevelopersHaveRequestedToJoinLabel' | translate)"/>
+
+    </div>
+  </div>
+</ng-template>

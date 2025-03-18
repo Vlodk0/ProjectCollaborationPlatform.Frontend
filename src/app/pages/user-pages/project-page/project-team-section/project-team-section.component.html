@@ -1,4 +1,4 @@
-<table mat-table class="m-t-2" [dataSource]="developers">
+<table mat-table class="m-t-2" [dataSource]="developers" *ngIf="developers?.length else emptyState">
   <ng-container matColumnDef="fullName">
     <th *matHeaderCellDef mat-header-cell>{{ 'general.fullNameLabel' | translate }}
     </th>
@@ -39,3 +39,13 @@
 
   <tr *matRowDef="let row; columns: developerTableColumns;" mat-row></tr>
 </table>
+
+<ng-template #emptyState>
+  <div class="h-100">
+    <div class="d-flex h-100 align-items-center justify-content-center">
+      <collabro-empty-state [title]="('emptyState.notTeamMembersYetLabel' | translate)"
+                            [subtitle]="('emptyState.yourProjectTeamIsEmptyLabel' | translate)"/>
+
+    </div>
+  </div>
+</ng-template>

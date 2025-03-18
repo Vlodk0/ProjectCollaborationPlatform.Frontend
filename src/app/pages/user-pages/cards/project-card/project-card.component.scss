@@ -8,6 +8,9 @@
   height: 100%;
   display: flex;
   cursor: pointer;
+  flex-wrap: wrap;
+  gap: 2.4rem;
+  overflow: auto;
 
   .project-header {
     font-weight: 700;

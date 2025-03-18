@@ -1,18 +1,18 @@
 <div class="page-wrapper">
-  <div class="d-flex w-100 justify-content-space-between align-items-center">
+  <div class="page-header">
     <div class="page-title">{{ 'sideBar.myProjectsLabel' | translate }}</div>
     <button (click)="navigateToCreateProject()"
             class="button-purple"
             mat-button>{{ 'myProject.createProjectLabel' | translate }}
     </button>
   </div>
-  <div *ngIf="projects.length || isLoadingProjects else emptyState">
-    <collabro-paginator class="h-100" [flexDirection]="'row'">
-      <div class="projects-wrapper"
-           *ngFor="let project of projects">
-        <collabro-project-card [routerLink]="['/my-project', project.id]"
+  <div *ngIf="projects.length || isLoadingProjects else emptyState" class="overflow-y-hidden">
+    <collabro-paginator class="max-h-100"
+                        [flexDirection]="'row'"
+                        [wrapper]="'grid'"
+                        (loadDataEmitter)="loadingProjects(false)">
+        <collabro-project-card *ngFor="let project of projects" [routerLink]="['/my-project', project.id]"
                                [project]="project" />
-      </div>
     </collabro-paginator>
   </div>
 </div>

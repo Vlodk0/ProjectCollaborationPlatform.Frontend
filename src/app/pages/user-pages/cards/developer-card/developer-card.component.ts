@@ -40,7 +40,7 @@ export class DeveloperCardComponent implements OnInit, OnDestroy {
       disableClose: false,
       data: {
         developer: developer,
-        developerAvatar: this.imageData
+        developerAvatar: developer.avatarName
       }
     });
 
