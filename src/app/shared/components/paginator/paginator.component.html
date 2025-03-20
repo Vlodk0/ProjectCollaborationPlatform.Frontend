@@ -1,4 +1,5 @@
-<div [ngStyle]="{'flex-direction': flexDirection}"
+<div [ngClass]="{'paginator': wrapper === 'flex', 'paginator-grid': wrapper === 'grid'}"
+     [ngStyle]="{'flex-direction': flexDirection}"
      (scroll)="onListScroll($event)"
      class="paginator">
   <ng-content></ng-content>

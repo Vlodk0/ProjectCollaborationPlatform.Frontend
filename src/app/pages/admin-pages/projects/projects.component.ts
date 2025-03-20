@@ -62,6 +62,7 @@ export class ProjectsComponent implements OnInit, OnDestroy {
 
   public paging(event: PagingEvent): void {
     this.form.controls.currentPage.setValue(event.offset);
+    this.getAdminProjects();
   }
 
   public sort(event: { sorts: { prop: ProjectSortClauseEnum; dir: 'asc' | 'desc' }[] }): void {
@@ -150,7 +151,7 @@ export class ProjectsComponent implements OnInit, OnDestroy {
       searchTerm: this.fb.control(''),
       countryCodes: this.fb.control<string[]>(["UA", "US"]),
       currentPage: this.fb.control<number>(0),
-      pageSize: this.fb.control<number>(20),
+      pageSize: this.fb.control<number>(10),
       sortByProperty: this.fb.control<ProjectSortClauseEnum>(ProjectSortClauseEnum.Title),
       sortOrder: this.fb.control<'desc' | 'asc'>('desc')
     });

@@ -3,6 +3,14 @@
   flex-direction: column;
   width: 100%;
   gap: 8px;
+  overflow: hidden;
+}
+
+.page-header {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .my-projects-page-container {

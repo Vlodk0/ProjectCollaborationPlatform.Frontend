@@ -2,10 +2,13 @@
   padding: 25px;
   color: azure;
   flex-direction: column;
-  min-height: calc(100vh - 3.2rem);
+  max-height: calc(100vh - 3.2rem);
+  height: 100%;
+  width: 100%;
   border-radius: 20px;
   border: 1px solid #373639;
   background: #13161B;
+  display: flex;
 }
 
 .projects-title {

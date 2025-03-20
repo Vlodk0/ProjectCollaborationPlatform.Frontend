@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {debounceTime, Subject, takeUntil} from "rxjs";
 
 @Component({
@@ -6,10 +6,11 @@ import {debounceTime, Subject, takeUntil} from "rxjs";
   templateUrl: './paginator.component.html',
   styleUrl: './paginator.component.scss'
 })
-export class PaginatorComponent {
+export class PaginatorComponent implements OnInit, OnDestroy {
   @Input() public showMoreButton = false;
   @Input() public loadDataByClick = false;
   @Input() public flexDirection: 'row' | 'column' = 'column';
+  @Input() public wrapper: 'flex' | 'grid' = 'flex';
 
   @Output() public loadDataEmitter = new EventEmitter<void>();
 

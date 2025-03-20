@@ -147,7 +147,7 @@ export class DevelopersComponent implements OnInit, OnDestroy {
       searchTerm: this.fb.control(''),
       countryCodes: this.fb.control<string[]>(["UA", "US"]),
       currentPage: this.fb.control<number>(0),
-      pageSize: this.fb.control<number>(20),
+      pageSize: this.fb.control<number>(10),
       sortByProperty: this.fb.control<UserSortingClauseEnum>(UserSortingClauseEnum.FirstName),
       sortOrder: this.fb.control<'desc' | 'asc'>('desc')
     });

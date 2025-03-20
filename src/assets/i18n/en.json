@@ -291,6 +291,10 @@
     "noNotificationsYetLabel": "No Notifications Yet!",
     "youAreCaughtUpAnyUpdatesWillAppearHereLabel": "You're all caught up! Any important updates, invitations, or requests will appear here.",
     "noInvitationsYetLabel": "No Invitations Yet!",
-    "youHaveNotReceiveAnyProjectInvitationsYetLabel": "You haven't received any project invitations yet. When a project owner invites you, it will appear here."
+    "youHaveNotReceiveAnyProjectInvitationsYetLabel": "You haven't received any project invitations yet. When a project owner invites you, it will appear here.",
+    "notTeamMembersYetLabel": "No Team Members Yet!",
+    "yourProjectTeamIsEmptyLabel": "Your project team is currently empty. Invite developers to collaborate and start building together!",
+    "noRequestsYetLabel": "No Requests Yet!",
+    "noDevelopersHaveRequestedToJoinLabel": "No developers have requested to join your project yet. Once requests come in, they'll appear here for you to review."
   }
 }

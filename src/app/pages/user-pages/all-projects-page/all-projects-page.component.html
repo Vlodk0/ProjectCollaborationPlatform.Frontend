@@ -20,8 +20,11 @@
     </div>
   </div>
 
-  <div class="projects-wrapper">
-    <collabro-paginator class="h-100">
+  <div class="overflow-y-hidden">
+    <collabro-paginator class="h-100"
+                        [flexDirection]="'row'"
+                        [wrapper]="'grid'"
+                        (loadDataEmitter)="loadingProjects(false)">
       <collabro-project-card *ngFor="let project of projects"
                              [routerLink]="['/project', project?.id]"
                              [project]="project" />

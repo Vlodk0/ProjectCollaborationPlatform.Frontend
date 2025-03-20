@@ -45,6 +45,7 @@ export class DeveloperInfoDialogComponent implements OnDestroy, OnInit {
   }
 
   ngOnInit(): void {
+    debugger
     this.subscribeToCurrentUser();
 
     if (this.data?.developerAvatar) {
@@ -178,6 +179,7 @@ export class DeveloperInfoDialogComponent implements OnDestroy, OnInit {
   }
 
   private createImageFromBlob(image: Blob, isAvatar: boolean): void {
+    debugger
     if (!image) {
       return;
     }
