@@ -75,7 +75,7 @@ export class CreateProjectComponent implements OnInit, OnDestroy {
       case CreateProjectStepperListEnum.ProjectDetails:
         return !!this.projectForm.get('projectDetails').value
       case CreateProjectStepperListEnum.PaymentAndDuration:
-        return !!this.projectForm.get('payment').value && !this.projectForm.get('timeDuration').value;
+        return !!this.projectForm.get('payment').value && !!this.projectForm.get('timeDuration').value;
       case CreateProjectStepperListEnum.Technologies:
         return !!this.projectForm.get('technologyIds').value?.length
       case CreateProjectStepperListEnum.Frameworks:
