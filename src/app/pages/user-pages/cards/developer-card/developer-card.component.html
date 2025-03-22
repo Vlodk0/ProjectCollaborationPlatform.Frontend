@@ -21,15 +21,31 @@
           </ng-template>
         </div>
       </div>
-      <div class="user-role-name"> {{ developer.address.state }}, {{ developer.address.countryName }}</div>
+      <div *ngIf="developer?.position" class="user-role-name">
+        {{ 'general.currentDeveloperLabel' | translate:{ value: developer.position | developerPositionLabel | translate } }}
+      </div>
+      <div *ngIf="developer?.hourlyPayment">
+        <span class="user-hourly-payment">{{ developer?.hourlyPayment }}</span>
+        <span class="user-role-name"> {{ 'general.hourlyLabel' | translate }}</span>
+      </div>
     </div>
   </div>
 
   <div class="technologies-container">
-    <div class="technology-item-container w-100 d-flex justify-content-center"
-         *ngFor="let item of developer.technologies.slice(0, 3)">
-      {{ item.technology | translate }}
-    </div>
-    <div class="footer-label">+2</div>
+    <ng-container *ngIf="developer?.technologies?.length <= 3; else moreTechnologies">
+      <div class="technology-item-container w-100 d-flex justify-content-center"
+           *ngFor="let item of developer?.technologies">
+        {{ item.technology | translate }}
+      </div>
+    </ng-container>
+
+    <ng-template #moreTechnologies>
+      <div class="technology-item-container w-100 d-flex justify-content-center"
+           *ngFor="let item of developer?.technologies.slice(0, 3)">
+        {{ item.technology | translate }}
+      </div>
+      <div class="footer-label">+{{ developer?.technologies?.length - 3 }}</div>
+    </ng-template>
   </div>
+
 </div>

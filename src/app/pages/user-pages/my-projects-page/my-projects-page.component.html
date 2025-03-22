@@ -1,6 +1,41 @@
-<div class="page-wrapper">
-  <div class="page-header">
-    <div class="page-title">{{ 'sideBar.myProjectsLabel' | translate }}</div>
+<div class="page-wrapper" [formGroup]="projectsFormGroup">
+  <div class="page-title">{{ 'sideBar.myProjectsLabel' | translate }}</div>
+
+  <div *ngIf="user.roleName === applicationRoleEnum.ProjectOwner && projects.length" class="page-header">
+    <div class="d-flex align-items-center flex-wrap column-gap-1 row-gap-1">
+      <div class="small-icon-button">
+        <mat-form-field appearance="outline" class="input-container-item-large search-filter">
+          <mat-icon matPrefix [svgIcon]="'search'"></mat-icon>
+
+          <input formControlName="searchTerm" [placeholder]="'general.searchLabel' | translate" matInput/>
+
+          <button mat-icon-button
+                  matSuffix
+                  (click)="resetSearch()"
+                  class="m-r-1"
+                  *ngIf="projectsFormGroup.get('searchTerm')?.value">
+            <mat-icon [svgIcon]="'close'"></mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
+
+      <div class="filter-button">
+        <button mat-icon-button
+                [matMenuTriggerFor]="filters"
+                #filterMenu="matMenuTrigger">
+          <mat-icon [svgIcon]="'filter'"></mat-icon>
+        </button>
+
+        <mat-menu #filters="matMenu" xPosition="before">
+          <collabro-filter-projects [technologies]="technologies"
+                                    [frameworks]="frameworks"
+                                    [menuIsClosed]="menuIsClosed"
+                                    [selectedTechnology]="projectsFormGroup.get('technologyIds')?.value"
+                                    [selectedFramework]="projectsFormGroup.get('frameworkIds')?.value"
+                                    (projectFilters)="applyFilters($event)" />
+        </mat-menu>
+      </div>
+    </div>
     <button (click)="navigateToCreateProject()"
             class="button-purple"
             mat-button>{{ 'myProject.createProjectLabel' | translate }}
@@ -22,15 +57,14 @@
     <div class="preview-page">
 
       <h2 class="visit-title">
-        <div class="d-block">{{ 'myProject.wouldYouLikeToCreateNewProjectLabel' | translate }}</div>
-        <div>{{ 'myProject.ifYesClickCreateProjectLabel' | translate }}</div>
+        <div class="d-block"> {{ user.roleName === applicationRoleEnum.ProjectOwner ?
+          ('myProject.youHaveNotCreatedAProjectYetLabel' | translate) :
+          ('emptyState.youAreNotAPartOfProjectYetLabel' | translate) }}</div>
+        <div class="subtitle">{{ user.roleName === applicationRoleEnum.ProjectOwner ?
+          ('myProject.ifYesClickCreateProjectLabel' | translate) :
+          ('emptyState.exploreProjectOrWaitRequestLabel' | translate) }}</div>
       </h2>
-
-      <img src="assets/images/empty-states/my-project-empty-state.png" alt="myProject">
-
-      <h3 class="visit-subtitle">{{ 'myProject.youHaveNotCreatedProjectLabel' | translate }}</h3>
-
-      <button (click)="navigateToCreateProject()"
+      <button *ngIf="user.roleName === applicationRoleEnum.ProjectOwner" (click)="navigateToCreateProject()"
               class="button-purple big-button"
               mat-button>{{ 'myProject.createProjectLabel' | translate }}
       </button>

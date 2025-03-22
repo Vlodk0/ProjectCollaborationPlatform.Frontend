@@ -7,7 +7,7 @@
     <mat-form-field appearance="outline" class="input-container-item-large">
       <mat-label>{{ 'filterDevelopers.countryLabel' | translate }}</mat-label>
       <mat-select formControlName="selectedCountry">
-        <mat-option *ngFor="let country of (countries$ | async)" [value]="country.code">
+        <mat-option *ngFor="let country of (countries$ | async)" [value]="country?.code">
           {{ country?.name }}
         </mat-option>
       </mat-select>
@@ -20,7 +20,7 @@
     <mat-form-field appearance="outline" class="input-container-item-large">
       <mat-label>{{ 'filterDevelopers.technologyLabel' | translate }}</mat-label>
       <mat-select multiple formControlName="selectedTechnologies">
-        <mat-option *ngFor="let technology of technologies" [value]="technology.id">
+        <mat-option *ngFor="let technology of technologies" [value]="technology?.id">
           {{ technology?.technology }}
         </mat-option>
       </mat-select>
@@ -33,10 +33,37 @@
     <mat-form-field appearance="outline" class="input-container-item-large">
       <mat-label>{{ 'filterDevelopers.frameworkLabel' | translate }}</mat-label>
       <mat-select multiple formControlName="selectedFrameworks">
-        <mat-option *ngFor="let framework of frameworks" [value]="framework.id">
+        <mat-option *ngFor="let framework of frameworks" [value]="framework?.id">
           {{ framework?.framework }}
         </mat-option>
       </mat-select>
+    </mat-form-field>
+  </div>
+
+  <h3 class="filter-label">{{ 'filterDevelopers.positionLabel' | translate }}</h3>
+
+  <div class="input-container">
+    <mat-form-field appearance="outline" class="input-container-item-large">
+      <mat-label>{{ 'filterDevelopers.positionLabel' | translate }}</mat-label>
+      <mat-select multiple formControlName="selectedPositions">
+        <mat-option *ngFor="let position of developerPositionListConstant" [value]="position?.type">
+          {{ position?.label | translate }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <h3 class="filter-label">{{ 'filterDevelopers.hourlyRateLabel' | translate }}</h3>
+
+  <div class="d-flex align-items-center justify-content-center gap-8-px">
+    <mat-form-field appearance="outline" class="input-container-item-one-of-four">
+      <input value="number" formControlName="selectedFrom" matInput/>
+    </mat-form-field>
+
+    <div class="text-container">{{ 'general.toLabel' | translate }}</div>
+
+    <mat-form-field appearance="outline" class="input-container-item-one-of-four">
+      <input value="number" formControlName="selectedTo" matInput/>
     </mat-form-field>
   </div>
 

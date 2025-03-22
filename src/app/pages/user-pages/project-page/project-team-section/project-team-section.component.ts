@@ -20,7 +20,7 @@ export class ProjectTeamSectionComponent implements OnDestroy {
 
   @Output() projectDevelopersUpdated: EventEmitter<void> = new EventEmitter<void>();
 
-  public developerTableColumns = ['fullName', 'location', 'action'];
+  public developerTableColumns = ['fullName', 'location', 'position', 'action'];
 
   private unsubscribe$: Subject<void> = new Subject<void>();
 

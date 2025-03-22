@@ -38,7 +38,7 @@
     border-radius: 20px;
     flex-wrap: wrap;
     margin-bottom: 2.4rem;
-    gap: 25px;
+    justify-content: space-between;
 
     font-weight: 500;
     font-size: 2rem;
@@ -92,13 +92,6 @@
         font-weight: 500;
         font-size: 2rem;
         line-height: 32px;
-      }
-
-      .user-role-name {
-        font-weight: 200;
-        font-size: 1.8rem;
-        line-height: 22px;
-        color: #8894A6;
       }
 
       .user-full-address {
@@ -188,4 +181,28 @@
   flex-wrap: wrap;
   justify-content: space-between;
   row-gap: 20px;
+}
+
+.user-header-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  gap: 0.4rem;
+}
+
+.user-role-name {
+  font-weight: 200;
+  font-size: 1.8rem;
+  line-height: 22px;
+  color: #8894A6;
+  opacity: 0.7;
+}
+
+.user-hourly-payment {
+  font-weight: 200;
+  line-height: 22px;
+  color: #5C4FB5;
 }

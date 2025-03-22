@@ -1,22 +1,43 @@
 <div class="profile-section-container">
   <div class="avatar-container">
-    <div (click)="avatar.click()" class="item-container-placeholder w-100">
-      <mat-icon *ngIf="!commonUser?.avatarName; else avatarPhoto" class="item-container-placeholder-icon"
-                [svgIcon]="'avatar-placeholder-icon'"></mat-icon>
+    <div class="d-flex h-100 align-items-center gap-25-px">
+      <div (click)="avatar.click()" class="item-container-placeholder w-100">
+        <mat-icon *ngIf="!commonUser?.avatarName; else avatarPhoto" class="item-container-placeholder-icon"
+                  [svgIcon]="'avatar-placeholder-icon'"></mat-icon>
 
-      <input #avatar
-             (change)="uploadAvatar($event)"
-             accept="image/png, image/jpeg, image/jpg, image/webp"
-             type="file">
+        <input #avatar
+               (change)="uploadAvatar($event)"
+               accept="image/png, image/jpeg, image/jpg, image/webp"
+               type="file">
 
-      <ng-template #avatarPhoto>
-        <img [src]="imageData" alt="" class="avatar-photo">
-      </ng-template>
+        <ng-template #avatarPhoto>
+          <img [src]="imageData" alt="" class="avatar-photo">
+        </ng-template>
+      </div>
+      <div class="user-info-container">
+        <div class="d-flex flex-col">
+          <div class="user-full-name"> {{ commonUser?.firstName }} {{ commonUser?.lastName }} </div>
+          <div class="user-role-name">
+            <ng-container *ngIf="user?.roleName === applicationRoleEnum.Dev && developer?.position; else defaultLabel">
+              {{ 'general.currentDeveloperLabel' | translate:{ value: (developer.position | developerPositionLabel | translate) } }}
+            </ng-container>
+            <ng-template #defaultLabel>
+              {{ user?.roleName === applicationRoleEnum.Dev
+              ? ('general.developerLabel' | translate)
+              : ('general.projectOwnerLabel' | translate) }}
+            </ng-template>
+          </div>
+          <div *ngIf="developer?.hourlyPayment">
+            <span class="user-hourly-payment">{{ developer?.hourlyPayment }}</span>
+            <span class="user-role-name"> {{ 'general.hourlyLabel' | translate }}</span>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="user-info-container">
-      <div class="user-full-name"> {{ commonUser?.firstName }} {{ commonUser?.lastName }} </div>
-      <div class="user-role-name">{{ user?.roleName === applicationRoleEnum.Dev ? ('general.developerLabel' | translate) : ('general.projectOwnerLabel' | translate) }}</div>
-    </div>
+    <button *ngIf="user.roleName === applicationRoleEnum.Dev" class="button-primary"
+            (click)="openUpdateDeveloperInfoDialog()">
+      <mat-icon [svgIcon]="'edit'"></mat-icon>
+    </button>
   </div>
 
   <div class="item-container">

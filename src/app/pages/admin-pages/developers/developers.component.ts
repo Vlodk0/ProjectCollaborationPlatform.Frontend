@@ -19,6 +19,7 @@ import {
 import {MatDialog} from "@angular/material/dialog";
 import {AdminDeveloperDataInterface} from "../../../shared/interfaces/admin/developers/admin-developer-data.interface";
 import {Page} from "../../../shared/interfaces/general/page.interface";
+import {developerPositionListConstant} from "../../../core/constants/developer-position-list.constant";
 
 @Component({
   selector: 'collabro-developers',
@@ -28,6 +29,7 @@ import {Page} from "../../../shared/interfaces/general/page.interface";
 export class DevelopersComponent implements OnInit, OnDestroy {
   public form: FormGroup<SearchAdminUserFormGroup>;
   public developers: Page<AdminDeveloperDataInterface>;
+  public developerPositionListConstant = developerPositionListConstant;
 
   public countries$: Observable<CountryInterface[]> = this.staticDataService.getAllCountries();
 

@@ -3,5 +3,6 @@ export enum UserSortingClauseEnum {
   LastName = 1,
   Email = 2,
   Registered = 3,
-  Updated = 4
+  Updated = 4,
+  HourlyPayment = 5
 }

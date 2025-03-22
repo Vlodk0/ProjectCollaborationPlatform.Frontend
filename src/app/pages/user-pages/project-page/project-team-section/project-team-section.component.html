@@ -17,6 +17,15 @@
     </td>
   </ng-container>
 
+  <ng-container matColumnDef="position">
+    <th *matHeaderCellDef mat-header-cell>{{ 'myProject.positionLabel' | translate }}
+    </th>
+
+    <td *matCellDef="let element" class="location-column" mat-cell>
+      {{ 'general.currentDeveloperLabel' | translate:{ value: element?.position } }}
+    </td>
+  </ng-container>
+
   <ng-container matColumnDef="action">
     <th *matHeaderCellDef mat-header-cell>{{ 'general.actionLabel' | translate }}</th>
 

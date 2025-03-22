@@ -122,6 +122,9 @@ export class AllDevelopersPageComponent implements OnDestroy, OnInit, AfterViewI
       countryCodes: filters.selectedCountry,
       technologyIds: filters.selectedTechnologies,
       frameworkIds: filters.selectedFrameworks,
+      positions: filters.selectedPositions,
+      from: filters.selectedFrom,
+      to: filters.selectedTo,
       currentPage: 0
     });
 
@@ -196,6 +199,9 @@ export class AllDevelopersPageComponent implements OnDestroy, OnInit, AfterViewI
       countryCodes: this.fb.control([]),
       technologyIds: this.fb.control([]),
       frameworkIds: this.fb.control([]),
+      positions: this.fb.control([]),
+      from: this.fb.control(null),
+      to: this.fb.control(null),
       currentPage: this.fb.control(0),
       pageSize: this.fb.control(20)
     });
