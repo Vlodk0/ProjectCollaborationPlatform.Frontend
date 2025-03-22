@@ -1,6 +1,7 @@
 import {AddressInterface} from "./address.interface";
 import {TechnologyInterface} from "../project/technology.interface";
 import {FrameworkInterface} from "../project/framework.interface";
+import {DeveloperPositionEnum} from "../../../core/enums/developer-position.enum";
 
 export interface DeveloperInterface {
   id: string
@@ -10,6 +11,8 @@ export interface DeveloperInterface {
   roleName: string;
   isDeleted: boolean;
   bio: string;
+  position: DeveloperPositionEnum;
+  hourlyPayment: number;
   address: AddressInterface;
   technologies: Array<TechnologyInterface>;
   frameworks: Array<FrameworkInterface>;

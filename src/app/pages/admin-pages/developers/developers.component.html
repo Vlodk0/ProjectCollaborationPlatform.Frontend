@@ -25,6 +25,15 @@
         </mat-select>
       </mat-form-field>
 
+      <mat-form-field appearance="outline" class="dropdown-menu">
+        <mat-label>{{ 'filterDevelopers.positionLabel' | translate }}</mat-label>
+        <mat-select formControlName="countryCodes" multiple>
+          <mat-option *ngFor="let position of developerPositionListConstant" [value]="position.type">
+            {{ position?.label }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
     </div>
   </div>
 

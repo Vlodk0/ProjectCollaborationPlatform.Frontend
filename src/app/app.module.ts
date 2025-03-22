@@ -104,6 +104,10 @@ import {
 } from "./pages/user-pages/notifications/notification-list-item/notification-list-item.component";
 import { InvitationsComponent } from './pages/user-pages/invitations/invitations.component';
 import {ConfirmDialogComponent} from "./shared/components/dialogs/confirm-dialog/confirm-dialog.component";
+import { DeveloperPositionLabelPipe } from './core/pipes/developer-position-label.pipe';
+import {
+  DeveloperWorkInfoDialogComponent
+} from "./shared/components/dialogs/developer-work-info/developer-work-info-dialog.component";
 
 export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -171,6 +175,7 @@ const MODULES = [
     ResetPasswordPageComponent,
     SidebarComponent,
     HeaderComponent,
+    DeveloperWorkInfoDialogComponent,
     ProfilePageComponent,
     AllProjectsPageComponent,
     EmailSuccessPageComponent,
@@ -205,7 +210,8 @@ const MODULES = [
     ProjectOwnersProfileComponent,
     ProjectDetailComponent,
     NotificationsComponent,
-    InvitationsComponent
+    InvitationsComponent,
+    DeveloperPositionLabelPipe
   ],
   imports: [
     ...MODULES,

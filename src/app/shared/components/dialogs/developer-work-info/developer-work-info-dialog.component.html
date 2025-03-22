@@ -1,0 +1,37 @@
+<div class="modal-wrapper" [formGroup]="developerInfoFormGroup">
+  <div class="page-title">{{ 'profileSettings.updateWorkingInfoLabel' | translate }}</div>
+
+  <div class="input-container m-t-2-4">
+    <mat-form-field appearance="outline" class="input-container-item-large">
+      <mat-label>{{ 'filterDevelopers.positionLabel' | translate }}</mat-label>
+      <mat-select formControlName="position">
+        <mat-option *ngFor="let position of developerPositionListConstant" [value]="position?.type">
+          {{ position?.label | translate }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="input-container-item-large">
+      <mat-label>{{ 'profileSettings.hourlyPaymentLabel' | translate }}</mat-label>
+
+      <input formControlName="hourlyPayment" matInput/>
+
+      <collabro-control-validation-message [control]="developerInfoFormGroup.get('hourlyPayment')"/>
+    </mat-form-field>
+
+    <div class="button-container justify-content-space-between w-100 flex-wrap">
+      <button mat-dialog-close
+              class="transparent-button"
+              mat-button>
+        {{ 'general.cancelLabel' | translate }}
+      </button>
+
+      <button class="button-purple"
+              [disabled]="!developerInfoFormGroup.valid"
+              (click)="updateDeveloperInfo()"
+              mat-button>
+        {{ 'general.saveLabel' | translate }}
+      </button>
+    </div>
+  </div>
+</div>

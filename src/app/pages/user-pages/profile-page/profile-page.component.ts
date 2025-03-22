@@ -15,6 +15,9 @@ import {SpinnerService} from "../../../shared/services/spinner.service";
 import {DeveloperInterface} from "../../../shared/interfaces/developer/developer.interface";
 import {ProjectOwnerService} from "../../../shared/services/project-owner.service";
 import {ProjectOwnerInterface} from "../../../shared/interfaces/project/project-owner.interface";
+import {
+  DeveloperWorkInfoDialogComponent
+} from "../../../shared/components/dialogs/developer-work-info/developer-work-info-dialog.component";
 
 @Component({
   selector: 'app-profile-page',
@@ -170,6 +173,27 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
       .subscribe({
         next: () => {
           this.subscribeToCurrentUser();
+        }
+      });
+  }
+
+  public openUpdateDeveloperInfoDialog(): void {
+    const dialogRef = this.matDialog.open(DeveloperWorkInfoDialogComponent, {
+      disableClose: false,
+      data: {
+        position: this.developer.position,
+        hourlyPayment: this.developer.hourlyPayment,
+      }
+    });
+
+    dialogRef.afterClosed()
+      .pipe(
+        takeUntil(this.unsubscribe$),
+        filter((result) => result)
+      )
+      .subscribe({
+        next: () => {
+          this.getDeveloper(this.user?.id);
         }
       });
   }

@@ -33,6 +33,9 @@
                                       [selectedCountry]="developersFormGroup.get('countryCodes')?.value"
                                       [selectedTechnology]="developersFormGroup.get('technologyIds')?.value"
                                       [selectedFramework]="developersFormGroup.get('frameworkIds')?.value"
+                                      [selectedPositions]="developersFormGroup.get('positions')?.value"
+                                      [selectedFrom]="developersFormGroup.get('from')?.value"
+                                      [selectedTo]="developersFormGroup.get('to')?.value"
                                       [menuIsClosed]="menuIsClosed"
                                       (developerFilters)="applyFilters($event)"/>
         </mat-menu>

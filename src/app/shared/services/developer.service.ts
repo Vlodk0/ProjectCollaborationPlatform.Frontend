@@ -6,6 +6,7 @@ import {Technology} from "../interfaces/technology";
 import {DeveloperInterface} from "../interfaces/developer/developer.interface";
 import {DeveloperRequestInterface} from "../interfaces/developer/developer-request.interface";
 import { Page } from '../interfaces/general/page.interface';
+import {UpdateDeveloperInfoInterface} from "../interfaces/developer/update-developer-info.interface";
 
 @Injectable({
   providedIn: 'root'
@@ -46,5 +47,9 @@ export class DeveloperService {
 
   public filterDevelopers(params: DeveloperRequestInterface | HttpParams): Observable<Page<DeveloperInterface>> {
     return this.httpClient.get<Page<DeveloperInterface>>(`${this.apiUrl}/search/developers`, { params: params as HttpParams });
+  }
+
+  public updateDeveloperInfo(request: UpdateDeveloperInfoInterface): Observable<void> {
+    return this.httpClient.patch<void>(`${this.apiUrl}`, request)
   }
 }

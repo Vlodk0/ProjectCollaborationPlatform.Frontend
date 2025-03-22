@@ -65,4 +65,12 @@ export class ProjectsService {
   public filterProjects(params: FilterProjectRequestInterface | HttpParams): Observable<Page<ProjectInterface>> {
     return this.httpClient.get<Page<ProjectInterface>>(`${this.apiUrl}/search/projects`, { params: params as HttpParams });
   }
+
+  public filterProjectOwnerProjects(params: FilterProjectRequestInterface | HttpParams): Observable<Page<ProjectInterface>> {
+    return this.httpClient.get<Page<ProjectInterface>>(`${this.apiUrl}/search/projectOwner/projects`, { params: params as HttpParams });
+  }
+
+  public filterDeveloperProjects(params: FilterProjectRequestInterface | HttpParams): Observable<Page<ProjectInterface>> {
+    return this.httpClient.get<Page<ProjectInterface>>(`${this.apiUrl}/search/developer/projects`, { params: params as HttpParams });
+  }
 }

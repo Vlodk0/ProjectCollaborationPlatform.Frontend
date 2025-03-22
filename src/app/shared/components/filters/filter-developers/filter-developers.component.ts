@@ -6,6 +6,8 @@ import {FrameworkInterface} from "../../../interfaces/project/framework.interfac
 import {DeveloperFilterInterface} from "../../../interfaces/developer/developer-filter.interface";
 import {DeveloperFilterFormGroup} from "../../../../core/types/form-groups/developer-filter-form-group";
 import {FormBuilder, FormGroup} from "@angular/forms";
+import {developerPositionListConstant} from "../../../../core/constants/developer-position-list.constant";
+import {DeveloperPositionEnum} from "../../../../core/enums/developer-position.enum";
 
 @Component({
   selector: 'collabro-filter-developers',
@@ -19,11 +21,15 @@ export class FilterDevelopersComponent implements OnInit, OnChanges {
   @Input() public selectedCountry: string[] | null;
   @Input() public selectedTechnology: string[] | null;
   @Input() public selectedFramework: string[] | null;
+  @Input() public selectedPositions: DeveloperPositionEnum[] | null;
+  @Input() public selectedFrom: number | null;
+  @Input() public selectedTo: number | null;
   @Input() public menuIsClosed: boolean;
 
   @Output() public developerFilters = new EventEmitter<DeveloperFilterInterface>();
 
   public developerFilterFormGroup: FormGroup<DeveloperFilterFormGroup>;
+  public developerPositionListConstant = developerPositionListConstant;
 
   constructor(private readonly fb: FormBuilder) {
   }
@@ -52,6 +58,9 @@ export class FilterDevelopersComponent implements OnInit, OnChanges {
       selectedCountry: this.fb.control(this.selectedCountry ?? null),
       selectedFrameworks: this.fb.control( this.selectedFramework ?? null),
       selectedTechnologies: this.fb.control(this.selectedTechnology ?? null),
+      selectedPositions: this.fb.control(this.selectedPositions ?? null),
+      selectedFrom: this.fb.control(this.selectedFrom ?? null),
+      selectedTo: this.fb.control(this.selectedTo ?? null)
     });
   }
 }

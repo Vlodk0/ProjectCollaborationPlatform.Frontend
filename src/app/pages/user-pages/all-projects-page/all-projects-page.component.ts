@@ -1,6 +1,6 @@
 import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {ProjectsService} from "../../../shared/services/projects.service";
-import {finalize, Subject, takeUntil} from "rxjs";
+import {debounceTime, finalize, Subject, takeUntil} from "rxjs";
 import {ProjectInterface} from "../../../shared/interfaces/project/project.interface";
 import {SpinnerService} from "../../../shared/services/spinner.service";
 import {SnackBarService} from "../../../shared/services/snack-bar.service";
@@ -53,6 +53,7 @@ export class AllProjectsPageComponent implements OnDestroy, OnInit, AfterViewIni
     this.getProjects()
     this.subscribeToCurrentUser();
     this.setForm();
+    this.subscribeToSearchTerm();
     this.getTechnologies();
     this.getAllFrameworks();
   }
@@ -185,10 +186,29 @@ export class AllProjectsPageComponent implements OnDestroy, OnInit, AfterViewIni
       });
   }
 
+  public resetSearch(): void {
+    this.projectsFormGroup.patchValue({searchTerm: ''});
+    this.filterProjects();
+  }
+
+  private subscribeToSearchTerm(): void {
+    this.projectsFormGroup.get('searchTerm').valueChanges
+      .pipe(takeUntil(this.unsubscribe$), debounceTime(500))
+      .subscribe({
+        next: () => {
+          this.projectsFormGroup.patchValue({currentPage: 0});
+          if (this.projectsFormGroup.get('searchTerm').value.length) {
+            this.filterProjects();
+          }
+        }
+      });
+  }
+
   private setForm(): void {
     this.projectsFormGroup = this.fb.group<ProjectRequestFormGroup>({
       technologyIds: this.fb.control([]),
       frameworkIds: this.fb.control([]),
+      searchTerm: this.fb.control(''),
       currentPage: this.fb.control(0),
       pageSize: this.fb.control(20)
     });

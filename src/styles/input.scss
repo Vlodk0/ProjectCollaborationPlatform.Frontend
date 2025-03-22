@@ -81,6 +81,10 @@ input[type=number] {
       width: calc((100% - 1.2rem) / 3);
     }
 
+    &-one-of-four {
+      width: calc((100% - 1.2rem) / 4);
+    }
+
     &-two-of-three {
       width: calc((100% - 1.2rem) / 3 * 2);
     }

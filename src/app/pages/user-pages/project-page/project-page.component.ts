@@ -69,7 +69,6 @@ export class ProjectPageComponent implements OnInit, OnDestroy {
       .subscribe({
         next: user => {
           this.user = user;
-          console.log(this.user.id);
         }
       });
   }

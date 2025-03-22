@@ -23,7 +23,10 @@
     "areYouSureYouWantLogOutLabel": "Are you sure you want to log out?",
     "yesLabel": "Yes",
     "noLabel": "No",
-    "projectLabel": "Project"
+    "projectLabel": "Project",
+    "currentDeveloperLabel": "{{value}}-developer",
+    "hourlyLabel": "/ hourly",
+    "toLabel": "to"
   },
 
   "profileSettings": {
@@ -34,7 +37,10 @@
     "changeYouAddressLabel": "Change your address",
     "cityLabel": "City",
     "countryLabel": "Country",
-    "stateLabel": "State"
+    "stateLabel": "State",
+    "updateWorkingInfoLabel": "Update working info",
+    "hourlyPaymentLabel": "Hourly payment",
+    "positionLabel": "Position"
   },
 
   "validationService": {
@@ -143,8 +149,8 @@
     "flutterLabel": "Flutter"
   },
   "myProject": {
-    "wouldYouLikeToCreateNewProjectLabel": "Would you like to create a new project?",
-    "ifYesClickCreateProjectLabel": "If yes, click create project",
+    "youHaveNotCreatedAProjectYetLabel": "You Haven’t Created a Project Yet",
+    "ifYesClickCreateProjectLabel": "Would you like to start a new project? Click 'Create Project' to begin and bring your ideas to life!",
     "youHaveNotCreatedProjectLabel": "You have not created a project yet",
     "createProjectLabel": "Create Project",
     "requestVisitLabel": "Test",
@@ -169,6 +175,7 @@
     "summaryLabel": "Summary",
     "teamLabel": "Team",
     "locationLabel": "Location",
+    "positionLabel": "Position",
     "boardLabel": "Board",
     "todoLabel": "TO DO",
     "doingLabel": "DOING",
@@ -223,7 +230,9 @@
     "technologyLabel": "Technology",
     "frameworkLabel": "Framework",
     "clearFiltersLabel": "Clear filters",
-    "applyFiltersLabel": "Apply filters"
+    "applyFiltersLabel": "Apply filters",
+    "positionLabel": "Position",
+    "hourlyRateLabel": "Hourly Rate"
   },
 
   "projects": {
@@ -283,6 +292,13 @@
     "theProjectOwnerHasInvitedYouToJoinProjectLabel": "The project owner has invited you to join {{value}}. Review the project details and decide whether to accept or decline the invitation."
   },
 
+  "developerPosition": {
+    "juniorLabel": "Junior",
+    "middleLabel": "Middle",
+    "seniorLabel": "Senior",
+    "leadLabel": "Lead"
+  },
+
   "emptyState": {
     "currentListOfProjectIsEmptyLabel": "The current list of projects is empty",
     "projectOwnerNotCreatedProjectLabel": "No one project owner has not created any projects yet",
@@ -295,6 +311,8 @@
     "notTeamMembersYetLabel": "No Team Members Yet!",
     "yourProjectTeamIsEmptyLabel": "Your project team is currently empty. Invite developers to collaborate and start building together!",
     "noRequestsYetLabel": "No Requests Yet!",
-    "noDevelopersHaveRequestedToJoinLabel": "No developers have requested to join your project yet. Once requests come in, they'll appear here for you to review."
+    "noDevelopersHaveRequestedToJoinLabel": "No developers have requested to join your project yet. Once requests come in, they'll appear here for you to review.",
+    "youAreNotAPartOfProjectYetLabel": "You're Not Part of Any Project Yet",
+    "exploreProjectOrWaitRequestLabel": "Explore projects and send join requests, or wait for invitations from project owners to start collaborating."
   }
 }

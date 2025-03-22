@@ -1,25 +1,44 @@
-<div *ngIf="projects.length || isLoadingProjects else emptyState" class="projects-section-container">
-  <div class="d-flex align-items-center flex-wrap column-gap-1 row-gap-1 m-b-1-6">
-    <div class="projects-title">{{ 'projects.projectsLabel' | translate }}</div>
+<div *ngIf="projects.length || isLoadingProjects else emptyState"
+     [formGroup]="projectsFormGroup"
+     class="projects-section-container">
+  <div class="d-flex justify-content-space-between w-100">
+    <div class="d-flex align-items-center flex-wrap column-gap-1 row-gap-1 m-b-1-6">
+      <div class="projects-title">{{ 'projects.projectsLabel' | translate }}</div>
 
-    <div class="filter-button">
-      <button mat-icon-button
-              [matMenuTriggerFor]="filters"
-              #filterMenu="matMenuTrigger">
-        <mat-icon [svgIcon]="'filter'"></mat-icon>
-      </button>
+      <div class="filter-button">
+        <button mat-icon-button
+                [matMenuTriggerFor]="filters"
+                #filterMenu="matMenuTrigger">
+          <mat-icon [svgIcon]="'filter'"></mat-icon>
+        </button>
 
-      <mat-menu #filters="matMenu" xPosition="before">
-        <collabro-filter-projects [technologies]="technologies"
-                                  [frameworks]="frameworks"
-                                  [menuIsClosed]="menuIsClosed"
-                                  [selectedTechnology]="projectsFormGroup.get('technologyIds')?.value"
-                                  [selectedFramework]="projectsFormGroup.get('frameworkIds')?.value"
-                                  (projectFilters)="applyFilters($event)" />
-      </mat-menu>
+        <mat-menu #filters="matMenu" xPosition="before">
+          <collabro-filter-projects [technologies]="technologies"
+                                    [frameworks]="frameworks"
+                                    [menuIsClosed]="menuIsClosed"
+                                    [selectedTechnology]="projectsFormGroup.get('technologyIds')?.value"
+                                    [selectedFramework]="projectsFormGroup.get('frameworkIds')?.value"
+                                    (projectFilters)="applyFilters($event)" />
+        </mat-menu>
+      </div>
+    </div>
+
+    <div class="small-icon-button">
+      <mat-form-field appearance="outline" class="input-container-item-large search-filter">
+        <mat-icon matPrefix [svgIcon]="'search'"></mat-icon>
+
+        <input formControlName="searchTerm" [placeholder]="'general.searchLabel' | translate" matInput/>
+
+        <button mat-icon-button
+                matSuffix
+                (click)="resetSearch()"
+                class="m-r-1"
+                *ngIf="projectsFormGroup.get('searchTerm')?.value">
+          <mat-icon [svgIcon]="'close'"></mat-icon>
+        </button>
+      </mat-form-field>
     </div>
   </div>
-
   <div class="overflow-y-hidden">
     <collabro-paginator class="h-100"
                         [flexDirection]="'row'"
