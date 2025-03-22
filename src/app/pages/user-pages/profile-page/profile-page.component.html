@@ -40,103 +40,105 @@
     </button>
   </div>
 
-  <div class="item-container">
-    <div class="item-container-header-wrapper">
-      <div class="item-container-header flex-wrap">
-        <div class="title">Personal Information</div>
-        <button class="button-primary"
-                (click)="openUpdatePersonalInfoDialog()">
-          <mat-icon [svgIcon]="'edit'"></mat-icon>
-        </button>
-      </div>
-      <div class="user-info-wrapper">
-        <div class="user-info-container row-gap-0-4 column-gap-0-4">
-          <div class="info-title"> First Name*</div>
-          <div class="input-wrapper"> {{ commonUser?.firstName }} </div>
+  <div class="content">
+    <div class="item-container">
+      <div class="item-container-header-wrapper">
+        <div class="item-container-header flex-wrap">
+          <div class="title">Personal Information</div>
+          <button class="button-primary"
+                  (click)="openUpdatePersonalInfoDialog()">
+            <mat-icon [svgIcon]="'edit'"></mat-icon>
+          </button>
+        </div>
+        <div class="user-info-wrapper">
+          <div class="user-info-container row-gap-0-4 column-gap-0-4">
+            <div class="info-title"> First Name*</div>
+            <div class="input-wrapper"> {{ commonUser?.firstName }} </div>
+          </div>
+
+          <div class="user-info-container row-gap-0-4 column-gap-0-4">
+            <div class="info-title"> Last Name*</div>
+            <div class="input-wrapper"> {{ commonUser?.lastName }} </div>
+          </div>
+
+          <div class="user-info-container row-gap-0-4 column-gap-0-4">
+            <div class="info-title">Email*</div>
+            <div class="input-wrapper">{{ commonUser?.email }}</div>
+          </div>
         </div>
 
-        <div class="user-info-container row-gap-0-4 column-gap-0-4">
-          <div class="info-title"> Last Name*</div>
-          <div class="input-wrapper"> {{ commonUser?.lastName }} </div>
-        </div>
-
-        <div class="user-info-container row-gap-0-4 column-gap-0-4">
-          <div class="info-title">Email*</div>
-          <div class="input-wrapper">{{ commonUser?.email }}</div>
-        </div>
-      </div>
-
-      <div class="w-100">
-        <div class="user-info-container m-t-2">
-          <div class="info-title">Bio</div>
-          <textarea class="text-area-wrapper"
-                    disabled="disabled"
-                    rows="5"
-                    placeholder="{{ commonUser?.bio }}"></textarea>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="item-container">
-    <div class="item-container-header-wrapper">
-      <div class="item-container-header">
-        <div class="title">Address</div>
-        <button class="button-primary"
-                (click)="openAddressDialog()">
-          <mat-icon [svgIcon]="'edit'"></mat-icon>
-        </button>
-      </div>
-      <div class="user-info-wrapper">
-        <div class="user-info-container">
-          <div class="info-title"> Country </div>
-          <div class="input-wrapper"> {{ commonUser?.address?.countryName }} </div>
-        </div>
-
-        <div class="user-info-container">
-          <div class="info-title"> City </div>
-          <div class="input-wrapper"> {{ commonUser?.address?.city }} </div>
-        </div>
-
-        <div class="user-info-container">
-          <div class="info-title"> State</div>
-          <div class="input-wrapper"> {{ commonUser?.address?.state }} </div>
+        <div class="w-100">
+          <div class="user-info-container m-t-2">
+            <div class="info-title">Bio</div>
+            <textarea class="text-area-wrapper"
+                      disabled="disabled"
+                      rows="5"
+                      placeholder="{{ commonUser?.bio }}"></textarea>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <div *ngIf="user?.roleName === applicationRoleEnum.Dev" class="item-container">
-    <div class="item-container-header-wrapper">
-      <div class="item-container-header flex-wrap">
-        <div class="title">{{'technologies.technologiesLabel' | translate}}</div>
-        <button class="button-primary"
-                (click)="openTechnologyDialog()">
-          <mat-icon [svgIcon]="'edit'"></mat-icon>
-        </button>
-      </div>
-      <div class="technology-wrapper">
-        <div class="technology-item-container"
-             *ngFor="let item of developer?.technologies">
-          {{ item.technology | translate }}
+    <div class="item-container">
+      <div class="item-container-header-wrapper">
+        <div class="item-container-header">
+          <div class="title">Address</div>
+          <button class="button-primary"
+                  (click)="openAddressDialog()">
+            <mat-icon [svgIcon]="'edit'"></mat-icon>
+          </button>
+        </div>
+        <div class="user-info-wrapper">
+          <div class="user-info-container">
+            <div class="info-title"> Country </div>
+            <div class="input-wrapper"> {{ commonUser?.address?.countryName }} </div>
+          </div>
+
+          <div class="user-info-container">
+            <div class="info-title"> City </div>
+            <div class="input-wrapper"> {{ commonUser?.address?.city }} </div>
+          </div>
+
+          <div class="user-info-container">
+            <div class="info-title"> State</div>
+            <div class="input-wrapper"> {{ commonUser?.address?.state }} </div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <div *ngIf="user?.roleName === applicationRoleEnum.Dev" class="item-container">
-    <div class="item-container-header-wrapper">
-      <div class="item-container-header">
-        <div class="title">{{ 'frameworks.frameworksLabel' | translate }}</div>
-        <button class="button-primary"
-                (click)="openFrameworkDialog()">
-          <mat-icon [svgIcon]="'edit'"></mat-icon>
-        </button>
+    <div *ngIf="user?.roleName === applicationRoleEnum.Dev" class="item-container">
+      <div class="item-container-header-wrapper">
+        <div class="item-container-header flex-wrap">
+          <div class="title">{{'technologies.technologiesLabel' | translate}}</div>
+          <button class="button-primary"
+                  (click)="openTechnologyDialog()">
+            <mat-icon [svgIcon]="'edit'"></mat-icon>
+          </button>
+        </div>
+        <div class="technology-wrapper">
+          <div class="technology-item-container"
+               *ngFor="let item of developer?.technologies">
+            {{ item.technology | translate }}
+          </div>
+        </div>
       </div>
-      <div class="technology-wrapper">
-        <div class="technology-item-container"
-             *ngFor="let item of developer?.frameworks">
-          {{ item.framework | translate }}
+    </div>
+
+    <div *ngIf="user?.roleName === applicationRoleEnum.Dev" class="item-container">
+      <div class="item-container-header-wrapper">
+        <div class="item-container-header">
+          <div class="title">{{ 'frameworks.frameworksLabel' | translate }}</div>
+          <button class="button-primary"
+                  (click)="openFrameworkDialog()">
+            <mat-icon [svgIcon]="'edit'"></mat-icon>
+          </button>
+        </div>
+        <div class="technology-wrapper">
+          <div class="technology-item-container"
+               *ngFor="let item of developer?.frameworks">
+            {{ item.framework | translate }}
+          </div>
         </div>
       </div>
     </div>
