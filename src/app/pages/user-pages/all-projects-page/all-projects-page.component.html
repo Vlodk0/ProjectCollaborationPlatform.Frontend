@@ -1,7 +1,7 @@
 <div *ngIf="projects.length || isLoadingProjects else emptyState"
      [formGroup]="projectsFormGroup"
      class="projects-section-container">
-  <div class="d-flex justify-content-space-between w-100">
+  <div class="d-flex justify-content-space-between w-100 m-b-1-6">
     <div class="d-flex align-items-center flex-wrap column-gap-1 row-gap-1 m-b-1-6">
       <div class="projects-title">{{ 'projects.projectsLabel' | translate }}</div>
     </div>
@@ -11,7 +11,7 @@
         <button mat-icon-button
                 [matMenuTriggerFor]="filters"
                 #filterMenu="matMenuTrigger">
-          <mat-icon [svgIcon]="'filter'"></mat-icon>
+          <mat-icon [svgIcon]="'filter'" />
         </button>
 
         <mat-menu #filters="matMenu" xPosition="before">
@@ -20,6 +20,8 @@
                                     [menuIsClosed]="menuIsClosed"
                                     [selectedTechnology]="projectsFormGroup.get('technologyIds')?.value"
                                     [selectedFramework]="projectsFormGroup.get('frameworkIds')?.value"
+                                    [selectedProjectStatuses]="projectsFormGroup.get('projectStatuses').value"
+                                    [selectedPaymentTypes]="projectsFormGroup.get('paymentTypes').value"
                                     (projectFilters)="applyFilters($event)" />
         </mat-menu>
       </div>

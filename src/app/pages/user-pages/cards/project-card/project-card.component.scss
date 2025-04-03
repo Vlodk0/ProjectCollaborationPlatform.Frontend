@@ -63,3 +63,33 @@
     }
   }
 }
+
+.status-chip {
+  border-radius: 16px;
+  color: azure;
+  padding: 7px 12px;
+  align-items: center;
+  font-weight: 200;
+  font-size: 1.4rem;
+  line-height: 2.2rem;
+
+  &.active {
+    background-color: #28a745;
+    opacity: 0.7;
+  }
+
+  &.draft {
+    background-color: #007bff;
+    opacity: 0.7;
+  }
+
+  &.ended {
+    background-color: #C93535;
+    opacity: 0.7;
+  }
+
+  &.paused {
+    background-color: #5C4FB5;
+    opacity: 0.7;
+  }
+}

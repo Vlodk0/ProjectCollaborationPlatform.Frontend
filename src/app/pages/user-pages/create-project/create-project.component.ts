@@ -19,6 +19,8 @@ import {ProjectsService} from "../../../shared/services/projects.service";
 import {SpinnerService} from "../../../shared/services/spinner.service";
 import {CreateProjectInterface} from "../../../shared/interfaces/project/create-project.interface";
 import {SnackBarService} from "../../../shared/services/snack-bar.service";
+import {PaymentTypeEnum} from "../../../core/enums/payment-type.enum";
+import {paymentTypeListConstant} from "../../../core/constants/payment-type-list.constant";
 
 @Component({
   selector: 'collabro-create-project',
@@ -35,6 +37,7 @@ export class CreateProjectComponent implements OnInit, OnDestroy {
   public createProjectStepperListEnum = CreateProjectStepperListEnum;
   public projectTypeListConstant = projectTypeListConstant;
   public timeDurationListConstant = timeDurationListConstant;
+  public paymentTypeListConstant = paymentTypeListConstant;
   public projectForm: FormGroup<CreateProjectFormGroup>;
   public technologies: TechnologyInterface[] = [];
   public frameworks: FrameworkInterface[] = [];
@@ -75,7 +78,9 @@ export class CreateProjectComponent implements OnInit, OnDestroy {
       case CreateProjectStepperListEnum.ProjectDetails:
         return !!this.projectForm.get('projectDetails').value
       case CreateProjectStepperListEnum.PaymentAndDuration:
-        return !!this.projectForm.get('payment').value && !!this.projectForm.get('timeDuration').value;
+        return !!this.projectForm.get('payment').value
+          && !!this.projectForm.get('timeDuration').value
+          && !!this.projectForm.get('paymentType').value;
       case CreateProjectStepperListEnum.Technologies:
         return !!this.projectForm.get('technologyIds').value?.length
       case CreateProjectStepperListEnum.Frameworks:
@@ -221,7 +226,8 @@ export class CreateProjectComponent implements OnInit, OnDestroy {
       type: this.fb.control<ProjectType>(null, Validators.required),
       timeDuration: this.fb.control<TimeDuration>(null, Validators.required),
       frameworkIds: this.fb.control([]),
-      technologyIds: this.fb.control([])
+      technologyIds: this.fb.control([]),
+      paymentType: this.fb.control<PaymentTypeEnum>(null, Validators.required)
     });
   }
 }

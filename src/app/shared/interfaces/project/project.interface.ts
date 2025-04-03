@@ -5,6 +5,8 @@ import {ProjectOwnerInterface} from "./project-owner.interface";
 import {ProjectType} from "../../../core/enums/project-type.enum";
 import {TimeDuration} from "../../../core/enums/time-duration.enum";
 import {FunctionalityBlockInterface} from "../functionality-block/functionality-block.interface";
+import {ProjectStatusEnum} from "../../../core/enums/project-status.enum";
+import {PaymentTypeEnum} from "../../../core/enums/payment-type.enum";
 
 export interface ProjectInterface {
   id: string;
@@ -20,4 +22,6 @@ export interface ProjectInterface {
   isFullTeam: boolean;
   projectTasks: Array<FunctionalityBlockInterface>;
   createdTimeStamp: string;
+  status: ProjectStatusEnum;
+  paymentType: PaymentTypeEnum;
 }

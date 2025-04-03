@@ -1,11 +1,38 @@
 <div class="project-wrapper flex-col">
-  <div class="project-subtitle">{{ project.type | projectTypeLabel | translate | uppercase }}</div>
+  <div class="d-flex w-100 justify-content-space-between align-items-center">
+    <div class="project-subtitle">{{ project.type | projectTypeLabel | translate | uppercase }}</div>
+    <ng-container [ngSwitch]="project.status">
+      <ng-template [ngSwitchCase]="projectStatusEnum.Draft">
+              <span class="status-chip draft">
+                {{ project.status | projectStatusLabel | translate }}
+              </span>
+      </ng-template>
+      <ng-template [ngSwitchCase]="projectStatusEnum.Active">
+              <span class="status-chip active">
+                {{ project.status | projectStatusLabel | translate }}
+              </span>
+      </ng-template>
+      <ng-template [ngSwitchCase]="projectStatusEnum.Ended">
+              <span class="status-chip ended">
+                {{ project.status | projectStatusLabel | translate }}
+              </span>
+      </ng-template>
+      <ng-template [ngSwitchCase]="projectStatusEnum.Paused">
+              <span class="status-chip paused">
+                {{ project.status | projectStatusLabel | translate }}
+              </span>
+      </ng-template>
+    </ng-container>
+  </div>
   <div class="project-upper-section-wrapper">
     <div class="project-header">{{ project.title }}</div>
-    <div class="d-flex align-items-center">
+    <div *ngIf="project.paymentType === paymentTypeEnum.TimeAndMaterials; else fixBidPayment" class="d-flex align-items-center">
       <span class="project-price">{{ project.payment | currency }}</span>
       <span class="project-price-time">/hour</span>
     </div>
+    <ng-template #fixBidPayment>
+      <span class="project-price">{{ project.payment | currency }}</span>
+    </ng-template>
   </div>
   <div class="project-lower-section-wrapper">
     <div class="d-flex align-items-center">

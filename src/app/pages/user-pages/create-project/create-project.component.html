@@ -79,12 +79,29 @@
         </ng-container>
 
         <ng-container
-          *ngIf="{state: !!this.projectForm.get('payment').value && !!this.projectForm.get('timeDuration').value} as data">
+          *ngIf="{state: !!this.projectForm.get('payment').value
+            && !!this.projectForm.get('timeDuration').value
+            && !!this.projectForm.get('paymentType').value} as data">
           <mat-step [completed]="data.state"
                     [aria-labelledby]="data.state ? 'completed' : ''"
                     [label]="createProjectStepperListEnum.PaymentAndDuration">
             <div class="content-container choose-title-step">
               <ng-container>
+                <h2
+                  class="request-visit-content-title project-title m-t-2-4">{{ 'myProject.selectPaymentTypeLabel' | translate }}</h2>
+                <mat-form-field appearance="outline" class="input-container-item-large">
+                  <mat-label>{{ 'myProject.paymentTypeLabel' | translate }}</mat-label>
+
+                  <mat-select formControlName="paymentType">
+                    <mat-option *ngFor="let time of paymentTypeListConstant"
+                                [value]="time?.type">
+                      {{ time?.label | translate }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+
+                <collabro-control-validation-message [control]="projectForm.get('timeDuration')"/>
+
                 <h2
                   class="request-visit-content-title project-title">{{ 'myProject.enterPaymentPerHourLabel' | translate }}</h2>
 

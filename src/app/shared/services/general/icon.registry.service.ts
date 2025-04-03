@@ -107,5 +107,8 @@ export class IconRegistry {
     matIconRegistry.addSvgIcon(
       'dots',
       domSanitizer.bypassSecurityTrustResourceUrl('assets/icons/dots-icon.svg'));
+    matIconRegistry.addSvgIcon(
+      'settings',
+      domSanitizer.bypassSecurityTrustResourceUrl('assets/icons/settings-icon.svg'));
   }
 }

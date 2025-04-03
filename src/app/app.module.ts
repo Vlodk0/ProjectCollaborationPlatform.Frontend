@@ -108,6 +108,13 @@ import { DeveloperPositionLabelPipe } from './core/pipes/developer-position-labe
 import {
   DeveloperWorkInfoDialogComponent
 } from "./shared/components/dialogs/developer-work-info/developer-work-info-dialog.component";
+import {ProjectStatusLabelPipe} from "./core/pipes/project-status-label.pipe.pipe";
+import {
+  ProjectSettingsDialogComponent
+} from "./shared/components/dialogs/project-settings/project-settings-dialog.component";
+import {MatDatepickerModule} from "@angular/material/datepicker";
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatNativeDateModule} from "@angular/material/core";
+import {MAT_MOMENT_DATE_FORMATS, MomentDateAdapter} from "@angular/material-moment-adapter";
 
 export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -169,6 +176,7 @@ const MODULES = [
     AuthPageComponent,
     AfterRegisterPageComponent,
     InputComponent,
+    ProjectSettingsDialogComponent,
     ButtonComponent,
     LoginPageComponent,
     RegisterPageComponent,
@@ -211,7 +219,8 @@ const MODULES = [
     ProjectDetailComponent,
     NotificationsComponent,
     InvitationsComponent,
-    DeveloperPositionLabelPipe
+    DeveloperPositionLabelPipe,
+    ProjectStatusLabelPipe
   ],
   imports: [
     ...MODULES,
@@ -225,7 +234,8 @@ const MODULES = [
     MatCardHeader,
     NgApexchartsModule,
     NgSelectModule,
-    NgxDatatableModule
+    NgxDatatableModule,
+    MatDatepickerModule,
   ],
   providers: [
     {
@@ -233,6 +243,11 @@ const MODULES = [
       useClass: HttpRequestInterceptor,
       multi: true
     },
+    { provide: DateAdapter, useClass: MomentDateAdapter },
+    { provide: MAT_DATE_LOCALE, useValue: 'en-US' },
+    { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS },
+    MatDatepickerModule,
+    MatNativeDateModule,
     LocalDatePipe
   ],
   bootstrap: [AppComponent],
@@ -246,6 +261,7 @@ const MODULES = [
     MatCheckboxModule,
     MatTabsModule,
     MatTableModule,
+    MatDatepickerModule
   ]
 })
 export class AppModule {
