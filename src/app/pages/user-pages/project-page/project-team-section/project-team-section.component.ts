@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnDestroy, Output} from '@angular/core';
 import {ProjectsService} from "../../../../shared/services/projects.service";
 import {SpinnerService} from "../../../../shared/services/spinner.service";
 import {DeveloperInterface} from "../../../../shared/interfaces/developer/developer.interface";

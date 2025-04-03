@@ -11,9 +11,9 @@ import {FeedbackInterface} from "../interfaces/feedback/feedback.interface";
 @Injectable({
   providedIn: 'root'
 })
-export class FeedbackService {
+export class DeveloperFeedbackService {
 
-  private apiUrl: string = `${environment.apiUrl}/Feedback`;
+  private apiUrl: string = `${environment.apiUrl}/DeveloperFeedback`;
 
   constructor(private httpClient: HttpClient) {
   }

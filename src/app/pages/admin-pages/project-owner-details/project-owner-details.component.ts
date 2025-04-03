@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import {ProjectOwnerDetailsTabsEnum} from "../../../core/enums/pages/project-owner-details-tabs.enum";
 import {ActivatedRoute} from "@angular/router";
 import {finalize, Subject, takeUntil} from "rxjs";
@@ -12,7 +12,11 @@ import {AdminProjectDataInterface} from "../../../shared/interfaces/admin/projec
 import {
   AdminFeedbackDataInterface
 } from "../../../shared/interfaces/admin/project-owners/admin-feedback-data.interface";
-import {FeedbackService} from "../../../shared/services/feedback.service";
+import {DeveloperFeedbackService} from "../../../shared/services/developer-feedback.service";
+import {ProjectOwnerFeedbackService} from "../../../shared/services/project-owner-feedback.service";
+import {FeedbackInterface} from "../../../shared/interfaces/feedback/feedback.interface";
+import {UserService} from "../../../shared/services/user.service";
+import {GetUser} from "../../../shared/interfaces/get-user";
 
 @Component({
   selector: 'collabro-project-owner-details',
@@ -25,8 +29,11 @@ export class ProjectOwnerDetailsComponent implements OnInit, OnDestroy {
   public projectOwner: AdminProjectOwnerDataInterface;
   public projects: AdminProjectDataInterface[] = [];
   public feedbacks: AdminFeedbackDataInterface[] = [];
+  public developerFeedbacks: FeedbackInterface[] = [];
+  public imageData: string | ArrayBuffer | null;
   public isLoadingProjects = true;
   public isLoadingFeedbacks = true;
+  public user: GetUser;
 
   private projectsCurrentPage: number = 0;
   private totalProjects: number = 0;
@@ -37,8 +44,11 @@ export class ProjectOwnerDetailsComponent implements OnInit, OnDestroy {
 
   constructor(private readonly activatedRoute: ActivatedRoute,
               private readonly adminProjectOwnerService: AdminProjectOwnerService,
+              private readonly projectOwnerFeedbackService: ProjectOwnerFeedbackService,
               private readonly spinnerService: SpinnerService,
-              private readonly feedbackService: FeedbackService,
+              private readonly cdr: ChangeDetectorRef,
+              private readonly userService: UserService,
+              private readonly feedbackService: DeveloperFeedbackService,
               private readonly notificationService: SnackBarService) {
   }
 
@@ -47,12 +57,50 @@ export class ProjectOwnerDetailsComponent implements OnInit, OnDestroy {
       this.projectOwnerId = params['id'];
     });
 
+    this.subscribeToCurrentUser();
+
     this.getProjectOwner();
   }
 
   ngOnDestroy() {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
+  }
+
+  private subscribeToCurrentUser(): void {
+    this.userService.currentUser$
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe({
+        next: user => {
+          this.user = user;
+        }
+      });
+  }
+
+  private getFeedbackAvatars(): void {
+    debugger
+    if (!this.developerFeedbacks?.length) {
+      return;
+    }
+
+    this.spinnerService.showSpinner();
+
+    this.developerFeedbacks.forEach(feedback => {
+      if (!feedback.avatarName) {
+        return;
+      }
+
+      this.userService.getAvatar(feedback.avatarName)
+        .pipe(
+          finalize(() => this.spinnerService.hideSpinner()),
+          takeUntil(this.unsubscribe$)
+        )
+        .subscribe({
+          next: result => {
+            this.createImageFromBlob(result);
+          }
+        });
+    });
   }
 
   public deleteFeedback(feedbackId: string): void {
@@ -126,11 +174,19 @@ export class ProjectOwnerDetailsComponent implements OnInit, OnDestroy {
       })
   }
 
-  public loadingFeedbacks(resetPage: boolean) {
+  public loadingProjectOwnerFeedbacks(resetPage: boolean) {
     if (resetPage) {
       this.getProjectOwnerFeedbacks(false);
     } else if (this.totalFeedbacks > this.feedbacks.length && !this.isLoadingFeedbacks) {
       this.getProjectOwnerFeedbacks(true);
+    }
+  }
+
+  public loadingDeveloperFeedbacks(resetPage: boolean) {
+    if (resetPage) {
+      this.getDeveloperFeedbacks(false);
+    } else if (this.totalFeedbacks > this.feedbacks.length && !this.isLoadingFeedbacks) {
+      this.getDeveloperFeedbacks(true);
     }
   }
 
@@ -164,6 +220,53 @@ export class ProjectOwnerDetailsComponent implements OnInit, OnDestroy {
       })
   }
 
+  private getDeveloperFeedbacks(onScroll = false): void {
+    this.spinnerService.showSpinner();
+
+    if (!onScroll) {
+      this.feedbacksCurrentPage = 0;
+    }
+
+    this.isLoadingFeedbacks = true;
+
+    this.projectOwnerFeedbackService.getAllProjectOwnerFeedbacks(this.projectOwnerId, this.feedbacksCurrentPage, 20)
+      .pipe(finalize(() => {
+          this.isLoadingFeedbacks = false;
+          this.spinnerService.hideSpinner();
+        }),
+        takeUntil(this.unsubscribe$))
+      .subscribe({
+        next: result => {
+          this.totalFeedbacks = result.total;
+          this.feedbacksCurrentPage++;
+
+          if (onScroll) {
+            this.developerFeedbacks.push(...result.items);
+          } else {
+            this.developerFeedbacks = result.items;
+          }
+
+          this.getFeedbackAvatars();
+        },
+        error: (error) => this.notificationService.showErrorNotification(error?.error?.detail)
+      })
+  }
+
+  private createImageFromBlob(image: Blob): void {
+    if (!image) {
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.addEventListener('load', () => {
+        this.imageData = reader.result;
+      this.spinnerService.hideSpinner();
+      this.cdr.detectChanges();
+    }, false);
+
+    reader.readAsDataURL(image);
+  }
+
   public selectedTabChange(): void {
     if (this.tabIndex === ProjectOwnerDetailsTabsEnum.Profile) {
       this.projectOwner = null;
@@ -174,6 +277,9 @@ export class ProjectOwnerDetailsComponent implements OnInit, OnDestroy {
     } else if (this.tabIndex === ProjectOwnerDetailsTabsEnum.Feedbacks) {
       this.feedbacks = [];
       this.getProjectOwnerFeedbacks()
+    } else if (this.tabIndex === ProjectOwnerDetailsTabsEnum.DeveloperFeedbacks) {
+      this.developerFeedbacks = [];
+      this.getDeveloperFeedbacks();
     }
   }
 }

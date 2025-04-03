@@ -14,6 +14,7 @@
         <collabro-developer-comments (loadData)="loadingFeedbacks($event)"
                                      [developerId]="data?.developer?.id"
                                      [feedbacks]="feedbacks"
+                                     [currentUser]="user"
                                      [imageData]="imageData"/>
       </collabro-paginator>
     </mat-tab>

@@ -3,6 +3,8 @@ import {FeedbackInterface} from "../../interfaces/feedback/feedback.interface";
 import {FeedbackDialogComponent} from "../dialogs/feedback/feedback-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 import {filter, Subject, takeUntil} from "rxjs";
+import {GetUser} from "../../interfaces/get-user";
+import {ApplicationRoleEnum} from "../../../core/enums/application-role.enum";
 
 @Component({
   selector: 'collabro-developer-comments',
@@ -12,9 +14,13 @@ import {filter, Subject, takeUntil} from "rxjs";
 export class DeveloperCommentsComponent implements OnDestroy {
   @Input() feedbacks: FeedbackInterface[] = [];
   @Input() developerId: string;
+  @Input() projectOwnerId: string;
   @Input() imageData: string | ArrayBuffer | null;
+  @Input() currentUser: GetUser;
 
   @Output() public loadData = new EventEmitter<boolean>();
+
+  public roleEnum = ApplicationRoleEnum;
 
   private readonly unsubscribe$: Subject<void> = new Subject<void>();
 
@@ -32,6 +38,8 @@ export class DeveloperCommentsComponent implements OnDestroy {
       disableClose: false,
       data: {
         developerId: this.developerId,
+        projectOwnerId: this.projectOwnerId,
+        currentUser: this.currentUser,
         feedbackId,
         message
       }

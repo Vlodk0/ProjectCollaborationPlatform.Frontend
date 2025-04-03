@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Observable, Subject, takeUntil} from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { DeveloperService } from '../../../shared/services/developer.service';
-import { FeedbackService } from '../../../shared/services/feedback.service';
+import { DeveloperFeedbackService } from '../../../shared/services/developer-feedback.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { PaginationFilterDevs } from '../../../shared/interfaces/pagination-filter-devs';
 import { PaginationResponse } from '../../../shared/interfaces/pagination-response';
@@ -33,7 +33,7 @@ export class DevPageComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private developerService: DeveloperService,
-    private feedbackService: FeedbackService
+    private feedbackService: DeveloperFeedbackService
   ) {}
 
   ngOnInit(): void {

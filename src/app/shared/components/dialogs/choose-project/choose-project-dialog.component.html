@@ -5,9 +5,12 @@
       <mat-label>{{ 'myProject.projectLabel' | translate }}</mat-label>
 
       <mat-select [formControl]="projectId">
-        <mat-option *ngFor="let project of projects" [value]="project.id">
+        <collabro-paginator [flexDirection]="'row'" [wrapper]="'grid'" (loadDataEmitter)="loadingProjects(false)">
+        <mat-option *ngFor="let project of projects"
+                    [value]="project.id">
           {{ project?.title }}
         </mat-option>
+        </collabro-paginator>
       </mat-select>
 
       <collabro-control-validation-message [control]="projectId" />

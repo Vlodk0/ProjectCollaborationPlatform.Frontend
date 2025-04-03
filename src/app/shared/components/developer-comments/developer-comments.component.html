@@ -7,6 +7,9 @@
     </button>
   </div>
   <ng-container *ngIf="feedbacks.length else emptyReview">
+    <collabro-paginator class="w-100"
+                        [wrapper]="'flex'"
+                        (loadDataEmitter)="loadData.emit(true)">
     <div class="review-box" *ngFor="let feedback of feedbacks">
       <div class="patient-name-container">
         <div class="d-flex align-items-center row-gap-1 column-gap-1">
@@ -24,17 +27,23 @@
           </div>
         </div>
         <mat-icon (click)="openFeedbackDialog(feedback.id, feedback.content)"
+                  *ngIf="feedback?.canEdit
+                  && currentUser?.roleName === roleEnum.ProjectOwner
+                  && feedback?.projectOwnerId === currentUser?.id"
                   style="cursor: pointer"
                   [svgIcon]="'edit'"/>
       </div>
       <span class="review-description">{{ feedback.content }}</span>
     </div>
+    </collabro-paginator>
   </ng-container>
 
   <ng-template #emptyReview>
     <div class="d-flex h-100 align-items-center justify-content-center">
       <collabro-empty-state [title]="('emptyState.noFeedbacksYetLabel' | translate)"
-                            [subtitle]="('emptyState.beTheFirstToShareFeedback' | translate)"/>
+                            [subtitle]="currentUser.roleName === roleEnum.Dev
+                            ? ('emptyState.beTheFirstToShareFeedbackForProjectOwner' | translate)
+                            : ('emptyState.beTheFirstToShareFeedback' | translate)"/>
 
     </div>
   </ng-template>
