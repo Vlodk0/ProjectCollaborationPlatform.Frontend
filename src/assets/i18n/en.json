@@ -26,7 +26,14 @@
     "projectLabel": "Project",
     "currentDeveloperLabel": "{{value}}-developer",
     "hourlyLabel": "/ hourly",
-    "toLabel": "to"
+    "toLabel": "to",
+    "pauseLabel": "Pause",
+    "datePlaceholderLabel": "Choose a date",
+    "startDateLabel": "Start",
+    "endDateLabel": "End",
+    "setDateLabel": "Set date",
+    "settingsLabel": "Settings",
+    "scheduleLabel": "Schedule"
   },
 
   "profileSettings": {
@@ -162,6 +169,7 @@
     "paymentAndDurationLabel": "Payment and duration",
     "enterPaymentPerHourLabel": "Define the hourly rate",
     "chooseTimeDurationLabel": "Choose time duration",
+    "selectPaymentTypeLabel": "Select payment type",
     "frameworksLabel": "Frameworks",
     "chooseTechnologiesYouWantToBeUsedLabel": "Choose the technologies required for your project",
     "andFrameworksLabel": "Pick the frameworks that will be used in your project",
@@ -170,6 +178,7 @@
     "typeLabel": "Type",
     "paymentLabel": "Payment",
     "timeDurationLabel": "Duration",
+    "paymentTypeLabel": "Payment Type",
     "priceLabel": "Price",
     "paymentPerHourLabel": "Payment (per hour)",
     "summaryLabel": "Summary",
@@ -208,6 +217,16 @@
     "apiDevelopmentLabel": "API Development",
     "eCommercePlatformLabel": "E-Commerce Platform"
   },
+  "paymentType": {
+    "timeAndMaterialsLabel": "Time & Materials",
+    "fixedBidLabel": "Fixed Bid"
+  },
+  "projectStatus": {
+    "draftLabel": "Draft",
+    "activeLabel": "Active",
+    "endedLabel": "Ended",
+    "pausedLabel": "Paused"
+  },
   "timeDuration": {
     "fullTimeLabel": "Full Time",
     "partTimeLabel": "Part Time"
@@ -238,6 +257,11 @@
   "projects": {
     "projectsLabel": "Projects",
     "filterProjectsLabel": "Filter Projects"
+  },
+
+  "filterProjects": {
+    "paymentTypeLabel": "Payment Type",
+    "statusLabel": "Status"
   },
 
   "admin": {

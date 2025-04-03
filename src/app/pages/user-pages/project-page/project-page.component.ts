@@ -73,7 +73,7 @@ export class ProjectPageComponent implements OnInit, OnDestroy {
       });
   }
 
-  private getProject(): void {
+  public getProject(): void {
     this.spinnerService.showSpinner();
 
     this.projectService.getProjectById(this.projectId)

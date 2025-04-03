@@ -6,17 +6,19 @@
                  (selectedTabChange)="selectedTabChange()"
                  class="h-100">
     <mat-tab label="{{'myProject.summaryLabel' | translate}}">
-      <collabro-project-overview-section [project]="project" />
+      <collabro-project-overview-section [currentUser]="user"
+                                         [project]="project"
+                                         (loadProject)="getProject()"/>
     </mat-tab>
 
     <mat-tab label="{{'myProject.teamLabel' | translate}}">
-      <collabro-project-team-section [projectId]="project.id"
+      <collabro-project-team-section [projectId]="project?.id"
                                      [developers]="developers"
                                      (projectDevelopersUpdated)="getProjectDevelopers()" />
     </mat-tab>
 
     <mat-tab label="{{'myProject.boardLabel' | translate}}">
-      <collabro-project-board-section [projectId]="project.id"
+      <collabro-project-board-section [projectId]="project?.id"
                                       [developers]="developers"
                                       [projectTasks]="projectTasks"
                                       [todoTasks]="todoTasks"
@@ -26,7 +28,7 @@
     </mat-tab>
 
     <mat-tab label="{{'myProject.requestsLabel' | translate}}">
-      <collabro-project-requests-section [projectId]="project.id"
+      <collabro-project-requests-section [projectId]="project?.id"
                                          [projectRequests]="projectRequests"
                                          (projectRequestsUpdated)="getProjectRequests()" />
     </mat-tab>

@@ -85,6 +85,8 @@ export class AllProjectsPageComponent implements OnDestroy, OnInit, AfterViewIni
     this.projectsFormGroup.patchValue({
       technologyIds: filters.selectedTechnologies,
       frameworkIds: filters.selectedFrameworks,
+      projectStatuses: filters.selectedProjectStatuses,
+      paymentTypes: filters.selectedPaymentTypes,
       currentPage: 0
     });
 
@@ -208,6 +210,8 @@ export class AllProjectsPageComponent implements OnDestroy, OnInit, AfterViewIni
     this.projectsFormGroup = this.fb.group<ProjectRequestFormGroup>({
       technologyIds: this.fb.control([]),
       frameworkIds: this.fb.control([]),
+      projectStatuses: this.fb.control([]),
+      paymentTypes: this.fb.control([]),
       searchTerm: this.fb.control(''),
       currentPage: this.fb.control(0),
       pageSize: this.fb.control(20)

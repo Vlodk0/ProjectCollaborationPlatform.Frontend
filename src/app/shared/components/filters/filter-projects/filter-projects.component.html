@@ -27,6 +27,32 @@
     </mat-form-field>
   </div>
 
+  <h3 class="filter-label">{{ 'filterProjects.paymentTypeLabel' | translate }}</h3>
+
+  <div class="input-container">
+    <mat-form-field appearance="outline" class="input-container-item-large">
+      <mat-label>{{ 'filterProjects.paymentTypeLabel' | translate }}</mat-label>
+      <mat-select multiple formControlName="selectedPaymentTypes">
+        <mat-option *ngFor="let position of paymentTypeListConstant" [value]="position?.type">
+          {{ position?.label | translate }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <h3 class="filter-label">{{ 'filterProjects.statusLabel' | translate }}</h3>
+
+  <div class="input-container">
+    <mat-form-field appearance="outline" class="input-container-item-large">
+      <mat-label>{{ 'filterProjects.statusLabel' | translate }}</mat-label>
+      <mat-select multiple formControlName="selectedProjectStatuses">
+        <mat-option *ngFor="let position of projectStatusListConstant" [value]="position?.type">
+          {{ position?.label | translate }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
   <button (click)="clearFilters()"
           class="filter-button button-purple wide-button"
           mat-button>

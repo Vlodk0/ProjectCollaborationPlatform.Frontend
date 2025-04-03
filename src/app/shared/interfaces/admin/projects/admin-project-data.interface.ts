@@ -3,6 +3,8 @@ import {TechnologyInterface} from "../../project/technology.interface";
 import {ProjectOwnerInterface} from "../../project/project-owner.interface";
 import {ProjectType} from "../../../../core/enums/project-type.enum";
 import {TimeDuration} from "../../../../core/enums/time-duration.enum";
+import {ProjectStatusEnum} from "../../../../core/enums/project-status.enum";
+import {PaymentTypeEnum} from "../../../../core/enums/payment-type.enum";
 
 export interface AdminProjectDataInterface {
   id: string;
@@ -19,4 +21,6 @@ export interface AdminProjectDataInterface {
   developerCount: number;
   technologiesCount: number
   frameworksCount: number;
+  status: ProjectStatusEnum;
+  paymentType: PaymentTypeEnum;
 }

@@ -32,6 +32,8 @@
                                     [menuIsClosed]="menuIsClosed"
                                     [selectedTechnology]="projectsFormGroup.get('technologyIds')?.value"
                                     [selectedFramework]="projectsFormGroup.get('frameworkIds')?.value"
+                                    [selectedProjectStatuses]="projectsFormGroup.get('projectStatuses').value"
+                                    [selectedPaymentTypes]="projectsFormGroup.get('paymentTypes').value"
                                     (projectFilters)="applyFilters($event)" />
         </mat-menu>
       </div>
