@@ -17,6 +17,7 @@ import {ProjectOwnerFeedbackService} from "../../../shared/services/project-owne
 import {FeedbackInterface} from "../../../shared/interfaces/feedback/feedback.interface";
 import {UserService} from "../../../shared/services/user.service";
 import {GetUser} from "../../../shared/interfaces/get-user";
+import {ApplicationRoleEnum} from "../../../core/enums/application-role.enum";
 
 @Component({
   selector: 'collabro-project-owner-details',
@@ -34,6 +35,7 @@ export class ProjectOwnerDetailsComponent implements OnInit, OnDestroy {
   public isLoadingProjects = true;
   public isLoadingFeedbacks = true;
   public user: GetUser;
+  public roleName = ApplicationRoleEnum;
 
   private projectsCurrentPage: number = 0;
   private totalProjects: number = 0;
@@ -57,9 +59,9 @@ export class ProjectOwnerDetailsComponent implements OnInit, OnDestroy {
       this.projectOwnerId = params['id'];
     });
 
-    this.subscribeToCurrentUser();
-
     this.getProjectOwner();
+
+    this.subscribeToCurrentUser();
   }
 
   ngOnDestroy() {
@@ -78,7 +80,6 @@ export class ProjectOwnerDetailsComponent implements OnInit, OnDestroy {
   }
 
   private getFeedbackAvatars(): void {
-    debugger
     if (!this.developerFeedbacks?.length) {
       return;
     }
@@ -259,7 +260,7 @@ export class ProjectOwnerDetailsComponent implements OnInit, OnDestroy {
 
     const reader = new FileReader();
     reader.addEventListener('load', () => {
-        this.imageData = reader.result;
+      this.imageData = reader.result;
       this.spinnerService.hideSpinner();
       this.cdr.detectChanges();
     }, false);
@@ -274,12 +275,12 @@ export class ProjectOwnerDetailsComponent implements OnInit, OnDestroy {
     } else if (this.tabIndex === ProjectOwnerDetailsTabsEnum.Projects) {
       this.projects = [];
       this.getProjects();
-    } else if (this.tabIndex === ProjectOwnerDetailsTabsEnum.Feedbacks) {
-      this.feedbacks = [];
-      this.getProjectOwnerFeedbacks()
     } else if (this.tabIndex === ProjectOwnerDetailsTabsEnum.DeveloperFeedbacks) {
       this.developerFeedbacks = [];
       this.getDeveloperFeedbacks();
+    } else if (this.tabIndex === ProjectOwnerDetailsTabsEnum.Feedbacks) {
+      this.feedbacks = [];
+      this.getProjectOwnerFeedbacks()
     }
   }
 }

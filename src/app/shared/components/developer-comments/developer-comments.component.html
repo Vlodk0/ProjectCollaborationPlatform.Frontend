@@ -6,7 +6,7 @@
       {{ 'general.addLabel' | translate }}
     </button>
   </div>
-  <ng-container *ngIf="feedbacks.length else emptyReview">
+  <ng-container *ngIf="feedbacks?.length else emptyReview">
     <collabro-paginator class="w-100"
                         [wrapper]="'flex'"
                         (loadDataEmitter)="loadData.emit(true)">
@@ -22,18 +22,16 @@
             </ng-template>
           </div>
           <div>
-            <div class="patient-name">{{ feedback.firstName }} {{ feedback.lastName }}</div>
-            <div class="review-date">{{ feedback.createdTimeStamp | localDate:'shortDate' }}</div>
+            <div class="patient-name">{{ feedback?.firstName }} {{ feedback?.lastName }}</div>
+            <div class="review-date">{{ feedback?.createdTimeStamp | localDate: 'longDateTime' }}</div>
           </div>
         </div>
-        <mat-icon (click)="openFeedbackDialog(feedback.id, feedback.content)"
-                  *ngIf="feedback?.canEdit
-                  && currentUser?.roleName === roleEnum.ProjectOwner
-                  && feedback?.projectOwnerId === currentUser?.id"
+        <mat-icon (click)="openFeedbackDialog(feedback?.id, feedback?.content)"
+                  *ngIf="canEdit(feedback)"
                   style="cursor: pointer"
                   [svgIcon]="'edit'"/>
       </div>
-      <span class="review-description">{{ feedback.content }}</span>
+      <span class="review-description">{{ feedback?.content }}</span>
     </div>
     </collabro-paginator>
   </ng-container>
@@ -41,7 +39,7 @@
   <ng-template #emptyReview>
     <div class="d-flex h-100 align-items-center justify-content-center">
       <collabro-empty-state [title]="('emptyState.noFeedbacksYetLabel' | translate)"
-                            [subtitle]="currentUser.roleName === roleEnum.Dev
+                            [subtitle]="currentUser?.roleName === roleEnum.Dev
                             ? ('emptyState.beTheFirstToShareFeedbackForProjectOwner' | translate)
                             : ('emptyState.beTheFirstToShareFeedback' | translate)"/>
 

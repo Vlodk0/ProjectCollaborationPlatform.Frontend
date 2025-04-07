@@ -18,6 +18,7 @@
 
           <mat-icon [svgIcon]="'accept'"></mat-icon>
         </button>
+
         <button matTooltipClass="tooltip"
                 (click)="declineProjectRequest(request.id)"
                 mat-icon-button
@@ -25,6 +26,15 @@
                 matTooltipPosition="above">
 
           <mat-icon [svgIcon]="'reject'"></mat-icon>
+        </button>
+
+        <button matTooltipClass="tooltip"
+                (click)="openDeveloperInfoDialog(request.developer)"
+                mat-icon-button
+                matTooltip="{{'general.viewLabel' | translate}}"
+                matTooltipPosition="above">
+
+          <mat-icon [svgIcon]="'developer-request'"></mat-icon>
         </button>
       </div>
     </div>

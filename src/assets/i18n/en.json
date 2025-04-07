@@ -24,7 +24,7 @@
     "yesLabel": "Yes",
     "noLabel": "No",
     "projectLabel": "Project",
-    "currentDeveloperLabel": "{{value}}-developer",
+    "currentDeveloperLabel": "{{value}} Software Engineer",
     "hourlyLabel": "/ hourly",
     "toLabel": "to",
     "pauseLabel": "Pause",
@@ -34,7 +34,8 @@
     "setDateLabel": "Set date",
     "settingsLabel": "Settings",
     "scheduleLabel": "Schedule",
-    "ownerLabel": "Owner"
+    "ownerLabel": "Owner",
+    "viewLabel": "View"
   },
 
   "profileSettings": {
@@ -239,7 +240,7 @@
     "aboutLabel": "About",
     "emailLabel": "Email",
     "chooseTheProjectLabel": "Choose the project",
-    "addFeedbackAboutDeveloperLabel": "Add feedback about developer",
+    "addFeedbackAboutDeveloperLabel": "Add feedback",
     "developerDoestNotHaveFeedbacksLabel": "This developer doesn't have any feedbacks yet",
     "editFeedbackLabel": "Edit feedback"
   },

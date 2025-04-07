@@ -56,7 +56,7 @@ export class FilterProjectsComponent implements OnInit, OnChanges {
       selectedFrameworks: this.fb.control( this.selectedFramework ?? null),
       selectedTechnologies: this.fb.control(this.selectedTechnology ?? null),
       selectedPaymentTypes: this.fb.control(this.selectedPaymentTypes ?? null),
-      selectedProjectStatuses: this.fb.control(this.selectedProjectStatuses ?? null)
+      selectedProjectStatuses: this.fb.control(this.selectedProjectStatuses ?? [ProjectStatusEnum.Active])
     });
   }
 }

@@ -22,7 +22,18 @@
       </div>
     </mat-tab>
 
-    <mat-tab label="{{'admin.project-owner.feedbacksLabel' | translate}}">
+    <mat-tab label="{{'developers.feedbacksLabel' | translate}}">
+      <collabro-paginator class="h-100">
+        <collabro-developer-comments (loadData)="loadingDeveloperFeedbacks($event)"
+                                     [feedbacks]="developerFeedbacks"
+                                     [currentUser]="user"
+                                     [projectOwnerId]="projectOwnerId"
+                                     [imageData]="imageData" />
+      </collabro-paginator>
+    </mat-tab>
+
+    <mat-tab *ngIf="user?.roleName === roleName.Admin"
+             label="{{'admin.project-owner.feedbacksLabel' | translate}}">
       <div class="tab-wrapper">
         <collabro-paginator [flexDirection]="'column'" class="h-100">
           <div *ngFor="let feedback of feedbacks">
@@ -31,6 +42,7 @@
                 <div class="date">{{ feedback.createdTimeStamp | localDate: 'shortDate' }}</div>
                 <button mat-icon-button
                         matSuffix
+                        *ngIf="user?.roleName === roleName.Admin"
                         (click)="deleteFeedback(feedback.id)"
                         class="m-r-1">
                   <mat-icon [svgIcon]="'delete'"></mat-icon>
@@ -41,16 +53,6 @@
           </div>
         </collabro-paginator>
       </div>
-    </mat-tab>
-
-    <mat-tab label="{{'developers.feedbacksLabel' | translate}}">
-      <collabro-paginator class="h-100">
-        <collabro-developer-comments (loadData)="loadingDeveloperFeedbacks($event)"
-                                     [feedbacks]="developerFeedbacks"
-                                     [currentUser]="user"
-                                     [projectOwnerId]="projectOwnerId"
-                                     [imageData]="imageData"/>
-      </collabro-paginator>
     </mat-tab>
   </mat-tab-group>
 </div>

@@ -4,6 +4,11 @@ import {ProjectRequestInterface} from "../../../../shared/interfaces/project/pro
 import {ProjectRequestService} from "../../../../shared/services/project-request.service";
 import {SpinnerService} from "../../../../shared/services/spinner.service";
 import {SnackBarService} from "../../../../shared/services/snack-bar.service";
+import {DeveloperInterface} from "../../../../shared/interfaces/developer/developer.interface";
+import {
+  DeveloperInfoDialogComponent
+} from "../../../../shared/components/dialogs/developer-info/developer-info-dialog.component";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'collabro-project-requests-section',
@@ -20,6 +25,7 @@ export class ProjectRequestsSectionComponent implements OnDestroy {
 
   constructor(private readonly projectRequestService: ProjectRequestService,
               private readonly spinnerService: SpinnerService,
+              private readonly matDialog: MatDialog,
               private readonly notificationService: SnackBarService) {
   }
 
@@ -60,5 +66,15 @@ export class ProjectRequestsSectionComponent implements OnDestroy {
         },
         error: (error) => this.notificationService.showErrorNotification(error?.error?.detail)
       })
+  }
+
+  public openDeveloperInfoDialog(developer: DeveloperInterface): void {
+    const dialogRef = this.matDialog.open(DeveloperInfoDialogComponent, {
+      disableClose: false,
+      data: {
+        developer: developer,
+        developerAvatar: developer.avatarName,
+      }
+    });
   }
 }

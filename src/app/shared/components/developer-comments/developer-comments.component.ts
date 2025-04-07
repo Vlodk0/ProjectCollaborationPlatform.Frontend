@@ -32,6 +32,12 @@ export class DeveloperCommentsComponent implements OnDestroy {
     this.unsubscribe$.complete();
   }
 
+  public canEdit(feedback: FeedbackInterface): boolean {
+    return this.currentUser?.roleName === ApplicationRoleEnum.Dev
+      ? (feedback?.developerId === this.currentUser?.id && feedback?.canEdit)
+      : (feedback?.projectOwnerId === this.currentUser?.id && feedback?.canEdit);
+  }
+
 
   public openFeedbackDialog(feedbackId?: string, message?: string): void {
     const dialogRef = this.matDialog.open(FeedbackDialogComponent, {

@@ -15,6 +15,7 @@ import {ProjectFilterInterface} from "../../../shared/interfaces/project/project
 import {TechnologyService} from "../../../shared/services/technology.service";
 import {FrameworkService} from "../../../shared/services/framework.service";
 import {FilterProjectRequestInterface} from "../../../shared/interfaces/project/filter-project-request.interface";
+import {ProjectStatusEnum} from "../../../core/enums/project-status.enum";
 
 @Component({
   selector: 'app-all-projects-page',
@@ -34,8 +35,6 @@ export class AllProjectsPageComponent implements OnDestroy, OnInit, AfterViewIni
   public menuIsClosed: boolean;
   public projectsFormGroup: FormGroup<ProjectRequestFormGroup>;
 
-
-  private projectsCurrentPage: number = 0;
   private totalProjects: number = 0;
 
   private unsubscribe$: Subject<void> = new Subject<void>();
@@ -50,9 +49,9 @@ export class AllProjectsPageComponent implements OnDestroy, OnInit, AfterViewIni
   }
 
   ngOnInit(): void {
-    this.getProjects()
     this.subscribeToCurrentUser();
     this.setForm();
+    this.filterProjects()
     this.subscribeToSearchTerm();
     this.getTechnologies();
     this.getAllFrameworks();
@@ -110,41 +109,10 @@ export class AllProjectsPageComponent implements OnDestroy, OnInit, AfterViewIni
 
   public loadingProjects(resetPage: boolean) {
     if (resetPage) {
-      this.getProjects(false);
+      this.filterProjects(false);
     } else if (this.totalProjects > this.projects.length && !this.isLoadingProjects) {
-      this.getProjects(true);
+      this.filterProjects(true);
     }
-  }
-
-  private getProjects(onScroll = false): void {
-    this.spinnerService.showSpinner();
-
-    if (!onScroll) {
-      this.projectsCurrentPage = 0;
-    }
-
-    this.isLoadingProjects = true;
-
-    this.projectService.getProjects(this.projectsCurrentPage, 20)
-      .pipe(finalize(() => {
-          this.isLoadingProjects = false;
-          this.spinnerService.hideSpinner();
-        }),
-        takeUntil(this.unsubscribe$))
-      .subscribe({
-        next: result => {
-          this.totalProjects = result.total;
-          this.projectsCurrentPage++;
-
-          if (onScroll) {
-            this.projects.push(...result.items);
-          } else {
-            this.projects = result.items;
-          }
-
-        },
-        error: (error) => this.notificationService.showErrorNotification(error?.error?.detail)
-      })
   }
 
   private filterProjects(onScroll = false): void {
@@ -210,7 +178,7 @@ export class AllProjectsPageComponent implements OnDestroy, OnInit, AfterViewIni
     this.projectsFormGroup = this.fb.group<ProjectRequestFormGroup>({
       technologyIds: this.fb.control([]),
       frameworkIds: this.fb.control([]),
-      projectStatuses: this.fb.control([]),
+      projectStatuses: this.fb.control([ProjectStatusEnum.Active]),
       paymentTypes: this.fb.control([]),
       searchTerm: this.fb.control(''),
       currentPage: this.fb.control(0),
