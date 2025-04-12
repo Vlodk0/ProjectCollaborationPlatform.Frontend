@@ -20,7 +20,7 @@
         </ng-template>
 
         <ng-container
-          *ngIf="{state: !!this.projectForm.get('title').value && !!this.projectForm.get('type').value} as data">
+          *ngIf="{state: !!this.projectForm.get('title').value && this.projectForm.get('type').value != null} as data">
           <mat-step [completed]="data.state"
                     [aria-labelledby]="data.state ? 'completed' : ''" [label]="createProjectStepperListEnum.TitleAndType">
             <div class="content-container choose-title-step">
@@ -80,8 +80,8 @@
 
         <ng-container
           *ngIf="{state: !!this.projectForm.get('payment').value
-            && !!this.projectForm.get('timeDuration').value
-            && !!this.projectForm.get('paymentType').value} as data">
+            && this.projectForm.get('timeDuration').value != null
+            && !!this.projectForm.get('paymentType').value != null} as data">
           <mat-step [completed]="data.state"
                     [aria-labelledby]="data.state ? 'completed' : ''"
                     [label]="createProjectStepperListEnum.PaymentAndDuration">
@@ -145,9 +145,7 @@
             <div class="d-flex w-100 flex-wrap m-l-2-4">
               <div class="checkboxes-container">
                 <div class="checkbox-container" *ngFor="let form of firstTechnologyColumn">
-                  <mat-checkbox [matTooltip]="form?.technology"
-                                matTooltipClass="tooltip"
-                                [aria-label]="form?.id"
+                  <mat-checkbox [aria-label]="form?.id"
                                 [aria-labelledby]="form?.technology"
                                 [checked]="projectForm.get('technologyIds').value.includes(form.id)"
                                 (change)="onTechnologyCheckboxChange(form.id, $event.checked)"
@@ -160,9 +158,7 @@
 
               <div class="checkboxes-container">
                 <div class="checkbox-container" *ngFor="let form of secondTechnologyColumn">
-                  <mat-checkbox [matTooltip]="form?.technology"
-                                matTooltipClass="tooltip"
-                                [aria-label]="form?.id"
+                  <mat-checkbox [aria-label]="form?.id"
                                 [aria-labelledby]="form?.technology"
                                 [value]="form.id"
                                 [checked]="projectForm.get('technologyIds').value.includes(form.id)"
@@ -175,9 +171,7 @@
 
               <div class="checkboxes-container">
                 <div class="checkbox-container" *ngFor="let form of thirdTechnologyColumn">
-                  <mat-checkbox [matTooltip]="form?.technology"
-                                matTooltipClass="tooltip"
-                                [aria-label]="form?.id"
+                  <mat-checkbox [aria-label]="form?.id"
                                 [aria-labelledby]="form?.technology"
                                 [value]="form.id"
                                 [checked]="projectForm.get('technologyIds').value.includes(form.id)"
@@ -202,9 +196,7 @@
             <div class="d-flex w-100 flex-wrap m-l-2-4 justify-content-center">
               <div class="checkboxes-container">
                 <div class="checkbox-container" *ngFor="let form of firstFrameworkColumn">
-                  <mat-checkbox [matTooltip]="form?.framework"
-                                matTooltipClass="tooltip"
-                                [aria-label]="form?.id"
+                  <mat-checkbox [aria-label]="form?.id"
                                 [aria-labelledby]="form?.framework"
                                 [checked]="projectForm.get('frameworkIds').value.includes(form.id)"
                                 (change)="onFrameworkCheckboxChange(form.id, $event.checked)"
@@ -216,9 +208,7 @@
 
               <div class="checkboxes-container">
                 <div class="checkbox-container" *ngFor="let form of secondFrameworkColumn">
-                  <mat-checkbox [matTooltip]="form?.framework"
-                                matTooltipClass="tooltip"
-                                [aria-label]="form?.id"
+                  <mat-checkbox [aria-label]="form?.id"
                                 [aria-labelledby]="form?.framework"
                                 [checked]="projectForm.get('frameworkIds').value.includes(form.id)"
                                 (change)="onFrameworkCheckboxChange(form.id, $event.checked)"
@@ -230,9 +220,7 @@
 
               <div class="checkboxes-container">
                 <div class="checkbox-container" *ngFor="let form of thirdFrameworkColumn">
-                  <mat-checkbox [matTooltip]="form?.framework"
-                                matTooltipClass="tooltip"
-                                [aria-label]="form?.id"
+                  <mat-checkbox [aria-label]="form?.id"
                                 [aria-labelledby]="form?.framework"
                                 [checked]="projectForm.get('frameworkIds').value.includes(form.id)"
                                 (change)="onFrameworkCheckboxChange(form.id, $event.checked)"

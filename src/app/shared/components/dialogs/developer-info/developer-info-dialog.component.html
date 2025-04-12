@@ -1,5 +1,4 @@
 <div class="modal-wrapper">
-
   <mat-tab-group animationDuration="0ms"
                  mat-stretch-tabs="false"
                  mat-align-tabs="start"
@@ -10,13 +9,11 @@
     </mat-tab>
 
     <mat-tab label="{{'developers.feedbacksLabel' | translate}}">
-      <collabro-paginator class="h-100">
-        <collabro-developer-comments (loadData)="loadingFeedbacks($event)"
-                                     [developerId]="data?.developer?.id"
-                                     [feedbacks]="feedbacks"
-                                     [currentUser]="user"
-                                     [imageData]="imageData"/>
-      </collabro-paginator>
+      <collabro-developer-comments (loadData)="loadingFeedbacks($event)"
+                                   [developerId]="data?.developer?.id"
+                                   [feedbacks]="feedbacks"
+                                   [currentUser]="user"
+                                   [imageData]="imageData"/>
     </mat-tab>
   </mat-tab-group>
 </div>
@@ -33,7 +30,7 @@
   </button>
 
   <ng-template #inviteButton>
-    <button *ngIf="user?.roleName === roleEnum.ProjectOwner"  class="button-purple big-button"
+    <button *ngIf="user?.roleName === roleEnum.ProjectOwner" class="button-purple big-button"
             (click)="openProjectsDialog(data?.developer.id)"
             mat-button>{{ 'general.inviteLabel' | translate }}
     </button>

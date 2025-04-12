@@ -8,6 +8,7 @@ import {DeveloperInterface} from "../interfaces/developer/developer.interface";
 import {FilterProjectRequestInterface} from "../interfaces/project/filter-project-request.interface";
 import {Page} from "../interfaces/general/page.interface";
 import {ScheduleProjectInterface} from "../interfaces/project/schedule-project.interface";
+import {UpdateProjectInterface} from "../interfaces/project/update-project.interface";
 
 @Injectable({
   providedIn: 'root'
@@ -81,5 +82,9 @@ export class ProjectsService {
 
   public scheduleProject(projectId: string, request: ScheduleProjectInterface): Observable<void> {
     return this.httpClient.patch<void>(`${this.apiUrl}/${projectId}/schedule`, request);
+  }
+
+  public updateProject(projectId: string, request: UpdateProjectInterface): Observable<void> {
+    return this.httpClient.patch<void>(`${this.apiUrl}/${projectId}`, request);
   }
 }

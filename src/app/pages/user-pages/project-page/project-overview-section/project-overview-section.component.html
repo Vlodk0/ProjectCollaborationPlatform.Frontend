@@ -4,10 +4,13 @@
 
     <div class="d-flex justify-content-space-between align-items-center">
       <div class="project-title">{{ project?.title }}</div>
-      <div>
-        <span class="project-price">${{ project?.payment | currency:' ':'symbol':'3.0-0' }}</span>
-        <span class="hour-label">{{ 'myProject.perHourLabel' | translate }}</span>
+      <div *ngIf="project?.paymentType === paymentTypeEnum.TimeAndMaterials; else fixBidPayment">
+        <span class="project-price">{{ project.payment | currency }}</span>
+        <span class="hour-label">/hour</span>
       </div>
+      <ng-template #fixBidPayment>
+        <span class="project-price">{{ project?.payment | currency }}</span>
+      </ng-template>
     </div>
 
     <div class="project-time-duration-wrapper">
@@ -30,12 +33,17 @@
   </div>
   <div class="box-wrapper">
     <div class="project-technologies-wrapper">
-      <div *ngIf="currentUser?.roleName === roleEnum.ProjectOwner"
-           class="d-flex w-100 justify-content-flex-end">
+      <div *ngIf="currentUser?.roleName === roleEnum.ProjectOwner && currentUser?.id === project.createdBy"
+           class="d-flex w-100 justify-content-flex-end gap-8-px">
         <button mat-icon-button
-                (click)="openSettingsDialog(project.id, project.status)"
+                (click)="openSettingsDialog(project)"
                 matSuffix>
           <mat-icon [svgIcon]="'settings'"></mat-icon>
+        </button>
+        <button mat-icon-button
+                (click)="openSchedulerDialog(project.id, project.status)"
+                matSuffix>
+          <mat-icon [svgIcon]="'scheduler'"></mat-icon>
         </button>
       </div>
       <div class="project-item-header">{{ 'technologies.technologiesLabel' | translate }}</div>

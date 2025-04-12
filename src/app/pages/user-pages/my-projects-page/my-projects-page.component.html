@@ -1,7 +1,7 @@
 <div class="page-wrapper" [formGroup]="projectsFormGroup">
   <div class="page-title">{{ 'sideBar.myProjectsLabel' | translate }}</div>
 
-  <div *ngIf="user.roleName === applicationRoleEnum.ProjectOwner && projects.length" class="page-header">
+  <div *ngIf="user?.roleName === applicationRoleEnum.ProjectOwner && projects.length" class="page-header">
     <div class="d-flex align-items-center flex-wrap column-gap-1 row-gap-1">
       <div class="small-icon-button">
         <mat-form-field appearance="outline" class="input-container-item-large search-filter">
@@ -43,7 +43,7 @@
             mat-button>{{ 'myProject.createProjectLabel' | translate }}
     </button>
   </div>
-  <div *ngIf="projects.length || isLoadingProjects else emptyState" class="overflow-y-hidden">
+  <div *ngIf="projects?.length || isLoadingProjects else emptyState" class="overflow-y-hidden">
     <collabro-paginator class="max-h-100"
                         [flexDirection]="'row'"
                         [wrapper]="'grid'"
@@ -59,14 +59,14 @@
     <div class="preview-page">
 
       <h2 class="visit-title">
-        <div class="d-block"> {{ user.roleName === applicationRoleEnum.ProjectOwner ?
+        <div class="d-block"> {{ user?.roleName === applicationRoleEnum.ProjectOwner ?
           ('myProject.youHaveNotCreatedAProjectYetLabel' | translate) :
           ('emptyState.youAreNotAPartOfProjectYetLabel' | translate) }}</div>
-        <div class="subtitle">{{ user.roleName === applicationRoleEnum.ProjectOwner ?
+        <div class="subtitle">{{ user?.roleName === applicationRoleEnum.ProjectOwner ?
           ('myProject.ifYesClickCreateProjectLabel' | translate) :
           ('emptyState.exploreProjectOrWaitRequestLabel' | translate) }}</div>
       </h2>
-      <button *ngIf="user.roleName === applicationRoleEnum.ProjectOwner" (click)="navigateToCreateProject()"
+      <button *ngIf="user?.roleName === applicationRoleEnum.ProjectOwner" (click)="navigateToCreateProject()"
               class="button-purple big-button"
               mat-button>{{ 'myProject.createProjectLabel' | translate }}
       </button>

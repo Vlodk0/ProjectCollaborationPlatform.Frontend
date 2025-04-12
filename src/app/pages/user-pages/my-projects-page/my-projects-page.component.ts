@@ -62,7 +62,7 @@ export class MyProjectsPageComponent implements OnDestroy, OnInit, AfterViewInit
   }
 
   public ngAfterViewInit(): void {
-    this.filterMenu.menuClosed
+    this.filterMenu?.menuClosed
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: () => this.menuIsClosed = !this.menuIsClosed

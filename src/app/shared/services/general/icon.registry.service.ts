@@ -113,5 +113,8 @@ export class IconRegistry {
     matIconRegistry.addSvgIcon(
       'developer-request',
       domSanitizer.bypassSecurityTrustResourceUrl('assets/icons/developer-request-icon.svg'));
+    matIconRegistry.addSvgIcon(
+      'scheduler',
+      domSanitizer.bypassSecurityTrustResourceUrl('assets/icons/scheduler-icon.svg'));
   }
 }

@@ -1,61 +1,154 @@
-<div class="modal-wrapper">
+<div class="modal-wrapper overflow-auto" [formGroup]="projectForm">
   <div class="page-title">{{ 'general.settingsLabel' | translate }}</div>
-  <div [formGroup]="scheduleOptionsFormGroup" class="d-flex align-items-center gap-8-px w-100">
-    <div>
-      <mat-form-field appearance="outline" class="input-container-item-datepicker" floatLabel="always">
-        <mat-label>{{ 'general.setDateLabel' | translate }}</mat-label>
 
-        <input [matDatepicker]="firstDate"
-               [placeholder]="'general.startDateLabel' | translate"
-               [min]="minDate"
-               autocomplete="off"
-               formControlName="startDate"
-               matInput/>
-        <mat-datepicker-toggle [for]="firstDate" matSuffix></mat-datepicker-toggle>
+  <div class="d-flex flex-col overflow-auto gap-16-px p-1">
+    <div class="input-container">
+      <mat-form-field appearance="outline" class="input-container-item">
+        <mat-label>{{ 'myProject.titleLabel' | translate }}</mat-label>
 
-        <mat-datepicker #firstDate></mat-datepicker>
+        <input formControlName="title" matInput/>
+
+        <collabro-control-validation-message [control]="projectForm.get('title')"/>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="input-container-item">
+        <mat-label>{{ 'myProject.timeDurationLabel' | translate }}</mat-label>
+
+        <mat-select formControlName="timeDuration">
+          <mat-option *ngFor="let time of timeDurationListConstant"
+                      [value]="time?.duration">
+            {{ time?.label | translate }}
+          </mat-option>
+        </mat-select>
+
+        <collabro-control-validation-message [control]="projectForm.get('timeDuration')"/>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="input-container-item">
+        <mat-label>{{ 'myProject.paymentTypeLabel' | translate }}</mat-label>
+
+        <mat-select formControlName="paymentType">
+          <mat-option *ngFor="let time of paymentTypeListConstant"
+                      [value]="time?.type">
+            {{ time?.label | translate }}
+          </mat-option>
+        </mat-select>
+
+        <collabro-control-validation-message [control]="projectForm.get('timeDuration')"/>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="input-container-item">
+        <mat-label>{{ 'myProject.paymentLabel' | translate }}</mat-label>
+
+        <input formControlName="payment" type="number" matInput/>
+
+        <collabro-control-validation-message [control]="projectForm.get('payment')"/>
       </mat-form-field>
     </div>
-    <div class="page-title">:</div>
-    <mat-form-field appearance="outline" class="input-container-item-datepicker" floatLabel="always">
-      <mat-label>{{ 'general.setDateLabel' | translate }}</mat-label>
 
-      <input [matDatepicker]="secondDate"
-             [placeholder]="'general.endDateLabel' | translate"
-             [min]="minDate"
-             autocomplete="off"
-             formControlName="endDate"
-             matInput/>
-      <mat-datepicker-toggle [for]="secondDate" matSuffix></mat-datepicker-toggle>
+    <div class="d-flex flex-col">
+      <mat-form-field appearance="outline" class="textarea flex-col">
+        <mat-label>{{ 'myProject.projectDetailsLabel' | translate }}</mat-label>
 
-      <mat-datepicker #secondDate></mat-datepicker>
-    </mat-form-field>
+        <textarea formControlName="projectDetails" matInput rows="10"></textarea>
+      </mat-form-field>
+      <collabro-control-validation-message [control]="projectForm.get('projectDetails')"/>
+    </div>
+
+
+    <div class="d-flex w-100 flex-wrap">
+      <div class="page-title m-b-1-6">{{ 'technologies.technologiesLabel' | translate }}</div>
+
+      <div class="checkboxes-container">
+        <div class="checkbox-container" *ngFor="let form of firstTechnologyColumn">
+          <mat-checkbox [aria-label]="form?.id"
+                        [aria-labelledby]="form?.technology"
+                        [checked]="projectForm.get('technologyIds').value.includes(form.id)"
+                        (change)="onTechnologyCheckboxChange(form.id, $event.checked)"
+                        [value]="form.id"
+                        class="checkbox">
+            {{ form?.technology | translate }}
+          </mat-checkbox>
+        </div>
+      </div>
+
+      <div class="checkboxes-container">
+        <div class="checkbox-container" *ngFor="let form of secondTechnologyColumn">
+          <mat-checkbox [aria-label]="form?.id"
+                        [aria-labelledby]="form?.technology"
+                        [value]="form.id"
+                        [checked]="projectForm.get('technologyIds').value.includes(form.id)"
+                        (change)="onTechnologyCheckboxChange(form.id, $event.checked)"
+                        class="checkbox">
+            {{ form?.technology | translate }}
+          </mat-checkbox>
+        </div>
+      </div>
+
+      <div class="checkboxes-container">
+        <div class="checkbox-container" *ngFor="let form of thirdTechnologyColumn">
+          <mat-checkbox [aria-label]="form?.id"
+                        [aria-labelledby]="form?.technology"
+                        [value]="form.id"
+                        [checked]="projectForm.get('technologyIds').value.includes(form.id)"
+                        (change)="onTechnologyCheckboxChange(form.id, $event.checked)"
+                        class="checkbox">
+            {{ form?.technology | translate }}
+          </mat-checkbox>
+        </div>
+      </div>
+    </div>
+
+    <div class="d-flex w-100 flex-wrap">
+      <div class="page-title m-b-1-6">{{ 'frameworks.frameworksLabel' | translate }}</div>
+
+      <div class="checkboxes-container">
+        <div class="checkbox-container" *ngFor="let form of firstFrameworkColumn">
+          <mat-checkbox [aria-label]="form?.id"
+                        [aria-labelledby]="form?.framework"
+                        [checked]="projectForm.get('frameworkIds').value.includes(form.id)"
+                        (change)="onFrameworkCheckboxChange(form.id, $event.checked)"
+                        [value]="form.id" class="checkbox">
+            {{ form?.framework | translate }}
+          </mat-checkbox>
+        </div>
+      </div>
+
+      <div class="checkboxes-container">
+        <div class="checkbox-container" *ngFor="let form of secondFrameworkColumn">
+          <mat-checkbox [aria-label]="form?.id"
+                        [aria-labelledby]="form?.framework"
+                        [checked]="projectForm.get('frameworkIds').value.includes(form.id)"
+                        (change)="onFrameworkCheckboxChange(form.id, $event.checked)"
+                        [value]="form.id" class="checkbox">
+            {{ form?.framework | translate }}
+          </mat-checkbox>
+        </div>
+      </div>
+
+      <div class="checkboxes-container">
+        <div class="checkbox-container" *ngFor="let form of thirdFrameworkColumn">
+          <mat-checkbox [aria-label]="form?.id"
+                        [aria-labelledby]="form?.framework"
+                        [checked]="projectForm.get('frameworkIds').value.includes(form.id)"
+                        (change)="onFrameworkCheckboxChange(form.id, $event.checked)"
+                        [value]="form.id" class="checkbox">
+            {{ form?.framework | translate }}
+          </mat-checkbox>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="button-container">
-    <button mat-dialog-close
-            class="transparent-button"
-            mat-button>
+
+  <div class="button-container p-1">
+    <button mat-dialog-close class="transparent-button" mat-button>
       {{ 'general.cancelLabel' | translate }}
     </button>
 
-    <div class="d-flex align-items-center gap-8-px">
-      <button class="button-purple"
-              [disabled]="data?.projectStatus === projectStatusEnum.Paused"
-              (click)="pauseProject()"
-              mat-button>{{ 'general.pauseLabel' | translate }}
-      </button>
-
-      <button class="button-purple"
-              [disabled]="
-          !scheduleOptionsFormGroup.valid ||
-          !scheduleOptionsFormGroup.get('startDate').value ||
-          !scheduleOptionsFormGroup.get('endDate').value ||
-          scheduleOptionsFormGroup.get('startDate').value > scheduleOptionsFormGroup.get('endDate').value"
-              (click)="scheduleProject()"
-              mat-button>
-        {{ 'general.scheduleLabel' | translate }}
-      </button>
-
-    </div>
+    <button class="button-purple big-button"
+            (click)="updateProject()"
+            [disabled]="!projectForm.valid"
+            mat-button>{{ 'general.saveLabel' | translate }}
+    </button>
   </div>
 </div>
