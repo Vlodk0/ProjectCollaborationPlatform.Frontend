@@ -1,5 +1,6 @@
 .tab-wrapper {
-  padding: 20px
+  padding-top: 20px;
+  overflow: auto;
 }
 
 .feedback-wrapper {
@@ -24,5 +25,11 @@
     font-size: 14px;
     font-weight: 400;
     opacity: 0.8;
+  }
+}
+
+::ng-deep {
+  .mat-mdc-tab-body-wrapper .mat-mdc-tab-body.mat-mdc-tab-body-active {
+    overflow: auto;
   }
 }

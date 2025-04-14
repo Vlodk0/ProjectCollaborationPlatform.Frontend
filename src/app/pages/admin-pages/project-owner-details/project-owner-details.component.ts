@@ -37,11 +37,6 @@ export class ProjectOwnerDetailsComponent implements OnInit, OnDestroy {
   public user: GetUser;
   public roleName = ApplicationRoleEnum;
 
-  private projectsCurrentPage: number = 0;
-  private totalProjects: number = 0;
-  private feedbacksCurrentPage: number = 0;
-  private totalFeedbacks: number = 0;
-
   private unsubscribe$: Subject<void> = new Subject<void>();
 
   constructor(private readonly activatedRoute: ActivatedRoute,
@@ -120,24 +115,10 @@ export class ProjectOwnerDetailsComponent implements OnInit, OnDestroy {
       });
   }
 
-  public loadingProjects(resetPage: boolean) {
-    if (resetPage) {
-      this.getProjects(false);
-    } else if (this.totalProjects > this.projects.length && !this.isLoadingProjects) {
-      this.getProjects(true);
-    }
-  }
-
-  private getProjects(onScroll = false): void {
+  private getProjects(): void {
     this.spinnerService.showSpinner();
 
-    if (!onScroll) {
-      this.projectsCurrentPage = 0;
-    }
-
-    this.isLoadingProjects = true;
-
-    this.adminProjectOwnerService.getProjectOwnerProjects(this.projectOwnerId, this.projectsCurrentPage, 20)
+    this.adminProjectOwnerService.getProjectOwnerProjects(this.projectOwnerId)
       .pipe(finalize(() => {
           this.isLoadingProjects = false;
           this.spinnerService.hideSpinner();
@@ -145,15 +126,7 @@ export class ProjectOwnerDetailsComponent implements OnInit, OnDestroy {
         takeUntil(this.unsubscribe$))
       .subscribe({
         next: result => {
-          this.totalProjects = result.total;
-          this.projectsCurrentPage++;
-
-          if (onScroll) {
-            this.projects.push(...result.items);
-          } else {
-            this.projects = result.items;
-          }
-
+          this.projects = result;
         },
         error: (error) => this.notificationService.showErrorNotification(error?.error?.detail)
       })
@@ -175,47 +148,18 @@ export class ProjectOwnerDetailsComponent implements OnInit, OnDestroy {
       })
   }
 
-  public loadingProjectOwnerFeedbacks(resetPage: boolean) {
-    if (resetPage) {
-      this.getProjectOwnerFeedbacks(false);
-    } else if (this.totalFeedbacks > this.feedbacks.length && !this.isLoadingFeedbacks) {
-      this.getProjectOwnerFeedbacks(true);
-    }
-  }
 
-  public loadingDeveloperFeedbacks(resetPage: boolean) {
-    if (resetPage) {
-      this.getDeveloperFeedbacks(false);
-    } else if (this.totalFeedbacks > this.feedbacks.length && !this.isLoadingFeedbacks) {
-      this.getDeveloperFeedbacks(true);
-    }
-  }
-
-  private getProjectOwnerFeedbacks(onScroll = false): void {
+  private getProjectOwnerFeedbacks(): void {
     this.spinnerService.showSpinner();
 
-    if (!onScroll) {
-      this.feedbacksCurrentPage = 0;
-    }
-
-    this.isLoadingFeedbacks = true;
-
-    this.adminProjectOwnerService.getProjectOwnerFeedbacks(this.projectOwnerId, this.feedbacksCurrentPage, 20)
+    this.adminProjectOwnerService.getProjectOwnerFeedbacks(this.projectOwnerId)
       .pipe(finalize(() => {
-          this.isLoadingFeedbacks = false;
           this.spinnerService.hideSpinner();
         }),
         takeUntil(this.unsubscribe$))
       .subscribe({
         next: result => {
-          this.totalFeedbacks = result.total;
-          this.feedbacksCurrentPage++;
-
-          if (onScroll) {
-            this.feedbacks.push(...result.items);
-          } else {
-            this.feedbacks = result.items;
-          }
+          this.feedbacks = result;
         },
         error: (error) => this.notificationService.showErrorNotification(error?.error?.detail)
       })
@@ -224,13 +168,7 @@ export class ProjectOwnerDetailsComponent implements OnInit, OnDestroy {
   private getDeveloperFeedbacks(onScroll = false): void {
     this.spinnerService.showSpinner();
 
-    if (!onScroll) {
-      this.feedbacksCurrentPage = 0;
-    }
-
-    this.isLoadingFeedbacks = true;
-
-    this.projectOwnerFeedbackService.getAllProjectOwnerFeedbacks(this.projectOwnerId, this.feedbacksCurrentPage, 20)
+    this.projectOwnerFeedbackService.getAllProjectOwnerFeedbacks(this.projectOwnerId)
       .pipe(finalize(() => {
           this.isLoadingFeedbacks = false;
           this.spinnerService.hideSpinner();
@@ -238,15 +176,7 @@ export class ProjectOwnerDetailsComponent implements OnInit, OnDestroy {
         takeUntil(this.unsubscribe$))
       .subscribe({
         next: result => {
-          this.totalFeedbacks = result.total;
-          this.feedbacksCurrentPage++;
-
-          if (onScroll) {
-            this.developerFeedbacks.push(...result.items);
-          } else {
-            this.developerFeedbacks = result.items;
-          }
-
+          this.developerFeedbacks = result;
           this.getFeedbackAvatars();
         },
         error: (error) => this.notificationService.showErrorNotification(error?.error?.detail)

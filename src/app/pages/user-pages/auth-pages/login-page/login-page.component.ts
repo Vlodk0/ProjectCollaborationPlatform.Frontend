@@ -17,7 +17,6 @@ import {HttpErrorResponse} from "@angular/common/http";
 export class LoginPageComponent implements OnInit {
 
   loginForm: FormGroup;
-  private isCreated: boolean;
 
   constructor(private readonly authService: AuthService,
               private readonly router: Router) {
@@ -28,10 +27,6 @@ export class LoginPageComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.loginForm.valid) {
-      console.log(this.loginForm.value);
-    }
-
     let loginObj: Login = {
       email: this.loginForm.value.email!,
       password: this.loginForm.value.password!,

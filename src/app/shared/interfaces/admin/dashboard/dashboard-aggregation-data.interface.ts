@@ -9,6 +9,6 @@ export interface DashboardAggregationDataInterface {
   deletedProjectOwnerCount: number;
   projectCount: number;
   projectByType: DashboardNameValueItem<string, number>[];
-  projectByTimeDuration: DashboardNameValueItem<string, number>[];
+  projectByStatus: DashboardNameValueItem<string, number>[];
   projectByDay: DashboardNameValueItem<string, number>[];
 }

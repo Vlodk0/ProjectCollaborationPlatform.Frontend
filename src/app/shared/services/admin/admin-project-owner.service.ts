@@ -26,11 +26,11 @@ export class AdminProjectOwnerService {
     return this.httpClient.get<AdminProjectOwnerDataInterface>(`${this.apiUrl}/projectOwners/${projectOwnerId}`)
   }
 
-  public getProjectOwnerProjects(projectOwnerId: string, currentPage: number, pageSize: number): Observable<Page<AdminProjectDataInterface>> {
-    return this.httpClient.get<Page<AdminProjectDataInterface>>(`${this.apiUrl}/projectOwners/${projectOwnerId}/projects?currentPage=${currentPage}&pageSize=${pageSize}`)
+  public getProjectOwnerProjects(projectOwnerId: string): Observable<Array<AdminProjectDataInterface>> {
+    return this.httpClient.get<Array<AdminProjectDataInterface>>(`${this.apiUrl}/projectOwners/${projectOwnerId}/projects`)
   }
 
-  public getProjectOwnerFeedbacks(projectOwnerId: string, currentPage: number, pageSize: number): Observable<Page<AdminFeedbackDataInterface>> {
-    return this.httpClient.get<Page<AdminFeedbackDataInterface>>(`${this.apiUrl}/projectOwners/${projectOwnerId}/feedbacks?currentPage=${currentPage}&pageSize=${pageSize}`);
+  public getProjectOwnerFeedbacks(projectOwnerId: string): Observable<Array<AdminFeedbackDataInterface>> {
+    return this.httpClient.get<Array<AdminFeedbackDataInterface>>(`${this.apiUrl}/projectOwners/${projectOwnerId}/feedbacks`);
   }
 }

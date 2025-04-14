@@ -1,17 +1,19 @@
-<div class="page-wrapper">
+<div class="page-wrapper overflow-auto">
   <mat-tab-group animationDuration="0ms"
                  mat-stretch-tabs="false"
                  mat-align-tabs="start"
                  [(selectedIndex)]="tabIndex"
                  (selectedTabChange)="selectedTabChange()"
-                 class="h-100">
+                 class="h-100 overflow-auto">
     <mat-tab label="{{'admin.project-owner.profileLabel' | translate}}">
       <collabro-project-owners-profile [projectOwner]="projectOwner"/>
     </mat-tab>
 
     <mat-tab label="{{'admin.project-owner.projectsLabel' | translate}}">
       <div class="tab-wrapper">
-        <collabro-paginator [flexDirection]="'row'" [wrapper]="'grid'" class="h-100">
+        <collabro-paginator [flexDirection]="'row'"
+                            [wrapper]="'grid'"
+                            class="h-100">
           <div class="developers-wrapper"
                *ngFor="let project of projects">
             <collabro-project-card
@@ -24,8 +26,7 @@
 
     <mat-tab label="{{'developers.feedbacksLabel' | translate}}">
       <collabro-paginator class="h-100">
-        <collabro-developer-comments (loadData)="loadingDeveloperFeedbacks($event)"
-                                     [feedbacks]="developerFeedbacks"
+        <collabro-developer-comments [feedbacks]="developerFeedbacks"
                                      [currentUser]="user"
                                      [projectOwnerId]="projectOwnerId"
                                      [imageData]="imageData" />

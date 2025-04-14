@@ -1,7 +1,5 @@
 .filters {
-  width: 100%;
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
@@ -20,7 +18,6 @@
 
   .filters-container {
     display: flex;
-    flex-direction: row;
     align-items: center;
     gap: 8px;
 
@@ -116,11 +113,23 @@
     min-height: 32px;
 
     &.active {
-      background-color: #5C4FB5;
+      background-color: #28a745;
+      opacity: 0.7;
     }
 
-    &.deleted {
+    &.draft {
+      background-color: #007bff;
+      opacity: 0.7;
+    }
+
+    &.ended {
       background-color: #C93535;
+      opacity: 0.7;
+    }
+
+    &.paused {
+      background-color: #5C4FB5;
+      opacity: 0.7;
     }
   }
 }

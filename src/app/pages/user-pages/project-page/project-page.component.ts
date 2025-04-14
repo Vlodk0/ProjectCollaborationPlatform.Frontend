@@ -26,8 +26,10 @@ export class ProjectPageComponent implements OnInit, OnDestroy {
   public tabIndex: ProjectPageTabsEnum = ProjectPageTabsEnum.Overview;
   public developers: Array<DeveloperInterface>;
   public projectTasks: FunctionalityBlockInterface[];
+  public backlogTasks: FunctionalityBlockInterface[] = [];
   public todoTasks: FunctionalityBlockInterface[] = [];
   public inProgressTasks: FunctionalityBlockInterface[] = [];
+  public qaTasks: FunctionalityBlockInterface[] = [];
   public doneTasks: FunctionalityBlockInterface[] = [];
   public projectRequests: ProjectRequestInterface[] = [];
 
@@ -120,8 +122,10 @@ export class ProjectPageComponent implements OnInit, OnDestroy {
   }
 
   private initializeTaskArrays() {
+    this.backlogTasks = this.projectTasks.filter(task => task.status === TaskStatus.Backlog);
     this.todoTasks = this.projectTasks.filter(task => task.status === TaskStatus.Todo);
     this.inProgressTasks = this.projectTasks.filter(task => task.status === TaskStatus.InProgress);
+    this.qaTasks = this.projectTasks.filter(task => task.status === TaskStatus.Qa);
     this.doneTasks = this.projectTasks.filter(task => task.status === TaskStatus.Done);
   }
 

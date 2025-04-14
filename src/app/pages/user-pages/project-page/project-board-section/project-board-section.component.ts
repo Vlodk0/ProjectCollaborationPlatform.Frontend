@@ -22,8 +22,10 @@ export class ProjectBoardSectionComponent implements OnDestroy {
   @Input() projectTasks: FunctionalityBlockInterface[];
 
   public taskStatusEnum = TaskStatus;
+  @Input() backlogTasks: FunctionalityBlockInterface[] = [];
   @Input() todoTasks: FunctionalityBlockInterface[] = [];
   @Input() inProgressTasks: FunctionalityBlockInterface[] = [];
+  @Input() qaTasks: FunctionalityBlockInterface[] = [];
   @Input() doneTasks: FunctionalityBlockInterface[] = [];
 
   @Output() projectTasksUpdated: EventEmitter<void> = new EventEmitter<void>();
@@ -39,40 +41,47 @@ export class ProjectBoardSectionComponent implements OnDestroy {
     this.unsubscribe$.complete();
   }
 
-  public onTaskDrop(event: CdkDragDrop<any[]>, newStatus: TaskStatus) {
+  public onTaskDrop(event: CdkDragDrop<any[]>, newStatus: TaskStatus): void {
+    const task = event.item.data;
+    const previousStatus = task.status;
+
     if (event.previousContainer === event.container) {
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-    } else {
-      transferArrayItem(
-        event.previousContainer.data,
+      moveItemInArray(
         event.container.data,
         event.previousIndex,
         event.currentIndex
       );
-
-      const task = event.item.data;
-      task.status = newStatus;
-
-      this.functionalityBlockService.updateTaskStatus(task.id, newStatus)
-        .pipe(takeUntil(this.unsubscribe$))
-        .subscribe({
-          next: () => {
-            this.initializeTaskArrays();
-          },
-          error: () => {
-            transferArrayItem(
-              event.container.data,
-              event.previousContainer.data,
-              event.currentIndex,
-              event.previousIndex
-            );
-            task.status = event.previousContainer.id === 'todoList' ? TaskStatus.Todo :
-              event.previousContainer.id === 'inProgressList' ? TaskStatus.InProgress :
-                TaskStatus.Done;
-          }
-        });
+      return;
     }
+
+    transferArrayItem(
+      event.previousContainer.data,
+      event.container.data,
+      event.previousIndex,
+      event.currentIndex
+    );
+
+    task.status = newStatus;
+
+    this.functionalityBlockService.updateTaskStatus(task.id, newStatus)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe({
+        next: () => {
+          this.initializeTaskArrays();
+        },
+        error: () => {
+          task.status = previousStatus;
+
+          transferArrayItem(
+            event.container.data,
+            event.previousContainer.data,
+            event.currentIndex,
+            event.previousIndex
+          );
+        }
+      });
   }
+
 
   public addProjectTask(): void {
     const dialogRef = this.matDialog.open(ProjectTaskDialogComponent, {

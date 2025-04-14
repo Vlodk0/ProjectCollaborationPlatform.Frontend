@@ -15,8 +15,8 @@ export class ProjectOwnerFeedbackService {
   constructor(private httpClient: HttpClient) {
   }
 
-  public getAllProjectOwnerFeedbacks(projectOwnerId: string, currentPage: number, pageSize: number): Observable<Page<FeedbackInterface>> {
-    return this.httpClient.get<Page<FeedbackInterface>>(`${this.apiUrl}?projectOwnerId=${projectOwnerId}&currentPage=${currentPage}&pageSize=${pageSize}`);
+  public getAllProjectOwnerFeedbacks(projectOwnerId: string): Observable<Array<FeedbackInterface>> {
+    return this.httpClient.get<Array<FeedbackInterface>>(`${this.apiUrl}?projectOwnerId=${projectOwnerId}`);
   }
 
   public addFeedback(projectOwnerId: string, message: string): Observable<void> {

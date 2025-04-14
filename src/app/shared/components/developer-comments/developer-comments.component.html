@@ -2,6 +2,7 @@
   <div class="d-flex w-100 justify-content-flex-end">
     <button class="button-purple m-b-1-6"
             (click)="openFeedbackDialog()"
+            *ngIf="currentUser?.roleName === roleEnum.Dev"
             mat-button>
       {{ 'general.addLabel' | translate }}
     </button>

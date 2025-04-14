@@ -14,7 +14,7 @@
       </button>
     </mat-form-field>
 
-    <div class='filters-container'>
+    <div class='filters-container gap-8-px'>
       <mat-form-field appearance="outline" class="dropdown-menu">
         <mat-label>{{ 'filterDevelopers.countryLabel' | translate }}</mat-label>
         <mat-select formControlName="countryCodes" multiple>
@@ -29,7 +29,7 @@
         <mat-label>{{ 'filterDevelopers.positionLabel' | translate }}</mat-label>
         <mat-select formControlName="countryCodes" multiple>
           <mat-option *ngFor="let position of developerPositionListConstant" [value]="position.type">
-            {{ position?.label }}
+            {{ position?.label | translate }}
           </mat-option>
         </mat-select>
       </mat-form-field>

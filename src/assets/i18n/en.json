@@ -190,6 +190,8 @@
     "positionLabel": "Position",
     "boardLabel": "Board",
     "todoLabel": "TO DO",
+    "backlogLabel": "BACKLOG",
+    "qaLabel": "QA",
     "doingLabel": "DOING",
     "doneLabel": "DONE",
     "taskLabel": "Task",
