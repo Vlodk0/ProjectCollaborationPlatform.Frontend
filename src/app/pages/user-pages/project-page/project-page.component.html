@@ -17,7 +17,7 @@
                                      (projectDevelopersUpdated)="getProjectDevelopers()" />
     </mat-tab>
 
-    <mat-tab label="{{'myProject.boardLabel' | translate}}">
+    <mat-tab class="overflow-auto" label="{{'myProject.boardLabel' | translate}}">
       <collabro-project-board-section [projectId]="project?.id"
                                       [developers]="developers"
                                       [projectTasks]="projectTasks"

@@ -1,5 +1,5 @@
 <div class="board-wrapper m-t-2" cdkDropListGroup>
-  <div class="w-100 board-column-wrapper" cdkDropList
+  <div class="board-column-wrapper" cdkDropList
        [cdkDropListData]="backlogTasks"
        (cdkDropListDropped)="onTaskDrop($event, taskStatusEnum.Backlog)">
 
@@ -22,7 +22,7 @@
     </div>
   </div>
 
-  <div class="w-100 board-column-wrapper" cdkDropList
+  <div class="board-column-wrapper" cdkDropList
        [cdkDropListData]="todoTasks"
        (cdkDropListDropped)="onTaskDrop($event, taskStatusEnum.Todo)">
 
@@ -34,7 +34,7 @@
     </div>
   </div>
 
-  <div class="w-100 board-column-wrapper" cdkDropList
+  <div class="board-column-wrapper" cdkDropList
        [cdkDropListData]="inProgressTasks"
        (cdkDropListDropped)="onTaskDrop($event, taskStatusEnum.InProgress)">
 
@@ -46,7 +46,7 @@
     </div>
   </div>
 
-  <div class="w-100 board-column-wrapper"
+  <div class="board-column-wrapper"
        cdkDropList
        [cdkDropListData]="qaTasks"
        (cdkDropListDropped)="onTaskDrop($event, taskStatusEnum.Qa)">
@@ -59,7 +59,7 @@
 
   </div>
 
-  <div class="w-100 board-column-wrapper"
+  <div class="board-column-wrapper"
        cdkDropList
        [cdkDropListData]="doneTasks"
        (cdkDropListDropped)="onTaskDrop($event, taskStatusEnum.Done)">
