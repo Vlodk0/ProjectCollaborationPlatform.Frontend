@@ -7,5 +7,6 @@ export interface ProjectRequestInterface {
   createdTimeStamp: string;
   developerId: string;
   developer: DeveloperInterface,
-  project: ProjectInterface
+  project: ProjectInterface,
+  projectOwnerId: string
 }

@@ -21,7 +21,9 @@
       <collabro-project-board-section [projectId]="project?.id"
                                       [developers]="developers"
                                       [projectTasks]="projectTasks"
+                                      [backlogTasks]="backlogTasks"
                                       [todoTasks]="todoTasks"
+                                      [qaTasks]="qaTasks"
                                       [inProgressTasks]="inProgressTasks"
                                       [doneTasks]="doneTasks"
                                       (projectTasksUpdated)="getProjectTasks()" />

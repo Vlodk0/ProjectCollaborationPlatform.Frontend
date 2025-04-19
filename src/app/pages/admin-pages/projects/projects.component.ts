@@ -18,6 +18,8 @@ import {
 } from "../../../shared/interfaces/admin/projects/admin-get-projects-request.interface";
 import {ProjectType} from "../../../core/enums/project-type.enum";
 import {TimeDuration} from "../../../core/enums/time-duration.enum";
+import {ProjectStatusEnum} from "../../../core/enums/project-status.enum";
+import {projectStatusListConstant} from "../../../core/constants/project-status-list.constant";
 
 @Component({
   selector: 'collabro-projects',
@@ -27,8 +29,10 @@ import {TimeDuration} from "../../../core/enums/time-duration.enum";
 export class ProjectsComponent implements OnInit, OnDestroy {
   public projectTypeListConstant = projectTypeListConstant;
   public timeDurationListConstant = timeDurationListConstant;
+  public projectStatusListConstant = projectStatusListConstant;
   public form: FormGroup<SearchAdminProjectFormGroup>;
   public projects: Page<AdminProjectDataInterface> = null;
+  public projectStatus = ProjectStatusEnum;
 
   public countries$: Observable<CountryInterface[]> = this.staticDataService.getAllCountries();
 
@@ -49,6 +53,7 @@ export class ProjectsComponent implements OnInit, OnDestroy {
     this.subscribeToCountryCodesFormControl();
     this.subscribeToProjectTypeFormControl();
     this.subscribeToTimeDurationFormControl();
+    this.subscribeToProjectStatusFormControl();
   }
 
   ngOnDestroy() {
@@ -116,6 +121,17 @@ export class ProjectsComponent implements OnInit, OnDestroy {
 
   }
 
+  private subscribeToProjectStatusFormControl(): void {
+    this.form.controls['projectStatuses'].valueChanges
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(value => {
+        this.form.patchValue({ projectStatuses: value }, { emitEvent: false });
+
+        this.getAdminProjects();
+      });
+
+  }
+
   private subscribeToTimeDurationFormControl(): void {
     this.form.controls['projectTimeDurations'].valueChanges
       .pipe(takeUntil(this.unsubscribe$))
@@ -148,6 +164,7 @@ export class ProjectsComponent implements OnInit, OnDestroy {
     this.form = this.fb.group<SearchAdminProjectFormGroup>({
       projectTimeDurations: this.fb.control<TimeDuration[]>([TimeDuration.PartTime, TimeDuration.FullTime]),
       projectTypes: this.fb.control<ProjectType[]>([]),
+      projectStatuses: this.fb.control<ProjectStatusEnum[]>([]),
       searchTerm: this.fb.control(''),
       countryCodes: this.fb.control<string[]>(["UA", "US"]),
       currentPage: this.fb.control<number>(0),

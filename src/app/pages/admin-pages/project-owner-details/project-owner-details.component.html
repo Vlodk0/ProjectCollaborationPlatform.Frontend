@@ -1,17 +1,19 @@
-<div class="page-wrapper">
+<div class="page-wrapper overflow-auto">
   <mat-tab-group animationDuration="0ms"
                  mat-stretch-tabs="false"
                  mat-align-tabs="start"
                  [(selectedIndex)]="tabIndex"
                  (selectedTabChange)="selectedTabChange()"
-                 class="h-100">
+                 class="h-100 overflow-auto">
     <mat-tab label="{{'admin.project-owner.profileLabel' | translate}}">
       <collabro-project-owners-profile [projectOwner]="projectOwner"/>
     </mat-tab>
 
     <mat-tab label="{{'admin.project-owner.projectsLabel' | translate}}">
       <div class="tab-wrapper">
-        <collabro-paginator [flexDirection]="'row'" class="h-100">
+        <collabro-paginator [flexDirection]="'row'"
+                            [wrapper]="'grid'"
+                            class="h-100">
           <div class="developers-wrapper"
                *ngFor="let project of projects">
             <collabro-project-card
@@ -22,7 +24,17 @@
       </div>
     </mat-tab>
 
-    <mat-tab label="{{'admin.project-owner.feedbacksLabel' | translate}}">
+    <mat-tab label="{{'developers.feedbacksLabel' | translate}}">
+      <collabro-paginator class="h-100">
+        <collabro-developer-comments [feedbacks]="developerFeedbacks"
+                                     [currentUser]="user"
+                                     [projectOwnerId]="projectOwnerId"
+                                     [imageData]="imageData" />
+      </collabro-paginator>
+    </mat-tab>
+
+    <mat-tab *ngIf="user?.roleName === roleName.Admin"
+             label="{{'admin.project-owner.feedbacksLabel' | translate}}">
       <div class="tab-wrapper">
         <collabro-paginator [flexDirection]="'column'" class="h-100">
           <div *ngFor="let feedback of feedbacks">
@@ -31,6 +43,7 @@
                 <div class="date">{{ feedback.createdTimeStamp | localDate: 'shortDate' }}</div>
                 <button mat-icon-button
                         matSuffix
+                        *ngIf="user?.roleName === roleName.Admin"
                         (click)="deleteFeedback(feedback.id)"
                         class="m-r-1">
                   <mat-icon [svgIcon]="'delete'"></mat-icon>

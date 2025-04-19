@@ -34,6 +34,11 @@
               <mat-icon [svgIcon]="'view'" />
               {{ 'general.projectLabel' | translate }}
             </button>
+
+            <button [routerLink]="['/project-owners', invitation?.projectOwnerId]" mat-menu-item>
+              <mat-icon [svgIcon]="'project-owner-icon'" />
+              {{ 'general.ownerLabel' | translate }}
+            </button>
           </mat-menu>
         </div>
       </div>

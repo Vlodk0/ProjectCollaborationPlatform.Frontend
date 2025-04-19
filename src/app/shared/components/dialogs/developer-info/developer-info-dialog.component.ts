@@ -1,12 +1,12 @@
 import {ChangeDetectorRef, Component, Inject, OnDestroy, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {DeveloperInterface} from "../../../interfaces/developer/developer.interface";
-import {filter, finalize, Subject, takeUntil} from "rxjs";
+import {finalize, Subject, takeUntil} from "rxjs";
 import {SpinnerService} from "../../../services/spinner.service";
 import {SnackBarService} from "../../../services/snack-bar.service";
 import {ChooseProjectDialogComponent} from "../choose-project/choose-project-dialog.component";
 import {FeedbackInterface} from "../../../interfaces/feedback/feedback.interface";
-import {FeedbackService} from "../../../services/feedback.service";
+import {DeveloperFeedbackService} from "../../../services/developer-feedback.service";
 import {UserService} from "../../../services/user.service";
 import {GetUser} from "../../../interfaces/get-user";
 import {ApplicationRoleEnum} from "../../../../core/enums/application-role.enum";
@@ -31,7 +31,7 @@ export class DeveloperInfoDialogComponent implements OnDestroy, OnInit {
   private readonly unsubscribe$: Subject<void> = new Subject<void>();
 
   constructor(private readonly dialogRef: MatDialogRef<DeveloperInfoDialogComponent>,
-              private readonly feedbackService: FeedbackService,
+              private readonly feedbackService: DeveloperFeedbackService,
               private readonly matDialog: MatDialog,
               private readonly userService: UserService,
               private readonly cdr: ChangeDetectorRef,
@@ -45,7 +45,6 @@ export class DeveloperInfoDialogComponent implements OnDestroy, OnInit {
   }
 
   ngOnInit(): void {
-    debugger
     this.subscribeToCurrentUser();
 
     if (this.data?.developerAvatar) {
@@ -179,7 +178,6 @@ export class DeveloperInfoDialogComponent implements OnDestroy, OnInit {
   }
 
   private createImageFromBlob(image: Blob, isAvatar: boolean): void {
-    debugger
     if (!image) {
       return;
     }

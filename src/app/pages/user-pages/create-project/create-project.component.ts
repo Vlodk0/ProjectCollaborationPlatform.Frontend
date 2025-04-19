@@ -74,13 +74,13 @@ export class CreateProjectComponent implements OnInit, OnDestroy {
   public get isValidStep(): boolean {
     switch (this.stepIndex) {
       case CreateProjectStepperListEnum.TitleAndType:
-        return !!this.projectForm.get('title').value && !!this.projectForm.get('type').value;
+        return !!this.projectForm.get('title').value && this.projectForm.get('type').value != null;
       case CreateProjectStepperListEnum.ProjectDetails:
         return !!this.projectForm.get('projectDetails').value
       case CreateProjectStepperListEnum.PaymentAndDuration:
         return !!this.projectForm.get('payment').value
-          && !!this.projectForm.get('timeDuration').value
-          && !!this.projectForm.get('paymentType').value;
+          && this.projectForm.get('timeDuration').value != null
+          && !!this.projectForm.get('paymentType').value != null;
       case CreateProjectStepperListEnum.Technologies:
         return !!this.projectForm.get('technologyIds').value?.length
       case CreateProjectStepperListEnum.Frameworks:
@@ -111,16 +111,12 @@ export class CreateProjectComponent implements OnInit, OnDestroy {
 
     switch (this.stepIndex) {
       case CreateProjectStepperListEnum.TitleAndType:
-        this.cleanToFirstStep()
         break;
       case CreateProjectStepperListEnum.ProjectDetails:
-        this.cleanToSecondStep()
         break;
       case CreateProjectStepperListEnum.PaymentAndDuration:
-        this.cleanToThirdStep()
         break;
       case CreateProjectStepperListEnum.Technologies:
-        this.cleanToFourthStep();
         break;
       default:
         break;
@@ -158,36 +154,6 @@ export class CreateProjectComponent implements OnInit, OnDestroy {
       ? [...currentIds, id]
       : currentIds.filter(currentId => currentId !== id);
     this.projectForm.get('frameworkIds').setValue(updatedIds);
-  }
-
-  private cleanToFirstStep(): void {
-    this.projectForm.get('title').setValue(null);
-    this.projectForm.get('type').setValue(null);
-    this.projectForm.get('projectDetails').setValue(null);
-    this.projectForm.get('payment').setValue(0);
-    this.projectForm.get('timeDuration').setValue(null);
-    this.projectForm.get('technologyIds').setValue([]);
-    this.projectForm.get('frameworkIds').setValue([]);
-  }
-
-  private cleanToSecondStep(): void {
-    this.projectForm.get('projectDetails').setValue(null);
-    this.projectForm.get('payment').setValue(0);
-    this.projectForm.get('timeDuration').setValue(null);
-    this.projectForm.get('technologyIds').setValue([]);
-    this.projectForm.get('frameworkIds').setValue([]);
-  }
-
-  private cleanToThirdStep(): void {
-    this.projectForm.get('payment').setValue(0);
-    this.projectForm.get('timeDuration').setValue(null);
-    this.projectForm.get('technologyIds').setValue([]);
-    this.projectForm.get('frameworkIds').setValue([]);
-  }
-
-  private cleanToFourthStep(): void {
-    this.projectForm.get('technologyIds').setValue([]);
-    this.projectForm.get('frameworkIds').setValue([]);
   }
 
   private getTechnologies(): void {

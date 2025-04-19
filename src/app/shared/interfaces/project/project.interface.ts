@@ -24,4 +24,5 @@ export interface ProjectInterface {
   createdTimeStamp: string;
   status: ProjectStatusEnum;
   paymentType: PaymentTypeEnum;
+  createdBy: string;
 }

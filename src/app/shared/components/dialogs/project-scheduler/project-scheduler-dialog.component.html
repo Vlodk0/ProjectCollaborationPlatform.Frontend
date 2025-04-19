@@ -1,0 +1,61 @@
+<div class="modal-wrapper">
+  <div class="page-title">{{ 'general.schedulerLabel' | translate }}</div>
+  <div [formGroup]="scheduleOptionsFormGroup" class="d-flex align-items-center gap-8-px w-100">
+    <div>
+      <mat-form-field appearance="outline" class="input-container-item-datepicker" floatLabel="always">
+        <mat-label>{{ 'general.setDateLabel' | translate }}</mat-label>
+
+        <input [matDatepicker]="firstDate"
+               [placeholder]="'general.startDateLabel' | translate"
+               [min]="minDate"
+               autocomplete="off"
+               formControlName="startDate"
+               matInput/>
+        <mat-datepicker-toggle [for]="firstDate" matSuffix></mat-datepicker-toggle>
+
+        <mat-datepicker #firstDate></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div class="page-title">:</div>
+    <mat-form-field appearance="outline" class="input-container-item-datepicker" floatLabel="always">
+      <mat-label>{{ 'general.setDateLabel' | translate }}</mat-label>
+
+      <input [matDatepicker]="secondDate"
+             [placeholder]="'general.endDateLabel' | translate"
+             [min]="minDate"
+             autocomplete="off"
+             formControlName="endDate"
+             matInput/>
+      <mat-datepicker-toggle [for]="secondDate" matSuffix></mat-datepicker-toggle>
+
+      <mat-datepicker #secondDate></mat-datepicker>
+    </mat-form-field>
+  </div>
+  <div class="button-container">
+    <button mat-dialog-close
+            class="transparent-button"
+            mat-button>
+      {{ 'general.cancelLabel' | translate }}
+    </button>
+
+    <div class="d-flex align-items-center gap-8-px">
+      <button class="button-purple"
+              [disabled]="data?.projectStatus === projectStatusEnum.Paused"
+              (click)="pauseProject()"
+              mat-button>{{ 'general.pauseLabel' | translate }}
+      </button>
+
+      <button class="button-purple"
+              [disabled]="
+          !scheduleOptionsFormGroup.valid ||
+          !scheduleOptionsFormGroup.get('startDate').value ||
+          !scheduleOptionsFormGroup.get('endDate').value ||
+          scheduleOptionsFormGroup.get('startDate').value > scheduleOptionsFormGroup.get('endDate').value"
+              (click)="scheduleProject()"
+              mat-button>
+        {{ 'general.scheduleLabel' | translate }}
+      </button>
+
+    </div>
+  </div>
+</div>

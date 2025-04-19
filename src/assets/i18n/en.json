@@ -24,7 +24,7 @@
     "yesLabel": "Yes",
     "noLabel": "No",
     "projectLabel": "Project",
-    "currentDeveloperLabel": "{{value}}-developer",
+    "currentDeveloperLabel": "{{value}} Software Engineer",
     "hourlyLabel": "/ hourly",
     "toLabel": "to",
     "pauseLabel": "Pause",
@@ -33,7 +33,10 @@
     "endDateLabel": "End",
     "setDateLabel": "Set date",
     "settingsLabel": "Settings",
-    "scheduleLabel": "Schedule"
+    "schedulerLabel": "Scheduler",
+    "scheduleLabel": "Schedule",
+    "ownerLabel": "Owner",
+    "viewLabel": "View"
   },
 
   "profileSettings": {
@@ -187,6 +190,8 @@
     "positionLabel": "Position",
     "boardLabel": "Board",
     "todoLabel": "TO DO",
+    "backlogLabel": "BACKLOG",
+    "qaLabel": "QA",
     "doingLabel": "DOING",
     "doneLabel": "DONE",
     "taskLabel": "Task",
@@ -238,7 +243,7 @@
     "aboutLabel": "About",
     "emailLabel": "Email",
     "chooseTheProjectLabel": "Choose the project",
-    "addFeedbackAboutDeveloperLabel": "Add feedback about developer",
+    "addFeedbackAboutDeveloperLabel": "Add feedback",
     "developerDoestNotHaveFeedbacksLabel": "This developer doesn't have any feedbacks yet",
     "editFeedbackLabel": "Edit feedback"
   },
@@ -328,6 +333,7 @@
     "projectOwnerNotCreatedProjectLabel": "No one project owner has not created any projects yet",
     "noFeedbacksYetLabel": "No Feedback Yet",
     "beTheFirstToShareFeedback": "Be the first to share your feedback and help others know more about this developer!",
+    "beTheFirstToShareFeedbackForProjectOwner": "Be the first to share your feedback and help others learn more about working with this project owner!",
     "noNotificationsYetLabel": "No Notifications Yet!",
     "youAreCaughtUpAnyUpdatesWillAppearHereLabel": "You're all caught up! Any important updates, invitations, or requests will appear here.",
     "noInvitationsYetLabel": "No Invitations Yet!",

@@ -6,9 +6,13 @@ import {FeedbackDialogComponent} from "../../../../shared/components/dialogs/fee
 import {filter, Subject, takeUntil} from "rxjs";
 import {MatDialog} from "@angular/material/dialog";
 import {
+  ProjectSchedulerDialogComponent
+} from "../../../../shared/components/dialogs/project-scheduler/project-scheduler-dialog.component";
+import {ProjectStatusEnum} from "../../../../core/enums/project-status.enum";
+import {
   ProjectSettingsDialogComponent
 } from "../../../../shared/components/dialogs/project-settings/project-settings-dialog.component";
-import {ProjectStatusEnum} from "../../../../core/enums/project-status.enum";
+import {PaymentTypeEnum} from "../../../../core/enums/payment-type.enum";
 
 @Component({
   selector: 'collabro-project-overview-section',
@@ -33,8 +37,8 @@ export class ProjectOverviewSectionComponent implements OnDestroy {
     this.unsubscribe$.complete();
   }
 
-  public openSettingsDialog(projectId?: string, projectStatus?: ProjectStatusEnum): void {
-    const dialogRef = this.matDialog.open(ProjectSettingsDialogComponent, {
+  public openSchedulerDialog(projectId?: string, projectStatus?: ProjectStatusEnum): void {
+    const dialogRef = this.matDialog.open(ProjectSchedulerDialogComponent, {
       disableClose: false,
       data: {
         projectId,
@@ -53,4 +57,26 @@ export class ProjectOverviewSectionComponent implements OnDestroy {
         }
       });
   }
+
+  public openSettingsDialog(project: ProjectInterface): void {
+    const dialogRef = this.matDialog.open(ProjectSettingsDialogComponent, {
+      disableClose: false,
+      data: {
+        project
+      }
+    });
+
+    dialogRef.afterClosed()
+      .pipe(
+        takeUntil(this.unsubscribe$),
+        filter((result) => result)
+      )
+      .subscribe({
+        next: () => {
+          this.loadProject.emit();
+        }
+      });
+  }
+
+  protected readonly paymentTypeEnum = PaymentTypeEnum;
 }

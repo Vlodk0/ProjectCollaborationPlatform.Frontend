@@ -1,10 +1,10 @@
 <div class="board-wrapper m-t-2" cdkDropListGroup>
   <div class="w-100 board-column-wrapper" cdkDropList
-       [cdkDropListData]="todoTasks"
-       (cdkDropListDropped)="onTaskDrop($event, taskStatusEnum.Todo)">
+       [cdkDropListData]="backlogTasks"
+       (cdkDropListDropped)="onTaskDrop($event, taskStatusEnum.Backlog)">
 
     <div class="d-flex justify-content-space-between align-items-center">
-      <div class="column-header">{{ 'myProject.todoLabel' | translate }}</div>
+      <div class="column-header">{{ 'myProject.backlogLabel' | translate }}</div>
       <button matTooltipClass="tooltip"
               mat-icon-button
               (click)="addProjectTask()"
@@ -14,12 +14,26 @@
         <mat-icon [svgIcon]="'plus'"></mat-icon>
       </button>
     </div>
+
+    <div *ngFor="let task of backlogTasks" cdkDrag [cdkDragData]="task">
+      <collabro-project-task-card
+        (click)="editProjectTask(task, task.taskName, task.description, task.label)"
+        [functionalityBlock]="task"/>
+    </div>
+  </div>
+
+  <div class="w-100 board-column-wrapper" cdkDropList
+       [cdkDropListData]="todoTasks"
+       (cdkDropListDropped)="onTaskDrop($event, taskStatusEnum.Todo)">
+
+    <div class="column-header m-b-1-6">{{ 'myProject.todoLabel' | translate }}</div>
     <div *ngFor="let task of todoTasks" cdkDrag [cdkDragData]="task">
       <collabro-project-task-card
         (click)="editProjectTask(task, task.taskName, task.description, task.label)"
         [functionalityBlock]="task"/>
     </div>
   </div>
+
   <div class="w-100 board-column-wrapper" cdkDropList
        [cdkDropListData]="inProgressTasks"
        (cdkDropListDropped)="onTaskDrop($event, taskStatusEnum.InProgress)">
@@ -30,8 +44,21 @@
         (click)="editProjectTask(task, task.taskName, task.description, task.label)"
         [functionalityBlock]="task"/>
     </div>
+  </div>
+
+  <div class="w-100 board-column-wrapper"
+       cdkDropList
+       [cdkDropListData]="qaTasks"
+       (cdkDropListDropped)="onTaskDrop($event, taskStatusEnum.Qa)">
+    <div class="column-header m-b-1-6">{{ 'myProject.qaLabel' | translate }}</div>
+    <div *ngFor="let task of qaTasks" cdkDrag [cdkDragData]="task">
+      <collabro-project-task-card
+        (click)="editProjectTask(task, task.taskName, task.description, task.label)"
+        [functionalityBlock]="task"/>
+    </div>
 
   </div>
+
   <div class="w-100 board-column-wrapper"
        cdkDropList
        [cdkDropListData]="doneTasks"

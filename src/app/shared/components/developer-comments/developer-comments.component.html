@@ -2,11 +2,15 @@
   <div class="d-flex w-100 justify-content-flex-end">
     <button class="button-purple m-b-1-6"
             (click)="openFeedbackDialog()"
+            *ngIf="currentUser?.roleName === roleEnum.Dev"
             mat-button>
       {{ 'general.addLabel' | translate }}
     </button>
   </div>
-  <ng-container *ngIf="feedbacks.length else emptyReview">
+  <ng-container *ngIf="feedbacks?.length else emptyReview">
+    <collabro-paginator class="w-100"
+                        [wrapper]="'flex'"
+                        (loadDataEmitter)="loadData.emit(true)">
     <div class="review-box" *ngFor="let feedback of feedbacks">
       <div class="patient-name-container">
         <div class="d-flex align-items-center row-gap-1 column-gap-1">
@@ -19,22 +23,26 @@
             </ng-template>
           </div>
           <div>
-            <div class="patient-name">{{ feedback.firstName }} {{ feedback.lastName }}</div>
-            <div class="review-date">{{ feedback.createdTimeStamp | localDate:'shortDate' }}</div>
+            <div class="patient-name">{{ feedback?.firstName }} {{ feedback?.lastName }}</div>
+            <div class="review-date">{{ feedback?.createdTimeStamp | localDate: 'longDateTime' }}</div>
           </div>
         </div>
-        <mat-icon (click)="openFeedbackDialog(feedback.id, feedback.content)"
+        <mat-icon (click)="openFeedbackDialog(feedback?.id, feedback?.content)"
+                  *ngIf="canEdit(feedback)"
                   style="cursor: pointer"
                   [svgIcon]="'edit'"/>
       </div>
-      <span class="review-description">{{ feedback.content }}</span>
+      <span class="review-description">{{ feedback?.content }}</span>
     </div>
+    </collabro-paginator>
   </ng-container>
 
   <ng-template #emptyReview>
     <div class="d-flex h-100 align-items-center justify-content-center">
       <collabro-empty-state [title]="('emptyState.noFeedbacksYetLabel' | translate)"
-                            [subtitle]="('emptyState.beTheFirstToShareFeedback' | translate)"/>
+                            [subtitle]="currentUser?.roleName === roleEnum.Dev
+                            ? ('emptyState.beTheFirstToShareFeedbackForProjectOwner' | translate)
+                            : ('emptyState.beTheFirstToShareFeedback' | translate)"/>
 
     </div>
   </ng-template>

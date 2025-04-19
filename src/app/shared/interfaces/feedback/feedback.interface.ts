@@ -7,4 +7,5 @@ export interface FeedbackInterface {
   lastName: string;
   content: string;
   avatarName: string;
+  canEdit: boolean;
 }

@@ -24,7 +24,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   public fromDate: Date = new Date();
   public toDate: Date = new Date();
   public projectByTypeChartOptions: Partial<PieChartOptions>;
-  public projectByTimeDurationChartOptions: Partial<PieChartOptions>;
+  public projectByStatusChartOptions: Partial<PieChartOptions>;
   public projectByDayChartOptions: Partial<AreaChartOptions>;
 
   private unsubscribe$: Subject<void> = new Subject<void>();
@@ -61,7 +61,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
         next: data => {
           this.dashboardData = data;
           this.projectByTypeChartOptions = this.chartService.initPieChart(this.dashboardData.projectByType);
-          this.projectByTimeDurationChartOptions = this.chartService.initPieChart(this.dashboardData.projectByTimeDuration);
+          this.projectByStatusChartOptions = this.chartService.initPieChart(this.dashboardData.projectByStatus);
           this.projectByDayChartOptions = this.chartService.initAreaChart(this.dashboardData.projectByDay);
           this.cdr.detectChanges();
         }
@@ -70,7 +70,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   private setForm(): void {
     const today = new Date();
-    this.fromDate = new Date(today.getFullYear(), today.getMonth(), 1);
-    this.toDate = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+    this.fromDate = new Date(today.getFullYear(), today.getMonth() - 1, 1);
+    this.toDate = new Date(today.getFullYear(), today.getMonth(), 0);
   }
 }
