@@ -1,7 +1,6 @@
 .board-wrapper {
   display: flex;
-  width: 100%;
-  justify-content: space-between;
+  overflow: auto;
   padding: 20px;
   gap: 1rem;
 
@@ -14,11 +13,18 @@
     display: flex;
     flex-direction: column;
     gap: 1.2em;
+    width: 250px;
 
     .column-header {
       font-weight: 500;
       font-size: 2.4rem;
       line-height: 32px;
     }
+  }
+}
+
+::ng-deep {
+  .mat-mdc-tab-body-wrapper {
+    overflow: auto;
   }
 }

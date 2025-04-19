@@ -33,7 +33,7 @@
   </div>
   <div class="box-wrapper">
     <div class="project-technologies-wrapper">
-      <div *ngIf="currentUser?.roleName === roleEnum.ProjectOwner && currentUser?.id === project.createdBy"
+      <div *ngIf="currentUser?.roleName === roleEnum.ProjectOwner && currentUser?.id === project?.createdBy"
            class="d-flex w-100 justify-content-flex-end gap-8-px">
         <button mat-icon-button
                 (click)="openSettingsDialog(project)"
