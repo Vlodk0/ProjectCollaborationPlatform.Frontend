@@ -9,21 +9,6 @@
       <collabro-project-owners-profile [projectOwner]="projectOwner"/>
     </mat-tab>
 
-    <mat-tab label="{{'admin.project-owner.projectsLabel' | translate}}">
-      <div class="tab-wrapper">
-        <collabro-paginator [flexDirection]="'row'"
-                            [wrapper]="'grid'"
-                            class="h-100">
-          <div class="developers-wrapper"
-               *ngFor="let project of projects">
-            <collabro-project-card
-              [project]="project"
-              [routerLink]="['/project', project?.id]"/>
-          </div>
-        </collabro-paginator>
-      </div>
-    </mat-tab>
-
     <mat-tab label="{{'developers.feedbacksLabel' | translate}}">
       <collabro-paginator class="h-100">
         <collabro-developer-comments [feedbacks]="developerFeedbacks"
@@ -51,6 +36,21 @@
               </div>
               <div class="content">{{ feedback.content }}</div>
             </div>
+          </div>
+        </collabro-paginator>
+      </div>
+    </mat-tab>
+
+    <mat-tab *ngIf="user.roleName === roleName.Admin" label="{{'admin.project-owner.projectsLabel' | translate}}">
+      <div class="tab-wrapper">
+        <collabro-paginator [flexDirection]="'row'"
+                            [wrapper]="'grid'"
+                            class="h-100">
+          <div class="developers-wrapper"
+               *ngFor="let project of projects">
+            <collabro-project-card
+              [project]="project"
+              [routerLink]="['/project', project?.id]"/>
           </div>
         </collabro-paginator>
       </div>

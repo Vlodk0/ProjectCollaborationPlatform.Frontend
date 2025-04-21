@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {environment} from "../../environment";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpResponse} from "@angular/common/http";
 import {FunctionalityBlock} from "../interfaces/functionality-block";
 import {Observable} from "rxjs";
 import {
@@ -40,5 +40,15 @@ export class FunctionalityBlockService {
 
   public assignProjectTask(taskId: string, developerId: string): Observable<void> {
     return this.httpClient.patch<void>(`${this.apiUrl}?taskId=${taskId}&developerId=${developerId}`, {});
+  }
+
+  public exportProjectTasksReport(projectId: string): Observable<HttpResponse<Blob> | any> {
+    const url = `${this.apiUrl}/export?projectId=${projectId}`;
+
+    return this.httpClient.get<Blob>(url,
+      {
+        observe: 'response',
+        responseType: 'blob' as 'json'
+      });
   }
 }
