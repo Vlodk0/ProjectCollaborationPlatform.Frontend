@@ -202,15 +202,15 @@ export class ProjectOwnerDetailsComponent implements OnInit, OnDestroy {
     if (this.tabIndex === ProjectOwnerDetailsTabsEnum.Profile) {
       this.projectOwner = null;
       this.getProjectOwner();
-    } else if (this.tabIndex === ProjectOwnerDetailsTabsEnum.Projects) {
-      this.projects = [];
-      this.getProjects();
     } else if (this.tabIndex === ProjectOwnerDetailsTabsEnum.DeveloperFeedbacks) {
       this.developerFeedbacks = [];
       this.getDeveloperFeedbacks();
     } else if (this.tabIndex === ProjectOwnerDetailsTabsEnum.Feedbacks) {
       this.feedbacks = [];
       this.getProjectOwnerFeedbacks()
+    } else if (this.tabIndex === ProjectOwnerDetailsTabsEnum.Projects) {
+      this.projects = [];
+      this.getProjects();
     }
   }
 }

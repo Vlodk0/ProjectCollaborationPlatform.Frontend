@@ -10,6 +10,9 @@ import {
 import {MatDialog} from "@angular/material/dialog";
 import {TaskLabelType} from "../../../../core/enums/task-label-type.enum";
 import {DeveloperInterface} from "../../../../shared/interfaces/developer/developer.interface";
+import {GetUser} from "../../../../shared/interfaces/get-user";
+import {ApplicationRoleEnum} from "../../../../core/enums/application-role.enum";
+import {SnackBarService} from "../../../../shared/services/snack-bar.service";
 
 @Component({
   selector: 'collabro-project-board-section',
@@ -20,19 +23,22 @@ export class ProjectBoardSectionComponent implements OnDestroy {
   @Input() projectId: string;
   @Input() developers: DeveloperInterface[];
   @Input() projectTasks: FunctionalityBlockInterface[];
-
-  public taskStatusEnum = TaskStatus;
   @Input() backlogTasks: FunctionalityBlockInterface[] = [];
   @Input() todoTasks: FunctionalityBlockInterface[] = [];
   @Input() inProgressTasks: FunctionalityBlockInterface[] = [];
   @Input() qaTasks: FunctionalityBlockInterface[] = [];
   @Input() doneTasks: FunctionalityBlockInterface[] = [];
+  @Input() currentUser: GetUser = null;
 
   @Output() projectTasksUpdated: EventEmitter<void> = new EventEmitter<void>();
+
+  public taskStatusEnum = TaskStatus;
+  public roleEnum = ApplicationRoleEnum;
 
   private unsubscribe$: Subject<void> = new Subject<void>();
 
   constructor(private readonly functionalityBlockService: FunctionalityBlockService,
+              private readonly snackBarService: SnackBarService,
               private readonly matDialog: MatDialog) {
   }
 
@@ -127,6 +133,34 @@ export class ProjectBoardSectionComponent implements OnDestroy {
         }
       });
   }
+
+  public exportProjectTasksReport(): void {
+    this.functionalityBlockService.exportProjectTasksReport(this.projectId)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe({
+        next: (result) => {
+          const blob = new Blob([result.body as BlobPart]);
+          const downloadURL = window.URL.createObjectURL(blob);
+          const link = document.createElement('a');
+
+          const contentDispositionHeader = result.headers.get('Content-Disposition');
+          let fileName = 'Project Tasks Report.txt';
+
+          if (contentDispositionHeader) {
+            const match = contentDispositionHeader.match(/filename="?([^"]+)"?/);
+            if (match?.[1]) {
+              fileName = match[1];
+            }
+          }
+
+          link.href = downloadURL;
+          link.download = fileName;
+          link.click();
+        },
+        error: (error) => this.snackBarService.showErrorNotification(error?.error?.detail)
+      });
+  }
+
 
   private initializeTaskArrays() {
     this.todoTasks = this.projectTasks.filter(task => task.status === TaskStatus.Todo);

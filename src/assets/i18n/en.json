@@ -36,7 +36,8 @@
     "schedulerLabel": "Scheduler",
     "scheduleLabel": "Schedule",
     "ownerLabel": "Owner",
-    "viewLabel": "View"
+    "viewLabel": "View",
+    "exportReportLabel": "Export report"
   },
 
   "profileSettings": {
