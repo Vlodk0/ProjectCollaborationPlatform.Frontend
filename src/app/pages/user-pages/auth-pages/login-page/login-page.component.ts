@@ -9,6 +9,7 @@ import {catchError, of, switchMap, throwError} from "rxjs";
 import {HttpErrorResponse} from "@angular/common/http";
 import {jwtDecode} from "jwt-decode";
 import {AdminId} from "../../../../core/enums/application-role.enum";
+import {SnackBarService} from "../../../../shared/services/snack-bar.service";
 
 export interface JwtPayload {
   nameid: string;
@@ -25,6 +26,7 @@ export class LoginPageComponent implements OnInit {
   loginForm: FormGroup;
 
   constructor(private readonly authService: AuthService,
+              private readonly snackBarService: SnackBarService,
               private readonly router: Router) {
   }
 
@@ -85,10 +87,7 @@ export class LoginPageComponent implements OnInit {
           },
           error: (error) => {
             if (error === 'Forbidden') {
-              // //this.messageService.add({
-              //   severity: 'error',
-              //   summary: 'You are blocked on our service'
-              // })
+              this.snackBarService.showErrorNotification('You are blocked on our service')
             }
           }
         },
