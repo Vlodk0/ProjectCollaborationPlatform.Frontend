@@ -20,6 +20,7 @@ import {BadgesFormGroup} from "../types/form-groups/badges-form-group";
 import {AlertsService} from "../../shared/services/alerts.service";
 import {TranslateService} from "@ngx-translate/core";
 import {ConfirmDialogService} from "../../shared/services/confirm-dialog.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-sidebar',
@@ -47,6 +48,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
               private readonly confirmDialogService: ConfirmDialogService,
               private readonly userService: UserService,
               private readonly badgesService: BadgesService,
+              private readonly router: Router,
               private readonly cdr: ChangeDetectorRef) {
   }
 
@@ -160,6 +162,9 @@ export class SidebarComponent implements OnInit, OnDestroy {
       .subscribe({
         next: () => {
           this.isLogoutProcessing = true;
+          localStorage.removeItem('access_token');
+          localStorage.removeItem('refresh_token');
+          this.router.navigateByUrl('signin');
         }
       })
   }

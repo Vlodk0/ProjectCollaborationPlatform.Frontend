@@ -2,12 +2,13 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {MatIconRegistry} from "@angular/material/icon";
 import {DomSanitizer} from "@angular/platform-browser";
 import {BreakpointObserver} from "@angular/cdk/layout";
-import {Subject, takeUntil} from "rxjs";
+import {finalize, Subject, takeUntil} from "rxjs";
 import {MatDrawerMode} from "@angular/material/sidenav";
 import {IconRegistry} from "../../services/general/icon.registry.service";
 import {UserService} from "../../services/user.service";
 import {Router} from "@angular/router";
 import {SocketService} from "../../services/socket.service";
+import {SpinnerService} from "../../services/spinner.service";
 
 @Component({
   selector: 'collabro-root',
@@ -21,19 +22,26 @@ export class RootComponent implements OnInit, OnDestroy {
               private readonly domSanitizer: DomSanitizer,
               private readonly breakPointObserver: BreakpointObserver,
               private readonly socketService: SocketService,
+              private readonly spinnerService: SpinnerService,
               private readonly router: Router) {
   }
 
   public sidebarExpanded = false;
-  public isAuthenticated: boolean;
   private readonly unsubscribe$: Subject<void> = new Subject();
   private isTabletSize: boolean;
 
   public sidebarMode: MatDrawerMode = 'side';
 
   public ngOnInit(): void {
+    const accessToken = localStorage.getItem('access_token');
+    accessToken ? this.router.navigateByUrl('my-profile') : this.router.navigateByUrl('signin');
+
+    this.spinnerService.showSpinner();
     this.userService.getUser()
-      .pipe(takeUntil(this.unsubscribe$))
+      .pipe(finalize(() => {
+          this.spinnerService.hideSpinner();
+        }),
+        takeUntil(this.unsubscribe$))
       .subscribe({
         next: (user) => {
           this.userService.initUser(user)

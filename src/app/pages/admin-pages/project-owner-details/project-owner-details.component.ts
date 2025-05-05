@@ -143,6 +143,7 @@ export class ProjectOwnerDetailsComponent implements OnInit, OnDestroy {
       .subscribe({
         next: result => {
           this.projectOwner = result;
+          this.cdr.detectChanges();
         },
         error: (error) => this.notificationService.showErrorNotification(error?.error?.detail)
       })

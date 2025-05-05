@@ -73,8 +73,13 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
   }
 
   public subscribeToCurrentUser(): void {
+    this.spinnerService.showSpinner()
+
     this.userService.currentUser$
-      .pipe(takeUntil(this.unsubscribe$))
+      .pipe(finalize(() => {
+          this.spinnerService.hideSpinner();
+        }),
+        takeUntil(this.unsubscribe$))
       .subscribe({
         next: user => {
           this.user = user;

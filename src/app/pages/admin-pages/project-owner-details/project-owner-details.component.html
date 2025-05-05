@@ -6,7 +6,11 @@
                  (selectedTabChange)="selectedTabChange()"
                  class="h-100 overflow-auto">
     <mat-tab label="{{'admin.project-owner.profileLabel' | translate}}">
-      <collabro-project-owners-profile [projectOwner]="projectOwner"/>
+      <ng-container *ngIf="projectOwner">
+        <collabro-project-owners-profile
+          [projectOwner]="projectOwner"
+        ></collabro-project-owners-profile>
+      </ng-container>
     </mat-tab>
 
     <mat-tab label="{{'developers.feedbacksLabel' | translate}}">

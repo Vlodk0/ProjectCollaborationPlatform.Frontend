@@ -19,7 +19,7 @@
           <div class="user-full-name"> {{ commonUser?.firstName }} {{ commonUser?.lastName }} </div>
           <div class="user-role-name">
             <ng-container *ngIf="user?.roleName === applicationRoleEnum.Dev && developer?.position; else defaultLabel">
-              {{ 'general.currentDeveloperLabel' | translate:{ value: (developer.position | developerPositionLabel | translate) } }}
+              {{ 'general.currentDeveloperLabel' | translate:{ value: (developer?.position | developerPositionLabel | translate) } }}
             </ng-container>
             <ng-template #defaultLabel>
               {{ user?.roleName === applicationRoleEnum.Dev
@@ -34,7 +34,7 @@
         </div>
       </div>
     </div>
-    <button *ngIf="user.roleName === applicationRoleEnum.Dev" class="button-primary"
+    <button *ngIf="user?.roleName === applicationRoleEnum.Dev" class="button-primary"
             (click)="openUpdateDeveloperInfoDialog()">
       <mat-icon [svgIcon]="'edit'"></mat-icon>
     </button>

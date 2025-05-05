@@ -33,6 +33,7 @@ export class ProjectOwnersProfileComponent implements OnInit, OnDestroy {
   }
 
   private getAvatar(): void {
+    debugger
     if (!this.projectOwner.avatarName) {
       return;
     }
