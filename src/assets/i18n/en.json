@@ -306,7 +306,8 @@
     "project-owner": {
       "profileLabel": "Profile",
       "projectsLabel": "Projects",
-      "feedbacksLabel": "Feedbacks"
+      "feedbacksLabel": "Feedbacks",
+      "ownFeedbacksLabel": "Own Feedbacks"
     }
   },
 

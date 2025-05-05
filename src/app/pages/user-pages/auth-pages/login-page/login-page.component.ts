@@ -7,6 +7,12 @@ import {Router} from "@angular/router";
 import {CreateDeveloper} from "../../../../shared/interfaces/create-developer";
 import {catchError, of, switchMap, throwError} from "rxjs";
 import {HttpErrorResponse} from "@angular/common/http";
+import {jwtDecode} from "jwt-decode";
+import {AdminId} from "../../../../core/enums/application-role.enum";
+
+export interface JwtPayload {
+  nameid: string;
+}
 
 @Component({
   selector: 'app-login-page',
@@ -37,6 +43,15 @@ export class LoginPageComponent implements OnInit {
         switchMap((res: any) => {
           localStorage.setItem('access_token', res.accessToken);
           localStorage.setItem('refresh_token', res.refreshToken);
+
+          let role: string | undefined[];
+          try {
+            const payload = jwtDecode<JwtPayload>(res.accessToken);
+            role = payload.nameid || [];
+          } catch {
+            console.warn('Could not decode token roles');
+          }
+
           return this.authService.isUserAdded()
             .pipe(
               catchError(err => {
@@ -63,8 +78,10 @@ export class LoginPageComponent implements OnInit {
         })
       )
       .subscribe({
-          next: () => {
-            this.router.navigateByUrl('my-profile')
+          next: (nameId: string) => {
+            nameId === AdminId.nameid
+              ? this.router.navigateByUrl('dashboard')
+              : this.router.navigateByUrl('my-profile');
           },
           error: (error) => {
             if (error === 'Forbidden') {
@@ -77,6 +94,7 @@ export class LoginPageComponent implements OnInit {
         },
       )
   }
+
   private addProjectOwner() {
     let userObj: CreateProjectOwner = {
       firstName: "",

@@ -9,6 +9,9 @@ import {UserService} from "../../services/user.service";
 import {Router} from "@angular/router";
 import {SocketService} from "../../services/socket.service";
 import {SpinnerService} from "../../services/spinner.service";
+import {jwtDecode} from "jwt-decode";
+import {JwtPayload} from "../../../pages/user-pages/auth-pages/login-page/login-page.component";
+import {AdminId, ApplicationRoleEnum} from "../../../core/enums/application-role.enum";
 
 @Component({
   selector: 'collabro-root',
@@ -34,7 +37,15 @@ export class RootComponent implements OnInit, OnDestroy {
 
   public ngOnInit(): void {
     const accessToken = localStorage.getItem('access_token');
-    accessToken ? this.router.navigateByUrl('my-profile') : this.router.navigateByUrl('signin');
+
+    const payload = jwtDecode<JwtPayload>(accessToken);
+    debugger
+
+    accessToken
+      ? payload.nameid === AdminId.nameid
+        ? this.router.navigateByUrl('dashboard')
+        : this.router.navigateByUrl('my-profile')
+      : this.router.navigateByUrl('signin');
 
     this.spinnerService.showSpinner();
     this.userService.getUser()

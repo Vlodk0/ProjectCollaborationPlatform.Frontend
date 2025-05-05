@@ -23,7 +23,7 @@
     </mat-tab>
 
     <mat-tab *ngIf="user?.roleName === roleName.Admin"
-             label="{{'admin.project-owner.feedbacksLabel' | translate}}">
+             label="{{'admin.project-owner.ownFeedbacksLabel' | translate}}">
       <div class="tab-wrapper">
         <collabro-paginator [flexDirection]="'column'" class="h-100">
           <div *ngFor="let feedback of feedbacks">
