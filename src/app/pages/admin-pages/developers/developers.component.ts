@@ -20,6 +20,8 @@ import {MatDialog} from "@angular/material/dialog";
 import {AdminDeveloperDataInterface} from "../../../shared/interfaces/admin/developers/admin-developer-data.interface";
 import {Page} from "../../../shared/interfaces/general/page.interface";
 import {developerPositionListConstant} from "../../../core/constants/developer-position-list.constant";
+import {ProjectStatusEnum} from "../../../core/enums/project-status.enum";
+import {DeveloperPositionEnum} from "../../../core/enums/developer-position.enum";
 
 @Component({
   selector: 'collabro-developers',
@@ -30,6 +32,7 @@ export class DevelopersComponent implements OnInit, OnDestroy {
   public form: FormGroup<SearchAdminUserFormGroup>;
   public developers: Page<AdminDeveloperDataInterface>;
   public developerPositionListConstant = developerPositionListConstant;
+  public developerPositionEnum = DeveloperPositionEnum;
 
   public countries$: Observable<CountryInterface[]> = this.staticDataService.getAllCountries();
 
@@ -49,6 +52,7 @@ export class DevelopersComponent implements OnInit, OnDestroy {
     this.getAdminDevelopers();
     this.subscribeToSearchTermFormControl();
     this.subscribeToCountryCodesFormControl();
+    this.subscribeToPositionsFormControl();
   }
 
   ngOnDestroy() {
@@ -144,6 +148,17 @@ export class DevelopersComponent implements OnInit, OnDestroy {
 
   }
 
+  private subscribeToPositionsFormControl(): void {
+    this.form.controls['positions'].valueChanges
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(value => {
+        this.form.patchValue({ positions: value }, { emitEvent: false });
+
+        this.getAdminDevelopers();
+      });
+
+  }
+
   private setupForm(): void {
     this.form = this.fb.group<SearchAdminUserFormGroup>({
       searchTerm: this.fb.control(''),
@@ -151,7 +166,8 @@ export class DevelopersComponent implements OnInit, OnDestroy {
       currentPage: this.fb.control<number>(0),
       pageSize: this.fb.control<number>(10),
       sortByProperty: this.fb.control<UserSortingClauseEnum>(UserSortingClauseEnum.FirstName),
-      sortOrder: this.fb.control<'desc' | 'asc'>('desc')
+      sortOrder: this.fb.control<'desc' | 'asc'>('desc'),
+      positions: this.fb.control<string[]>([])
     });
   }
 }

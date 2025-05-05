@@ -39,7 +39,6 @@ export class RootComponent implements OnInit, OnDestroy {
     const accessToken = localStorage.getItem('access_token');
 
     const payload = jwtDecode<JwtPayload>(accessToken);
-    debugger
 
     accessToken
       ? payload.nameid === AdminId.nameid

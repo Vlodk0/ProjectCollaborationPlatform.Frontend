@@ -5,6 +5,7 @@ export interface AdminGetUsersRequestInterface {
   countryCodes: string[];
   currentPage: number;
   pageSize: number;
+  positions?: string[];
   sortByProperty: UserSortingClauseEnum;
   sortOrder: 'asc' | 'desc';
 }
