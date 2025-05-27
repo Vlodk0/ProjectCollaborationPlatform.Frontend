@@ -38,7 +38,9 @@ export class RootComponent implements OnInit, OnDestroy {
   public ngOnInit(): void {
     const accessToken = localStorage.getItem('access_token');
 
-    const payload = jwtDecode<JwtPayload>(accessToken);
+    if (accessToken) {
+      var payload = jwtDecode<JwtPayload>(accessToken);
+    }
 
     accessToken
       ? payload.nameid === AdminId.nameid

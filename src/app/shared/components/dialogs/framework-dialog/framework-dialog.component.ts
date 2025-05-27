@@ -56,7 +56,7 @@ export class FrameworkDialogComponent implements OnInit, OnDestroy {
       .subscribe({
         next: () => {
           this.notificationService.showSuccessNotification();
-          this.dialogRef.close();
+          this.dialogRef.close(true);
         },
         error: (error) => this.notificationService.showErrorNotification(error?.error?.detail)
       })
