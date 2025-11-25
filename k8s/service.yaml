@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: collabro-portal-service
+  labels:
+    app: collabro-portal
+spec:
+  # Тип сервісу:
+  # - LoadBalancer: (Рекомендовано для Cloud) Надає публічну IP/DNS.
+  # - NodePort: (Для локальних кластерів, наприклад Minikube) Відкриває порт на всіх вузлах.
+  type: LoadBalancer
+
+  selector:
+    app: collabro-portal
+
+  # Правила портів
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
