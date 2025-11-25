@@ -1,28 +1,40 @@
+substitutions:
+  _REGION: europe-west1
+  _REPO: collabro-images
+  _SERVICE_NAME: collabro-portal
+
 steps:
+  # Build image
   - name: gcr.io/cloud-builders/docker
     args:
       - build
-      - '-t'
-      - '$_GCR_HOSTNAME/$PROJECT_ID/$_SERVICE_NAME:$COMMIT_SHA'
-      - .
+      - "-t"
+      - "$_REGION-docker.pkg.dev/$PROJECT_ID/$_REPO/$_SERVICE_NAME:$COMMIT_SHA"
+      - "."
+
+  # Push image
   - name: gcr.io/cloud-builders/docker
     args:
-    - push
-    - '$_GCR_HOSTNAME/$PROJECT_ID/$_SERVICE_NAME:$COMMIT_SHA'
+      - push
+      - "$_REGION-docker.pkg.dev/$PROJECT_ID/$_REPO/$_SERVICE_NAME:$COMMIT_SHA"
+
+  # Deploy to Cloud Run
   - name: gcr.io/google.com/cloudsdktool/cloud-sdk
+    entrypoint: gcloud
     args:
       - run
       - deploy
-      - $_SERVICE_NAME
-      - '--image'
-      - '$_GCR_HOSTNAME/$PROJECT_ID/$_SERVICE_NAME:$COMMIT_SHA'
-      - '--region'
-      - $_DEPLOY_REGION
-      - '--platform'
-      - $_PLATFORM
-    entrypoint: gcloud
-timeout: 1200s
+      - "$_SERVICE_NAME"
+      - "--image"
+      - "$_REGION-docker.pkg.dev/$PROJECT_ID/$_REPO/$_SERVICE_NAME:$COMMIT_SHA"
+      - "--region"
+      - "$_REGION"
+      - "--platform"
+      - "managed"
+
+images:
+  - "$_REGION-docker.pkg.dev/$PROJECT_ID/$_REPO/$_SERVICE_NAME:$COMMIT_SHA"
+
 options:
   logging: CLOUD_LOGGING_ONLY
-images:
-  - '$_GCR_HOSTNAME/$PROJECT_ID/$_SERVICE_NAME:$COMMIT_SHA'
+timeout: 1200s
