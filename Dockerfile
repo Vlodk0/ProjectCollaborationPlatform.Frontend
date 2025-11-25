@@ -3,7 +3,7 @@ FROM node:20-alpine as build
 
 # Setting WORKDIR and copying package files remains the same
 WORKDIR /app
-COPY ./package*.json .
+COPY package.json package-lock.json ./
 
 # Install dependencies
 RUN npm ci
