@@ -19,4 +19,4 @@ FROM nginx:1.23.0-alpine
 EXPOSE 8080
 # Copy Nginx config and built artifacts
 COPY nginx.conf /etc/nginx/nginx.conf
-COPY --from=build /app/dist/CollabroPortal /usr/share/nginx/html
+COPY --from=build /app/dist/project-collaboration-platform /usr/share/nginx/html
