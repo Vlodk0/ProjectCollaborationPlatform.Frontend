@@ -18,5 +18,7 @@ steps:
       - $_PLATFORM
     entrypoint: gcloud
 timeout: 1200s
+options:
+  logging: CLOUD_LOGGING_ONLY
 images:
   - '$_GCR_HOSTNAME/$PROJECT_ID/$_SERVICE_NAME: $COMMIT_SHA'
