@@ -1,14 +1,25 @@
-FROM node:20-alpine as build
+# Stage: Development
+# Use lightweight Node.js base image
+FROM node:18-alpine
 
+# Install Angular CLI globally
+RUN npm install -g @angular/cli
+
+# Set working directory
 WORKDIR /app
+
+# Copy only dependency definitions
 COPY package.json package-lock.json ./
 
-RUN npm ci
+# Install dependencies
+RUN npm install
 
+# Copy the rest of the application source code
 COPY . .
-RUN npm run build
 
-FROM nginx:1.23.0-alpine
-EXPOSE 8080
-COPY nginx.conf /etc/nginx/nginx.conf
-COPY --from=build /app/dist/project-collaboration-platform /usr/share/nginx/html
+# Expose development server port
+EXPOSE 4200
+
+# Start Angular development server
+CMD ["ng", "serve", "--host", "0.0.0.0"]
+
